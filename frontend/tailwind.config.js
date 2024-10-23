@@ -18,7 +18,9 @@ export default {
         text: "#e5e9e9", // Set your custom text color
         secondary: "#161616", // Set your custom card/secondary color
       },
-      fontFamily: {},
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+      },
     },
   },
 
@@ -28,7 +30,7 @@ export default {
     themes: [
       {
         customtheme: {
-          primary: "#ad241b", // Button color
+          primary: "#9333ea", // Button color
           secondary: "#161616", // Card/secondary color
           accent: "#e5e9e9", // Text color
           neutral: "#100f10", // Background color

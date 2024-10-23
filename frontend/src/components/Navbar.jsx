@@ -9,7 +9,7 @@ import { TbMessageCircleHeart } from "react-icons/tb";
 
 const Navbar = () => {
   return (
-    <nav className=" flex h-20 justify-center items-center nav ml-[250px]  ">
+    <nav className=" flex h-20 font-poppins justify-center items-center nav ml-[250px]  ">
       <div className=" flex gap-5 w-full items-center justify-between ">
         <div className=" ml-6 flex justify-center gap-11 items-center  ">
           <div className=" icon flex justify-center items-center gap-6 ">
