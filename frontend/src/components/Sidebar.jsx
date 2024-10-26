@@ -8,8 +8,8 @@ import Category from "./ui/Category.jsx";
 
 const Sidebar = () => {
   return (
-    <div className=" fixed left-0  top-0 h-[100vh] w-[250px] border-border border-r-[1px]  ">
-      <div className=" gap-0 flex flex-col h-full w-[220px] ml-[20px] ">
+    <div className=" fixed left-0 hidden lg:flex lg:flex-col lg:justify-center lg:items-center top-0  h-[100vh] lg:w-[18%] border-border border-r-[1px]  ">
+      <div className=" gap-0 2xl:gap-[5%] flex flex-col h-full w-[90%] ml-[20px] ">
         <div className=" flex-2 w-full  flex items-center justify-start  mt-8  ">
           <img className="w-14" src={img1} alt="logo" />
         </div>

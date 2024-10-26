@@ -11,7 +11,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        border: "#27272A",
+        border: " #333336",
         grayText: "#535256",
         background: "#100f10", // Set your custom background color
         button: "#ad241b", // Set your custom button color

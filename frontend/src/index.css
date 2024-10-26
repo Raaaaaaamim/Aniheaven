@@ -4,9 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.home {
-  width: calc(100% - 250px);
-}
 .dm {
   font-family: "DM Sans", sans-serif;
   font-optical-sizing: auto;
@@ -16,7 +13,9 @@
 
 body {
   font-family: "Lato", sans-serif;
+  width: 100%;
   font-weight: 400;
+  background-color: theme("colors.gray.950");
 }
 
 .center {
@@ -24,14 +23,11 @@ body {
   justify-content: center;
   align-items: center;
 }
-.nav {
-  min-width: calc(100% - 250px);
-}
 
 /* For WebKit-based browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
   width: 8px; /* Slim width */
-  background-color: transparent; /* No background */
+  background-color: theme("colors.gray.950"); /* No background */
 }
 
 ::-webkit-scrollbar-thumb {
@@ -46,7 +42,7 @@ body {
 /* Firefox */
 * {
   scrollbar-width: thin; /* Slim scrollbar */
-  scrollbar-color: #888 transparent; /* Thumb color and transparent background */
+  scrollbar-color: #888 theme("colors.gray.950"); /* Thumb color and transparent background */
 }
 .sidebar {
   width: 60px; /* Slim width */
@@ -74,4 +70,7 @@ body {
 .swiper-pagination-bullet-active {
   background: theme("colors.primary") !important;
   transform: scale(1.5);
+}
+.we {
+  color: #333336;
 }

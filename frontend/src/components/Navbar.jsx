@@ -9,17 +9,17 @@ import { TbMessageCircleHeart } from "react-icons/tb";
 
 const Navbar = () => {
   return (
-    <nav className=" flex h-20 font-poppins justify-center items-center nav ml-[250px]  ">
-      <div className=" flex gap-5 w-full items-center justify-between ">
+    <nav className=" flex h-20 ml-0 w-[100%] font-poppins justify-center items-center lg:w-[81.5%]  lg:ml-[18%]   ">
+      <div className=" w-full  flex gap-5  items-center justify-between ">
         <div className=" ml-6 flex justify-center gap-11 items-center  ">
-          <div className=" icon flex justify-center items-center gap-6 ">
+          <div className=" md:flex hidden icon lg:flex justify-center items-center gap-6 ">
             <MdOutlineArrowBackIos className="    hover:text-text cursor-pointer text-grayText " />
             <MdOutlineArrowForwardIos className=" hover:text-text cursor-pointer text-grayText " />
           </div>
-          <div className=" flex gap-3 justify-center items-center search h-10 w-64 rounded-2xl border-border border-[1px]  ">
-            <CiSearch size={20} className="  text-grayText " />
+          <div className=" flex  gap-0  justify-center  items-center  h-10 lg:w-72 md:w-64 w-44 rounded-2xl border-border border-[1px]  ">
+            <CiSearch className="   text-grayText lg:text-[20px] text-[18px]  " />
             <input
-              className=" w-40 bg-transparent text-xs text-grayText outline-none placeholder:text-grayText placeholder:font-bold h-full "
+              className=" w-[80%] bg-transparent text-xs text-grayText outline-none placeholder:text-grayText placeholder:font-bold h-full "
               type="text"
               placeholder=" Search everything "
               name=""
@@ -27,7 +27,7 @@ const Navbar = () => {
             />
             <HiOutlineAdjustmentsHorizontal
               size={20}
-              className=" cursor-pointer text-grayText "
+              className=" cursor-pointer hidden md:flex lg:flex text-grayText "
             />
           </div>
         </div>

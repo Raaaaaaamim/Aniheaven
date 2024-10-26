@@ -9,7 +9,9 @@ const router = createBrowserRouter([
       <>
         <Sidebar />
         <Navbar />
-        <Outlet />
+        <div className=" lg:ml-[18%] w-full lg:w-[82%] ">
+          <Outlet />
+        </div>
       </>
     ),
     errorElement: <ErrorPage />,
