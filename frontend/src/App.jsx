@@ -6,13 +6,13 @@ import Home from "./pages/Home.jsx";
 const router = createBrowserRouter([
   {
     element: (
-      <>
+      <div className=" w-[100%] overflow-hidden min-h-screen ">
         <Sidebar />
         <Navbar />
-        <div className=" lg:ml-[18%] w-full lg:w-[82%] ">
+        <div className=" relative overflow-hidden  lg:ml-[18%] flex justify-center items-center w-[100%] lg:w-[82%] ">
           <Outlet />
         </div>
-      </>
+      </div>
     ),
     errorElement: <ErrorPage />,
     children: [

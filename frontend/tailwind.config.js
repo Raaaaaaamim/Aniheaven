@@ -13,10 +13,12 @@ export default {
       colors: {
         border: " #333336",
         grayText: "#535256",
+        primary: "#D8A31A", // Changed from purple to new color
+        secondary: "#32343C", // Card/secondary color
+        accent: "#E2F0FF", // Text color
         background: "#100f10", // Set your custom background color
         button: "#ad241b", // Set your custom button color
         text: "#e5e9e9", // Set your custom text color
-        secondary: "#161616", // Set your custom card/secondary color
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
@@ -30,8 +32,8 @@ export default {
     themes: [
       {
         customtheme: {
-          primary: "#9333ea", // Button color
-          secondary: "#161616", // Card/secondary color
+          primary: "#D8A31A", // Changed from purple to new color
+          secondary: "#32343C", // Card/secondary color
           accent: "#e5e9e9", // Text color
           neutral: "#100f10", // Background color
           "base-100": "#100f10", // Background color for other areas
