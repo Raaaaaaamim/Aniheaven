@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -27,7 +29,7 @@ body {
 /* For WebKit-based browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
   width: 8px; /* Slim width */
-  background-color: theme("colors.gray.950"); /* No background */
+  background-color: transparent; /* No background */
 }
 
 ::-webkit-scrollbar-thumb {
@@ -42,7 +44,7 @@ body {
 /* Firefox */
 * {
   scrollbar-width: thin; /* Slim scrollbar */
-  scrollbar-color: #888 theme("colors.gray.950"); /* Thumb color and transparent background */
+  scrollbar-color: #888 transparent; /* Thumb color and transparent background */
 }
 .sidebar {
   width: 60px; /* Slim width */
@@ -58,19 +60,45 @@ body {
   transition: width 0.3s ease-in-out; /* Smooth width transition */
 }
 
-.swiper-pagination {
-  bottom: 2rem !important;
-}
-
-.swiper-pagination-bullet {
-  transition: all 0.3s ease;
-  transform: scale(1.2);
-}
-
-.swiper-pagination-bullet-active {
-  background: theme("colors.primary") !important;
-  transform: scale(1.5);
-}
 .we {
   color: #333336;
+}
+.cairo {
+  font-family: "Cairo", sans-serif;
+  font-weight: 700;
+}
+
+.custom-swiper .swiper-pagination {
+  @apply lg:bottom-5 md:bottom-4 bottom-2; /* Adjust as needed */
+}
+/* Default State: Hide the scrollbar */
+.categories-scroll {
+  overflow: hidden; /* Hides the scrollbar by default */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For IE and Edge */
+}
+
+/* WebKit Browsers (Chrome, Thorium, etc.): Hide the scrollbar */
+.categories-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* On Hover: Show the scrollbar */
+.categories-scroll:hover {
+  overflow-y: auto; /* Enables vertical scrolling */
+  overflow-x: hidden; /* Make sure horizontal scroll is still hidden */
+}
+
+/* Optional: Customize the scrollbar */
+.categories-scroll::-webkit-scrollbar {
+  width: 8px; /* Adjust the width as needed */
+}
+
+.categories-scroll::-webkit-scrollbar-thumb {
+  background-color: #888; /* Customize thumb color */
+  border-radius: 4px; /* Rounded scrollbar thumb */
+}
+
+.categories-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Darker color on hover */
 }

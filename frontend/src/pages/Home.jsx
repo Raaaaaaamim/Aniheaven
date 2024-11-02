@@ -1,11 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { FaInfoCircle, FaPlay } from "react-icons/fa";
+import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
+
 import { IoCalendarClear } from "react-icons/io5";
+import { RiRefreshLine } from "react-icons/ri";
 import { TbClockHour4Filled } from "react-icons/tb";
 import "swiper/css";
 import "swiper/css/effect-fade";
+import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Autoplay, EffectFade, Pagination } from "swiper/modules";
+import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { useQuery } from "@tanstack/react-query";
@@ -13,12 +17,14 @@ import axios from "axios";
 import { BsCcCircleFill } from "react-icons/bs";
 import { MdOutlineTrendingUp } from "react-icons/md";
 import { PiMicrophoneFill } from "react-icons/pi";
+import { Link } from "react-router-dom";
 import {
   containerVariants,
   spotlightVariants,
   trimmedContent,
 } from "../../lib/utils.js";
 import Card from "../components/ui/Card.jsx";
+import TrendingCard from "../components/ui/TrendingCard.jsx";
 
 export const api = "http://localhost:4000/api/v2";
 const Home = () => {
@@ -35,6 +41,7 @@ const Home = () => {
     staleTime: 1000 * 60 * 3,
   });
   const data = animeData?.data;
+  console.log(data);
 
   return isLoading ? (
     <div className="flex items-center justify-center w-full h-screen">
@@ -43,8 +50,13 @@ const Home = () => {
   ) : (
     <>
       {isError ? (
-        <div className=" w-[100%]  flex justify-center items-center h-[100vh] ">
-          Error loading content
+        <div className=" w-[100%] font-poppins flex-col gap-4  flex justify-center items-center h-[100vh] ">
+          <h1 className=" text-3xl md:text-6xl  font-bold text-primary ">
+            404
+          </h1>
+          <h3 className=" text-sm text-text ">
+            There was an error while loading the content{" "}
+          </h3>
         </div>
       ) : (
         <motion.div
@@ -60,14 +72,14 @@ const Home = () => {
             pagination={{
               clickable: true,
               renderBullet: (index, className) => {
-                return `<span class="${className} !bg-primary hover:!bg-purple-500 !w-[6px]  !h-[6px]"></span>`;
+                return `<span class="${className} !bg-primary/80 hover:!bg-primary !w-[6px] !h-[6px]"></span>`;
               },
             }}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
             }}
-            className="w-full xl:h-[80vh] max-w-8xl md:h-[400px] lg:mx-auto h-[300px] lg:h-[600px]  max-h-[650px] rounded-3xl overflow-hidden"
+            className="w-full xl:h-[80vh] max-w-8xl md:h-[400px] lg:mx-auto h-[300px] lg:h-[600px] max-h-[650px] rounded-3xl overflow-hidden custom-swiper"
           >
             {data?.data?.spotlightAnimes?.map((anime) => (
               <SwiperSlide key={anime.id}>
@@ -93,10 +105,10 @@ const Home = () => {
                     />
                   </motion.div>
 
-                  <motion.div className="absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-8 lg:px-12 text-white">
-                    <motion.h1 className="lg:text-7xl text-2xl flex flex-wrap md:text-5xl gap-3 lg:mb-4 font-poppins">
+                  <motion.div className="absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-8 lg:px-12 text-text">
+                    <motion.h1 className="lg:text-6xl text-2xl flex flex-wrap md:text-5xl gap-3 lg:mb-4 font-poppins">
                       <div className="flex flex-wrap items-center">
-                        <div className="font-bold font-poppins bg-gradient-to-r from-primary via-[#007262] to-primary/90 text-transparent bg-clip-text">
+                        <div className="font-bold font-poppins bg-gradient-to-r from-text  to-primary/90 text-transparent bg-clip-text">
                           {anime.name.length > 37
                             ? trimmedContent(anime.name, 37)
                             : anime.name}
@@ -107,18 +119,22 @@ const Home = () => {
                       <div className="badge badge-sm md:badge-md bg-primary text-black border-none dm">
                         {anime.otherInfo[3] || "N/A"}
                       </div>
-                      <div className="badge badge-sm md:badge-md flex justify-center items-center bg-[#B0E3AF] text-black gap-1 dm border-none">
-                        <BsCcCircleFill className="text-xs md:text-sm" />
-                        <span className="text-xs md:text-sm">
-                          {anime.episodes.sub}
-                        </span>
-                      </div>
-                      <div className="badge badge-sm md:badge-md flex justify-center items-center bg-blue-400 text-black gap-1 dm border-none">
-                        <PiMicrophoneFill className="text-xs md:text-sm" />
-                        <span className="text-xs md:text-sm">
-                          {anime.episodes.dub}
-                        </span>
-                      </div>
+                      {anime?.episodes?.sub && (
+                        <div className="badge badge-sm md:badge-md flex justify-center items-center bg-[#B0E3AF] text-black gap-1 dm border-none">
+                          <BsCcCircleFill className="text-xs md:text-sm" />
+                          <span className="text-xs md:text-sm">
+                            {anime.episodes.sub}
+                          </span>
+                        </div>
+                      )}
+                      {anime?.episodes?.dub && (
+                        <div className="badge badge-sm md:badge-md flex justify-center items-center bg-blue-400 text-black gap-1 dm border-none">
+                          <PiMicrophoneFill className="text-xs md:text-sm" />
+                          <span className="text-xs md:text-sm">
+                            {anime.episodes.dub}
+                          </span>
+                        </div>
+                      )}
                     </motion.div>
 
                     <motion.div className="flex mb-2 md:mb-3 self-start justify-center items-center gap-2 md:gap-4 text-sm md:text-base">
@@ -141,17 +157,23 @@ const Home = () => {
                         : anime.description}
                     </motion.p>
                     <div className="flex gap-4">
-                      <button className="bg-primary hover:scale-105 hover:bg-primary/90  duration-100 lg:px-8 lg:py-4 rounded-full flex items-center gap-2 ease-in font-poppins lg:text-sm text-black justify-center  md:py-3 text-xs px-4 md:px-5">
-                        <FaPlay className="text-sm" />
-                        <span className="hidden font-poppins font-bold md:flex">
+                      <Link
+                        to={`/watch/${anime?.id}`}
+                        className="bg-primary hover:scale-105 hover:bg-primary/90  duration-100 lg:px-8 lg:py-4 rounded-full flex items-center gap-2 ease-in font-poppins lg:text-sm text-black justify-center  md:py-3 text-xs px-4 py-1 md:px-5"
+                      >
+                        <FaPlay className="lg:text-sm text-[11px] " />
+                        <span className=" text-xs md:text-sm  font-poppins font-bold md:flex">
                           Watch Now
                         </span>
-                      </button>
+                      </Link>
 
-                      <button className="bg-secondary/90 hover:scale-105  lg:py-4 font-poppins lg:px-8 py-4 rounded-full flex items-center gap-2 hover:bg-secondary transition-all px-4 text-xs lg:text-sm md:py-3 md:px-5 ease-in duration-100">
+                      <Link
+                        to={`/${anime?.id}`}
+                        className="bg-secondary/90 hover:scale-105  lg:py-4 font-poppins lg:px-8 py-4 rounded-full flex items-center gap-2 hover:bg-secondary transition-all px-4 text-xs lg:text-sm md:py-3 md:px-5 ease-in duration-100"
+                      >
                         <FaInfoCircle className="text-md" />
                         <span className="hidden md:flex">More Info</span>
-                      </button>
+                      </Link>
                     </div>
                   </motion.div>
                 </motion.div>
@@ -159,14 +181,100 @@ const Home = () => {
             ))}
           </Swiper>
 
+          <div className="mt-5 lg:ml-3  w-full">
+            <div className=" flex w-full  justify-start my-4 items-center gap-2 ">
+              <MdOutlineTrendingUp size={23} />
+
+              <h1 className=" text-2xl font-bold font-poppins ">Trending</h1>
+            </div>
+            <Swiper
+              modules={[Navigation]}
+              navigation={{
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+              }}
+              breakpoints={{
+                320: {
+                  slidesPerView: 2,
+                  spaceBetween: 10,
+                },
+                640: {
+                  slidesPerView: 3,
+                  spaceBetween: 15,
+                },
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 5,
+                },
+                1280: {
+                  slidesPerView: 5,
+                  spaceBetween: 10,
+                },
+                1536: {
+                  slidesPerView: 6,
+                  spaceBetween: 10,
+                },
+                1920: {
+                  slidesPerView: 7,
+                  spaceBetween: 10,
+                },
+              }}
+              className="relative rounded-xl overflow-hidden"
+            >
+              {data?.data?.trendingAnimes?.map((anime, index) => (
+                <SwiperSlide key={anime.id}>
+                  <TrendingCard
+                    rank={index + 1}
+                    title={anime.name}
+                    image={anime.poster}
+                  />
+                </SwiperSlide>
+              ))}
+              <div className="swiper-button-prev after:!text-primary after:!text-2xl text-sm flex text-black h-fit bg-primary rounded-full justify-center items-center  hover:after:!text-primary/80">
+                <IoIosArrowRoundBack />
+              </div>
+              <div className="swiper-button-next h-fit after:!text-primary after:!text-2xl  text-black bg-primary text-xs rounded-full hover:after:!text-primary/80">
+                <IoIosArrowRoundForward />
+              </div>
+            </Swiper>
+          </div>
+
           <motion.div className="gap-4 mt-10 flex-col w-[100%] max-w-full  flex justify-center items-center flex-wrap min-h-[60vh]">
-            <div className=" self-start md:text-3xl md:self-start text-2xl flex justify-center md:ml-10 lg:ml-[2vw] items-center gap-2 lg:text-3xl  font-bold font-poppins">
-              <MdOutlineTrendingUp />
+            <div className=" self-start md:text-2xl md:self-start text-2xl flex justify-center md:ml-7 lg:ml-[1vw] items-center gap-2   font-bold font-poppins">
+              <RiRefreshLine />
               Latest Episode Anime
             </div>
             <div className="gap-3 w-[99%] flex justify-center items-center flex-wrap">
               <AnimatePresence>
                 {data?.data?.latestEpisodeAnimes?.map((anime, index) => (
+                  <motion.div
+                    key={anime.id}
+                    initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -20, scale: 0.9 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <Card
+                      imageUrl={anime.poster}
+                      title={anime.name}
+                      rank={anime.rank}
+                      id={anime.id}
+                      subCount={anime.episodes.sub}
+                      dubCount={anime.episodes.dub}
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+          <motion.div className="gap-4 mt-10 flex-col w-[100%] max-w-full  flex justify-center items-center flex-wrap min-h-[60vh]">
+            <div className=" self-start md:text-2xl md:self-start text-2xl flex justify-center md:ml-7 lg:ml-[1vw] items-center gap-2   font-bold font-poppins">
+              <RiRefreshLine />
+              Top upcoming
+            </div>
+            <div className="gap-3 w-[99%] flex justify-center items-center flex-wrap">
+              <AnimatePresence>
+                {data?.data?.topUpcomingAnimes?.map((anime, index) => (
                   <motion.div
                     key={anime.id}
                     initial={{ opacity: 0, y: 20, scale: 0.9 }}

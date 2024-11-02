@@ -13,10 +13,10 @@ export default {
       colors: {
         border: " #333336",
         grayText: "#535256",
-        primary: "#D8A31A", // Changed from purple to new color
+        primary: "#FFDD95",
         secondary: "#32343C", // Card/secondary color
         accent: "#E2F0FF", // Text color
-        background: "#100f10", // Set your custom background color
+        background: "#0D0D0D", // Set your custom background color
         button: "#ad241b", // Set your custom button color
         text: "#e5e9e9", // Set your custom text color
       },
@@ -32,7 +32,7 @@ export default {
     themes: [
       {
         customtheme: {
-          primary: "#D8A31A", // Changed from purple to new color
+          primary: "#FFDD95", // Changed from purple to new color
           secondary: "#32343C", // Card/secondary color
           accent: "#e5e9e9", // Text color
           neutral: "#100f10", // Background color

@@ -28,7 +28,7 @@ export default function ErrorPage() {
         </p>
         <Link
           to="/"
-          className="bg-primary text-text px-6 py-2 rounded-full inline-block hover:bg-opacity-80 transition-all duration-300 font-poppins"
+          className="bg-primary text-slate-800 font-bold  px-6 py-2 rounded-full inline-block hover:bg-opacity-80 transition-all duration-300 font-poppins"
         >
           Go Back Home
         </Link>

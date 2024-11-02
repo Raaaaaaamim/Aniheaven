@@ -5,7 +5,7 @@ import { FiHome } from "react-icons/fi";
 import { IoClose, IoSettingsOutline } from "react-icons/io5";
 import { MdLogout } from "react-icons/md";
 import { RiMenu4Fill } from "react-icons/ri";
-import img1 from "../assets/logo.png";
+import img1 from "../assets/logo.svg";
 import Button from "./ui/Button.jsx";
 import Category from "./ui/Category.jsx";
 
@@ -23,7 +23,7 @@ const Sidebar = () => {
       <motion.button
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 mt-1 left-4 z-50 block lg:hidden p-2 rounded-lg"
+        className="fixed top-4 mt-1 left-4 z-[60] block lg:hidden p-2 rounded-lg"
       >
         {isOpen ? <IoClose size={24} /> : <RiMenu4Fill size={24} />}
       </motion.button>
@@ -33,7 +33,7 @@ const Sidebar = () => {
         variants={sidebarVariants}
         initial="closed"
         animate={isOpen ? "open" : "closed"}
-        className="fixed z-50 left-0 top-0 h-full w-[280px] block lg:hidden bg-gray-950 border-r rounded-r-3xl border-[#262626]"
+        className="fixed z-50 left-0 top-0 h-full w-[280px] block lg:hidden bg-background border-r rounded-r-3xl border-[#262626]"
       >
         <SidebarContent />
       </motion.div>
@@ -50,8 +50,9 @@ const Sidebar = () => {
           />
         )}
       </AnimatePresence>
+
       {/* Desktop Sidebar */}
-      <div className="fixed left-0 rounded-r-3xl  top-0 h-full w-[18%] hidden lg:block border-r border-border">
+      <div className="fixed left-0 rounded-r-3xl top-0 h-full w-[18%] hidden lg:block border-r border-border">
         <SidebarContent />
       </div>
     </>
@@ -60,12 +61,15 @@ const Sidebar = () => {
 
 // Separate component for sidebar content to avoid duplication
 const SidebarContent = () => (
-  <div className="gap-0 2xl:gap-[5%] flex flex-col h-full w-[90%] ml-[20px] py-8">
-    <div className="flex-2 w-full flex items-center justify-start">
+  <div className="gap-0 flex flex-col h-full w-[90%] ml-[20px] py-8">
+    <div className="h-[10%] w-full flex gap-2 items-center justify-start">
       <img className="w-14" src={img1} alt="logo" />
+      <span className="font-poppins bg-clip-text bg-gradient-to-r from-primary to-[white]/90 cairo text-transparent font-bold text-lg">
+        ANIHEAVEN
+      </span>
     </div>
 
-    <div className="mt-10 flex-3 w-full gap-3 flex flex-col">
+    <div className="mt-10 h-[30%] w-full gap-3 flex flex-col">
       <h1 className="ml-3 text-sm text-grayText font-bold">Options</h1>
       <div className="self-start center">
         <Button Icon={FiHome}>Home</Button>
@@ -80,9 +84,9 @@ const SidebarContent = () => (
 
     <div className="ml-2 divider w-[70%]"></div>
 
-    <div className="flex-5">
+    <div className="max-h-[600px] h-[50%]">
       <h1 className="ml-3 text-sm text-grayText font-bold">Categories</h1>
-      <div className="overflow-auto w-full mt-6 ml-2 h-[170px] flex flex-col gap-4">
+      <div className="categories-scroll overflow-hidden w-full mt-6 ml-2 h-[170px] flex flex-col gap-4">
         <Category
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtF6Ss58jVTGqlLOPMZ8cmfw4RuFgJwjRryA&s"
           title="Romance"
@@ -99,11 +103,19 @@ const SidebarContent = () => (
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEOdGWweyTa1ymOFqA9GcOjvj-eg94fu2C0w&s"
           title="Drama"
         />
+        <Category
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEOdGWweyTa1ymOFqA9GcOjvj-eg94fu2C0w&s"
+          title="Drama"
+        />
+        <Category
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEOdGWweyTa1ymOFqA9GcOjvj-eg94fu2C0w&s"
+          title="Drama"
+        />
       </div>
       <div className="ml-1 divider w-[70%]"></div>
     </div>
 
-    <div className="self-start flex-2">
+    <div className="self-start h-[10%] md:mb-0 mb-[40%]">
       <Button Icon={MdLogout}>Logout</Button>
     </div>
   </div>

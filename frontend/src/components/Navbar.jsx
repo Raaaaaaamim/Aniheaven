@@ -21,15 +21,16 @@ const Navbar = () => {
             animate={{
               height: focused ? 400 : 40,
               position: "relative",
-              transformOrigin: "bottom",
-              marginTop: focused ? 370 : 0,
+              transformOrigin: "top",
+              top: focused ? "180px" : 0,
             }}
             onMouseLeave={() => setFocused(false)}
-            className=" overflow-hidden md:flex ml-12 gap-1 z-40 bg-gray-950 justify-start hidden  items-center  h-10 lg:w-72 md:w-64 w-60 rounded-2xl flex-col border-border border-[1px]  "
+            className=" overflow-hidden md:flex ml-12 gap-1 z-40 bg-background justify-start hidden  items-center  h-10 lg:w-72 md:w-64 w-60 rounded-2xl flex-col border-border border-[1px]  "
           >
             <motion.div
               animate={{
-                height: focused ? 40 : "100%",
+                height: focused ? 30 : "100%",
+                marginTop: focused ? "14px" : "0px",
               }}
               className="   flex justify-center items-center gap-1 w-[90%] h-full "
             >
