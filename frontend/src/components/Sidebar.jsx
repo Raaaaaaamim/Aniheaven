@@ -5,6 +5,7 @@ import { FiHome } from "react-icons/fi";
 import { IoClose, IoSettingsOutline } from "react-icons/io5";
 import { MdLogout } from "react-icons/md";
 import { RiMenu4Fill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 import img1 from "../assets/logo.svg";
 import Button from "./ui/Button.jsx";
 import Category from "./ui/Category.jsx";
@@ -72,7 +73,9 @@ const SidebarContent = () => (
     <div className="mt-10 h-[30%] w-full gap-3 flex flex-col">
       <h1 className="ml-3 text-sm text-grayText font-bold">Options</h1>
       <div className="self-start center">
-        <Button Icon={FiHome}>Home</Button>
+        <Link to="/">
+          <Button Icon={FiHome}>Home</Button>
+        </Link>
       </div>
       <div className="self-start center">
         <Button Icon={FaRegHeart}>Watchlist</Button>

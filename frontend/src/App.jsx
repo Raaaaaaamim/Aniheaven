@@ -21,11 +21,11 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+      {
+        path: "/watch/:id",
+        element: <WatchPage />,
+      },
     ],
-  },
-  {
-    path: "/watch/:id",
-    element: <WatchPage />,
   },
 ]);
 function App() {

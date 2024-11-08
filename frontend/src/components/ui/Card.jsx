@@ -7,6 +7,7 @@ import { IoCalendarClear } from "react-icons/io5";
 import { MdCategory } from "react-icons/md";
 import { PiMicrophoneFill } from "react-icons/pi";
 import { TbClockHour4Filled } from "react-icons/tb";
+import { Link } from "react-router-dom";
 import {
   buttonVariants,
   cardVariants,
@@ -21,8 +22,6 @@ const Card = ({ imageUrl, title, id, upcoming, subCount, dubCount }) => {
 
   const { refetch, isLoading, data, isError } = useAnimeInfo(id);
   const anime = data?.data?.data?.anime;
-  console.log(anime);
-  console.log(isLoading);
 
   return (
     <motion.div
@@ -47,7 +46,7 @@ const Card = ({ imageUrl, title, id, upcoming, subCount, dubCount }) => {
         variants={infoVariants}
         initial="initial"
         animate={hovered ? "hover" : "initial"}
-        className="overflow-hidden absolute h-[90%] rounded-xl left-0 -bottom-0 z-20 flex justify-center  items-center w-full bg-secondary/90 backdrop-blur-sm"
+        className="overflow-hidden absolute h-[90%] rounded-xl left-0 -bottom-0 z-20 flex justify-center  items-center w-full bg-secondary/80 backdrop-blur-sm"
       >
         <motion.div
           variants={textVariants}
@@ -116,7 +115,7 @@ const Card = ({ imageUrl, title, id, upcoming, subCount, dubCount }) => {
                   <IoCalendarClear size={15} className="" />
                   <span className="text-gray-300 text-xs">
                     {upcoming
-                      ? anime?.duration
+                      ? anime?.duration || "N/A"
                       : anime?.moreInfo?.aired?.split("to")[0]}
                   </span>
                 </div>
@@ -152,17 +151,19 @@ const Card = ({ imageUrl, title, id, upcoming, subCount, dubCount }) => {
                 variants={textVariants}
                 className="flex self-start md:self-center  md:mt-2 md:gap-2  mt-3 md:justify-center gap-2 justify-evenly w-full items-center"
               >
-                <motion.button
-                  variants={buttonVariants}
-                  whileTap="tap"
-                  className="btn  flex
+                <Link to={`/watch/${id}`}>
+                  <motion.button
+                    variants={buttonVariants}
+                    whileTap="tap"
+                    className="btn  flex
                    justify-center items-center md:h-10 md:w-44   md:text-sm w-[6.5rem] h-8  btn-primary text-[11px] btn-sm rounded-full"
-                >
-                  <FaPlay className="md:text-sm text-xs " />
-                  <span className=" text-[11px] md:text-xs  md:flex ">
-                    Watch Now
-                  </span>
-                </motion.button>
+                  >
+                    <FaPlay className="md:text-sm text-xs " />
+                    <span className=" text-[11px] md:text-xs  md:flex ">
+                      Watch Now
+                    </span>
+                  </motion.button>
+                </Link>
                 <motion.button
                   variants={buttonVariants}
                   whileTap="tap"
@@ -176,7 +177,7 @@ const Card = ({ imageUrl, title, id, upcoming, subCount, dubCount }) => {
         </motion.div>
       </motion.div>
       <div className="absolute z-10  flex justify-end flex-col  bottom-0 w-full h-32 bg-gradient-to-t gap-2 from-black to-transparent">
-        <motion.h1 className=" ml-3  font-poppins text-sm md:text-md font-bold ">
+        <motion.h1 className=" ml-3 w-[90%] font-poppins text-sm md:text-[1rem] font-bold ">
           {title?.length > 40 ? trimmedContent(title, 40) : title}
         </motion.h1>
         <motion.div

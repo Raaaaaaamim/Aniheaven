@@ -35,7 +35,7 @@ const TrendingCard = ({ rank, image, title }) => {
 
       {/* Title overlay */}
       <div className="absolute flex    bottom-0 left-0 gap-1 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-        <h1 className="font-bold text-3xl  text-primary ">
+        <h1 className=" font-[800] text-3xl font-poppins  text-primary ">
           {rankNumber >= 10 ? rankNumber : `0${rankNumber}`}
         </h1>
         <h3 className="text-white mt-[9px]  text-[15px] font-semibold truncate">

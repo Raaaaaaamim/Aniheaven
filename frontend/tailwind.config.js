@@ -14,6 +14,7 @@ export default {
         border: " #333336",
         grayText: "#535256",
         primary: "#FFDD95",
+        third: "#1C1C1C",
         secondary: "#32343C", // Card/secondary color
         accent: "#E2F0FF", // Text color
         background: "#0D0D0D", // Set your custom background color
