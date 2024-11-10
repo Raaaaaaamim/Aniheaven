@@ -17,7 +17,6 @@ export function Player({ source, tracks }) {
   // Separate subtitle tracks and thumbnail track
   const subtitleTracks = tracks?.filter((track) => track.kind !== "thumbnails");
   const thumbnailTrack = tracks?.find((track) => track.kind === "thumbnails");
-  console.log(thumbnailTrack);
   function onProviderChange(provider) {
     if (isHLSProvider(provider)) {
       provider.config = {};
