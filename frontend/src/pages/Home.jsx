@@ -1,8 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { FaInfoCircle, FaPlay } from "react-icons/fa";
+import { FaInfoCircle, FaPlay, FaRegHeart } from "react-icons/fa";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
-
-import { FaRegHeart } from "react-icons/fa";
 import { IoCalendarClear } from "react-icons/io5";
 import { RiRefreshLine } from "react-icons/ri";
 import { TbClockHour4Filled } from "react-icons/tb";
@@ -47,6 +45,7 @@ const Home = () => {
     staleTime: 1000 * 60 * 3,
   });
   const data = animeData?.data;
+  console.log(data);
 
   const [timePeriod, setTimePeriod] = useState("today");
   return isLoading ? (
@@ -365,128 +364,135 @@ const Home = () => {
                 })}
               </AnimatePresence>
             </div>
+            {data?.data?.topAiringAnimes?.length > 0 && (
+              <motion.div className="  gap-8  flex-col w-[100%]  flex justify-center items-center flex-wrap min-h-fit">
+                <div className="  md:text-2xl  text-2xl flex justify-center md:ml-7 lg:ml-[1vw] items-center gap-2   font-bold font-poppins">
+                  <TbBroadcast />
+                  Top Airing
+                </div>
+                <div className="gap-3  w-[99%] flex justify-start md:justify-center items-center flex-wrap">
+                  <AnimatePresence>
+                    {data?.data?.topAiringAnimes?.map((anime, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -20, scale: 0.9 }}
+                        transition={{ duration: 0.5, delay: i * 0.1 }}
+                      >
+                        <AnimeCard
+                          key={anime.id}
+                          hide={true}
+                          name={anime?.name}
+                          image={anime?.poster}
+                          rank={anime?.rank ? anime?.rank : i + 1}
+                          id={anime?.id}
+                          subCount={anime?.episodes?.sub}
+                          dubCount={anime?.episodes?.dub}
+                        />
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            )}
+            {data?.data?.mostPopularAnimes?.length > 0 && (
+              <motion.div className=" gap-8 flex-col w-[100%] max-w-full  flex justify-center items-center flex-wrap ">
+                <div className="  md:text-2xl  text-2xl flex justify-center  items-center gap-2   font-bold font-poppins">
+                  <FaFire />
+                  Most Popular
+                </div>
+                <div className="gap-3  w-[99%]  flex js lg:justify-center justify-start md:justify-center items-center flex-wrap">
+                  <AnimatePresence>
+                    {data?.data?.mostPopularAnimes?.map((anime, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -20, scale: 0.9 }}
+                        transition={{ duration: 0.5, delay: i * 0.1 }}
+                      >
+                        <AnimeCard
+                          key={anime.id}
+                          hide={true}
+                          name={anime?.name}
+                          image={anime?.poster}
+                          rank={anime?.rank ? anime?.rank : i + 1}
+                          id={anime?.id}
+                          subCount={anime?.episodes?.sub}
+                          dubCount={anime?.episodes?.dub}
+                        />
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            )}
 
-            <motion.div className="  gap-8  flex-col w-[100%]  flex justify-center items-center flex-wrap min-h-fit">
-              <div className="  md:text-2xl  text-2xl flex justify-center md:ml-7 lg:ml-[1vw] items-center gap-2   font-bold font-poppins">
-                <TbBroadcast />
-                Top Airing
-              </div>
-              <div className="gap-3  w-[99%] flex justify-start md:justify-center items-center flex-wrap">
-                <AnimatePresence>
-                  {data?.data?.topAiringAnimes?.map((anime, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -20, scale: 0.9 }}
-                      transition={{ duration: 0.5, delay: i * 0.1 }}
-                    >
-                      <AnimeCard
-                        key={anime.id}
-                        hide={true}
-                        name={anime?.name}
-                        image={anime?.poster}
-                        rank={anime?.rank ? anime?.rank : i + 1}
-                        id={anime?.id}
-                        subCount={anime?.episodes?.sub}
-                        dubCount={anime?.episodes?.dub}
-                      />
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-
-            <motion.div className=" gap-8 flex-col w-[100%] max-w-full  flex justify-center items-center flex-wrap ">
-              <div className="  md:text-2xl  text-2xl flex justify-center  items-center gap-2   font-bold font-poppins">
-                <FaFire />
-                Most Popular
-              </div>
-              <div className="gap-3  w-[99%]  flex js lg:justify-center justify-start md:justify-center items-center flex-wrap">
-                <AnimatePresence>
-                  {data?.data?.mostPopularAnimes?.map((anime, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -20, scale: 0.9 }}
-                      transition={{ duration: 0.5, delay: i * 0.1 }}
-                    >
-                      <AnimeCard
-                        key={anime.id}
-                        hide={true}
-                        name={anime?.name}
-                        image={anime?.poster}
-                        rank={anime?.rank ? anime?.rank : i + 1}
-                        id={anime?.id}
-                        subCount={anime?.episodes?.sub}
-                        dubCount={anime?.episodes?.dub}
-                      />
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-            <motion.div className="gap-8  flex-col w-[100%] max-w-full  flex justify-center items-center flex-wrap ">
-              <div className=" w-[99%] self-start  md:text-2xl  text-2xl flex justify-center  items-center gap-2   font-bold font-poppins">
-                <FaRegHeart />
-                Most Favorite
-              </div>
-              <div className="gap-3  w-[99%] flex justify-start md:justify-center items-center flex-wrap">
-                <AnimatePresence>
-                  {data?.data?.mostFavoriteAnimes?.map((anime, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -20, scale: 0.9 }}
-                      transition={{ duration: 0.5, delay: i * 0.1 }}
-                    >
-                      <AnimeCard
-                        key={anime.id}
-                        hide={true}
-                        name={anime?.name}
-                        image={anime?.poster}
-                        rank={anime?.rank ? anime?.rank : i + 1}
-                        id={anime?.id}
-                        subCount={anime?.episodes?.sub}
-                        dubCount={anime?.episodes?.dub}
-                      />
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-            <motion.div className="gap-8 flex-col  w-[100%]   flex justify-center items-center flex-wrap ">
-              <div className=" w-[99%] md:text-2xl  text-2xl flex justify-center items-center gap-2   font-bold font-poppins">
-                <FiCheckCircle className="  " />
-                <span className="  ">Latest Completed</span>
-              </div>
-              <div className="gap-3  w-[99%] flex justify-start md:justify-center items-center flex-wrap">
-                <AnimatePresence>
-                  {data?.data?.latestCompletedAnimes?.map((anime, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -20, scale: 0.9 }}
-                      transition={{ duration: 0.5, delay: i * 0.1 }}
-                    >
-                      <AnimeCard
-                        key={anime.id}
-                        hide={true}
-                        name={anime?.name}
-                        image={anime?.poster}
-                        rank={anime?.rank ? anime?.rank : i + 1}
-                        id={anime?.id}
-                        subCount={anime?.episodes?.sub}
-                        dubCount={anime?.episodes?.dub}
-                      />
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </div>
-            </motion.div>
+            {data?.data?.mostFavoriteAnimes.length > 0 && (
+              <motion.div className="gap-8  flex-col w-[100%] max-w-full  flex justify-center items-center flex-wrap ">
+                <div className=" w-[99%] self-start  md:text-2xl  text-2xl flex justify-center  items-center gap-2   font-bold font-poppins">
+                  <FaRegHeart />
+                  Most Favorite
+                </div>
+                <div className="gap-3  w-[99%] flex justify-start md:justify-center items-center flex-wrap">
+                  <AnimatePresence>
+                    {data?.data?.mostFavoriteAnimes?.map((anime, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -20, scale: 0.9 }}
+                        transition={{ duration: 0.5, delay: i * 0.1 }}
+                      >
+                        <AnimeCard
+                          key={anime.id}
+                          hide={true}
+                          name={anime?.name}
+                          image={anime?.poster}
+                          rank={anime?.rank ? anime?.rank : i + 1}
+                          id={anime?.id}
+                          subCount={anime?.episodes?.sub}
+                          dubCount={anime?.episodes?.dub}
+                        />
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            )}
+            {data?.data?.mostFavoriteAnimes?.length > 0 && (
+              <motion.div className="gap-8 flex-col  w-[100%]   flex justify-center items-center flex-wrap ">
+                <div className=" w-[99%] md:text-2xl  text-2xl flex justify-center items-center gap-2   font-bold font-poppins">
+                  <FiCheckCircle className="  " />
+                  <span className="  ">Latest Completed</span>
+                </div>
+                <div className="gap-3  w-[99%] flex justify-start md:justify-center items-center flex-wrap">
+                  <AnimatePresence>
+                    {data?.data?.latestCompletedAnimes?.map((anime, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -20, scale: 0.9 }}
+                        transition={{ duration: 0.5, delay: i * 0.1 }}
+                      >
+                        <AnimeCard
+                          key={anime.id}
+                          hide={true}
+                          name={anime?.name}
+                          image={anime?.poster}
+                          rank={anime?.rank ? anime?.rank : i + 1}
+                          id={anime?.id}
+                          subCount={anime?.episodes?.sub}
+                          dubCount={anime?.episodes?.dub}
+                        />
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            )}
           </div>
         </motion.div>
       )}

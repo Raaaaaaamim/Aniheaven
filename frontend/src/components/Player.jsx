@@ -25,9 +25,9 @@ export function Player({ source, tracks }) {
 
   return (
     <MediaPlayer
+      autoplay
       className="player"
       src={source}
-      playsinline
       onProviderChange={onProviderChange}
       ref={player}
     >
@@ -43,12 +43,7 @@ export function Player({ source, tracks }) {
           />
         ))}
       </MediaProvider>
-      <DefaultVideoLayout
-        icons={defaultLayoutIcons}
-        thumbnails={`${api}/hianime/thumbnails?url=${encodeURIComponent(
-          thumbnailTrack?.file
-        )}`}
-      />
+      <DefaultVideoLayout icons={defaultLayoutIcons} />
     </MediaPlayer>
   );
 }
