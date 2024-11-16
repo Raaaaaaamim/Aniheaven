@@ -16,20 +16,20 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
   return (
     <div
       onMouseEnter={refetch}
-      className="relative hover:scale-[1.05] ease-in-out duration-200 group rounded-xl group h-[280px] w-[180px] md:w-[200px] overflow-hidden"
+      className="relative hover:scale-[1.05] ease-in-out duration-200 group rounded-xl group   h-[280px] w-[180px] md:w-[200px] overflow-hidden"
     >
       <img
-        className=" w-full group-hover:scale-110 ease-in-out duration-200 h-full absolute z-10 top-0 left-0 "
+        className=" w-full group-hover:scale-110  ease-in-out duration-200 h-full absolute z-10 top-0 left-0 "
         src={image}
         alt={name}
       />
+      {!hide && (
+        <h1 className="absolute top-0 right-0 z-10 bg-primary/70 backdrop-blur-lg h-11 w-9 flex justify-center items-center text-text text-xl rounded-bl-xl border-text/90 border-b-[2px] font-[800]">
+          {rank >= 10 ? rank : `0${rank}`}
+        </h1>
+      )}
       <div className="absolute z-10 bottom-0  flex justify-start  w-full left-0 right-0   bg-gradient-to-t from-black/80 to-transparent">
-        <div className="flex py-2 ml-2 md:py-4 items-center gap-2">
-          {!hide && (
-            <span className="md:text-5xl text-4xl font-[800] text-primary/90">
-              {rank >= 10 ? rank : "0" + rank}
-            </span>
-          )}
+        <div className="flex relative py-2 ml-2 md:py-4 items-center gap-2">
           <div className="  flex mr-2   justify-center gap-1  flex-col-reverse ">
             <div className=" flex gap-2 items-center  ">
               {dubCount && (
@@ -158,7 +158,7 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
               <motion.button
                 variants={buttonVariants}
                 whileTap="tap"
-                className="   w-8 h-8   hover:bg-accent/90 ease-in-out duration-100 rounded-full bg-accent flex justify-center items-center"
+                className="   w-8 h-8   hover:bg-white/90 ease-in-out duration-100 rounded-full bg-white flex justify-center items-center"
               >
                 <FiPlus className="text-black" />
               </motion.button>

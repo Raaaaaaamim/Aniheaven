@@ -3,19 +3,24 @@ import { motion } from "framer-motion";
 const TrendingCard = ({ rank, image, title }) => {
   const rankNumber = Number(rank);
   return (
-    <div className="relative  font-poppins md:w-[220px] md:h-[300px] lg:w-[190px] lg:h-[270px] rounded-xl overflow-hidden group">
+    <div className="relative font-poppins md:w-[220px] md:h-[300px] lg:w-[190px] lg:h-[270px] xl:w-[200px] xl:h-[280px] rounded-xl overflow-hidden group bg-black">
       {/* Image */}
       <img
         src={image}
         alt={title}
-        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 rounded-xl"
       />
+
+      {/* Rank */}
+      <h1 className="absolute top-0 right-0 z-10 bg-primary/70 backdrop-blur-lg h-11 w-9 flex justify-center items-center text-text text-xl rounded-bl-xl border-text/90 border-b-[2px] font-[800]">
+        {rankNumber >= 10 ? rankNumber : `0${rankNumber}`}
+      </h1>
 
       {/* Play button - appears on hover */}
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         whileHover={{ opacity: 1, scale: 1 }}
-        className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100"
+        className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 z-20"
       >
         <motion.button
           whileHover={{ scale: 1.1 }}
@@ -34,11 +39,8 @@ const TrendingCard = ({ rank, image, title }) => {
       </motion.div>
 
       {/* Title overlay */}
-      <div className="absolute flex    bottom-0 left-0 gap-1 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-        <h1 className=" font-[800] text-3xl font-poppins  text-primary ">
-          {rankNumber >= 10 ? rankNumber : `0${rankNumber}`}
-        </h1>
-        <h3 className="text-white mt-[9px]  text-[15px] font-semibold truncate">
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 z-30">
+        <h3 className="text-white text-[15px] font-semibold truncate">
           {title}
         </h3>
       </div>

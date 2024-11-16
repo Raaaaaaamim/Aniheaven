@@ -34,7 +34,7 @@ const serverItemVariants = {
       type: "spring",
       stiffness: 100,
       damping: 12,
-      duration: 0.1,
+      duration: 0.01,
     },
   },
 };
@@ -174,7 +174,7 @@ const WatchPage = () => {
             </>
           )}
         </div>
-        <div className="overflow-hidden font-poppins w-full flex h-[6.5rem] bg-third rounded-xl">
+        <div className="overflow-hidden font-poppins w-full flex h-[6.5rem] bg-[#151515] rounded-xl">
           <div className="w-[40%] hidden justify-center items-start lg:flex lg:flex-col h-full border-r-[2px] gap-2 border-border">
             <div className="flex self-start ml-4 justify-center items-center gap-2  ">
               <div className="  flex font-semibold mt-2 text-text gap-1 justify-center items-center ">
@@ -203,9 +203,14 @@ const WatchPage = () => {
               <RiClosedCaptioningFill className="ml-3" size={20} />
               {isServersLoading ? (
                 <>
-                  <div className="skeleton h-9 w-28 rounded-xl py-[6px]"></div>
-                  <div className="skeleton h-9 w-28 rounded-xl py-[6px]"></div>
-                  <div className="skeleton h-9 w-28 rounded-xl py-[6px]"></div>
+                  {Array(4)
+                    .fill(0)
+                    .map((_, i) => (
+                      <div
+                        key={i}
+                        className="skeleton  w-24 h-9 lg:w-28 rounded-xl py-[6px]"
+                      ></div>
+                    ))}
                 </>
               ) : (
                 <>
@@ -214,7 +219,7 @@ const WatchPage = () => {
                       <motion.div
                         variants={serverItemVariants}
                         whileTap={{ scale: 0.95 }}
-                        className={`cursor-pointer  text-sm md:text-[16px] capitalize px-8 rounded-xl py-[6px] md:py-[8px] ${
+                        className={`cursor-pointer  text-sm md:text-[16px] capitalize px-4 lg:px-8 rounded-xl py-[6px] md:py-[8px] ${
                           selectedServer === serverName &&
                           selectedCategory === "sub"
                             ? "bg-primary hover:bg-primary/80 ease-in duration-100 text-black"
@@ -230,7 +235,7 @@ const WatchPage = () => {
                       </motion.div>
                     ))}
                   {server?.sub.length === 0 && (
-                    <div className=" font-poppins text-sm md:text-[16px] capitalize px-8 rounded-xl py-[6px] md:py-[8px] bg-border hover:bg-border/80 ease-in duration-100 text-text">
+                    <div className=" font-poppins text-sm md:text-[16px] capitalize px-4 lg:px-8 rounded-xl py-[6px] md:py-[8px] bg-border hover:bg-border/80 ease-in duration-100 text-text">
                       N/A
                     </div>
                   )}
@@ -251,7 +256,7 @@ const WatchPage = () => {
                     .map((_, i) => (
                       <div
                         key={i}
-                        className="skeleton h-9 w-28 rounded-xl py-[6px]"
+                        className="skeleton  w-24 h-9 lg:w-28 rounded-xl py-[6px]"
                       ></div>
                     ))}
                 </>
@@ -262,11 +267,11 @@ const WatchPage = () => {
                       <motion.div
                         variants={serverItemVariants}
                         whileTap={{ scale: 0.95 }}
-                        className={`cursor-pointer  text-sm md:text-[16px] capitalize px-8 rounded-xl md:py-[8px] py-[6px] ${
+                        className={`cursor-pointer  text-sm md:text-[16px] capitalize px-4 lg:px-8 rounded-xl md:py-[8px] py-[6px] ${
                           selectedServer === serverName &&
                           selectedCategory === "dub"
-                            ? "bg-primary hover:bg-primary/80 ease-in duration-100 text-black"
-                            : " bg-border hover:bg-border/80 ease-in duration-100 text-text "
+                            ? "bg-primary hover:bg-primary/80 hover:ease-in hover:duration-100 text-black"
+                            : " bg-border hover:bg-border/80 hover:ease-in hover:duration-100 text-text "
                         }`}
                         key={i}
                         onClick={() => {
@@ -279,10 +284,10 @@ const WatchPage = () => {
                     ))}
                   {(!server?.dub || server.dub.length === 0) && (
                     <>
-                      <div className="cursor-pointer text-sm md:text-[16px] bg-border hover:bg-border/80 ease-in duration-100 text-text capitalize px-8 rounded-xl md:py-[8px] py-[6px]">
+                      <div className="cursor-pointer text-sm md:text-[16px] bg-border hover:bg-border/80 ease-in duration-100 text-text capitalize px-4 lg:px-8 rounded-xl md:py-[8px] py-[6px]">
                         N/A
                       </div>
-                      <div className="cursor-pointer text-sm md:text-[16px] bg-border hover:bg-border/80 ease-in duration-100 text-text capitalize px-8 rounded-xl md:py-[8px] py-[6px]">
+                      <div className="cursor-pointer text-sm md:text-[16px] bg-border hover:bg-border/80 ease-in duration-100 text-text capitalize px-4 lg:px-8 rounded-xl md:py-[8px] py-[6px]">
                         N/A
                       </div>
                     </>
@@ -292,7 +297,7 @@ const WatchPage = () => {
             </motion.div>
           </div>
         </div>
-        <div className=" w-full overflow-x-hidden py-4 font-poppins  flex   overflow-y-auto min-h-20  max-h-96 bg-third rounded-xl ">
+        <div className=" w-full overflow-x-hidden py-4 font-poppins  flex   overflow-y-auto min-h-20  max-h-96 bg-[#151515] rounded-xl ">
           {isEpLoading ? (
             <div className="w-full gap-2 h-full flex justify-center flex-col items-center">
               {Array(6)
@@ -306,7 +311,7 @@ const WatchPage = () => {
             </div>
           ) : (
             <>
-              {episodeData?.totalEpisodes < 28 ? (
+              {episodeData?.totalEpisodes < 40 ? (
                 <motion.div
                   className="w-full  gap-2 h-full flex justify-center flex-col items-center"
                   variants={containerVariants}
@@ -327,8 +332,8 @@ const WatchPage = () => {
                       onClick={() => setSelectedEpisode(item?.episodeId)}
                       className={`${
                         selectedEpisode === item?.episodeId
-                          ? "bg-primary hover:bg-primary/80 text-black"
-                          : "bg-[#2D2D2D] hover:bg-border text-text"
+                          ? "bg-primary hover:bg-primary/80 text-text"
+                          : "bg-[#1f1f1f] hover:bg-border text-text"
                       } w-[97%] md:py-4 py-3 line-clamp-1 text-sm rounded-xl md:text-lg ease-in duration-100 cursor-pointer gap-2 flex items-center`}
                     >
                       <span className="ml-5 font-[800]">{item.number}. </span>

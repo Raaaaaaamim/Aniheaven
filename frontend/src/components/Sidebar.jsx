@@ -6,7 +6,7 @@ import { IoClose, IoSettingsOutline } from "react-icons/io5";
 import { MdLogout } from "react-icons/md";
 import { RiMenu4Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import img1 from "../assets/logo.svg";
+import img1 from "../assets/logo.png";
 import Button from "./ui/Button.jsx";
 import Category from "./ui/Category.jsx";
 
@@ -65,8 +65,8 @@ const SidebarContent = () => (
   <div className="gap-0 flex flex-col h-full w-[90%] ml-[20px] py-8">
     <div className="h-[10%] w-full flex gap-2 items-center justify-start">
       <img className="w-14" src={img1} alt="logo" />
-      <span className="font-poppins bg-clip-text bg-gradient-to-r from-primary to-[white]/90 cairo text-transparent font-bold text-lg">
-        ANIHEAVEN
+      <span className=" bg-gradient-to-r from-[#a460e4] via-[#b26ff0] to-[#bc82f1]/80 bg-clip-text spicy text-transparent  text-xl">
+        AniHeaven
       </span>
     </div>
 

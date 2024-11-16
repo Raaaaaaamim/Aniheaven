@@ -155,8 +155,7 @@ const Card = ({ imageUrl, title, id, upcoming, subCount, dubCount }) => {
                   <motion.button
                     variants={buttonVariants}
                     whileTap="tap"
-                    className="btn  flex
-                   justify-center items-center md:h-10 md:w-44   md:text-sm w-[6.5rem] h-8  btn-primary text-[11px] btn-sm rounded-full"
+                    className="flex justify-center items-center md:h-10 md:w-44 md:text-sm w-[6.5rem] h-8 gap-2 text-text bg-gradient-to-r from-primary via-primary/90 to-primary/80 hover:opacity-90 transition-all duration-300 text-[11px] rounded-full"
                   >
                     <FaPlay className="md:text-sm text-xs " />
                     <span className=" text-[11px] md:text-xs  md:flex ">
@@ -167,7 +166,7 @@ const Card = ({ imageUrl, title, id, upcoming, subCount, dubCount }) => {
                 <motion.button
                   variants={buttonVariants}
                   whileTap="tap"
-                  className=" md:w-10 md:h-10 w-8 h-8   hover:bg-accent/90 ease-in-out duration-100 rounded-full bg-accent flex justify-center items-center"
+                  className=" md:w-10 md:h-10 w-8 h-8   hover:bg-white/90 ease-in-out duration-100 rounded-full bg-white flex justify-center items-center"
                 >
                   <FiPlus className="text-black" />
                 </motion.button>
