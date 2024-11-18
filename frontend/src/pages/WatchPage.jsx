@@ -163,7 +163,7 @@ const WatchPage = () => {
                 </div>
               )}
               {isSourceLoading && (
-                <div className="w-full aspect-video bg-background/20 animate-pulse flex items-center justify-center">
+                <div className="w-full aspect-video bg-[#1f1f1f] animate-pulse flex items-center justify-center">
                   <Lottie animationData={animationJSON} className="w-32" />
                 </div>
               )}
