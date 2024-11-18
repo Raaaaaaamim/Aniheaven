@@ -32,7 +32,7 @@ const Card = ({ imageUrl, title, id, upcoming, subCount, dubCount }) => {
         setHovered(true);
       }}
       onMouseLeave={() => setHovered(false)}
-      className="group relative self-start overflow-hidden bg-gray-800 md:w-64 w-[180px] rounded-xl md:h-[370px]"
+      className="group hover:border-text  relative self-start overflow-hidden bg-gray-800 md:w-64 w-[180px] rounded-xl md:h-[370px]"
     >
       <motion.img
         animate={{ scale: hovered ? 1.1 : 1 }}

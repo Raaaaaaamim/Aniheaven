@@ -4,15 +4,15 @@ import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import { parseAsString, useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
+import { FaHourglassStart } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import { RiClosedCaptioningFill, RiMic2Fill } from "react-icons/ri";
 import { useParams, useSearchParams } from "react-router-dom";
 import animationJSON from "../assets/cat-loading.json";
 import catSleep from "../assets/cat-sleep.json";
+import { Player } from "../components/features/Player/Player.jsx";
+import { api } from "../services/api";
 
-import { FaHourglassStart } from "react-icons/fa";
-import { Player } from "../components/Player";
-import { api } from "./Home.jsx";
 // Add these animation variants before the component
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -100,7 +100,6 @@ const WatchPage = () => {
   });
 
   const episodeData = epData?.data?.data;
-  console.log(serverData);
 
   const {
     data: sourceData,
@@ -122,31 +121,30 @@ const WatchPage = () => {
     if (selectedEpisode && selectedServer && selectedCategory) {
       refetchSource();
     }
-  }, [selectedEpisode, selectedServer, selectedCategory, refetchSource]);
+  }, [selectedEpisode, selectedServer, selectedCategory]);
 
   useEffect(() => {
     if (!selectedEpisode && episodeData?.episodes?.[0]) {
       setSelectedEpisode(episodeData.episodes[0].episodeId);
       setSearchParams({ ep: episodeData.episodes[0].episodeId });
     }
-  }, [episodeData]);
+  }, [selectedEpisode, setSearchParams, episodeData]);
 
   const server = serverData?.data?.data;
-  console.log(sourceData);
 
   return (
     <div className="overflow-hidden justify-self-start w-full min-h-screen flex justify-center items-start">
       <div className="overflow-hidden mb-4 flex flex-col w-[98%] gap-3 h-full rounded-xl">
-        <div className="overflow-hidden aspect-video rounded-xl">
+        <div className="overflow-hidden aspect-video rounded-2xl">
           {!isServersLoading &&
           !isSourceError &&
           !isSourceLoading &&
           sourceData?.data?.data?.sources?.length > 0 ? (
             <Player
-              introStartTime={sourceData.data.data.intro?.start}
-              introEndTime={sourceData.data.data.intro?.end}
-              outroStartTime={sourceData.data.data.intro?.start}
-              outroEndTime={sourceData.data.data.intro?.end}
+              introStart={sourceData.data.data.intro?.start}
+              introEnd={sourceData.data.data.intro?.end}
+              outroStart={sourceData.data.data.outro?.start}
+              outroEnd={sourceData.data.data.outro?.end}
               source={sourceData.data.data.sources[0].url}
               tracks={sourceData.data.data.tracks}
             />
@@ -165,10 +163,8 @@ const WatchPage = () => {
                 </div>
               )}
               {isSourceLoading && (
-                <div className="w-full rounded-xl skeleton h-full flex justify-center items-center">
-                  <div className="w-48 h-48">
-                    <Lottie animationData={animationJSON} loop={true} />
-                  </div>
+                <div className="w-full aspect-video bg-background/20 animate-pulse flex items-center justify-center">
+                  <Lottie animationData={animationJSON} className="w-32" />
                 </div>
               )}
             </>
@@ -334,7 +330,7 @@ const WatchPage = () => {
                         selectedEpisode === item?.episodeId
                           ? "bg-primary hover:bg-primary/80 text-text"
                           : "bg-[#1f1f1f] hover:bg-border text-text"
-                      } w-[97%] md:py-4 py-3 line-clamp-1 text-sm rounded-xl md:text-lg ease-in duration-100 cursor-pointer gap-2 flex items-center`}
+                      } w-[97%]  py-3 line-clamp-1 text-sm rounded-xl md:text-[1rem] lg:h-[3.3rem] ease-in duration-100 cursor-pointer gap-2 flex items-center`}
                     >
                       <span className="ml-5 font-[800]">{item.number}. </span>
                       <h2>{item.title}</h2>

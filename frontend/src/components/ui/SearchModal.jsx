@@ -3,7 +3,7 @@ import debounce from "lodash/debounce";
 import { useCallback, useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
-import { api } from "../../pages/Home.jsx";
+import { api } from "../../services/api";
 
 const SearchModal = ({ id }) => {
   const [value, setValue] = useState("");
@@ -23,7 +23,6 @@ const SearchModal = ({ id }) => {
           `${api}/hianime/search/suggestion?q=${query}`
         );
         const searchResults = response?.data?.data || [];
-        console.log("Search Results:", searchResults);
         setResults(searchResults);
       } catch (error) {
         console.error("Error fetching anime:", error);
@@ -49,8 +48,8 @@ const SearchModal = ({ id }) => {
 
   return (
     <dialog id={id} className="modal">
-      <div className="modal-box rounded-xl overflow-hidden bg-background gap-2 flex max-w-2xl font-poppins justify-center items-start flex-col">
-        <div className="  ">
+      <div className="modal-box rounded-xl overflow-hidden bg-background gap-4 flex max-w-2xl font-poppins justify-center items-start flex-col">
+        <div className=" flex flex-col gap-1  ">
           <h1 className="text-2xl font-bold">Search</h1>
           <p className="text-sm">Discover anime by title</p>
         </div>
@@ -67,31 +66,31 @@ const SearchModal = ({ id }) => {
           </div>
           <div className="w-full min-h-14 flex flex-col">
             <span className="text-xs ml-2 text-grayText">
-              Search results for &quot;{value}&quot;
+              Search results for {value && `"${value}"`}
             </span>
-            {!value && (
+            {!value && !isLoading && (
               <h1 className="text-sm ml-2 mt-1">Type something to search</h1>
             )}
             {isLoading && (
-              <div className="flex min-h-48 overflow-auto flex-col gap-2 w-full mb-4 mt-4 h-full justify-center items-center">
+              <div className="flex min-h-48 overflow-auto flex-col gap-3 w-full mb-4 mt-4 h-full justify-center items-center">
                 {Array(3)
                   .fill(0)
                   .map((_, i) => (
                     <span
                       key={i}
-                      className="w-[95%] rounded-lg h-24 animate-pulse skeleton"
+                      className="w-[95%] rounded-lg h-[6.1rem] animate-pulse skeleton"
                     ></span>
                   ))}
               </div>
             )}
             {!isLoading && results?.suggestions && (
-              <div className="flex w-full gap-2  mb-3  mt-2 items-center h-80 overflow-auto flex-col">
+              <div className="flex w-full gap-3  mb-3  mt-2 items-center h-80 overflow-auto flex-col">
                 {results?.suggestions.map((anime, i) => (
                   <div
                     key={`${anime.id}-${i}`}
                     className={`w-[95%] ${
                       i === 0 && "mt-2"
-                    } text-text hover:bg-third bg-background  hover:ease-in-out hover:duration-200 cursor-pointer rounded-lg min-h-24 gap-3 py-2 flex  items-center`}
+                    } text-text hover:bg-[#0c0c0c] border-border border-[1px]   hover:ease-in-out hover:duration-200 cursor-pointer rounded-lg min-h-24 gap-3 py-2 flex  items-center`}
                   >
                     <img
                       src={anime.poster}
@@ -99,8 +98,10 @@ const SearchModal = ({ id }) => {
                       alt={anime.name + " poster"}
                     />
                     <div className="flex w-[80%]  flex-col gap-1">
-                      <h1 className="text-sm font-semibold">{anime.name}</h1>
-                      <h1 className="text-xs text-grayText font-semibold">
+                      <h1 className="text-sm  line-clamp-1 font-semibold">
+                        {anime.name}
+                      </h1>
+                      <h1 className="text-xs  line-clamp-1 text-grayText font-semibold">
                         {anime.jname}
                       </h1>
                       {anime?.moreInfo && (

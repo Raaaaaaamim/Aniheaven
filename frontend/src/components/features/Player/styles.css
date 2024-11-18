@@ -1,0 +1,42 @@
+@import "@vidstack/react/player/styles/default/theme.css";
+@import "@vidstack/react/player/styles/default/layouts/video.css";
+
+.vds-player {
+  --brand-color: #f5f5f5;
+  --focus-color: #4e9cf6;
+  --primary-color: rgb(var(--primary));
+
+  --video-brand: var(--brand-color);
+  --video-focus-ring-color: var(--focus-color);
+  --video-border-radius: 2px;
+
+  aspect-ratio: 16/9;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.time-markers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.time-marker {
+  position: absolute;
+  height: 100%;
+  pointer-events: none;
+}
+
+.intro-marker {
+  background-color: rgb(var(--primary));
+  opacity: 0.3;
+}
+
+.outro-marker {
+  background-color: rgb(var(--primary));
+  opacity: 0.3;
+}

@@ -5,7 +5,7 @@ import {
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
 import { TbMessageCircleHeart } from "react-icons/tb";
-import Modal from "./ui/SearchModal.jsx";
+import Modal from "../../../components/ui/SearchModal.jsx";
 const Navbar = () => {
   return (
     <nav className=" flex h-20 ml-0 w-[100%] font-poppins justify-center items-center lg:w-[81.5%]  lg:ml-[18%]   ">

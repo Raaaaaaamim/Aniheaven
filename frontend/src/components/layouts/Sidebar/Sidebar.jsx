@@ -6,9 +6,9 @@ import { IoClose, IoSettingsOutline } from "react-icons/io5";
 import { MdLogout } from "react-icons/md";
 import { RiMenu4Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import img1 from "../assets/logo.png";
-import Button from "./ui/Button.jsx";
-import Category from "./ui/Category.jsx";
+import img1 from "../../../assets/logo.png";
+import Button from "../../ui/Button.jsx";
+import Category from "../../ui/Category.jsx";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);

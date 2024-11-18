@@ -22,6 +22,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { FaInfoCircle, FaPlay } from "react-icons/fa";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
+
 import { IoCalendarClear } from "react-icons/io5";
 import { TbClockHour4Filled } from "react-icons/tb";
 
@@ -267,11 +268,11 @@ const Home = () => {
             </SwiperSlide>
           ))}
           {/* Custom navigation buttons */}
-          <div className="swiper-button-prev after:!text-primary after:!text-2xl text-sm flex text-text h-fit bg-primary rounded-full justify-center items-center hover:after:!text-primary/80">
-            <IoIosArrowRoundBack />
+          <div className="swiper-button-prev after:!content-[''] !w-8 !h-8 flex text-white bg-primary rounded-full justify-center items-center">
+            <IoIosArrowRoundBack className="text-sm text-white " />
           </div>
-          <div className="swiper-button-next h-fit after:!text-primary after:!text-2xl text-text bg-primary text-xs rounded-full hover:after:!text-primary/80">
-            <IoIosArrowRoundForward />
+          <div className="swiper-button-next after:!content-[''] !w-8 !h-8 flex text-white bg-primary mr-2 rounded-full justify-center items-center">
+            <IoIosArrowRoundForward className="text-sm text-white" />
           </div>
         </Swiper>
       </div>

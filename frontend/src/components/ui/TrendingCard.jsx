@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const TrendingCard = ({ rank, image, title }) => {
   const rankNumber = Number(rank);
   return (
-    <div className="relative font-poppins md:w-[220px] md:h-[300px] lg:w-[190px] lg:h-[270px] xl:w-[200px] xl:h-[280px] rounded-xl overflow-hidden group bg-black">
+    <div className="relative border-border border-[1px] font-poppins md:w-[220px] md:h-[300px] lg:w-[190px] lg:h-[270px] xl:w-[200px] xl:h-[280px] rounded-xl overflow-hidden group bg-black">
       {/* Image */}
       <img
         src={image}
