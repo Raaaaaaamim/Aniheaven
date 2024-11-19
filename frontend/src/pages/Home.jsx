@@ -20,11 +20,18 @@
 
 // Animation and Icon imports
 import { AnimatePresence, motion } from "framer-motion";
+import { BsCcCircleFill, BsTrophyFill } from "react-icons/bs";
 import { FaInfoCircle, FaPlay } from "react-icons/fa";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
-
 import { IoCalendarClear } from "react-icons/io5";
+import { PiMicrophoneFill } from "react-icons/pi";
 import { TbClockHour4Filled } from "react-icons/tb";
+
+// Core functionality imports
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { lazy, Suspense, useState } from "react";
+import { Link } from "react-router-dom";
 
 // Swiper related imports
 import "swiper/css";
@@ -34,19 +41,14 @@ import "swiper/css/pagination";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Core functionality imports
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { useState } from "react";
-import { BsCcCircleFill, BsTrophyFill } from "react-icons/bs";
-import { PiMicrophoneFill } from "react-icons/pi";
-import { Link } from "react-router-dom";
-
 // Utility and component imports
-import { containerVariants, spotlightVariants } from "../../lib/utils.js";
-import AnimeCard from "../components/ui/AnimeCard.jsx";
+import { containerVariants, spotlightVariants } from "../components/ui/animations.jsx";
 import Card from "../components/ui/Card.jsx";
-import TrendingCard from "../components/ui/TrendingCard.jsx";
+import HomeSuspense from "../components/ui/HomeSuspense.jsx";
+
+// Lazy loaded components
+const TrendingCard = lazy(() => import("../components/ui/TrendingCard.jsx"));
+const AnimeCard = lazy(() => import("../components/ui/AnimeCard.jsx"));
 
 /** Base API endpoint for all anime-related requests */
 export const api = "http://localhost:4000/api/v2";
@@ -59,7 +61,7 @@ const Home = () => {
    */
   const {
     data: animeData,
-    isError,
+    error,
     isLoading,
   } = useQuery({
     queryKey: ["home"],
@@ -74,23 +76,16 @@ const Home = () => {
   /** State for managing the time period filter in Top 10 section */
   const [timePeriod, setTimePeriod] = useState("today");
 
-  // Loading state handler
+  // If data is loading, show skeleton
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center w-full h-screen">
-        <span className="loading loading-ring w-20 h-20"></span>
-      </div>
-    );
+    return <HomeSuspense />;
   }
 
-  // Error state handler
-  if (isError) {
+  // If there's an error, show error message
+  if (error) {
     return (
-      <div className="w-[100%] font-poppins flex-col gap-4 flex justify-center items-center h-[100vh]">
-        <h1 className="text-3xl md:text-6xl font-bold text-primary">404</h1>
-        <h3 className="text-sm text-text">
-          There was an error while loading the content
-        </h3>
+      <div className="w-full h-screen flex items-center justify-center text-white">
+        <p>Error loading data: {error.message}</p>
       </div>
     );
   }
@@ -119,14 +114,14 @@ const Home = () => {
           delay: 5000,
           disableOnInteraction: false,
         }}
-        className="w-full xl:h-[80vh] max-w-8xl md:h-[400px] lg:mx-auto h-[300px] lg:h-[600px] max-h-[620px] rounded-3xl overflow-hidden custom-swiper"
+        className="w-full xl:h-[80vh] max-w-8xl md:h-[400px] lg:mx-auto h-[300px] lg:h-[600px] max-h-[620px] rounded-2xl overflow-hidden custom-swiper"
       >
         {/* Mapping spotlight anime data to slides */}
         {data?.data?.spotlightAnimes?.map((anime, i) => (
           <SwiperSlide key={anime.id + i}>
             <motion.div
               variants={spotlightVariants}
-              className="relative w-full h-full bg-black rounded-3xl overflow-hidden"
+              className="relative w-full h-full bg-black rounded-2xl overflow-hidden"
             >
               {/* Background image with zoom animation */}
               <motion.div
@@ -139,7 +134,7 @@ const Home = () => {
                   repeatType: "reverse",
                 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10" />
+                <div className="absolute  inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10" />
                 <img
                   className="h-full w-full object-cover"
                   src={anime.poster}
@@ -258,13 +253,21 @@ const Home = () => {
           className="relative rounded-xl overflow-hidden"
         >
           {/* Trending anime cards */}
-          {data?.data?.trendingAnimes?.map((anime, index) => (
+          {data?.data?.trendingAnimes?.slice(0, 10).map((anime, index) => (
             <SwiperSlide key={anime.id + index}>
-              <TrendingCard
-                rank={index + 1}
-                title={anime.name}
-                image={anime.poster}
-              />
+              <Suspense
+                fallback={
+                  <div className="relative border-border border-[1px] font-poppins w-full h-[280px] md:w-[220px] md:h-[300px] lg:w-[190px] lg:h-[270px] xl:w-[200px] xl:h-[280px] rounded-xl overflow-hidden bg-[#1f1f1f] animate-pulse">
+                    <div className="absolute top-0 right-0 z-10 bg-[#2a2a2a] h-11 w-9 rounded-bl-xl" />
+                  </div>
+                }
+              >
+                <TrendingCard
+                  rank={index + 1}
+                  title={anime.name}
+                  image={anime.poster}
+                />
+              </Suspense>
             </SwiperSlide>
           ))}
           {/* Custom navigation buttons */}
@@ -400,15 +403,24 @@ const Home = () => {
               exit={{ opacity: 0, y: -20, scale: 0.9 }}
               transition={{ duration: 0.1, delay: i * 0.01 }}
             >
-              <AnimeCard
-                key={anime.id + i}
-                name={anime?.name}
-                image={anime?.poster}
-                rank={anime?.rank ? anime?.rank : i + 1}
-                id={anime?.id}
-                subCount={anime?.episodes?.sub}
-                dubCount={anime?.episodes?.dub}
-              />
+              <Suspense
+                fallback={
+                  <div className="relative hover:scale-[1.05] ease-in-out duration-200 group rounded-xl h-[280px] w-[180px] md:w-[200px] overflow-hidden bg-[#1f1f1f] animate-pulse">
+                    <div className="absolute top-0 right-0 z-10 bg-[#2a2a2a] h-11 w-9 rounded-bl-xl" />
+                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#2a2a2a] to-transparent" />
+                  </div>
+                }
+              >
+                <AnimeCard
+                  key={anime.id + i}
+                  name={anime?.name}
+                  image={anime?.poster}
+                  rank={anime?.rank ? anime?.rank : i + 1}
+                  id={anime?.id}
+                  subCount={anime?.episodes?.sub}
+                  dubCount={anime?.episodes?.dub}
+                />
+              </Suspense>
             </motion.div>
           ))}
         </div>
@@ -433,15 +445,24 @@ const Home = () => {
                       exit={{ opacity: 0, y: -20, scale: 0.9 }}
                       transition={{ duration: 0.5, delay: i * 0.1 }}
                     >
-                      <AnimeCard
-                        hide={true}
-                        name={anime?.name}
-                        image={anime?.poster}
-                        rank={anime?.rank ? anime?.rank : i + 1}
-                        id={anime?.id}
-                        subCount={anime?.episodes?.sub}
-                        dubCount={anime?.episodes?.dub}
-                      />
+                      <Suspense
+                        fallback={
+                          <div className="relative hover:scale-[1.05] ease-in-out duration-200 group rounded-xl h-[280px] w-[180px] md:w-[200px] overflow-hidden bg-[#1f1f1f] animate-pulse">
+                            <div className="absolute top-0 right-0 z-10 bg-[#2a2a2a] h-11 w-9 rounded-bl-xl" />
+                            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#2a2a2a] to-transparent" />
+                          </div>
+                        }
+                      >
+                        <AnimeCard
+                          hide={true}
+                          name={anime?.name}
+                          image={anime?.poster}
+                          rank={anime?.rank ? anime?.rank : i + 1}
+                          id={anime?.id}
+                          subCount={anime?.episodes?.sub}
+                          dubCount={anime?.episodes?.dub}
+                        />
+                      </Suspense>
                     </motion.div>
                   ))}
                 </AnimatePresence>

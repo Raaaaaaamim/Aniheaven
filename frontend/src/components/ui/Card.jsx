@@ -8,13 +8,7 @@ import { MdCategory } from "react-icons/md";
 import { PiMicrophoneFill } from "react-icons/pi";
 import { TbClockHour4Filled } from "react-icons/tb";
 import { Link } from "react-router-dom";
-import {
-  buttonVariants,
-  cardVariants,
-  infoVariants,
-  textVariants,
-  trimmedContent,
-} from "../../../lib/utils.js";
+import { cardVariants, infoVariants, textVariants, trimmedContent } from "./animations";
 import useAnimeInfo from "../../hooks/useAnimeInfo.jsx";
 
 const Card = ({ imageUrl, title, id, upcoming, subCount, dubCount }) => {
@@ -38,6 +32,7 @@ const Card = ({ imageUrl, title, id, upcoming, subCount, dubCount }) => {
         animate={{ scale: hovered ? 1.1 : 1 }}
         transition={{ duration: 0.4 }}
         src={imageUrl}
+        loading="lazy"
         alt={title}
         className="inset-0 overflow-hidden w-full h-full rounded-xl"
       />
@@ -62,6 +57,7 @@ const Card = ({ imageUrl, title, id, upcoming, subCount, dubCount }) => {
             </div>
           ) : (
             <>
+
               <motion.div
                 variants={textVariants}
                 className="flex   md:mt-12 mt-16 md:gap-1  gap-[3px] flex-col"
@@ -134,7 +130,7 @@ const Card = ({ imageUrl, title, id, upcoming, subCount, dubCount }) => {
                 <MdCategory size={15} />
                 {anime?.moreInfo?.genres?.length > 1 ? (
                   <>
-                    <span>{anime?.moreInfo?.genres[0] || ""}</span>|
+                    <span>{anime?.moreInfo?.genres[0] || ""}</span>| 
                     <span>{anime?.moreInfo?.genres[1] || ""}</span>
                     {anime?.moreInfo?.genres?.length > 1 && (
                       <span className=" hidden md:flex ">

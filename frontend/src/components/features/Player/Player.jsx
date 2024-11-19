@@ -10,6 +10,8 @@ import {
   DefaultVideoLayout,
 } from "@vidstack/react/player/layouts/default";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { selectedEpNumberAtom } from "../../../store/index.js";
 import "./styles.css";
 
 export const Player = memo(function Player({
@@ -25,6 +27,7 @@ export const Player = memo(function Player({
   const { currentTime, duration } = useMediaStore(player);
   const [skipButtonText, setSkipButtonText] = useState("");
   const [showSkipButton, setShowSkipButton] = useState(false);
+  const setSelectedEpNumber = useSetRecoilState(selectedEpNumberAtom);
 
   // Memoize tracks filtering
   const { subtitleTracks, thumbnailTrack } = useMemo(
@@ -36,7 +39,12 @@ export const Player = memo(function Player({
   );
 
   useEffect(() => {
-    if (!currentTime) return;
+    if (!currentTime || !duration) return;
+
+    // Check if video is completed (with a small threshold)
+    if (Math.abs(currentTime - duration) < 1) {
+      setSelectedEpNumber((prev) => prev + 1);
+    }
 
     const isInIntro =
       introStart &&

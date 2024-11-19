@@ -8,10 +8,12 @@ import { FaHourglassStart } from "react-icons/fa";
 import { FaStar } from "react-icons/fa6";
 import { RiClosedCaptioningFill, RiMic2Fill } from "react-icons/ri";
 import { useParams, useSearchParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import animationJSON from "../assets/cat-loading.json";
 import catSleep from "../assets/cat-sleep.json";
 import { Player } from "../components/features/Player/Player.jsx";
 import { api } from "../services/api";
+import { selectedEpNumberAtom } from "../store/index.js";
 
 // Add these animation variants before the component
 const containerVariants = {
@@ -63,6 +65,7 @@ const WatchPage = () => {
   );
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const selectedEpNumber = useRecoilValue(selectedEpNumberAtom);
 
   const {
     data: epData,
@@ -121,14 +124,17 @@ const WatchPage = () => {
     if (selectedEpisode && selectedServer && selectedCategory) {
       refetchSource();
     }
-  }, [selectedEpisode, selectedServer, selectedCategory]);
+  }, [selectedEpisode, selectedServer, selectedCategory, refetchSource]);
 
   useEffect(() => {
-    if (!selectedEpisode && episodeData?.episodes?.[0]) {
-      setSelectedEpisode(episodeData.episodes[0].episodeId);
-      setSearchParams({ ep: episodeData.episodes[0].episodeId });
+    if (episodeData?.episodes?.[selectedEpNumber]) {
+      const newEpisodeId = episodeData.episodes[selectedEpNumber].episodeId;
+      if (newEpisodeId !== selectedEpisode) {
+        setSelectedEpisode(newEpisodeId);
+        setSearchParams({ ep: newEpisodeId });
+      }
     }
-  }, [selectedEpisode, setSearchParams, episodeData]);
+  }, [selectedEpNumber, episodeData, setSearchParams]);
 
   const server = serverData?.data?.data;
 
@@ -301,7 +307,7 @@ const WatchPage = () => {
                 .map((_, i) => (
                   <div
                     key={i}
-                    className="w-[97%] skeleton  h-[4rem] rounded-xl         "
+                    className="w-[97%] skeleton  h-[3.5rem] rounded-xl         "
                   ></div>
                 ))}
             </div>

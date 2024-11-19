@@ -20,6 +20,7 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
     >
       <img
         className=" w-full group-hover:scale-110  ease-in-out duration-200 h-full absolute z-10 top-0 left-0 "
+        loading="lazy"
         src={image}
         alt={name}
       />
