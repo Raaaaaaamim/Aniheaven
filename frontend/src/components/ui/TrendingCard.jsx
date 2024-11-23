@@ -1,6 +1,4 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { cardVariants, infoVariants } from "./animations";
 
 const TrendingCard = ({ rank, image, title }) => {
   const rankNumber = Number(rank);
@@ -44,7 +42,7 @@ const TrendingCard = ({ rank, image, title }) => {
 
       {/* Title overlay */}
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 z-30">
-        <h3 className="text-white text-[15px] font-semibold truncate">
+        <h3 className="text-white font-outfit text-[15px] font-semibold truncate">
           {title}
         </h3>
       </div>

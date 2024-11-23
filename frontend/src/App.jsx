@@ -5,6 +5,7 @@ import { LoadingFallback } from "./components/ui/LoadingFallback.jsx";
 import NavbarSuspense from "./components/ui/NavbarSuspense.jsx";
 import SidebarSuspense from "./components/ui/SidebarSuspense.jsx";
 import WatchPageSuspense from "./components/ui/WatchPageSuspense.jsx";
+import AnimeInfo from "./pages/AnimeInfo.jsx";
 
 // Lazy load components
 const Navbar = lazy(() => import("./components/layouts/Navbar/Navbar.jsx"));
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
             <WatchPage />
           </Suspense>
         ),
+      },
+      {
+        path: "/info/:id",
+        element: <AnimeInfo />,
       },
     ],
   },

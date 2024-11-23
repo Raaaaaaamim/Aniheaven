@@ -48,10 +48,10 @@ const SearchModal = ({ id }) => {
 
   return (
     <dialog id={id} className="modal">
-      <div className="modal-box rounded-xl overflow-hidden bg-background gap-4 flex max-w-2xl font-poppins justify-center items-start flex-col">
+      <div className="modal-box  rounded-xl overflow-hidden bg-background gap-4 flex max-w-2xl font-outfit justify-center items-start flex-col">
         <div className=" flex flex-col gap-1  ">
-          <h1 className="text-2xl font-bold">Search</h1>
-          <p className="text-sm">Discover anime by title</p>
+          <h1 className="text-2xl  font-bold">Search</h1>
+          <p className="text-sm  ">Discover anime by title</p>
         </div>
         <div className="bg-black border-border border-[1px] rounded-lg self-start w-full h-full justify-center items-start gap-2 flex flex-col">
           <div className="py-3 border-b-border border-b-[1px] flex justify-start items-center gap-1 w-full h-full">

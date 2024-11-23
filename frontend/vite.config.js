@@ -6,5 +6,21 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
+    hmr: {
+      overlay: false
+    },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000,
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom'],
+  }
 });

@@ -1,5 +1,3 @@
-import React from "react";
-
 const NavbarSuspense = () => {
   return (
     <nav className="flex h-20 ml-0 w-[100%] font-poppins justify-center items-center lg:w-[81.5%] lg:ml-[18%]">

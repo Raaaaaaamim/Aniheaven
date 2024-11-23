@@ -3,55 +3,21 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import { parseAsString, useQueryState } from "nuqs";
-import { useEffect, useState } from "react";
-import { FaHourglassStart } from "react-icons/fa";
-import { FaStar } from "react-icons/fa6";
+import { useEffect, useRef } from "react";
 import { RiClosedCaptioningFill, RiMic2Fill } from "react-icons/ri";
-import { useParams, useSearchParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useParams } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  episodeVariants,
+  serverItemVariants,
+  watchContainerVariants,
+} from "../animations";
 import animationJSON from "../assets/cat-loading.json";
 import catSleep from "../assets/cat-sleep.json";
 import { Player } from "../components/features/Player/Player.jsx";
 import { api } from "../services/api";
+import { settingsAtom } from "../store/atoms/SettingsAtoms.js";
 import { selectedEpNumberAtom } from "../store/index.js";
-
-// Add these animation variants before the component
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const serverItemVariants = {
-  hidden: { scale: 0.8, opacity: 0 },
-  visible: {
-    scale: 1,
-    opacity: 1,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 12,
-      duration: 0.01,
-    },
-  },
-};
-const episodeVariants = {
-  hidden: { x: -20, opacity: 0 },
-  visible: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 12,
-    },
-  },
-};
 
 const WatchPage = () => {
   const { id } = useParams();
@@ -63,8 +29,8 @@ const WatchPage = () => {
     "category",
     parseAsString.withDefault("sub")
   );
+  const dropdownRef = useRef(null);
 
-  const [searchParams, setSearchParams] = useSearchParams();
   const selectedEpNumber = useRecoilValue(selectedEpNumberAtom);
 
   const {
@@ -80,10 +46,15 @@ const WatchPage = () => {
     enabled: true,
     cacheTime: 2 * 60 * 1000,
   });
-  const [selectedEpisode, setSelectedEpisode] = useState(
-    searchParams.get("ep")
+  const [selectedEpisode, setSelectedEpisode] = useQueryState(
+    "ep",
+    parseAsString.withDefault(epData?.data?.data?.episodes?.[0]?.episodeId)
   );
-
+  const [currentSection, setCurrentSection] = useQueryState(
+    "section",
+    parseAsString.withDefault("1")
+  );
+  const [settings, setSettings] = useRecoilState(settingsAtom);
   const {
     data: serverData,
     isLoading: isServersLoading,
@@ -127,17 +98,53 @@ const WatchPage = () => {
   }, [selectedEpisode, selectedServer, selectedCategory, refetchSource]);
 
   useEffect(() => {
-    if (episodeData?.episodes?.[selectedEpNumber]) {
-      const newEpisodeId = episodeData.episodes[selectedEpNumber].episodeId;
+    if (episodeData?.episodes?.[0] && !selectedEpisode) {
+      const newEpisodeId = episodeData.episodes[0].episodeId;
       if (newEpisodeId !== selectedEpisode) {
         setSelectedEpisode(newEpisodeId);
-        setSearchParams({ ep: newEpisodeId });
       }
     }
-  }, [selectedEpNumber, episodeData, setSearchParams]);
+  }, [episodeData, selectedEpisode]);
+
+  useEffect(() => {
+    if (
+      epData?.data?.data?.episodes?.[selectedEpNumber] &&
+      epData?.data?.data?.episodes?.[selectedEpNumber] !== selectedEpisode &&
+      selectedEpisode !== 0
+    ) {
+      setSelectedEpisode(
+        epData?.data?.data?.episodes?.[selectedEpNumber]?.episodeId
+      );
+    }
+  }, [selectedEpNumber]);
 
   const server = serverData?.data?.data;
-
+  const handleAutoNext = () => {
+    setSettings((prev) => ({
+      ...prev,
+      autoNext: !prev.autoNext,
+    }));
+    localStorage.setItem(
+      "settings",
+      JSON.stringify({
+        ...settings,
+        autoNext: !settings.autoNext,
+      })
+    );
+  };
+  const handleAutoSkipIntro = () => {
+    setSettings((prev) => ({
+      ...prev,
+      autoSkipIntro: !prev.autoSkipIntro,
+    }));
+    localStorage.setItem(
+      "settings",
+      JSON.stringify({
+        ...settings,
+        autoSkipIntro: !settings.autoSkipIntro,
+      })
+    );
+  };
   return (
     <div className="overflow-hidden justify-self-start w-full min-h-screen flex justify-center items-start">
       <div className="overflow-hidden mb-4 flex flex-col w-[98%] gap-3 h-full rounded-xl">
@@ -179,26 +186,33 @@ const WatchPage = () => {
         <div className="overflow-hidden font-poppins w-full flex h-[6.5rem] bg-[#151515] rounded-xl">
           <div className="w-[40%] hidden justify-center items-start lg:flex lg:flex-col h-full border-r-[2px] gap-2 border-border">
             <div className="flex self-start ml-4 justify-center items-center gap-2  ">
-              <div className="  flex font-semibold mt-2 text-text gap-1 justify-center items-center ">
-                <FaStar className=" text-primary" />
-
-                <span className=" text-sm ">Filler!</span>
+              <div className=" flex justify-center items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="toggle toggle-xs toggle-primary"
+                  onChange={handleAutoNext}
+                  checked={settings?.autoNext ?? false}
+                />
+                <span className=" text-xs font-semibold ">Auto Next</span>
               </div>
-              <div className=" flex   font-semibold mt-2 text-text gap-1 justify-center items-center ">
-                <FaHourglassStart size={15} className=" text-primary" />
 
-                <span className=" text-sm ">12</span>
+              <div className=" flex justify-center items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="toggle toggle-xs toggle-primary"
+                  onChange={handleAutoSkipIntro}
+                  checked={settings?.autoSkipIntro ?? false}
+                />
+                <span className=" text-xs font-semibold ">Auto skip Intro</span>
               </div>
             </div>
 
-            <h3 className=" ml-4 w-[70%] text-xs   ">
-              If the current server is not working then please try other servers{" "}
-            </h3>
+            <div className=" flex justify-center items-center   "></div>
           </div>
           <div className=" lg:w-[70%] w-full h-full gap-0 flex flex-col">
             <motion.div
               className="w-full h-[50%] border-b-2 border-b-border items-center flex justify-start gap-3"
-              variants={containerVariants}
+              variants={watchContainerVariants}
               initial="hidden"
               animate="visible"
             >
@@ -210,7 +224,7 @@ const WatchPage = () => {
                     .map((_, i) => (
                       <div
                         key={i}
-                        className="skeleton  w-24 h-9 lg:w-28 rounded-xl py-[6px]"
+                        className="bg-border animate-pulse  w-24 h-9 lg:w-28 rounded-xl py-[6px]"
                       ></div>
                     ))}
                 </>
@@ -246,7 +260,7 @@ const WatchPage = () => {
             </motion.div>
             <motion.div
               className="w-full items-center flex justify-start gap-3 h-[50%]"
-              variants={containerVariants}
+              variants={watchContainerVariants}
               initial="hidden"
               animate="visible"
             >
@@ -258,7 +272,7 @@ const WatchPage = () => {
                     .map((_, i) => (
                       <div
                         key={i}
-                        className="skeleton  w-24 h-9 lg:w-28 rounded-xl py-[6px]"
+                        className=" bg-border animate-pulse  w-24 h-9 lg:w-28 rounded-xl py-[6px]"
                       ></div>
                     ))}
                 </>
@@ -302,21 +316,22 @@ const WatchPage = () => {
         <div className=" w-full overflow-x-hidden py-4 font-poppins  flex   overflow-y-auto min-h-20  max-h-96 bg-[#151515] rounded-xl ">
           {isEpLoading ? (
             <div className="w-full gap-2 h-full flex justify-center flex-col items-center">
-              {Array(6)
-                .fill(0)
-                .map((_, i) => (
-                  <div
-                    key={i}
-                    className="w-[97%] skeleton  h-[3.5rem] rounded-xl         "
-                  ></div>
-                ))}
+              <div className="flex flex-col  w-full gap-4">
+                {/* Section Dropdown Skeleton */}
+                <div className="px-2">
+                  <div className="w-[180px] h-8 rounded-xl bg-border animate-pulse"></div>
+                </div>
+
+                {/* Episodes Grid */}
+                <div className="flex-wrap self-center w-[97%] rounded-xl bg-border animate-pulse px-2 gap-2 h-[200px] flex justify-center items-center"></div>
+              </div>
             </div>
           ) : (
             <>
               {episodeData?.totalEpisodes < 40 ? (
                 <motion.div
-                  className="w-full  gap-2 h-full flex justify-center flex-col items-center"
-                  variants={containerVariants}
+                  className="w-full gap-2 h-full flex justify-center flex-col items-center"
+                  variants={watchContainerVariants}
                   initial="hidden"
                   animate="visible"
                 >
@@ -339,31 +354,101 @@ const WatchPage = () => {
                       } w-[97%]  py-3 line-clamp-1 text-sm rounded-xl md:text-[1rem] lg:h-[3.3rem] ease-in duration-100 cursor-pointer gap-2 flex items-center`}
                     >
                       <span className="ml-5 font-[800]">{item.number}. </span>
-                      <h2>{item.title}</h2>
+                      <h2 className="">{item.title}</h2>
                     </motion.div>
                   ))}
                 </motion.div>
               ) : (
-                <motion.div className="flex-wrap px-2 gap-2 h-full flex justify-center items-center">
-                  {episodeData?.episodes?.map((item, i) => (
-                    <motion.div
-                      key={i}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => {
-                        setSelectedEpisode(item?.episodeId);
-                        setSearchParams({ ep: item?.episodeId });
-                      }}
-                      className={`flex justify-center items-center cursor-pointer font-bold font-poppins w-[4.5rem] h-10 gap-1 rounded-xl ${
-                        selectedEpisode === item?.episodeId
-                          ? "bg-primary hover:bg-primary/80 text-black"
-                          : item.isFiller
-                          ? " bg-primary/40 hover:bg-primary/60 text-black "
-                          : "bg-border hover:bg-border/80 text-text"
-                      } ease-in duration-100`}
-                    >
-                      {item?.number}
-                    </motion.div>
-                  ))}
+                <motion.div className="flex flex-col gap-4">
+                  {episodeData?.episodes?.length > 100 && (
+                    <div ref={dropdownRef} className="dropdown px-2">
+                      <div
+                        tabIndex={0}
+                        role="button"
+                        onClick={() => {
+                          if (dropdownRef.current) {
+                            dropdownRef.current
+                              .querySelector("ul")
+                              .classList.toggle("hidden");
+                          }
+                        }}
+                        className="btn btn-sm bg-border hover:bg-border/80 text-text w-[180px] flex justify-between"
+                      >
+                        <span>
+                          Episodes {(parseInt(currentSection) - 1) * 100 + 1} -{" "}
+                          {Math.min(
+                            parseInt(currentSection) * 100,
+                            episodeData.episodes.length
+                          )}
+                        </span>
+                      </div>
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content menu bg-base-200 rounded-box z-[1] w-[180px] p-2 shadow-xl"
+                      >
+                        {Array.from(
+                          {
+                            length: Math.ceil(
+                              episodeData.episodes.length / 100
+                            ),
+                          },
+                          (_, i) => {
+                            const start = i * 100 + 1;
+                            const end = Math.min(
+                              (i + 1) * 100,
+                              episodeData.episodes.length
+                            );
+                            return (
+                              <li key={i + 1}>
+                                <a
+                                  className={`${
+                                    parseInt(currentSection) === i + 1
+                                      ? "bg-primary/20"
+                                      : ""
+                                  }`}
+                                  onClick={() => {
+                                    setCurrentSection((i + 1).toString());
+                                    if (dropdownRef.current) {
+                                      dropdownRef.current
+                                        .querySelector("ul")
+                                        .classList.add("hidden");
+                                    }
+                                  }}
+                                >
+                                  Episodes {start}-{end}
+                                </a>
+                              </li>
+                            );
+                          }
+                        )}
+                      </ul>
+                    </div>
+                  )}
+                  <motion.div className="flex-wrap px-2 gap-2 h-full flex justify-center items-center">
+                    {episodeData?.episodes
+                      ?.slice(
+                        (parseInt(currentSection) - 1) * 100,
+                        parseInt(currentSection) * 100
+                      )
+                      ?.map((item, i) => (
+                        <motion.div
+                          key={i}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => {
+                            setSelectedEpisode(item?.episodeId);
+                          }}
+                          className={`flex justify-center items-center cursor-pointer font-bold font-poppins w-[4.5rem] h-10 gap-1 rounded-xl ${
+                            selectedEpisode === item?.episodeId
+                              ? "bg-primary hover:bg-primary/80 text-black"
+                              : item.isFiller
+                              ? " bg-primary/40 hover:bg-primary/60 text-black "
+                              : "bg-border hover:bg-border/80 text-text"
+                          } ease-in duration-100`}
+                        >
+                          {item?.number}
+                        </motion.div>
+                      ))}
+                  </motion.div>
                 </motion.div>
               )}
             </>

@@ -19,10 +19,10 @@ const Navbar = () => {
             onClick={() => document.getElementById("my_modal_1").showModal()}
             className=" overflow-hidden md:flex ml-12 gap-1 z-40 bg-background justify-start hidden  items-center  h-10 lg:w-72 md:w-64 w-60 rounded-xl flex-col border-border border-[1px]  "
           >
-            <div className="   flex justify-center items-center gap-1 w-[90%] h-full ">
+            <div className=" font-outfit  flex justify-center items-center gap-1 w-[90%] h-full ">
               <CiSearch className="   text-grayText lg:text-[20px] text-[18px]  " />
               <input
-                className="  w-[80%] bg-transparent text-xs text-grayText outline-none placeholder:text-grayText placeholder:font-bold h-full "
+                className="  w-[80%] bg-transparent text-xs text-grayText outline-none placeholder:text-grayText placeholder:font-semibold h-full "
                 type="text"
                 placeholder=" Search everything "
                 name=""

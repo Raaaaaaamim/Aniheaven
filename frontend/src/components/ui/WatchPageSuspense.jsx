@@ -61,19 +61,14 @@ const WatchPageSuspense = () => {
 
         {/* Episodes Section */}
         <div className="w-full rounded-xl bg-[#151515] p-4">
-          <div className="flex justify-between items-center mb-4">
-            <div className="w-32 h-6 rounded-md bg-border animate-pulse"></div>
-            <div className="w-24 h-6 rounded-md bg-border animate-pulse"></div>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3">
-            {Array(16)
-              .fill(0)
-              .map((_, i) => (
-                <div
-                  key={i}
-                  className="aspect-video rounded-xl bg-border animate-pulse"
-                ></div>
-              ))}
+          <div className="flex flex-col gap-4">
+            {/* Section Dropdown Skeleton */}
+            <div className="px-2  ">
+              <div className="w-[180px] h-8 rounded-xl bg-border animate-pulse"></div>
+            </div>
+
+            {/* Episodes Grid */}
+            <div className="flex-wrap rounded-xl bg-border animate-pulse px-2 gap-2 h-[200px] flex justify-center items-center"></div>
           </div>
         </div>
       </div>

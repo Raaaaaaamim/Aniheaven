@@ -6,9 +6,7 @@ import { IoCalendarClear } from "react-icons/io5";
 import { MdCategory } from "react-icons/md";
 import { PiMicrophoneFill } from "react-icons/pi";
 import { TbClockHour4Filled } from "react-icons/tb";
-import { buttonVariants, textVariants } from "../../../lib/utils.js";
 import useAnimeInfo from "../../hooks/useAnimeInfo.jsx";
-
 const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
   const { refetch, isLoading, data, isError } = useAnimeInfo(id);
   const anime = data?.data?.data?.anime;
@@ -32,22 +30,22 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
       <div className="absolute z-10 bottom-0  flex justify-start  w-full left-0 right-0   bg-gradient-to-t from-black/80 to-transparent">
         <div className="flex relative py-2 ml-2 md:py-4 items-center gap-2">
           <div className="  flex mr-2   justify-center gap-1  flex-col-reverse ">
-            <div className=" flex gap-2 items-center  ">
+            <div className=" flex gap-[1px] items-center  ">
               {dubCount && (
-                <div className="badge badge-xs md:badge-sm   flex justify-center items-center  bg-blue-400 text-black gap-1 dm border-none">
+                <div className="badge badge-xs md:badge-sm   flex justify-center items-center rounded-r-lg  bg-blue-400 text-black gap-1 dm border-none">
                   <PiMicrophoneFill className=" text-xs " />
                   <span className="text-xs">{dubCount ? dubCount : "N/A"}</span>
                 </div>
               )}
               {subCount && (
-                <div className="badge badge-xs md:badge-sm    flex justify-center items-center  bg-[#B0E3AF] text-black gap-1 dm border-none">
+                <div className="badge badge-xs md:badge-sm rounded-l-lg     flex justify-center items-center  bg-[#B0E3AF] text-black gap-1 dm border-none">
                   <BsCcCircleFill className=" text-xs " />
                   <span className="text-xs">{subCount ? subCount : "N/A"}</span>
                 </div>
               )}
             </div>
             <h3
-              className="text-[1rem] w-[100%] h-5  font-semibold
+              className="text-[1rem] font-outfit w-[100%] h-5  font-semibold
            text-white/90  line-clamp-1  "
             >
               {name}
@@ -55,7 +53,7 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
           </div>
         </div>
       </div>
-      <div className=" group-hover:bottom-0 ease-in-out duration-200  z-20 rounded-xl  absolute -bottom-[100%] left-0 backdrop-blur-sm w-full items-center flex justify-center  h-[90%] bg-secondary/80 ">
+      <motion.div className=" group-hover:bottom-0 ease-in-out duration-200  z-20 rounded-xl  absolute -bottom-[100%] left-0 backdrop-blur-sm w-full items-center flex justify-center  h-[90%] bg-secondary/80 ">
         {isLoading ? (
           <div className="flex  mt-auto justify-center items-center w-full h-[90%]">
             <span className="loading loading-ring loading-md"></span>
@@ -66,13 +64,12 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
           </div>
         ) : (
           <div className=" gap-1 flex w-[90%] flex-col justify-center h-fit ">
-            <motion.div
+            <div
               id="anime-info"
-              variants={textVariants}
               className="flex font-poppins    md:gap-1  gap-[3px] flex-col"
             >
               <div className="flex justify-between w-full  items-center">
-                <h3 className=" w-[80%]  line-clamp-2 overflow-hidden md:h-fit text-sm font-poppins font-bold">
+                <h3 className=" w-[80%]  line-clamp-2 overflow-hidden md:h-fit text-sm font-outfit font-bold">
                   {name}
                 </h3>
                 <div className="flex justify-center items-center">
@@ -82,18 +79,18 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
               <p className=" text-ellipsis   w-full   overflow-hidden text-xs line-clamp-2 ">
                 {anime?.info?.description}
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              variants={textVariants}
-              className="flex justify-center self-start py-2 gap-1 items-center"
-            >
-              <div className="badge badge-xs text-black  bg-primary text-xs font-poppins font-bold border-none ">
-                {anime?.info?.stats?.quality || "N/A"}
+            <div className="flex bg-background/40 px-3 rounded-lg justify-center self-start   gap-1 items-center">
+              <div className=" py-[2px] border-r-text/50 bg-transparent   px-1 pr-2 text-text/70 border-r-[1px] text-xs font-poppins font-bold  ">
+                {anime?.info?.stats?.type || "N/A"}
               </div>
               {anime?.info?.stats?.episodes?.sub && (
-                <div className="badge font-poppins badge-xs   flex justify-center items-center bg-[#B0E3AF] text-black gap-1 dm border-none">
-                  <BsCcCircleFill size={10} />
+                <div
+                  className=" px-1 pr-2
+                 py-[2px] border-r-text/50   flex justify-center items-center bg-transparent border-r-[1px] text-text/80 gap-1 font-poppins   "
+                >
+                  <BsCcCircleFill size={12} />
                   <span className="text-xs">
                     {anime?.info?.stats?.episodes?.sub}
                   </span>
@@ -101,37 +98,31 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
               )}
 
               {anime?.info?.stats?.episodes?.dub && (
-                <div className="badge badge-xs   flex justify-center items-center  bg-blue-400 text-black gap-1 dm border-none">
-                  <PiMicrophoneFill size={10} />
+                <div className=" px-1  flex justify-center items-center  bg-transparent  text-text/80 gap-1 font-poppins border-none">
+                  <PiMicrophoneFill size={12} />
                   <span className="text-xs">
                     {anime?.info?.stats?.episodes?.dub}
                   </span>
                 </div>
               )}
-            </motion.div>
+            </div>
 
-            <motion.div
-              variants={textVariants}
-              className="flex flex-col md:flex-row self-start justify-center items-center gap-2    text-sm md:text-base"
-            >
+            <div className="flex flex-col md:flex-row self-start justify-center items-center gap-2    text-sm md:text-base">
               <div className="flex  self-start justify-center items-center gap-1 ">
                 <IoCalendarClear size={15} className="" />
-                <span className="text-gray-300 line-clamp-1 text-xs">
+                <span className="text-gray-300 line-clamp-1 font-outfit text-xs">
                   {anime?.moreInfo?.aired || "N/A"}
                 </span>
               </div>
-              <div className="flex  self-start justify-center items-center gap-1 ">
+              <div className="flex  self-start font-outfit justify-center items-center gap-1 ">
                 <TbClockHour4Filled size={15} className="" />
                 <span className="text-xs">
                   {anime?.moreInfo?.duration || "N/A"}
                 </span>
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              variants={textVariants}
-              className="text-xs self-start flex justify-center items-center gap-2  text-gray-300"
-            >
+            <div className="text-xs self-start flex justify-center items-center gap-2 font-outfit  text-gray-300">
               <MdCategory size={15} />
               {anime?.moreInfo?.genres?.length > 1 ? (
                 <>
@@ -141,32 +132,23 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
               ) : (
                 <span>Not available</span>
               )}
-            </motion.div>
+            </div>
 
-            <motion.div
-              variants={textVariants}
-              className="flex self-start    mt-[8px]   gap-[8px] justify-evenly w-full items-center"
-            >
-              <motion.button
-                variants={buttonVariants}
-                whileTap="tap"
+            <div className="flex self-start    mt-[8px]   gap-[8px] justify-evenly w-full items-center">
+              <button
                 className="btn  flex
-                   justify-center items-center      w-[8.5rem] h-8  btn-primary text-[11px] btn-sm rounded-full"
+                   justify-center items-center text-text     w-[8.5rem] h-8  btn-primary text-[11px] btn-sm rounded-full"
               >
                 <FaPlay className=" text-xs " />
-                <span className=" text-[11px]  ">Watch Now</span>
-              </motion.button>
-              <motion.button
-                variants={buttonVariants}
-                whileTap="tap"
-                className="   w-8 h-8   hover:bg-white/90 ease-in-out duration-100 rounded-full bg-white flex justify-center items-center"
-              >
+                <span className=" text-[11px]   ">Watch Now</span>
+              </button>
+              <button className="   w-8 h-8   hover:bg-white/90 ease-in-out duration-100 rounded-full bg-white flex justify-center items-center">
                 <FiPlus className="text-black" />
-              </motion.button>
-            </motion.div>
+              </button>
+            </div>
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

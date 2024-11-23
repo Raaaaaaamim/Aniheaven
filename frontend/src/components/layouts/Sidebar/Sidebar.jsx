@@ -62,7 +62,7 @@ const Sidebar = () => {
 
 // Separate component for sidebar content to avoid duplication
 const SidebarContent = () => (
-  <div className="gap-0 flex flex-col h-full w-[90%] ml-[20px] py-8">
+  <div className="gap-0 flex font-outfit flex-col h-full w-[90%] ml-[20px] py-8">
     <div className="h-[10%] w-full flex gap-2 items-center justify-start">
       <img className="w-14" src={img1} alt="logo" />
       <span className=" bg-gradient-to-r from-[#a460e4] via-[#b26ff0] to-[#bc82f1]/80 bg-clip-text spicy text-transparent  text-xl">

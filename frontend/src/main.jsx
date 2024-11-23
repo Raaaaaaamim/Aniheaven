@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 
 import { RecoilRoot } from "recoil";
-import "./index.css";
+import "./styles/index.css";
 
 const queryClient = new QueryClient();
 

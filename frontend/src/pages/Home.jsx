@@ -42,13 +42,13 @@ import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Utility and component imports
-import { containerVariants, spotlightVariants } from "../components/ui/animations.jsx";
-import Card from "../components/ui/Card.jsx";
-import HomeSuspense from "../components/ui/HomeSuspense.jsx";
+import { containerVariants, spotlightVariants } from "../animations.jsx";
+import Card from "../components/ui/Card";
+import HomeSuspense from "../components/ui/HomeSuspense";
 
 // Lazy loaded components
-const TrendingCard = lazy(() => import("../components/ui/TrendingCard.jsx"));
-const AnimeCard = lazy(() => import("../components/ui/AnimeCard.jsx"));
+const TrendingCard = lazy(() => import("../components/ui/TrendingCard"));
+const AnimeCard = lazy(() => import("../components/ui/AnimeCard"));
 
 /** Base API endpoint for all anime-related requests */
 export const api = "http://localhost:4000/api/v2";
@@ -145,7 +145,7 @@ const Home = () => {
               {/* Anime information overlay */}
               <motion.div className="absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-8 lg:px-12 text-text">
                 {/* Title */}
-                <motion.h1 className="lg:text-6xl text-2xl flex flex-wrap md:text-5xl gap-3 lg:mb-4 font-poppins">
+                <motion.h1 className="lg:text-6xl text-2xl flex flex-wrap md:text-5xl gap-3 lg:mb-4 font-outfit">
                   <span className="font-bold line-clamp-2 text-text/90">
                     {anime.name}
                   </span>
@@ -193,7 +193,7 @@ const Home = () => {
                 </motion.div>
 
                 {/* Description with length limit */}
-                <motion.p className="lg:text-md text-xs md:text-sm font-poppins md:mb-8 mb-3 max-w-md line-clamp-3 text-gray-300">
+                <motion.p className="lg:text-md text-xs md:text-sm font-inter md:mb-8 mb-3 max-w-md line-clamp-3 text-gray-300">
                   {anime.description}
                 </motion.p>
 
@@ -205,14 +205,14 @@ const Home = () => {
                     className="hover:bg-transparent lg:px-8 lg:py-4 rounded-full flex items-center gap-2 ease-in-out font-poppins lg:text-sm hover:text-gray-200 backdrop-blur-md border-[1px] duration-200 border-white justify-center bg-white text-black md:py-3 text-xs px-4 py-1 md:px-5"
                   >
                     <FaPlay className="lg:text-sm text-[11px]" />
-                    <span className="text-xs md:text-sm font-poppins font-bold md:flex">
+                    <span className="text-xs md:text-sm font-dmsans font-bold md:flex">
                       Watch Now
                     </span>
                   </Link>
 
                   <Link
                     to={`/${anime?.id}`}
-                    className="bg-transparent hover:scale-105 lg:py-4 font-poppins py-4 rounded-full flex items-center gap-2 hover:bg-white hover:text-black transition-all text-white px-4 text-xs lg:text-sm md:py-3 md:px-5 backdrop-blur-md border-[1px] border-white ease-in duration-100"
+                    className="bg-transparent hover:scale-105 lg:py-4 font-poppins py-4 rounded-full flex items-center gap-2 hover:bg-white hover:text-black transition-all text-white px-4 text-xs lg:text-sm md:py-3 md:px-5 backdrop-blur-sm border-[1px] border-white ease-in duration-100"
                   >
                     <FaInfoCircle className="text-md" />
                   </Link>
