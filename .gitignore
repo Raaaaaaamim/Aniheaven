@@ -1,30 +1,9 @@
-# Dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# Testing
-/coverage
-
-# Production
-/build
-/dist
-
-# IDE
-.idea/
-.vscode/
-*.sublime-workspace
-*.sublime-project
-
-# Misc
-.DS_Store
+node_modules/
+.env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
-*.log*
+.DS_Store
+dist/
+build/
 
-# Debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Explicitly include aniwatch-api
+!aniwatch-api/
