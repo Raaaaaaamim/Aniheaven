@@ -53,7 +53,7 @@ const Sidebar = () => {
       </AnimatePresence>
 
       {/* Desktop Sidebar */}
-      <div className="fixed left-0 rounded-r-3xl top-0 h-full w-[18%] hidden lg:block border-r border-border">
+      <div className="fixed left-0 rounded-r-3xl top-0 h-full w-[18%] hidden lg:flex lg:w-[7%]  justify-center items-center xl:w-[18%] border-r border-border">
         <SidebarContent />
       </div>
     </>
@@ -64,14 +64,16 @@ const Sidebar = () => {
 const SidebarContent = () => (
   <div className="gap-0 flex font-outfit flex-col h-full w-[90%] ml-[20px] py-8">
     <div className="h-[10%] w-full flex gap-2 items-center justify-start">
-      <img className="w-14" src={img1} alt="logo" />
-      <span className=" bg-gradient-to-r from-[#a460e4] via-[#b26ff0] to-[#bc82f1]/80 bg-clip-text spicy text-transparent  text-xl">
+      <img className=" w-14 xl:w-14 lg:w-10 " src={img1} alt="logo" />
+      <span className=" bg-gradient-to-r from-[#a460e4] via-[#b26ff0] to-[#bc82f1]/80 lg:hidden xl:flex bg-clip-text spicy text-transparent  text-xl">
         AniHeaven
       </span>
     </div>
 
     <div className="mt-10 h-[30%] w-full gap-3 flex flex-col">
-      <h1 className="ml-3 text-sm text-grayText font-bold">Options</h1>
+      <h1 className="ml-3 text-sm text-grayText lg:hidden flex xl:flex font-bold">
+        Options
+      </h1>
       <div className="self-start center">
         <Link to="/">
           <Button Icon={FiHome}>Home</Button>
@@ -88,7 +90,9 @@ const SidebarContent = () => (
     <div className="ml-2 divider w-[70%]"></div>
 
     <div className="max-h-[600px] h-[50%]">
-      <h1 className="ml-3 text-sm text-grayText font-bold">Categories</h1>
+      <h1 className="ml-3 text-sm lg:hidden flex xl:flex text-grayText font-bold">
+        Categories
+      </h1>
       <div className="categories-scroll overflow-hidden w-full mt-6 ml-2 h-[170px] flex flex-col gap-4">
         <Category
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtF6Ss58jVTGqlLOPMZ8cmfw4RuFgJwjRryA&s"

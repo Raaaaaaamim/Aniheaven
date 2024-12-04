@@ -15,10 +15,10 @@ const Category = ({ src, title }) => {
         </div>
       </div>
 
-      <h2 className="group-hover:text-text ease-in duration-100  font-bold text-sm text-grayText ">
+      <h2 className="group-hover:text-text lg:hidden xl:block block ease-in duration-100  font-bold text-sm text-grayText ">
         {title || "No Category"}
       </h2>
-      <div className=" ml-5 ease-in duration-100 hidden group-hover:flex w-2 h-2 rounded-full bg-primary "></div>
+      <div className=" ml-5 ease-in duration-100 lg:group-hover:hidden hidden group-hover:flex xl:group-hover:flex w-2 h-2 rounded-full bg-primary "></div>
     </div>
   );
 };

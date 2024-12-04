@@ -27,14 +27,11 @@ const HomeSuspense = () => {
         <div className="max-w-[67rem] flex flex-col gap-8">
           <div className="self-start md:text-2xl text-2xl border-l-4 px-3 border-primary ml-2 bg-[#1f1f1f] animate-pulse h-8 w-48 rounded-sm" />
           <div className="gap-3 w-full flex justify-center items-center flex-wrap">
-            {[...Array(12)].map((_, i) => (
+            {[...Array(8)].map((_, i) => (
               <div
                 key={i}
-                className="relative hover:scale-[1.05] ease-in-out duration-200 group rounded-xl w-full h-[280px] md:w-64 md:h-[370px] overflow-hidden bg-[#1f1f1f] animate-pulse"
-              >
-                {/* Title gradient */}
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#2a2a2a] to-transparent" />
-              </div>
+                className="relative hover:scale-[1.05] ease-in-out duration-200 group rounded-xl w-[180px] h-[280px] md:w-64 md:h-[370px] overflow-hidden bg-[#1f1f1f] animate-pulse"
+              ></div>
             ))}
           </div>
         </div>

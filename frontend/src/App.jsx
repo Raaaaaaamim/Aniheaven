@@ -26,7 +26,7 @@ const router = createBrowserRouter([
             <Suspense fallback={<SidebarSuspense />}>
               <Sidebar />
             </Suspense>
-            <div className="w-full justify-center items-center flex lg:w-[82%] lg:ml-auto min-h-screen">
+            <div className="w-full justify-center items-center flex lg:w-[93%] xl:w-[82%] lg:ml-auto min-h-screen">
               <Outlet />
             </div>
           </div>
