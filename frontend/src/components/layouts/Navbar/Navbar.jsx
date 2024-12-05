@@ -8,7 +8,7 @@ import { TbMessageCircleHeart } from "react-icons/tb";
 import Modal from "../../../components/ui/SearchModal.jsx";
 const Navbar = () => {
   return (
-    <nav className=" flex h-20 ml-0 w-[100%] font-poppins justify-center items-center lg:w-[81.5%]  lg:ml-[18%]   ">
+    <nav className=" flex h-20 ml-0 w-[100%] font-poppins justify-center items-center xl:w-[81.5%] lg:w-[93%] lg:ml-[7%]  xl:ml-[18%]   ">
       <div className=" w-full  flex gap-5  items-center justify-between ">
         <div className=" ml-6 flex justify-center gap-11 items-center  ">
           <div className="   hidden icon lg:flex justify-center items-center gap-6 ">

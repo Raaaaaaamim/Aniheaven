@@ -3,6 +3,7 @@ import debounce from "lodash/debounce";
 import { useCallback, useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
+import { Link } from "react-router-dom";
 import { api } from "../../services/api";
 
 const SearchModal = ({ id }) => {
@@ -86,7 +87,8 @@ const SearchModal = ({ id }) => {
             {!isLoading && results?.suggestions && (
               <div className="flex w-full gap-3  mb-3  mt-2 items-center h-80 overflow-auto flex-col">
                 {results?.suggestions.map((anime, i) => (
-                  <div
+                  <Link
+                    to={`/info/${anime.id}`}
                     key={`${anime.id}-${i}`}
                     className={`w-[95%] ${
                       i === 0 && "mt-2"
@@ -120,7 +122,7 @@ const SearchModal = ({ id }) => {
                         </div>
                       )}
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}
