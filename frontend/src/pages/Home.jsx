@@ -114,7 +114,7 @@ const Home = () => {
           delay: 5000,
           disableOnInteraction: false,
         }}
-        className="w-full xl:h-[80vh] max-w-8xl md:h-[400px] lg:mx-auto h-[300px] lg:h-[600px] max-h-[620px] rounded-2xl overflow-hidden custom-swiper"
+        className="w-full  max-w-8xl md:h-[400px] lg:mx-auto h-[300px] lg:h-[80vh]   max-h-[600px] rounded-2xl overflow-hidden custom-swiper"
       >
         {/* Mapping spotlight anime data to slides */}
         {data?.data?.spotlightAnimes?.map((anime, i) => (
@@ -211,7 +211,7 @@ const Home = () => {
                   </Link>
 
                   <Link
-                    to={`/${anime?.id}`}
+                    to={`/info/${anime?.id}`}
                     className="bg-transparent hover:scale-105 lg:py-4 font-poppins py-4 rounded-full flex items-center gap-2 hover:bg-white hover:text-black transition-all text-white px-4 text-xs lg:text-sm md:py-3 md:px-5 backdrop-blur-sm border-[1px] border-white ease-in duration-100"
                   >
                     <FaInfoCircle className="text-md" />
@@ -262,11 +262,14 @@ const Home = () => {
                   </div>
                 }
               >
-                <TrendingCard
-                  rank={index + 1}
-                  title={anime.name}
-                  image={anime.poster}
-                />
+                <>
+                  <TrendingCard
+                    rank={index + 1}
+                    title={anime.name}
+                    image={anime.poster}
+                    id={anime.id}
+                  />
+                </>
               </Suspense>
             </SwiperSlide>
           ))}

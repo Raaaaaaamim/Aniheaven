@@ -88,6 +88,7 @@ const SearchModal = ({ id }) => {
               <div className="flex w-full gap-3  mb-3  mt-2 items-center h-80 overflow-auto flex-col">
                 {results?.suggestions.map((anime, i) => (
                   <Link
+                    onClick={() => document.getElementById(id).close()}
                     to={`/info/${anime.id}`}
                     key={`${anime.id}-${i}`}
                     className={`w-[95%] ${

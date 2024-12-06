@@ -27,12 +27,12 @@ const AnimeInfo = () => {
       );
     },
   });
+
   useEffect(() => {
     if (data?.data?.data?.anime?.info?.malId) {
       refetch();
     }
   }, [data]);
-  console.log(characters);
 
   if (isLoading) {
     return (
@@ -82,9 +82,10 @@ const AnimeInfo = () => {
         <div className="absolute h-[300px]  sm:h-[400px] inset-0">
           <img
             src={info.poster}
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full  object-cover   object-top"
             alt={info.name}
           />
+          <div className=" absolute inset-0 backdrop-blur-sm "></div>
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/95 to-transparent" />
         </div>
 
@@ -170,7 +171,7 @@ const AnimeInfo = () => {
         !charactersError &&
         characters?.data?.data?.length > 0 && (
           <section className="container mx-auto  lg:mt-0 px-4 py-8">
-            <div className="text-xl font-bold border-l-4 px-2 border-primary text-text mb-6">
+            <div className=" text-xl font-bold border-l-4 px-2 border-primary text-text mb-6">
               Characters & Voice Actors
             </div>
             <div className="grid font-outfit grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
@@ -190,7 +191,7 @@ const AnimeInfo = () => {
                             item?.character?.images?.jpg?.image_url
                           }
                           alt={item.character.name}
-                          className="w-[65px] h-[65px] sm:w-[75px] sm:h-[75px] rounded-full object-cover ring-2 ring-primary/20 hover:scale-105 transition-transform duration-300"
+                          className="w-[65px]  h-[65px] sm:w-[75px] sm:h-[75px] rounded-full object-cover ring-2 ring-primary/20 hover:scale-105 transition-transform duration-300"
                         />
                         <div className="absolute -bottom-1 right-0 bg-secondary/90 text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full">
                           {item.role}
@@ -208,26 +209,29 @@ const AnimeInfo = () => {
 
                     {/* Voice Actor Side */}
                     <div className="flex-1 flex flex-col items-center">
-                      {item.voice_actors?.[0] && (
-                        <div className="relative">
-                          <img
-                            src={
-                              item.voice_actors?.[0]?.person?.images?.webp
-                                ?.image_url ||
-                              item.voice_actors?.[0]?.person?.images?.jpg
-                                ?.image_url
-                            }
-                            alt={item.voice_actors?.[0]?.person?.name}
-                            className="w-[65px] h-[65px] sm:w-[75px] sm:h-[75px] rounded-full object-cover ring-2 ring-primary/20 hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute -bottom-1 right-0 bg-primary/90 text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full">
-                            {item.voice_actors?.[0]?.language}
-                          </div>
+                      <div className="relative">
+                        <img
+                          src={
+                            item.voice_actors?.[0]?.person?.images?.webp
+                              ?.image_url ||
+                            item.voice_actors?.[0]?.person?.images?.jpg
+                              ?.image_url ||
+                            "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3383.jpg"
+                          }
+                          alt={
+                            item.voice_actors?.[0]?.person?.name ||
+                            "Unknown Person"
+                          }
+                          className="w-[65px] h-[65px] sm:w-[75px] sm:h-[75px] rounded-full object-cover ring-2 ring-primary/20 hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute -bottom-1 right-0 bg-primary/90 text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full">
+                          {item.voice_actors?.[0]?.language || "Unknown"}
                         </div>
-                      )}
+                      </div>
+
                       <div className="w-full mt-2">
                         <p className="text-xs sm:text-sm font-medium text-text/90 text-center truncate px-1">
-                          {item.voice_actors?.[0]?.person?.name}
+                          {item.voice_actors?.[0]?.person?.name || "Unknown"}
                         </p>
                       </div>
                     </div>
@@ -248,7 +252,7 @@ const AnimeInfo = () => {
       {/* Related Anime */}
       {relatedAnimes?.length > 0 && (
         <section className="container mx-auto  px-4 py-6">
-          <h2 className=" md:text-2xl text-xl font-bold border-l-4 px-2 border-primary text-text mb-4">
+          <h2 className="  text-xl font-bold border-l-4 px-2 border-primary text-text mb-4">
             Related Anime
           </h2>
           <div className="grid place-items-center grid-cols-2 w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
@@ -271,7 +275,7 @@ const AnimeInfo = () => {
       {/* Recommended Anime */}
       {recommendedAnimes?.length > 0 && (
         <section className="container mx-auto px-4 py-6">
-          <h2 className="md:text-2xl text-xl border-l-4 px-2 border-primary font-bold text-text mb-4">
+          <h2 className=" text-xl border-l-4 px-2 border-primary font-bold text-text mb-4">
             Recommended Anime
           </h2>
           <div className="grid place-items-center grid-cols-2 w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">

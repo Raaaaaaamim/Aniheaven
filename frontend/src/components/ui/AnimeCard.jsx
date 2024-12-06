@@ -6,18 +6,32 @@ import { IoCalendarClear } from "react-icons/io5";
 import { MdCategory } from "react-icons/md";
 import { PiMicrophoneFill } from "react-icons/pi";
 import { TbClockHour4Filled } from "react-icons/tb";
+import { Link } from "react-router-dom";
 import useAnimeInfo from "../../hooks/useAnimeInfo.jsx";
+
 const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
   const { refetch, isLoading, data, isError } = useAnimeInfo(id);
   const anime = data?.data?.data?.anime;
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{
+        opacity: 1,
+        scale: 1,
+        transition: {
+          duration: 0.3,
+          ease: [0.25, 0.1, 0.25, 1.0],
+          opacity: { duration: 0.4 },
+          scale: { duration: 0.3 },
+        },
+      }}
+      viewport={{ once: true, amount: 0.3 }}
       onMouseEnter={refetch}
-      className="relative hover:scale-[1.05] ease-in-out duration-200 group rounded-xl group   h-[280px] w-[180px] md:w-[200px] overflow-hidden"
+      className="relative hover:scale-[1.05] ease-in-out duration-300 group rounded-xl group   h-[280px] w-[180px] md:w-[200px] overflow-hidden"
     >
       <img
-        className=" w-full group-hover:scale-110  ease-in-out duration-200 h-full absolute z-10 top-0 left-0 "
+        className=" w-full group-hover:scale-110  ease-in-out duration-300 h-full absolute z-10 top-0 left-0 "
         loading="lazy"
         src={image}
         alt={name}
@@ -69,12 +83,18 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
               className="flex font-poppins    md:gap-1  gap-[3px] flex-col"
             >
               <div className="flex justify-between w-full  items-center">
-                <h3 className=" w-[80%]  line-clamp-2 overflow-hidden md:h-fit text-sm font-outfit font-bold">
+                <Link
+                  to={`/info/${id}`}
+                  className=" w-[80%]  line-clamp-2 overflow-hidden md:h-fit text-sm font-outfit font-bold"
+                >
                   {name}
-                </h3>
-                <div className="flex justify-center items-center">
+                </Link>
+                <Link
+                  to={`/info/${id}`}
+                  className="flex justify-center items-center"
+                >
                   <BsFillInfoCircleFill className=" w-4 h-4  cursor-pointer " />
-                </div>
+                </Link>
               </div>
               <p className=" text-ellipsis   w-full   overflow-hidden text-xs line-clamp-2 ">
                 {anime?.info?.description}
@@ -126,7 +146,7 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
               <MdCategory size={15} />
               {anime?.moreInfo?.genres?.length > 1 ? (
                 <>
-                  <span>{anime?.moreInfo?.genres[0] || ""}</span>|
+                  <span>{anime?.moreInfo?.genres[0] || ""}</span>|{" "}
                   <span>{anime?.moreInfo?.genres[1] || ""}</span>
                 </>
               ) : (
@@ -149,7 +169,7 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
           </div>
         )}
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import Footer from "./components/layouts/Footer/Footer.jsx";
 import HomeSuspense from "./components/ui/HomeSuspense.jsx";
 import { LoadingFallback } from "./components/ui/LoadingFallback.jsx";
 import NavbarSuspense from "./components/ui/NavbarSuspense.jsx";
@@ -28,6 +29,11 @@ const router = createBrowserRouter([
             </Suspense>
             <div className="w-full justify-center items-center flex lg:w-[93%] xl:w-[82%] lg:ml-auto min-h-screen">
               <Outlet />
+            </div>
+          </div>
+          <div className="w-full   pt-20 justify-center items-center flex lg:w-[93%] xl:w-[82%] lg:ml-auto   ">
+            <div className=" w-full h-full max-w-[1090px] ">
+              <Footer />
             </div>
           </div>
         </div>
