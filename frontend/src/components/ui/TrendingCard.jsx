@@ -17,7 +17,7 @@ const TrendingCard = ({ rank, image, title, id }) => {
         />
 
         {/* Rank */}
-        <h1 className="absolute top-0 right-0 z-[11] bg-gradient-to-r from-primary via-primary to-primary/90 h-11 w-9 flex justify-center items-center text-black text-xl rounded-bl-xl font-[800] shadow-[0_4px_16px_rgba(120,119,198,0.4)]">
+        <h1 className="absolute top-0 right-0 z-[11] bg-gradient-to-r from-primary via-primary to-primary/80 h-11 w-9 flex justify-center items-center text-black/90 text-xl rounded-bl-xl font-[800] border-b-2 font-poppins border-white/90">
           {rankNumber >= 10 ? rankNumber : `0${rankNumber}`}
         </h1>
 

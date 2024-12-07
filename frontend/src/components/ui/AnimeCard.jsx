@@ -26,7 +26,7 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
       }}
       viewport={{ once: true, amount: 0.3 }}
       onMouseEnter={refetch}
-      className="relative hover:scale-[1.02] ease-in-out duration-300 group rounded-xl h-[280px] w-[180px] md:w-[200px] overflow-hidden border border-white/[0.05] shadow-[0_8px_32px_rgba(0,0,0,0.4)] bg-[#0f0f0f]"
+      className="relative hover:scale-[1.02] ease-in-out duration-300 group rounded-xl h-[280px] w-[180px] md:w-[200px] overflow-hidden border border-white/[0.05]  bg-[#0f0f0f]"
     >
       <img
         className="w-full group-hover:scale-110 ease-in-out duration-300 h-full absolute z-10 top-0 left-0 rounded-xl"
@@ -35,7 +35,7 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
         alt={name}
       />
       {!hide && (
-        <h1 className="absolute top-0 right-0 z-10 bg-gradient-to-r from-primary via-primary to-primary/90 h-11 w-9 flex justify-center items-center text-black text-xl rounded-bl-xl font-[800] shadow-[0_4px_16px_rgba(120,119,198,0.4)]">
+        <h1 className="absolute top-0 right-0 z-10 bg-gradient-to-r from-primary via-primary to-primary/80 font-poppins h-11 w-9 flex justify-center items-center text-black/90 text-xl rounded-bl-xl font-[800] border-b-2 ">
           {rank >= 10 ? rank : `0${rank}`}
         </h1>
       )}
@@ -145,7 +145,7 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
 
             <div className="flex justify-between items-center mt-3">
               <Link to={`/watch/${id}`} className="flex-1 mr-2">
-                <button className="w-full py-2 px-4 rounded-lg bg-gradient-to-r from-primary via-primary to-primary/90 text-black text-xs font-outfit font-semibold hover:opacity-90 transition-all duration-300 shadow-[0_4px_16px_rgba(120,119,198,0.4)] flex items-center justify-center gap-2">
+                <button className="w-full py-2 px-4 rounded-lg bg-gradient-to-r from-primary via-primary to-primary/90 text-black text-xs font-outfit font-semibold hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-2">
                   <span>Watch Now</span>
                 </button>
               </Link>

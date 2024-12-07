@@ -76,12 +76,14 @@ const SearchModal = ({ id }) => {
 
             {!value && !isLoading && (
               <div className="flex items-center justify-center h-32">
-                <h1 className="text-sm text-white/30">Type something to search</h1>
+                <h1 className="text-sm text-white/30">
+                  Type something to search
+                </h1>
               </div>
             )}
 
             {isLoading && (
-              <div className="flex min-h-48 overflow-auto flex-col gap-3 w-full py-4 h-full justify-center items-center">
+              <div className="flex min-h-48 overflow-auto flex-col gap-3 w-full py-4 h-full justify-center max-h-[300px] items-center">
                 {Array(3)
                   .fill(0)
                   .map((_, i) => (
@@ -94,7 +96,7 @@ const SearchModal = ({ id }) => {
             )}
 
             {!isLoading && results?.suggestions && (
-              <div className="flex w-full gap-2 py-2 items-center max-h-[60vh] overflow-y-auto overflow-x-hidden flex-col custom-scrollbar">
+              <div className="flex w-full gap-2 py-2 items-center max-h-[300px] overflow-y-auto overflow-x-hidden flex-col custom-scrollbar">
                 {results?.suggestions.map((anime, i) => (
                   <Link
                     onClick={() => document.getElementById(id).close()}
@@ -121,11 +123,17 @@ const SearchModal = ({ id }) => {
                       </h2>
                       {anime?.moreInfo && (
                         <div className="flex items-center gap-2 text-white/30 text-xs flex-wrap">
-                          <span className="line-clamp-1">{anime?.moreInfo[0]}</span>
+                          <span className="line-clamp-1">
+                            {anime?.moreInfo[0]}
+                          </span>
                           <span className="w-1 h-1 rounded-full bg-white/20 shrink-0" />
-                          <span className="line-clamp-1">{anime?.moreInfo[1]}</span>
+                          <span className="line-clamp-1">
+                            {anime?.moreInfo[1]}
+                          </span>
                           <span className="w-1 h-1 rounded-full bg-white/20 shrink-0" />
-                          <span className="line-clamp-1">{anime?.moreInfo[2]}</span>
+                          <span className="line-clamp-1">
+                            {anime?.moreInfo[2]}
+                          </span>
                         </div>
                       )}
                     </div>

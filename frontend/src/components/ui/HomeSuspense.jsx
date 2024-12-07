@@ -16,7 +16,7 @@ const HomeSuspense = () => {
               className="relative flex-shrink-0 border-border border-[1px] font-poppins w-[220px] h-[280px] md:w-[220px] md:h-[300px] lg:w-[190px] lg:h-[270px] xl:w-[200px] xl:h-[280px] rounded-xl overflow-hidden bg-[#1f1f1f] animate-pulse"
             >
               {/* Rank indicator */}
-              <div className="absolute top-0 right-0 z-10 bg-[#2a2a2a] h-11 w-9 rounded-bl-xl" />
+              <div className="absolute top-0 right-0 z-10 bg-primary/20 h-11 w-9 rounded-bl-xl" />
             </div>
           ))}
         </div>

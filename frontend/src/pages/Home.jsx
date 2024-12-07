@@ -260,14 +260,12 @@ const Home = () => {
                   </div>
                 }
               >
-                <>
-                  <TrendingCard
-                    rank={index + 1}
-                    title={anime.name}
-                    image={anime.poster}
-                    id={anime.id}
-                  />
-                </>
+                <TrendingCard
+                  rank={index + 1}
+                  title={anime.name}
+                  image={anime.poster}
+                  id={anime.id}
+                />
               </Suspense>
             </SwiperSlide>
           ))}

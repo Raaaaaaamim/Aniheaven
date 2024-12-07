@@ -166,7 +166,7 @@ const WatchPage = () => {
             <>
               {isSourceError && (
                 <div className="text-text font-outfit w-full h-full flex justify-center items-center bg-[#0f0f0f]">
-                  <div className="flex flex-col gap-3 items-center backdrop-blur-sm bg-white/[0.02] p-8 rounded-3xl border border-white/[0.05] shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+                  <div className="flex flex-col gap-3 items-center backdrop-blur-sm bg-white/[0.02] p-8 rounded-3xl border border-white/[0.05] ">
                     <div className="w-48 h-48">
                       <Lottie animationData={catSleep} loop={true} />
                     </div>
@@ -178,7 +178,7 @@ const WatchPage = () => {
               )}
               {isSourceLoading && (
                 <div className="w-full aspect-video bg-[#0f0f0f] flex items-center justify-center">
-                  <div className="backdrop-blur-sm bg-white/[0.02] p-8 rounded-3xl border border-white/[0.05] shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+                  <div className="backdrop-blur-sm bg-white/[0.02] p-8 rounded-3xl border border-white/[0.05] ">
                     <Lottie animationData={animationJSON} className="w-32" />
                   </div>
                 </div>

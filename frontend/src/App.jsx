@@ -4,6 +4,7 @@ import Footer from "./components/layouts/Footer/Footer.jsx";
 import HomeSuspense from "./components/ui/HomeSuspense.jsx";
 import { LoadingFallback } from "./components/ui/LoadingFallback.jsx";
 import NavbarSuspense from "./components/ui/NavbarSuspense.jsx";
+import ScrollToTop from "./components/ui/ScrollToTop.jsx"; // Added import statement
 import SidebarSuspense from "./components/ui/SidebarSuspense.jsx";
 import WatchPageSuspense from "./components/ui/WatchPageSuspense.jsx";
 import AnimeInfo from "./pages/AnimeInfo.jsx";
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
     element: (
       <div className="w-full bg-background overflow-hidden min-h-screen">
         <div className="flex flex-col">
+          <ScrollToTop />
           <Suspense fallback={<NavbarSuspense />}>
             <Navbar />
           </Suspense>
