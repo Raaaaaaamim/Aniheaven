@@ -49,77 +49,83 @@ const SearchModal = ({ id }) => {
 
   return (
     <dialog id={id} className="modal">
-      <div className="modal-box  rounded-xl overflow-hidden bg-background gap-4 flex max-w-2xl font-outfit justify-center items-start flex-col">
-        <div className=" flex flex-col gap-1  ">
-          <h1 className="text-2xl  font-bold">Search</h1>
-          <p className="text-sm  ">Discover anime by title</p>
+      <div className="modal-box bg-[#0f0f0f] rounded-3xl overflow-hidden gap-4 flex max-w-3xl font-outfit justify-center items-start flex-col border border-white/[0.05] p-6">
+        <div className="flex flex-col gap-1 w-full pr-8">
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-white/90 to-white/70 bg-clip-text text-transparent">
+            Search
+          </h1>
+          <p className="text-sm text-white/50">Discover anime by title</p>
         </div>
-        <div className="bg-black border-border border-[1px] rounded-lg self-start w-full h-full justify-center items-start gap-2 flex flex-col">
-          <div className="py-3 border-b-border border-b-[1px] flex justify-start items-center gap-1 w-full h-full">
-            <CiSearch className="ml-2 text-grayText lg:text-[20px] text-[18px]" />
+
+        <div className="bg-[#0f0f0f] border-white/[0.05] border rounded-2xl self-start w-full h-full justify-center items-start gap-2 flex flex-col shadow-lg">
+          <div className="py-4 border-b border-white/[0.05] flex justify-start items-center gap-3 w-full h-full px-4">
+            <CiSearch className="text-white/50 text-xl min-w-[20px]" />
             <input
               value={value}
               onChange={handleChange}
-              className="w-[80%] bg-transparent text-xs md:text-sm text-text outline-none placeholder:text-grayText h-full"
+              className="w-full bg-transparent text-sm text-white/90 outline-none placeholder:text-white/30 h-full"
               type="text"
               placeholder="Search everything"
             />
           </div>
-          <div className="w-full min-h-14 flex flex-col">
-            <span className="text-xs ml-2 text-grayText">
+
+          <div className="w-full min-h-14 flex flex-col p-4">
+            <span className="text-xs text-white/40 mb-2">
               Search results for {value && `"${value}"`}
             </span>
+
             {!value && !isLoading && (
-              <h1 className="text-sm ml-2 mt-1">Type something to search</h1>
+              <div className="flex items-center justify-center h-32">
+                <h1 className="text-sm text-white/30">Type something to search</h1>
+              </div>
             )}
+
             {isLoading && (
-              <div className="flex min-h-48 overflow-auto flex-col gap-3 w-full mb-4 mt-4 h-full justify-center items-center">
+              <div className="flex min-h-48 overflow-auto flex-col gap-3 w-full py-4 h-full justify-center items-center">
                 {Array(3)
                   .fill(0)
                   .map((_, i) => (
-                    <span
+                    <div
                       key={i}
-                      className="w-[95%] rounded-lg h-[6.1rem] animate-pulse skeleton"
-                    ></span>
+                      className="w-full rounded-xl h-24 animate-pulse bg-white/[0.02] border border-white/[0.05]"
+                    />
                   ))}
               </div>
             )}
+
             {!isLoading && results?.suggestions && (
-              <div className="flex w-full gap-3  mb-3  mt-2 items-center h-80 overflow-auto flex-col">
+              <div className="flex w-full gap-2 py-2 items-center max-h-[60vh] overflow-y-auto overflow-x-hidden flex-col custom-scrollbar">
                 {results?.suggestions.map((anime, i) => (
                   <Link
                     onClick={() => document.getElementById(id).close()}
                     to={`/info/${anime.id}`}
                     key={`${anime.id}-${i}`}
-                    className={`w-[95%] ${
-                      i === 0 && "mt-2"
-                    } text-text hover:bg-[#0c0c0c] border-border border-[1px]   hover:ease-in-out hover:duration-200 cursor-pointer rounded-lg min-h-24 gap-3 py-2 flex  items-center`}
+                    className="w-full group bg-[#0f0f0f] hover:bg-[#1a1a1a] border-white/[0.05] border rounded-xl transition-all duration-300 cursor-pointer min-h-24 gap-3 p-3 flex items-center"
                   >
-                    <img
-                      src={anime.poster}
-                      className="w-16 h-20 ml-2  rounded-lg"
-                      alt={anime.name + " poster"}
-                    />
-                    <div className="flex w-[80%]  flex-col gap-1">
-                      <h1 className="text-sm  line-clamp-1 font-semibold">
+                    <div className="relative overflow-hidden">
+                      <img
+                        src={anime.poster}
+                        className="w-16 h-20 rounded-lg object-cover transition-all duration-300 group-hover:scale-105"
+                        alt={anime.name + " poster"}
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                    </div>
+
+                    <div className="flex flex-col gap-1.5 flex-1 min-w-0">
+                      <h1 className="text-sm font-medium text-white/90 line-clamp-1 group-hover:text-white transition-colors duration-300">
                         {anime.name}
                       </h1>
-                      <h1 className="text-xs  line-clamp-1 text-grayText font-semibold">
+                      <h2 className="text-xs text-white/40 line-clamp-1 font-medium">
                         {anime.jname}
-                      </h1>
+                      </h2>
                       {anime?.moreInfo && (
-                        <div className=" gap-1 text-gray-500  flex justify-start items-center ">
-                          <span className="text-xs text-grayText ">
-                            {anime?.moreInfo[0]}
-                          </span>
-                          •
-                          <span className="text-xs text-grayText ">
-                            {anime?.moreInfo[1]}
-                          </span>
-                          •
-                          <span className="text-xs text-grayText ">
-                            {anime?.moreInfo[2]}
-                          </span>
+                        <div className="flex items-center gap-2 text-white/30 text-xs flex-wrap">
+                          <span className="line-clamp-1">{anime?.moreInfo[0]}</span>
+                          <span className="w-1 h-1 rounded-full bg-white/20 shrink-0" />
+                          <span className="line-clamp-1">{anime?.moreInfo[1]}</span>
+                          <span className="w-1 h-1 rounded-full bg-white/20 shrink-0" />
+                          <span className="line-clamp-1">{anime?.moreInfo[2]}</span>
                         </div>
                       )}
                     </div>
@@ -132,8 +138,8 @@ const SearchModal = ({ id }) => {
 
         <div className="modal-action">
           <form method="dialog">
-            <button className="p-[6px] rounded-full border-border border-[1px] flex justify-center items-center absolute top-5 right-5">
-              <RxCross1 size={12} />
+            <button className="absolute top-4 right-4 p-2 rounded-xl border border-white/[0.05] bg-[#0f0f0f] hover:bg-[#1a1a1a] transition-colors duration-300 group">
+              <RxCross1 className="w-4 h-4 text-white/50 group-hover:text-white/90 transition-colors duration-300" />
             </button>
           </form>
         </div>

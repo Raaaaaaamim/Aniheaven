@@ -53,7 +53,7 @@ const Sidebar = () => {
       </AnimatePresence>
 
       {/* Desktop Sidebar */}
-      <div className="fixed left-0 rounded-r-3xl top-0 h-full w-[18%] hidden lg:flex lg:w-[7%]  justify-center items-center xl:w-[18%] border-r border-border">
+      <div className="fixed left-0 rounded-r-3xl top-0 h-full w-[18%] hidden lg:flex lg:w-[7%] max-w-[24rem] justify-center items-center xl:w-[18%] border-r border-border">
         <SidebarContent />
       </div>
     </>

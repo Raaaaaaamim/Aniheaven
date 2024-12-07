@@ -27,12 +27,14 @@ const router = createBrowserRouter([
             <Suspense fallback={<SidebarSuspense />}>
               <Sidebar />
             </Suspense>
-            <div className="w-full justify-center items-center flex lg:w-[93%] xl:w-[82%] lg:ml-auto min-h-screen">
-              <Outlet />
+            <div className="w-full justify-center items-center flex lg:w-[93%] xl:w-[82%]  lg:ml-auto min-h-screen">
+              <div className=" max-w-[1200px] w-full h-full ">
+                <Outlet />
+              </div>
             </div>
           </div>
           <div className="w-full   pt-20 justify-center items-center flex lg:w-[93%] xl:w-[82%] lg:ml-auto   ">
-            <div className=" w-full h-full max-w-[1090px] ">
+            <div className=" w-full h-full max-w-[1200px] ">
               <Footer />
             </div>
           </div>

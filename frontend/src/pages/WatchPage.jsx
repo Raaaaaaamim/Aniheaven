@@ -146,9 +146,10 @@ const WatchPage = () => {
     );
   };
   return (
-    <div className="overflow-hidden justify-self-start w-full min-h-screen flex justify-center items-start">
-      <div className="overflow-hidden mb-4 flex flex-col w-[98%] gap-3 h-full rounded-xl">
-        <div className="overflow-hidden aspect-video rounded-2xl">
+    <div className="overflow-hidden justify-self-start w-full min-h-screen flex justify-center items-start bg-transparent ">
+      <div className="overflow-hidden mb-4 flex flex-col w-[98%] gap-4 h-full">
+        <div className="overflow-hidden aspect-video rounded-3xl relative group ">
+          <div className="absolute inset-0   opacity-100 group-hover:opacity-0 transition-all duration-500"></div>
           {!isServersLoading &&
           !isSourceError &&
           !isSourceLoading &&
@@ -164,59 +165,68 @@ const WatchPage = () => {
           ) : (
             <>
               {isSourceError && (
-                <div className=" text-text font-poppins w-full h-full flex justify-center items-center ">
-                  <div className=" flex flex-col gap-1 ">
+                <div className="text-text font-outfit w-full h-full flex justify-center items-center bg-[#0f0f0f]">
+                  <div className="flex flex-col gap-3 items-center backdrop-blur-sm bg-white/[0.02] p-8 rounded-3xl border border-white/[0.05] shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
                     <div className="w-48 h-48">
                       <Lottie animationData={catSleep} loop={true} />
                     </div>
-                    <h1 className=" text-lg font-bold ">
+                    <h1 className="text-lg font-semibold bg-gradient-to-r from-primary/90 via-primary to-primary/90 bg-clip-text text-transparent">
                       Something went wrong
                     </h1>
                   </div>
                 </div>
               )}
               {isSourceLoading && (
-                <div className="w-full aspect-video bg-[#1f1f1f] animate-pulse flex items-center justify-center">
-                  <Lottie animationData={animationJSON} className="w-32" />
+                <div className="w-full aspect-video bg-[#0f0f0f] flex items-center justify-center">
+                  <div className="backdrop-blur-sm bg-white/[0.02] p-8 rounded-3xl border border-white/[0.05] shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+                    <Lottie animationData={animationJSON} className="w-32" />
+                  </div>
                 </div>
               )}
             </>
           )}
         </div>
-        <div className="overflow-hidden font-poppins w-full flex h-[6.5rem] bg-[#151515] rounded-xl">
-          <div className="w-[40%] hidden justify-center items-start lg:flex lg:flex-col h-full border-r-[2px] gap-2 border-border">
-            <div className="flex self-start ml-4 justify-center items-center gap-2  ">
-              <div className=" flex justify-center items-center gap-2 cursor-pointer">
+
+        <div className="overflow-hidden font-outfit w-full flex h-auto lg:h-[6.5rem] bg-[#0f0f0f] rounded-3xl border border-white/[0.05] shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-sm">
+          <div className="w-[40%] hidden justify-center items-start lg:flex lg:flex-col h-full border-r border-white/[0.05] gap-2">
+            <div className="flex self-start ml-6 justify-center items-center gap-4">
+              <div className="flex justify-center items-center gap-2 cursor-pointer hover:bg-white/[0.02] px-4 py-2 rounded-xl transition-all duration-300">
                 <input
                   type="checkbox"
                   className="toggle toggle-xs toggle-primary"
                   onChange={handleAutoNext}
                   checked={settings?.autoNext ?? false}
                 />
-                <span className=" text-xs font-semibold ">Auto Next</span>
+                <span className="text-xs font-medium text-text/90 group-hover:text-text transition-colors">
+                  Auto Next
+                </span>
               </div>
 
-              <div className=" flex justify-center items-center gap-2 cursor-pointer">
+              <div className="flex justify-center items-center gap-2 cursor-pointer hover:bg-white/[0.02] px-4 py-2 rounded-xl transition-all duration-300">
                 <input
                   type="checkbox"
                   className="toggle toggle-xs toggle-primary"
                   onChange={handleAutoSkipIntro}
                   checked={settings?.autoSkipIntro ?? false}
                 />
-                <span className=" text-xs font-semibold ">Auto skip Intro</span>
+                <span className="text-xs font-medium text-text/90 group-hover:text-text transition-colors">
+                  Auto skip Intro
+                </span>
               </div>
             </div>
-
-            <div className=" flex justify-center items-center   "></div>
           </div>
-          <div className=" lg:w-[70%] w-full h-full gap-0 flex flex-col">
+
+          <div className="lg:w-[70%] w-full h-full gap-0 flex flex-col">
             <motion.div
-              className="w-full h-[50%] border-b-2 border-b-border items-center flex justify-start gap-3"
+              className="w-full h-auto lg:h-[50%] border-b border-white/[0.05] items-center flex flex-wrap lg:flex-nowrap justify-start gap-2 lg:gap-3 p-3 lg:px-6"
               variants={watchContainerVariants}
               initial="hidden"
               animate="visible"
             >
-              <RiClosedCaptioningFill className="ml-3" size={20} />
+              <RiClosedCaptioningFill
+                className="text-primary/90 ml-2 lg:ml-0"
+                size={18}
+              />
               {isServersLoading ? (
                 <>
                   {Array(4)
@@ -224,7 +234,7 @@ const WatchPage = () => {
                     .map((_, i) => (
                       <div
                         key={i}
-                        className="bg-border animate-pulse  w-24 h-9 lg:w-28 rounded-xl py-[6px]"
+                        className="bg-white/[0.02] animate-pulse w-20 lg:w-24 h-8 lg:h-9 rounded-xl"
                       ></div>
                     ))}
                 </>
@@ -235,11 +245,11 @@ const WatchPage = () => {
                       <motion.div
                         variants={serverItemVariants}
                         whileTap={{ scale: 0.95 }}
-                        className={`cursor-pointer  text-sm md:text-[16px] capitalize px-4 lg:px-8 rounded-xl py-[6px] md:py-[8px] ${
+                        className={`cursor-pointer text-xs lg:text-sm capitalize px-3 lg:px-5 rounded-xl py-[6px] transition-all duration-300 ${
                           selectedServer === serverName &&
                           selectedCategory === "sub"
-                            ? "bg-primary hover:bg-primary/80 ease-in duration-100 text-black"
-                            : " bg-border hover:bg-border/80 ease-in duration-100 text-text"
+                            ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
+                            : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
                         }`}
                         key={i}
                         onClick={() => {
@@ -251,20 +261,21 @@ const WatchPage = () => {
                       </motion.div>
                     ))}
                   {server?.sub.length === 0 && (
-                    <div className=" font-poppins text-sm md:text-[16px] capitalize px-4 lg:px-8 rounded-xl py-[6px] md:py-[8px] bg-border hover:bg-border/80 ease-in duration-100 text-text">
+                    <div className="text-xs lg:text-sm capitalize px-3 lg:px-5 rounded-xl py-[6px] bg-white/[0.02] text-text/70 border border-white/[0.05]">
                       N/A
                     </div>
                   )}
                 </>
               )}
             </motion.div>
+
             <motion.div
-              className="w-full items-center flex justify-start gap-3 h-[50%]"
+              className="w-full h-auto lg:h-[50%] items-center flex flex-wrap lg:flex-nowrap justify-start gap-2 lg:gap-3 p-3 lg:px-6"
               variants={watchContainerVariants}
               initial="hidden"
               animate="visible"
             >
-              <RiMic2Fill className="ml-3" size={20} />
+              <RiMic2Fill className="text-primary/90 ml-2 lg:ml-0" size={18} />
               {isServersLoading ? (
                 <>
                   {Array(4)
@@ -272,7 +283,7 @@ const WatchPage = () => {
                     .map((_, i) => (
                       <div
                         key={i}
-                        className=" bg-border animate-pulse  w-24 h-9 lg:w-28 rounded-xl py-[6px]"
+                        className="bg-white/[0.02] animate-pulse w-20 lg:w-24 h-8 lg:h-9 rounded-xl"
                       ></div>
                     ))}
                 </>
@@ -283,11 +294,11 @@ const WatchPage = () => {
                       <motion.div
                         variants={serverItemVariants}
                         whileTap={{ scale: 0.95 }}
-                        className={`cursor-pointer  text-sm md:text-[16px] capitalize px-4 lg:px-8 rounded-xl md:py-[8px] py-[6px] ${
+                        className={`cursor-pointer text-xs lg:text-sm capitalize px-3 lg:px-5 rounded-xl py-[6px] transition-all duration-300 ${
                           selectedServer === serverName &&
                           selectedCategory === "dub"
-                            ? "bg-primary hover:bg-primary/80 hover:ease-in hover:duration-100 text-black"
-                            : " bg-border hover:bg-border/80 hover:ease-in hover:duration-100 text-text "
+                            ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
+                            : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
                         }`}
                         key={i}
                         onClick={() => {
@@ -300,10 +311,10 @@ const WatchPage = () => {
                     ))}
                   {(!server?.dub || server.dub.length === 0) && (
                     <>
-                      <div className="cursor-pointer text-sm md:text-[16px] bg-border hover:bg-border/80 ease-in duration-100 text-text capitalize px-4 lg:px-8 rounded-xl md:py-[8px] py-[6px]">
+                      <div className="text-xs lg:text-sm bg-white/[0.02] text-text/70 capitalize px-3 lg:px-5 rounded-xl py-[6px] border border-white/[0.05]">
                         N/A
                       </div>
-                      <div className="cursor-pointer text-sm md:text-[16px] bg-border hover:bg-border/80 ease-in duration-100 text-text capitalize px-4 lg:px-8 rounded-xl md:py-[8px] py-[6px]">
+                      <div className="text-xs lg:text-sm bg-white/[0.02] text-text/70 capitalize px-3 lg:px-5 rounded-xl py-[6px] border border-white/[0.05]">
                         N/A
                       </div>
                     </>
@@ -313,24 +324,25 @@ const WatchPage = () => {
             </motion.div>
           </div>
         </div>
-        <div className=" w-full overflow-x-hidden py-4 font-poppins  flex   overflow-y-auto min-h-20  max-h-96 bg-[#151515] rounded-xl ">
+
+        <div className="w-full overflow-x-hidden py-4 lg:py-6 font-outfit flex overflow-y-auto min-h-20 max-h-96 bg-[#0f0f0f] rounded-3xl border border-white/[0.05] shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-sm">
           {isEpLoading ? (
             <div className="w-full gap-2 h-full flex justify-center flex-col items-center">
-              <div className="flex flex-col  w-full gap-4">
+              <div className="flex flex-col w-full gap-4">
                 {/* Section Dropdown Skeleton */}
-                <div className="px-2">
-                  <div className="w-[180px] h-8 rounded-xl bg-border animate-pulse"></div>
+                <div className="px-4 lg:px-6">
+                  <div className="w-[160px] lg:w-[180px] h-7 lg:h-8 rounded-xl bg-white/[0.02] animate-pulse border border-white/[0.05]"></div>
                 </div>
 
                 {/* Episodes Grid */}
-                <div className="flex-wrap self-center w-[97%] rounded-xl bg-border animate-pulse px-2 gap-2 h-[200px] flex justify-center items-center"></div>
+                <div className="flex-wrap self-center w-[97%] rounded-xl bg-white/[0.02] animate-pulse px-2 gap-2 h-[200px] flex justify-center items-center border border-white/[0.05]"></div>
               </div>
             </div>
           ) : (
             <>
               {episodeData?.totalEpisodes < 40 ? (
                 <motion.div
-                  className="w-full gap-2 h-full flex justify-center flex-col items-center"
+                  className="w-full gap-2 h-full flex justify-center flex-col items-center px-2"
                   variants={watchContainerVariants}
                   initial="hidden"
                   animate="visible"
@@ -341,27 +353,27 @@ const WatchPage = () => {
                       variants={episodeVariants}
                       whileHover={{
                         scale: 1.01,
-                        transition: {
-                          duration: 0.01,
-                        },
+                        transition: { duration: 0.3 },
                       }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => setSelectedEpisode(item?.episodeId)}
                       className={`${
                         selectedEpisode === item?.episodeId
-                          ? "bg-primary hover:bg-primary/80 text-text"
-                          : "bg-[#1f1f1f] hover:bg-border text-text"
-                      } w-[97%]  py-3 line-clamp-1 text-sm rounded-xl md:text-[1rem] lg:h-[3.3rem] ease-in duration-100 cursor-pointer gap-2 flex items-center`}
+                          ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
+                          : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
+                      } w-[97%] py-2 lg:py-3 line-clamp-1 text-xs lg:text-sm rounded-xl lg:h-[3.3rem] h-[2.8rem] transition-all duration-300 cursor-pointer gap-2 flex items-center`}
                     >
-                      <span className="ml-5 font-[800]">{item.number}. </span>
-                      <h2 className="">{item.title}</h2>
+                      <span className="ml-3 lg:ml-5 font-semibold">
+                        {item.number}.{" "}
+                      </span>
+                      <h2 className="text-xs lg:text-sm">{item.title}</h2>
                     </motion.div>
                   ))}
                 </motion.div>
               ) : (
-                <motion.div className="flex flex-col gap-4">
+                <motion.div className="flex flex-col gap-3 lg:gap-4 w-full">
                   {episodeData?.episodes?.length > 100 && (
-                    <div ref={dropdownRef} className="dropdown px-2">
+                    <div ref={dropdownRef} className="dropdown px-4 lg:px-6">
                       <div
                         tabIndex={0}
                         role="button"
@@ -372,7 +384,7 @@ const WatchPage = () => {
                               .classList.toggle("hidden");
                           }
                         }}
-                        className="btn btn-sm bg-border hover:bg-border/80 text-text w-[180px] flex justify-between"
+                        className="btn btn-sm bg-white/[0.02] hover:bg-white/[0.04] text-text/90 w-[160px] lg:w-[180px] flex justify-between transition-all duration-300 border border-white/[0.05] text-xs lg:text-sm h-7 lg:h-8 min-h-0"
                       >
                         <span>
                           Episodes {(parseInt(currentSection) - 1) * 100 + 1} -{" "}
@@ -384,71 +396,58 @@ const WatchPage = () => {
                       </div>
                       <ul
                         tabIndex={0}
-                        className="dropdown-content menu bg-base-200 rounded-box z-[1] w-[180px] p-2 shadow-xl"
+                        className="dropdown-content z-[1] menu p-2 shadow-lg bg-[#0f0f0f] rounded-xl w-52 border border-white/[0.05] hidden"
                       >
-                        {Array.from(
-                          {
-                            length: Math.ceil(
-                              episodeData.episodes.length / 100
-                            ),
-                          },
-                          (_, i) => {
-                            const start = i * 100 + 1;
-                            const end = Math.min(
-                              (i + 1) * 100,
-                              episodeData.episodes.length
-                            );
-                            return (
-                              <li key={i + 1}>
-                                <a
-                                  className={`${
-                                    parseInt(currentSection) === i + 1
-                                      ? "bg-primary/20"
-                                      : ""
-                                  }`}
-                                  onClick={() => {
-                                    setCurrentSection((i + 1).toString());
-                                    if (dropdownRef.current) {
-                                      dropdownRef.current
-                                        .querySelector("ul")
-                                        .classList.add("hidden");
-                                    }
-                                  }}
-                                >
-                                  Episodes {start}-{end}
-                                </a>
-                              </li>
-                            );
-                          }
-                        )}
+                        {Array(Math.ceil(episodeData.episodes.length / 100))
+                          .fill(0)
+                          .map((_, i) => (
+                            <li
+                              key={i}
+                              onClick={() => setCurrentSection(i + 1)}
+                              className="text-xs lg:text-sm"
+                            >
+                              <a>
+                                Episodes {i * 100 + 1} -{" "}
+                                {Math.min(
+                                  (i + 1) * 100,
+                                  episodeData.episodes.length
+                                )}
+                              </a>
+                            </li>
+                          ))}
                       </ul>
                     </div>
                   )}
-                  <motion.div className="flex-wrap px-2 gap-2 h-full flex justify-center items-center">
+                  <div className="flex flex-wrap justify-center gap-2 px-2">
                     {episodeData?.episodes
                       ?.slice(
                         (parseInt(currentSection) - 1) * 100,
                         parseInt(currentSection) * 100
                       )
-                      ?.map((item, i) => (
+                      .map((item, i) => (
                         <motion.div
                           key={i}
-                          whileTap={{ scale: 0.95 }}
+                          variants={episodeVariants}
+                          whileHover={{
+                            scale: 1.02,
+                            transition: { duration: 0.2 },
+                          }}
+                          whileTap={{ scale: 0.98 }}
                           onClick={() => {
                             setSelectedEpisode(item?.episodeId);
                           }}
-                          className={`flex justify-center items-center cursor-pointer font-bold font-poppins w-[4.5rem] h-10 gap-1 rounded-xl ${
+                          className={`flex justify-center items-center cursor-pointer font-medium w-[3.5rem] lg:w-[4.5rem] h-8 lg:h-10 gap-1 rounded-xl text-xs lg:text-sm ${
                             selectedEpisode === item?.episodeId
-                              ? "bg-primary hover:bg-primary/80 text-black"
+                              ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
                               : item.isFiller
-                              ? " bg-primary/40 hover:bg-primary/60 text-black "
-                              : "bg-border hover:bg-border/80 text-text"
-                          } ease-in duration-100`}
+                              ? "bg-primary/40 hover:bg-primary/60 text-black"
+                              : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
+                          } transition-all duration-300`}
                         >
                           {item?.number}
                         </motion.div>
                       ))}
-                  </motion.div>
+                  </div>
                 </motion.div>
               )}
             </>

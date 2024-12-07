@@ -1,9 +1,7 @@
 import { motion } from "framer-motion";
 import { BsCcCircleFill, BsFillInfoCircleFill } from "react-icons/bs";
-import { FaPlay } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
 import { IoCalendarClear } from "react-icons/io5";
-import { MdCategory } from "react-icons/md";
 import { PiMicrophoneFill } from "react-icons/pi";
 import { TbClockHour4Filled } from "react-icons/tb";
 import { Link } from "react-router-dom";
@@ -28,145 +26,134 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
       }}
       viewport={{ once: true, amount: 0.3 }}
       onMouseEnter={refetch}
-      className="relative hover:scale-[1.05] ease-in-out duration-300 group rounded-xl group   h-[280px] w-[180px] md:w-[200px] overflow-hidden"
+      className="relative hover:scale-[1.02] ease-in-out duration-300 group rounded-xl h-[280px] w-[180px] md:w-[200px] overflow-hidden border border-white/[0.05] shadow-[0_8px_32px_rgba(0,0,0,0.4)] bg-[#0f0f0f]"
     >
       <img
-        className=" w-full group-hover:scale-110  ease-in-out duration-300 h-full absolute z-10 top-0 left-0 "
+        className="w-full group-hover:scale-110 ease-in-out duration-300 h-full absolute z-10 top-0 left-0 rounded-xl"
         loading="lazy"
         src={image}
         alt={name}
       />
       {!hide && (
-        <h1 className="absolute top-0 right-0 z-10 bg-primary/70 backdrop-blur-lg h-11 w-9 flex justify-center items-center text-text text-xl rounded-bl-xl border-text/90 border-b-[2px] font-[800]">
+        <h1 className="absolute top-0 right-0 z-10 bg-gradient-to-r from-primary via-primary to-primary/90 h-11 w-9 flex justify-center items-center text-black text-xl rounded-bl-xl font-[800] shadow-[0_4px_16px_rgba(120,119,198,0.4)]">
           {rank >= 10 ? rank : `0${rank}`}
         </h1>
       )}
-      <div className="absolute z-10 bottom-0  flex justify-start  w-full left-0 right-0   bg-gradient-to-t from-black/80 to-transparent">
+      <div className="absolute z-10 bottom-0 flex justify-start w-full left-0 right-0 bg-gradient-to-t from-black/80 to-transparent">
         <div className="flex relative py-2 ml-2 md:py-4 items-center gap-2">
-          <div className="  flex mr-2   justify-center gap-1  flex-col-reverse ">
-            <div className=" flex gap-[1px] items-center  ">
+          <div className="flex mr-2 justify-center gap-1 flex-col-reverse">
+            <div className="flex gap-[2px] items-center">
               {dubCount && (
-                <div className="badge badge-xs md:badge-sm   flex justify-center items-center rounded-r-lg  bg-blue-400 text-black gap-1 dm border-none">
-                  <PiMicrophoneFill className=" text-xs " />
-                  <span className="text-xs">{dubCount ? dubCount : "N/A"}</span>
+                <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
+                  <PiMicrophoneFill className="text-xs text-primary/90" />
+                  <span className="text-xs font-outfit">
+                    {dubCount ? dubCount : "N/A"}
+                  </span>
                 </div>
               )}
               {subCount && (
-                <div className="badge badge-xs md:badge-sm rounded-l-lg     flex justify-center items-center  bg-[#B0E3AF] text-black gap-1 dm border-none">
-                  <BsCcCircleFill className=" text-xs " />
-                  <span className="text-xs">{subCount ? subCount : "N/A"}</span>
+                <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
+                  <BsCcCircleFill className="text-xs text-primary/90" />
+                  <span className="text-xs font-outfit">
+                    {subCount ? subCount : "N/A"}
+                  </span>
                 </div>
               )}
             </div>
-            <h3
-              className="text-[1rem] font-outfit w-[100%] h-5  font-semibold
-           text-white/90  line-clamp-1  "
-            >
+            <h3 className="text-[1rem] font-outfit w-[100%] h-5 font-semibold text-text/90 line-clamp-1">
               {name}
             </h3>
           </div>
         </div>
       </div>
-      <motion.div className=" group-hover:bottom-0 ease-in-out duration-200  z-20 rounded-xl  absolute -bottom-[100%] left-0 backdrop-blur-sm w-full items-center flex justify-center  h-[90%] bg-secondary/80 ">
+      <motion.div className="group-hover:bottom-0 ease-in-out duration-200 z-20 rounded-xl absolute -bottom-[100%] left-0 w-full items-center flex justify-center h-[90%] bg-[#0f0f0f]/80 backdrop-blur-sm border-t border-white/[0.05]">
         {isLoading ? (
-          <div className="flex  mt-auto justify-center items-center w-full h-[90%]">
-            <span className="loading loading-ring loading-md"></span>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <motion.div
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="w-32 flex items-center justify-center"
+            >
+              <span className="loading loading-ring loading-md"></span>
+            </motion.div>
           </div>
         ) : isError ? (
-          <div className="flex justify-center items-center h-full">
-            <div className="text-red-500">Error fetching anime info</div>
-          </div>
+          <motion.div
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="flex justify-center items-center h-full text-xs lg:text-sm font-outfit"
+          >
+            <div className="text-text/70">Error fetching anime info</div>
+          </motion.div>
         ) : (
-          <div className=" gap-1 flex w-[90%] flex-col justify-center h-fit ">
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="gap-1 flex w-[90%] flex-col justify-center h-fit"
+          >
             <div
               id="anime-info"
-              className="flex font-poppins    md:gap-1  gap-[3px] flex-col"
+              className="flex font-outfit md:gap-1 gap-[3px] flex-col"
             >
-              <div className="flex justify-between w-full  items-center">
+              <div className="flex justify-between w-full items-center">
                 <Link
                   to={`/info/${id}`}
-                  className=" w-[80%]  line-clamp-2 overflow-hidden md:h-fit text-sm font-outfit font-bold"
+                  className="w-[80%] line-clamp-2 overflow-hidden md:h-fit text-sm font-outfit font-semibold text-text/90"
                 >
                   {name}
                 </Link>
                 <Link
                   to={`/info/${id}`}
-                  className="flex justify-center items-center"
+                  className="flex justify-center items-center hover:text-primary transition-colors duration-300"
                 >
-                  <BsFillInfoCircleFill className=" w-4 h-4  cursor-pointer " />
+                  <BsFillInfoCircleFill className="w-4 h-4 cursor-pointer" />
                 </Link>
               </div>
-              <p className=" text-ellipsis   w-full   overflow-hidden text-xs line-clamp-2 ">
+              <p className="text-ellipsis w-full overflow-hidden text-xs line-clamp-2 text-text/70">
                 {anime?.info?.description}
               </p>
             </div>
 
-            <div className="flex bg-background/40 px-3 rounded-lg justify-center self-start   gap-1 items-center">
-              <div className=" py-[2px] border-r-text/50 bg-transparent   px-1 pr-2 text-text/70 border-r-[1px] text-xs font-poppins font-bold  ">
-                {anime?.info?.stats?.type || "N/A"}
-              </div>
-              {anime?.info?.stats?.episodes?.sub && (
+            <div className="flex flex-wrap      gap-1">
+              {anime?.moreInfo?.genres?.slice(0, 2).map((genre, index) => (
                 <div
-                  className=" px-1 pr-2
-                 py-[2px] border-r-text/50   flex justify-center items-center bg-transparent border-r-[1px] text-text/80 gap-1 font-poppins   "
+                  key={index}
+                  className="text-xs font-outfit font-medium px-3 py-1 rounded-lg bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300"
                 >
-                  <BsCcCircleFill size={12} />
-                  <span className="text-xs">
-                    {anime?.info?.stats?.episodes?.sub}
-                  </span>
+                  {genre}
                 </div>
-              )}
-
-              {anime?.info?.stats?.episodes?.dub && (
-                <div className=" px-1  flex justify-center items-center  bg-transparent  text-text/80 gap-1 font-poppins border-none">
-                  <PiMicrophoneFill size={12} />
-                  <span className="text-xs">
-                    {anime?.info?.stats?.episodes?.dub}
-                  </span>
-                </div>
-              )}
+              ))}
             </div>
 
-            <div className="flex flex-col md:flex-row self-start justify-center items-center gap-2    text-sm md:text-base">
-              <div className="flex  self-start justify-center items-center gap-1 ">
-                <IoCalendarClear size={15} className="" />
-                <span className="text-gray-300 line-clamp-1 font-outfit text-xs">
-                  {anime?.moreInfo?.aired || "N/A"}
+            <div className="flex flex-col gap-1 mt-2">
+              <div className="flex items-center gap-1 text-xs text-text/70">
+                <IoCalendarClear size={14} className="text-primary/90" />
+                <span className="font-outfit">
+                  {anime?.moreInfo?.aired?.split("to")[0] || "N/A"}
                 </span>
               </div>
-              <div className="flex  self-start font-outfit justify-center items-center gap-1 ">
-                <TbClockHour4Filled size={15} className="" />
-                <span className="text-xs">
+              <div className="flex items-center gap-1 text-xs text-text/70">
+                <TbClockHour4Filled size={14} className="text-primary/90" />
+                <span className="font-outfit">
                   {anime?.moreInfo?.duration || "N/A"}
                 </span>
               </div>
             </div>
 
-            <div className="text-xs self-start flex justify-center items-center gap-2 font-outfit  text-gray-300">
-              <MdCategory size={15} />
-              {anime?.moreInfo?.genres?.length > 1 ? (
-                <>
-                  <span>{anime?.moreInfo?.genres[0] || ""}</span>|{" "}
-                  <span>{anime?.moreInfo?.genres[1] || ""}</span>
-                </>
-              ) : (
-                <span>Not available</span>
-              )}
-            </div>
-
-            <div className="flex self-start    mt-[8px]   gap-[8px] justify-evenly w-full items-center">
-              <button
-                className="btn  flex
-                   justify-center items-center text-text     w-[8.5rem] h-8  btn-primary text-[11px] btn-sm rounded-full"
-              >
-                <FaPlay className=" text-xs " />
-                <span className=" text-[11px]   ">Watch Now</span>
-              </button>
-              <button className="   w-8 h-8   hover:bg-white/90 ease-in-out duration-100 rounded-full bg-white flex justify-center items-center">
-                <FiPlus className="text-black" />
+            <div className="flex justify-between items-center mt-3">
+              <Link to={`/watch/${id}`} className="flex-1 mr-2">
+                <button className="w-full py-2 px-4 rounded-lg bg-gradient-to-r from-primary via-primary to-primary/90 text-black text-xs font-outfit font-semibold hover:opacity-90 transition-all duration-300 shadow-[0_4px_16px_rgba(120,119,198,0.4)] flex items-center justify-center gap-2">
+                  <span>Watch Now</span>
+                </button>
+              </Link>
+              <button className="w-10 h-10 rounded-lg bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300 flex items-center justify-center">
+                <FiPlus className="w-5 h-5" />
               </button>
             </div>
-          </div>
+          </motion.div>
         )}
       </motion.div>
     </motion.div>
