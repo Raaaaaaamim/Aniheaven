@@ -5,23 +5,13 @@ config();
 
 const allowedOrigins = process.env.ANIWATCH_API_CORS_ALLOWED_ORIGINS
   ? process.env.ANIWATCH_API_CORS_ALLOWED_ORIGINS.split(",")
-  : ["http://localhost:3000", "*"];
-console.log(allowedOrigins);
+  : ["http://localhost:4000", "*"];
 
 const corsConfig = cors({
-  allowMethods: ["GET", "OPTIONS"],
+  allowMethods: ["GET"],
   maxAge: 600,
   credentials: true,
-  origin: (origin) => {
-    if (
-      !origin ||
-      allowedOrigins.includes(origin) ||
-      allowedOrigins.includes("*")
-    ) {
-      return origin;
-    }
-    return null;
-  },
+  origin: allowedOrigins,
 });
 
 export default corsConfig;

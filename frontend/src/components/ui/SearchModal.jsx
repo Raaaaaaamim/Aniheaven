@@ -54,7 +54,13 @@ const SearchModal = ({ id }) => {
           <h1 className="text-2xl font-bold bg-gradient-to-r from-white/90 to-white/70 bg-clip-text text-transparent">
             Search
           </h1>
-          <p className="text-sm text-white/50">Discover anime by title</p>
+          <Link
+            onClick={() => document.getElementById(id).close()}
+            to="/search"
+            className="text-sm text-white/50"
+          >
+            Go to search page
+          </Link>
         </div>
 
         <div className="bg-[#0f0f0f] border-white/[0.05] border rounded-2xl self-start w-full h-full justify-center items-start gap-2 flex flex-col shadow-lg">

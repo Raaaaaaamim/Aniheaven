@@ -3,7 +3,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import { parseAsString, useQueryState } from "nuqs";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { RiClosedCaptioningFill, RiMic2Fill } from "react-icons/ri";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -145,6 +145,19 @@ const WatchPage = () => {
       })
     );
   };
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+  console.log(sourceData);
   return (
     <div className="overflow-hidden justify-self-start w-full min-h-screen flex justify-center items-start bg-transparent ">
       <div className="overflow-hidden mb-4 flex flex-col w-[98%] gap-4 h-full">
@@ -187,7 +200,7 @@ const WatchPage = () => {
           )}
         </div>
 
-        <div className="overflow-hidden font-outfit w-full flex h-auto lg:h-[6.5rem] bg-[#0f0f0f] rounded-3xl border border-white/[0.05] shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-sm">
+        <div className="overflow-hidden font-outfit w-full flex h-auto lg:h-[7rem] bg-[#0f0f0f] rounded-3xl border border-white/[0.05] ">
           <div className="w-[40%] hidden justify-center items-start lg:flex lg:flex-col h-full border-r border-white/[0.05] gap-2">
             <div className="flex self-start ml-6 justify-center items-center gap-4">
               <div className="flex justify-center items-center gap-2 cursor-pointer hover:bg-white/[0.02] px-4 py-2 rounded-xl transition-all duration-300">
@@ -216,7 +229,7 @@ const WatchPage = () => {
             </div>
           </div>
 
-          <div className="lg:w-[70%] w-full h-full gap-0 flex flex-col">
+          <div className="lg:w-[70%] w-full  h-full gap-0 flex flex-col">
             <motion.div
               className="w-full h-auto lg:h-[50%] border-b border-white/[0.05] items-center flex flex-wrap lg:flex-nowrap justify-start gap-2 lg:gap-3 p-3 lg:px-6"
               variants={watchContainerVariants}
@@ -325,7 +338,7 @@ const WatchPage = () => {
           </div>
         </div>
 
-        <div className="w-full overflow-x-hidden py-4 lg:py-6 font-outfit flex overflow-y-auto min-h-20 max-h-96 bg-[#0f0f0f] rounded-3xl border border-white/[0.05] shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-sm">
+        <div className="w-full font-poppins overflow-x-hidden py-4 lg:py-6  flex overflow-y-auto min-h-20 max-h-[30rem] bg-[#0f0f0f] rounded-3xl border border-white/[0.05] ">
           {isEpLoading ? (
             <div className="w-full gap-2 h-full flex justify-center flex-col items-center">
               <div className="flex flex-col w-full gap-4">
@@ -377,13 +390,7 @@ const WatchPage = () => {
                       <div
                         tabIndex={0}
                         role="button"
-                        onClick={() => {
-                          if (dropdownRef.current) {
-                            dropdownRef.current
-                              .querySelector("ul")
-                              .classList.toggle("hidden");
-                          }
-                        }}
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                         className="btn btn-sm bg-white/[0.02] hover:bg-white/[0.04] text-text/90 w-[160px] lg:w-[180px] flex justify-between transition-all duration-300 border border-white/[0.05] text-xs lg:text-sm h-7 lg:h-8 min-h-0"
                       >
                         <span>
@@ -396,14 +403,19 @@ const WatchPage = () => {
                       </div>
                       <ul
                         tabIndex={0}
-                        className="dropdown-content z-[1] menu p-2 shadow-lg bg-[#0f0f0f] rounded-xl w-52 border border-white/[0.05] hidden"
+                        className={`dropdown-content z-[1] menu p-2 shadow-lg bg-[#0f0f0f] rounded-xl w-52 border border-white/[0.05] ${
+                          isDropdownOpen ? "" : "hidden"
+                        }`}
                       >
                         {Array(Math.ceil(episodeData.episodes.length / 100))
                           .fill(0)
                           .map((_, i) => (
                             <li
                               key={i}
-                              onClick={() => setCurrentSection(i + 1)}
+                              onClick={() => {
+                                setCurrentSection(i + 1);
+                                setIsDropdownOpen(false);
+                              }}
                               className="text-xs lg:text-sm"
                             >
                               <a>

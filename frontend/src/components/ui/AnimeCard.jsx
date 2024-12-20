@@ -12,21 +12,9 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
   const anime = data?.data?.data?.anime;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      whileInView={{
-        opacity: 1,
-        scale: 1,
-        transition: {
-          duration: 0.3,
-          ease: [0.25, 0.1, 0.25, 1.0],
-          opacity: { duration: 0.4 },
-          scale: { duration: 0.3 },
-        },
-      }}
-      viewport={{ once: true, amount: 0.3 }}
+    <div
       onMouseEnter={refetch}
-      className="relative hover:scale-[1.02] ease-in-out duration-300 group rounded-xl h-[280px] w-[180px] md:w-[200px] overflow-hidden border border-white/[0.05]  bg-[#0f0f0f]"
+      className="relative hover:scale-[1.02] ease-in-out duration-300 group rounded-xl w-[160px] h-[270px] sm:h-[280px] sm:w-[180px] md:w-[200px] overflow-hidden border border-white/[0.05]  bg-[#0f0f0f]"
     >
       <img
         className="w-full group-hover:scale-110 ease-in-out duration-300 h-full absolute z-10 top-0 left-0 rounded-xl"
@@ -156,7 +144,7 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
           </motion.div>
         )}
       </motion.div>
-    </motion.div>
+    </div>
   );
 };
 

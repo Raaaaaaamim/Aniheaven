@@ -30,7 +30,7 @@ import { TbClockHour4Filled } from "react-icons/tb";
 // Core functionality imports
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Swiper related imports
@@ -68,11 +68,12 @@ const Home = () => {
     queryFn: async () => {
       return await axios.get(`${api}/hianime/home`);
     },
-    staleTime: 1000 * 60 * 3, // 3 minutes cache
+    staleTime: 1000 * 60 * 3, // 10 minutes cache
   });
 
   const data = animeData?.data;
-
+  const trendingPrevRef = useRef(null);
+  const trendingNextRef = useRef(null);
   /** State for managing the time period filter in Top 10 section */
   const [timePeriod, setTimePeriod] = useState("today");
 
@@ -80,7 +81,6 @@ const Home = () => {
   if (isLoading) {
     return <HomeSuspense />;
   }
-
   // If there's an error, show error message
   if (error) {
     return (
@@ -89,13 +89,13 @@ const Home = () => {
       </div>
     );
   }
-
+  console.log(data);
   return (
     <motion.div
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="lg:w-[100%] flex w-full items-center flex-col min-h-[100vh]  p-4 justify-center"
+      className="lg:w-[100%] 2xl:max-w-[1920px] flex w-full items-center flex-col min-h-[100vh] p-4 justify-center"
     >
       <Swiper
         modules={[Pagination, Autoplay, EffectFade]}
@@ -110,7 +110,7 @@ const Home = () => {
           delay: 5000,
           disableOnInteraction: false,
         }}
-        className="w-full max-w-8xl md:h-[400px] lg:mx-auto h-[300px] lg:h-[80vh] max-h-[600px] rounded-xl overflow-hidden border border-white/[0.05] "
+        className="w-full max-w-8xl md:h-[400px] lg:mx-auto h-[300px] lg:h-[80vh] 2xl:h-[85vh] max-h-[800px] rounded-xl overflow-hidden border border-white/[0.05]"
       >
         {/* Mapping spotlight anime data to slides */}
         {data?.data?.spotlightAnimes?.map((anime, i) => (
@@ -141,69 +141,69 @@ const Home = () => {
               {/* Anime information overlay */}
               <motion.div className="absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-8 lg:px-12 text-text">
                 {/* Title */}
-                <motion.h1 className="lg:text-6xl text-2xl flex flex-wrap md:text-5xl gap-3 lg:mb-4 font-outfit">
+                <h1 className="lg:text-6xl 2xl:text-7xl text-2xl flex flex-wrap md:text-5xl gap-3 lg:mb-4 font-outfit">
                   <span className="font-bold line-clamp-1 lg:line-clamp-2 text-text/90">
                     {anime.name}
                   </span>
-                </motion.h1>
+                </h1>
 
                 {/* Episode badges */}
-                <motion.div className="flex justify-start py-2 md:py-4 gap-1 md:gap-2 items-center">
-                  <div className="text-xs font-outfit font-medium px-3 py-1 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
+                <div className="flex justify-start py-2 md:py-4 gap-1 md:gap-2 items-center">
+                  <div className="text-xs font-outfit font-medium px-3 py-1 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border 2xl:text-sm border-white/[0.05] transition-all duration-300">
                     {anime.otherInfo[3] || "N/A"}
                   </div>
                   {/* Sub episodes badge */}
                   {anime?.episodes?.sub && (
-                    <div className="flex items-center gap-1 px-3 py-1 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
+                    <div className="flex items-center 2xl:text-sm gap-1 px-3 py-1 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
                       <BsCcCircleFill className="text-xs text-primary/90" />
-                      <span className="text-xs font-outfit">
+                      <span className="text-xs 2xl:text-sm font-outfit">
                         {anime.episodes.sub}
                       </span>
                     </div>
                   )}
                   {/* Dub episodes badge */}
                   {anime?.episodes?.dub && (
-                    <div className="flex items-center gap-1 px-3 py-1 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
+                    <div className="flex items-center 2xl:text-sm gap-1 px-3 py-1 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
                       <PiMicrophoneFill className="text-xs text-primary/90" />
-                      <span className="text-xs font-outfit">
+                      <span className="text-xs 2xl:text-sm font-outfit">
                         {anime.episodes.dub}
                       </span>
                     </div>
                   )}
-                </motion.div>
+                </div>
 
                 {/* Anime metadata (release date and duration) */}
-                <motion.div className="flex mb-2 md:mb-3 self-start justify-start items-center gap-2 md:gap-4 text-xs text-text/70">
+                <div className="flex mb-2 md:mb-3 self-start justify-start items-center gap-2 md:gap-4 text-xs text-text/70">
                   <div className="flex justify-center items-center gap-1 md:gap-2">
-                    <IoCalendarClear size={14} className="text-primary/90" />
-                    <span className="text-xs font-outfit">
+                    <IoCalendarClear className="text-primary/90  text-[14px] 2xl:text-[16px] " />
+                    <span className="text-xs 2xl:text-sm font-outfit">
                       {anime.otherInfo[2] || "N/A"}
                     </span>
                   </div>
                   <div className="flex justify-center items-center gap-1 md:gap-2">
-                    <TbClockHour4Filled size={14} className="text-primary/90" />
-                    <span className="text-xs font-outfit">
+                    <TbClockHour4Filled className="text-primary/90 text-[14px] 2xl:text-sm 2xl:text-[16px]  " />
+                    <span className="text-xs 2xl:text-sm font-outfit">
                       {anime.otherInfo[1] || "N/A"}
                     </span>
                   </div>
-                </motion.div>
+                </div>
 
                 {/* Description with length limit */}
-                <motion.p className="lg:text-md text-xs md:text-sm font-poppins md:mb-8 mb-3 max-w-md line-clamp-3 text-text/70">
+                <p className="  text-xs md:text-sm font-poppins md:mb-8 mb-3 max-w-2xl 2xl:max-w-3xl  line-clamp-2 md:line-clamp-3  2xl:line-clamp-4 w-[80%] md:w-full text-text/70">
                   {anime.description}
-                </motion.p>
+                </p>
 
                 {/* Action buttons */}
                 <div className="flex gap-4">
                   <Link to={`/watch/${anime.id}`}>
-                    <button className="md:w-48 w-32 py-3 px-6 rounded-xl bg-gradient-to-r from-primary via-primary to-primary/90 text-black text-sm font-outfit font-semibold hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300  flex items-center justify-center gap-2">
-                      <FaPlay className="text-sm md:flex hidden " />
+                    <button className="md:w-48 w-32 md:py-3 md:px-6 rounded-xl bg-gradient-to-r from-primary via-primary to-primary/90 text-black md:text-sm font-outfit font-semibold hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] py-2 px-4 transition-all duration-300 text-xs flex items-center  justify-center gap-2">
+                      <FaPlay className="text-sm  md:flex hidden " />
                       <span>Watch Now</span>
                     </button>
                   </Link>
                   <Link to={`/info/${anime.id}`}>
-                    <button className="w-12 h-12 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] hover:scale-[1.02] active:scale-[0.98] text-text/90 border border-white/[0.05] transition-all duration-300 flex items-center justify-center">
-                      <FaInfoCircle className="w-6 h-6" />
+                    <button className="md:w-12 md:h-12 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] hover:scale-[1.02] active:scale-[0.98] text-text/90 border border-white/[0.05] transition-all duration-300  flex items-center justify-center w-8 h-8 ">
+                      <FaInfoCircle className="md:w-5 md:h-5 w-3 h-3 " />
                     </button>
                   </Link>
                 </div>
@@ -223,10 +223,16 @@ const Home = () => {
             Trending Now
           </h2>
           <div className="flex items-center gap-2">
-            <button className="w-8 h-8 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300  flex items-center justify-center trending-prev">
+            <button
+              onClick={() => trendingPrevRef.current?.click()}
+              className="w-8 h-8 trending-prev rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300  flex items-center justify-center trending-prev"
+            >
               <IoIosArrowRoundBack className="w-5 h-5" />
             </button>
-            <button className="w-8 h-8 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300 flex items-center justify-center trending-next">
+            <button
+              onClick={() => trendingNextRef.current?.click()}
+              className="w-8 trending-next h-8 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300 flex items-center justify-center trending-next"
+            >
               <IoIosArrowRoundForward className="w-5 h-5" />
             </button>
           </div>
@@ -234,8 +240,8 @@ const Home = () => {
         <Swiper
           modules={[Navigation, Autoplay]}
           navigation={{
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
+            nextEl: ".trending-next",
+            prevEl: ".trending-prev",
           }}
           autoplay={{
             delay: 3000,
@@ -247,6 +253,8 @@ const Home = () => {
             640: { slidesPerView: 3, spaceBetween: 15 },
             1024: { slidesPerView: 4, spaceBetween: 5 },
             1280: { slidesPerView: 5, spaceBetween: 10 },
+            1536: { slidesPerView: 6, spaceBetween: 15 },
+            1920: { slidesPerView: 7, spaceBetween: 20 },
           }}
           className="relative rounded-xl overflow-hidden"
         >
@@ -256,7 +264,7 @@ const Home = () => {
               <Suspense
                 fallback={
                   <div className="relative border-border border-[1px] font-poppins w-full h-[280px] md:w-[220px] md:h-[300px] lg:w-[190px] lg:h-[270px] xl:w-[200px] xl:h-[280px] rounded-xl overflow-hidden bg-[#1f1f1f] animate-pulse">
-                    <div className="absolute top-0 right-0 z-10 bg-[#2a2a2a] h-11 w-9 rounded-bl-xl" />
+                    <div className="absolute top-0 right-0 z-10 bg-primary/20 h-11 w-9 rounded-bl-xl" />
                   </div>
                 }
               >
@@ -270,10 +278,10 @@ const Home = () => {
             </SwiperSlide>
           ))}
           {/* Custom navigation buttons */}
-          <div className="swiper-button-prev after:!content-[''] !w-8 !h-8 flex text-white bg-primary rounded-full justify-center items-center">
+          <div ref={trendingPrevRef} className="hidden">
             <IoIosArrowRoundBack className="text-sm text-white " />
           </div>
-          <div className="swiper-button-next after:!content-[''] !w-8 !h-8 flex text-white bg-primary mr-2 rounded-full justify-center items-center">
+          <div ref={trendingNextRef} className="hidden">
             <IoIosArrowRoundForward className="text-sm text-white" />
           </div>
         </Swiper>
@@ -285,11 +293,35 @@ const Home = () => {
             Latest Episodes
           </h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-3 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4  gap-3 md:gap-4 place-items-center ">
           <AnimatePresence mode="popLayout">
             {data?.data?.latestEpisodeAnimes?.map((anime, index) => (
+              <Card
+                key={anime.id + index}
+                imageUrl={anime.poster}
+                title={anime.name}
+                rank={anime.rank}
+                id={anime.id}
+                subCount={anime.episodes.sub}
+                dubCount={anime.episodes.dub}
+              />
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      <div className="w-full max-w-8xl lg:mx-auto mt-8">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg md:text-xl font-outfit font-semibold text-text/90">
+            Top Upcoming
+          </h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-3 md:gap-4 place-items-center">
+          <AnimatePresence mode="popLayout">
+            {data?.data?.topUpcomingAnimes?.map((anime, index) => (
               <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
                 <Card
+                  upcoming={true}
                   imageUrl={anime.poster}
                   title={anime.name}
                   rank={anime.rank}
@@ -302,16 +334,63 @@ const Home = () => {
           </AnimatePresence>
         </div>
       </div>
-
       <div className="w-full max-w-8xl lg:mx-auto mt-8">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg md:text-xl font-outfit font-semibold text-text/90">
-            Top Upcoming
+            Latest Completed Animes
           </h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-3 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-3 md:gap-4 place-items-center">
           <AnimatePresence mode="popLayout">
-            {data?.data?.topUpcomingAnimes?.map((anime, index) => (
+            {data?.data?.latestCompletedAnimes?.map((anime, index) => (
+              <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
+                <Card
+                  upcoming={true}
+                  imageUrl={anime.poster}
+                  title={anime.name}
+                  rank={anime.rank}
+                  id={anime.id}
+                  subCount={anime.episodes.sub}
+                  dubCount={anime.episodes.dub}
+                />
+              </Suspense>
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+      <div className="w-full max-w-8xl lg:mx-auto mt-8">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg md:text-xl font-outfit font-semibold text-text/90">
+            Most Favorite Animes
+          </h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-3 md:gap-4 place-items-center">
+          <AnimatePresence mode="popLayout">
+            {data?.data?.mostFavoriteAnimes?.map((anime, index) => (
+              <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
+                <Card
+                  upcoming={true}
+                  imageUrl={anime.poster}
+                  title={anime.name}
+                  rank={anime.rank}
+                  id={anime.id}
+                  subCount={anime.episodes.sub}
+                  dubCount={anime.episodes.dub}
+                />
+              </Suspense>
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+      <div className="w-full max-w-8xl lg:mx-auto mt-8">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg md:text-xl font-outfit font-semibold text-text/90">
+            Most Popular Animes
+          </h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-3 md:gap-4 place-items-center">
+          <AnimatePresence mode="popLayout">
+            {data?.data?.mostPopularAnimes?.map((anime, index) => (
               <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
                 <Card
                   upcoming={true}
@@ -332,7 +411,7 @@ const Home = () => {
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-2">
             <BsTrophyFill className="text-primary/90" />
-            <h2 className="text-lg md:text-xl font-outfit font-semibold text-text/90">
+            <h2 className="text-lg  md:text-xl font-outfit font-semibold text-text/90">
               Top 10 Anime
             </h2>
           </div>
@@ -369,7 +448,7 @@ const Home = () => {
             </button>
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  gap-3 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 place-items-center md:gap-4 2xl:gap-6">
           <AnimatePresence mode="popLayout">
             {data?.data?.top10Animes[timePeriod]?.map((anime, index) => (
               <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
@@ -394,7 +473,7 @@ const Home = () => {
               Top Airing
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  gap-3 md:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 place-items-center  gap-3 md:gap-4">
             <AnimatePresence mode="popLayout">
               {data?.data?.topAiringAnimes?.map((anime, index) => (
                 <Suspense key={anime.id + index} fallback={<HomeSuspense />}>

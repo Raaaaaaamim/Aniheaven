@@ -177,7 +177,11 @@ const AnimeInfo = () => {
                 </div>
                 <div className="flex gap-2">
                   <span className="text-text/60">Genres:</span>
-                  <span className="truncate">{moreInfo.genres.join(", ")}</span>
+                  <span className="truncate">
+                    {Array.isArray(moreInfo.genres)
+                      ? moreInfo.genres.join(", ")
+                      : "N/A"}
+                  </span>
                 </div>
               </div>
             </div>
@@ -192,7 +196,7 @@ const AnimeInfo = () => {
         !charactersError &&
         characters?.data?.data?.length > 0 && (
           <section className="container mx-auto  lg:mt-0 px-4 py-8">
-            <div className=" text-xl font-bold border-l-4 px-2 border-primary text-text mb-6">
+            <div className=" text-xl font-bold border-l-4 px-2 border-primary font-outfit text-text mb-6">
               Characters & Voice Actors
             </div>
             <div className="grid font-outfit grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
@@ -577,10 +581,10 @@ const AnimeInfo = () => {
       {/* Related Anime */}
       {relatedAnimes?.length > 0 && (
         <section className="container mx-auto  px-4 py-6">
-          <h2 className="  text-xl font-bold border-l-4 px-2 border-primary text-text mb-4">
+          <h2 className="  text-xl font-bold border-l-4 px-2 border-primary font-outfit text-text mb-4">
             Related Anime
           </h2>
-          <div className="grid place-items-center grid-cols-2 w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          <div className="grid place-items-center grid-cols-2 w-full sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {relatedAnimes.map((anime) => (
               <AnimeCard
                 key={anime.id}
@@ -600,10 +604,10 @@ const AnimeInfo = () => {
       {/* Recommended Anime */}
       {recommendedAnimes?.length > 0 && (
         <section className="container mx-auto px-4 py-6">
-          <h2 className=" text-xl border-l-4 px-2 border-primary font-bold text-text mb-4">
+          <h2 className=" text-xl border-l-4 px-2 border-primary font-bold text-text font-outfit mb-4">
             Recommended Anime
           </h2>
-          <div className="grid place-items-center grid-cols-2 w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          <div className="grid place-items-center grid-cols-2 w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4  2xl:grid-cols-6">
             {recommendedAnimes.map((anime) => (
               <AnimeCard
                 key={anime.id}
