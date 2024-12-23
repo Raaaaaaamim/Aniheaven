@@ -3,6 +3,7 @@ import { FiHome } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdLogout } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { genres } from "../../../lib/utils.js";
 import img1 from "../../assets/aniheaven.png";
 import Button from "./Button.jsx";
 import Category from "./Category.jsx";
@@ -10,7 +11,13 @@ import Category from "./Category.jsx";
 const SidebarContent = () => (
   <div className="gap-0 flex font-outfit flex-col h-full w-[90%]  ml-[20px]  py-8">
     <div className="h-[10%] w-full flex gap-2 items-center justify-start">
-      <img className=" w-14 xl:w-40 2xl:w-44 lg:w-16 " src={img1} alt="logo" />
+      <Link to="/">
+        <img
+          className=" w-14 xl:w-40 2xl:w-44 lg:w-16 "
+          src={img1}
+          alt="logo"
+        />
+      </Link>
     </div>
 
     <div className="mt-10 h-[30%] w-full gap-3 flex flex-col">
@@ -37,30 +44,9 @@ const SidebarContent = () => (
         Categories
       </h1>
       <div className="categories-scroll overflow-hidden w-full mt-6 ml-2 h-[170px] 2xl:h-[270px] flex flex-col gap-4">
-        <Category
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtF6Ss58jVTGqlLOPMZ8cmfw4RuFgJwjRryA&s"
-          title="Romance"
-        />
-        <Category
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjimXyPUaa0CQfeAZWDdjewuzfMnQm8FduBw&s"
-          title="Horror"
-        />
-        <Category
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_2utOf_WvlXWB3fg3cVAe4Hi192FDfXbGgA&s"
-          title="Comedy"
-        />
-        <Category
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEOdGWweyTa1ymOFqA9GcOjvj-eg94fu2C0w&s"
-          title="Drama"
-        />
-        <Category
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEOdGWweyTa1ymOFqA9GcOjvj-eg94fu2C0w&s"
-          title="Drama"
-        />
-        <Category
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEOdGWweyTa1ymOFqA9GcOjvj-eg94fu2C0w&s"
-          title="Drama"
-        />
+        {Object.entries(genres).map(([key, value], i) => (
+          <Category key={i} src={value} title={key} />
+        ))}
       </div>
       <div className="ml-1 divider w-[70%]"></div>
     </div>

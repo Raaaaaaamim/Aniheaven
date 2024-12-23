@@ -6,6 +6,7 @@ const Category = ({ src, title }) => {
       <div className="avatar  ">
         <div className="w-7 rounded-full  group-hover:border-[2px] ease-in duration-100 ">
           <img
+            alt={title}
             className="rounded-full  "
             src={
               src ||

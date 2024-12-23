@@ -145,6 +145,13 @@ const SearchModal = ({ id }) => {
                     </div>
                   </Link>
                 ))}
+                <Link
+                  to={`/search?q=${value}`}
+                  onClick={() => document.getElementById(id).close()}
+                  className="w-full mt-2 cursor-pointer justify-center duration-100 ease-linear hover:text-primary/70 rounded-md items-center flex  h-16"
+                >
+                  <span>See more results</span>
+                </Link>
               </div>
             )}
           </div>

@@ -30,7 +30,9 @@ const Search = () => {
     "genres",
     parseAsString.withDefault("")
   );
-  const [isFilterOpen, setIsFilterOpen] = useState(true);
+  const [isFilterOpen, setIsFilterOpen] = useState(
+    debouncedSearchQuery !== "" ? false : true
+  );
 
   const [startDate, setStartDate] = useQueryState(
     "start_date",
@@ -427,7 +429,7 @@ const Search = () => {
                 <div
                   className={` ${
                     isFetchingNextPage ? "flex" : "hidden"
-                  } loading loading-xs loading-spinner `}
+                  } loading bg-grayText loading-xs loading-spinner `}
                 ></div>
 
                 <span className={isFetchingNextPage ? "text-grayText" : ""}>
