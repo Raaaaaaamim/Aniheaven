@@ -5,18 +5,10 @@ node_modules/
 dist/
 build/
 
-
-
-aniwatch-api/.vscode
-aniwatch-api/node_modules
-aniwatch-api/.env
-aniwatch-api/dist
-aniwatch-api/package-lock.json
-aniwatch-api/.idea
-aniwatch-api/yarn.lock
-aniwatch-api/pnpm-lock.yaml
-
-
+# Ignore node_modules and .env in all subdirectories
+**/node_modules/
+**/.env
+**/.env.local
 
 # Explicitly include aniwatch-api
 !aniwatch-api/
