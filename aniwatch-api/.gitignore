@@ -1,8 +1,10 @@
 .vscode
-node_modules
+node_modules/
 .env
-dist
-package-lock.json
+.env.local
+.DS_Store
+dist/
+build/
 .idea
 yarn.lock
 pnpm-lock.yaml

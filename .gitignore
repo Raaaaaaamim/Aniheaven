@@ -1,4 +1,4 @@
-# Global ignores
+# Root level ignores
 node_modules/
 .env
 .env.local
@@ -6,15 +6,13 @@ node_modules/
 dist/
 build/
 
-# Specific ignores for aniwatch-api
-/aniwatch-api/node_modules/
-/aniwatch-api/.env
-/aniwatch-api/.env.local
-
-# Other directory ignores
+# Ignore node_modules in all subdirectories
 **/node_modules/
 **/.env
 **/.env.local
 
-# Explicitly include aniwatch-api
-!aniwatch-api/
+# Keep aniwatch-api but ignore its node_modules and env files
+!/aniwatch-api
+/aniwatch-api/node_modules/
+/aniwatch-api/.env
+/aniwatch-api/.env.local
