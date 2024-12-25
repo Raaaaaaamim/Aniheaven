@@ -11,8 +11,7 @@ build/
 **/.env
 **/.env.local
 
-# Keep aniwatch-api but ignore its node_modules and env files
+# Keep aniwatch-api directory but ignore specific files
 !/aniwatch-api
-/aniwatch-api/node_modules/
+/aniwatch-api/node_modules
 /aniwatch-api/.env
-/aniwatch-api/.env.local
