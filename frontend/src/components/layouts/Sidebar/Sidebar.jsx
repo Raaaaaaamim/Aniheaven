@@ -3,7 +3,6 @@ import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { RiMenu4Fill } from "react-icons/ri";
 import SidebarContent from "../../ui/SidebarContent.jsx";
-
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 

@@ -1,7 +1,8 @@
-import { Hono } from "hono";
 import { HiAnime } from "aniwatch";
+import { Hono } from "hono";
 import { cache } from "../config/cache.js";
 import type { AniwatchAPIVariables } from "../config/variables.js";
+import getGeminiRes from "../controllers/getGeminiRes.js";
 
 const hianime = new HiAnime.Scraper();
 const hianimeRouter = new Hono<{ Variables: AniwatchAPIVariables }>();
@@ -184,5 +185,7 @@ hianimeRouter.get("/anime/:animeId/episodes", async (c) => {
 
   return c.json({ success: true, data }, { status: 200 });
 });
+
+hianimeRouter.post("/ai-bot", getGeminiRes);
 
 export { hianimeRouter };

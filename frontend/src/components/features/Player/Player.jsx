@@ -35,7 +35,13 @@ export const Player = memo(function Player({
   const { subtitleTracks, thumbnailTrack } = useMemo(
     () => ({
       subtitleTracks: tracks?.filter((track) => track.kind !== "thumbnails"),
-      thumbnailTrack: tracks?.find((track) => track.kind === "thumbnails"),
+      thumbnailTrack: tracks?.find((track) => track.kind === "thumbnails")
+        ? {
+            src: tracks.find((track) => track.kind === "thumbnails").file,
+            kind: "thumbnails",
+            url: tracks.find((track) => track.kind === "thumbnails").file,
+          }
+        : null,
     }),
     [tracks]
   );
@@ -43,11 +49,12 @@ export const Player = memo(function Player({
   useEffect(() => {
     if (!currentTime || !duration) return;
 
-    // Check if video is completed (with a small threshold)
+    // Handle auto next
     if (settings.autoNext && Math.abs(currentTime - duration) < 1) {
       setSelectedEpNumber((prev) => prev + 1);
     }
 
+    // Handle skip button visibility and text
     const isInIntro =
       introStart &&
       introEnd &&
@@ -59,16 +66,34 @@ export const Player = memo(function Player({
       currentTime >= outroStart &&
       currentTime <= outroEnd;
 
-    if (isInIntro) {
-      setSkipButtonText("Skip Intro");
-      setShowSkipButton(true);
-    } else if (isInOutro) {
-      setSkipButtonText("Skip Outro");
-      setShowSkipButton(true);
-    } else {
-      setShowSkipButton(false);
+    const newShowSkipButton = isInIntro || isInOutro;
+    const newSkipButtonText = isInIntro
+      ? "Skip Intro"
+      : isInOutro
+      ? "Skip Outro"
+      : "";
+
+    if (showSkipButton !== newShowSkipButton) {
+      setShowSkipButton(newShowSkipButton);
     }
-  }, [currentTime, introStart, introEnd, outroStart, outroEnd]);
+    if (skipButtonText !== newSkipButtonText) {
+      setSkipButtonText(newSkipButtonText);
+    }
+
+    // Handle auto skip intro
+    if (settings.autoSkipIntro && isInIntro && player.current) {
+      player.current.currentTime = introEnd;
+    }
+  }, [
+    currentTime,
+    duration,
+    introStart,
+    introEnd,
+    outroStart,
+    outroEnd,
+    settings.autoNext,
+    settings.autoSkipIntro,
+  ]);
 
   const handleSkip = useCallback(() => {
     if (!player.current) return;
@@ -79,16 +104,6 @@ export const Player = memo(function Player({
       player.current.currentTime = outroEnd;
     }
   }, [currentTime, introStart, introEnd, outroStart, outroEnd]);
-
-  // auto skip intro
-
-  useEffect(() => {
-    if (settings.autoSkipIntro) {
-      if (currentTime >= introStart && currentTime <= introEnd) {
-        player.current.currentTime = introEnd;
-      }
-    }
-  }, [settings, currentTime, introStart, introEnd]);
 
   const onProviderChange = useCallback((provider) => {
     if (isHLSProvider(provider)) {
@@ -116,7 +131,10 @@ export const Player = memo(function Player({
           />
         ))}
       </MediaProvider>
-      <DefaultVideoLayout icons={defaultLayoutIcons} />
+      <DefaultVideoLayout
+        thumbnails={thumbnailTrack.url}
+        icons={defaultLayoutIcons}
+      />
       {showSkipButton && (
         <div
           onClick={handleSkip}
