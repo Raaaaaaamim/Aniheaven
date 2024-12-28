@@ -1,8 +1,8 @@
-# 💀 AniHeaven fr fr ✨
+# ✨ AniHeaven - Watch Anime or Keep Scrolling fr fr
 
 <div align="center">
   <img src="frontend/public/textLogo.svg" alt="AniHeaven Logo" width="200"/>
-  <h3>literally the most based anime platform istg 😮‍💨</h3>
+  <h3>The Most Based Anime Platform You'll Ever Find istg 💀</h3>
 
   [![React](https://img.shields.io/badge/React-18.3.1-61dafb.svg?style=for-the-badge&logo=react)](https://reactjs.org/)
   [![Vite](https://img.shields.io/badge/Vite-5.4.8-646cff.svg?style=for-the-badge&logo=vite)](https://vitejs.dev/)
@@ -10,154 +10,154 @@
   [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
   
   <p align="center">
-    <a href="#demo">see the rizz ⚡</a>
+    <a href="#demo">Peep the Vibe ⚡</a>
     ·
-    <a href="#features">slay features</a>
+    <a href="#features">Features that Slap</a>
     ·
-    <a href="#installation">start ur journey bestie</a>
+    <a href="#installation">Start Your Journey</a>
     ·
-    <a href="#contributing">join our cult frfr</a>
+    <a href="#contributing">Join the Squad fr</a>
   </p>
 </div>
 
-## 🎬 bestie listen up rq
+## 🎬 Why AniHeaven Hits Different
 
-ngl other anime sites be mid asf w their crusty UI n potato servers fr fr 💀
+Other anime sites be looking like they're stuck in 2010 fr fr 💀 
 
-like deadass, we made smth so fire it'll make other sites uninstall 😭 built different w that cutting-edge tech, making other platforms look like they running on a calculator frfr no cap! and bestie... IT'S FREE (not clickbait) 🤯
+But AniHeaven? We built different. No cap, we created something so fire it makes other sites look like they running Internet Explorer fr. Built with that cutting-edge tech that'll make your streaming experience ACTUALLY enjoyable (real). And the best part? It's FREE.99 bestie! 🤯
 
-## ✨ features that'll make u ascend fr
+## ✨ Features That Make Us THAT Site
 
-### 🎥 video player that goes brazy
-- **on god fr**
-  - skips those intros automatically bc we ain't watching that again bestie
-  - quality settings that actually slap no cap
-  - remembers ur spot (we gotchu bestie)
-  - keyboard shortcuts bc we're not npcs fr
+### 🎥 Video Player That Never Misses
+- **The Real MVP:**
+  - Auto-skips intros because we KNOW you've seen them 100x
+  - Quality settings that actually work (not clickbait)
+  - Remembers where you left off (we got you fr)
+  - Keyboard shortcuts because we're built DIFFERENT
 
-### 🎨 UI that'll make u cry fr
-- **aesthetic check? passed**
-  - dark mode bc we respect the eyes bestie
-  - transitions smoother than ur rizz game
-  - responsive asf on any device no cap
-  - navigation so easy even ur grandma could use it (real)
+### 🎨 UI That Passes Every Vibe Check
+- **Clean and Crispy:**
+  - Dark mode by default (your eyes can thank us later)
+  - Transitions smoother than your rizz game fr
+  - Responsive on EVERY device no cap
+  - Navigation so clean even your grandma could use it (real)
 
-### 🚀 speed check? passed
-- **zero lag fr fr**
-  - loads faster than ur toxic ex replies
-  - galaxy brain caching system ong
-  - images load before u can say "skill issue"
-  - buffering? bestie we don't know her 💅
+### 🚀 Speed That Makes Flash Look Slow
+- **No Lag Zone:**
+  - Loads faster than your bestie's mood swings
+  - Galaxy brain caching system ong
+  - Images pop up before you can say "skill issue"
+  - Buffering? Sorry, we don't speak THAT language 💅
 
-### 🎯 features that hit different
-- **big brain energy fr**
-  - search that actually works (not clickbait)
-  - filter system that passes the vibe check
-  - recommendations that aren't mid
-  - track ur anime journey bestie
-  - save ur comfort shows frfr
+### 🎯 Features That Go CRAZY
+- **Big Brain Energy:**
+  - Search that ACTUALLY finds what you want
+  - Filter system that understood the assignment
+  - Recommendations that never miss
+  - Track your anime journey like a pro
+  - Save your comfort shows for those main character moments
 
-### 🔄 always getting better
-- **we stay winning**
-  - new anime drops faster than ur grades
-  - features keep getting more cracked
-  - performance boosts go brrrrr
-  - bugs get ratio'd on sight fr
+### 🔄 Updates That Don't Miss
+- **We Stay Winning:**
+  - New anime drops faster than your grades fr
+  - Features keep getting more cracked
+  - Performance boosts go BRRRR
+  - Bugs get ratio'd on sight no cap
 
-## 🛠️ the secret sauce (real)
+## 🛠️ The Secret Sauce (Real Tech Hours)
 
 <details>
-<summary>click for the forbidden rizz</summary>
+<summary>Click for the Forbidden Knowledge fr</summary>
 
-### frontend core
-- **framework:** React 18.3.1 (bc we're not basic)
-- **build tool:** Vite 5.4.8 (zooooom)
-- **styling:** 
-  - TailwindCSS (for that aesthetic rizz)
-  - DaisyUI (components that pass the vibe check)
-  - Framer Motion (smooth like ur brain after watching anime)
+### Frontend Stack
+- **Framework:** React 18.3.1 (because we're not basic)
+- **Build Tool:** Vite 5.4.8 (speed demon fr)
+- **Styling:** 
+  - TailwindCSS (for that aesthetic perfection)
+  - DaisyUI (components that eat and leave no crumbs)
+  - Framer Motion (smoother than your pickup lines)
 
-### state management
-- TanStack React Query (data fetching go brr)
-- React Router DOM (navigation on x games mode)
-- Recoil (state management that doesn't make u rage quit)
+### State Management
+- TanStack React Query (data fetching that SLAPS)
+- React Router DOM (navigation on X Games mode)
+- Recoil (state management that doesn't make you unalive)
 
-### media handling
-- Vidstack React (video player that never misses)
-- HLS.js (streaming magic no cap fr)
-- React Player (backup that got ur back fr)
+### Media Handling
+- Vidstack React (video player that NEVER misses)
+- HLS.js (streaming magic fr fr)
+- React Player (backup that got your back)
 
-### UI components
-- Swiper (slides smoother than ur dms)
-- React Icons (icons that ate fr)
-- React Hot Toast (notifications that slay)
-- NProgress (loading bars that understood the assignment)
+### UI Components
+- Swiper (slides cleaner than your fit)
+- React Icons (icons that ate and left no crumbs)
+- React Hot Toast (notifications that pass the vibe check)
+- NProgress (loading bars that actually look good fr)
 
-### dev tools
-- ESLint (keeps code cleaner than ur fit)
-- Prettier (makes it look bussin)
-- Husky (catches mistakes like ur bestie)
-- Commitlint (bc we're professional n stuff ig)
+### Dev Tools
+- ESLint (keeps code cleaner than your Instagram feed)
+- Prettier (makes everything look bussin)
+- Husky (catches mistakes like a real one)
+- Commitlint (keeping it professional... kinda)
 
 </details>
 
-## 🚀 time to get this W
+## 🚀 Getting Started (Speed Run Any%)
 
-### the requirements check
+### The Essentials
 - Node.js 16.x or higher
 - npm or yarn
-- Git (duh bestie)
+- Git (obviously bestie)
 
-### speedrun guide
+### Quick Start Guide
 
-1. yoink the code rq
+1. Grab the code:
 ```bash
 git clone https://github.com/yourusername/aniheaven.git
 ```
 
-2. install the goods fr
+2. Install the goods:
 ```bash
 cd aniheaven
 npm install
 ```
 
-3. make it go brr
+3. Let it cook:
 ```bash
 npm run dev
 ```
 
-## 📱 peep the aesthetic
+## 📱 Screenshots That Go Hard
 
 <div align="center">
   <img src="screenshots/home.png" alt="Home Page" width="400"/>
   <img src="screenshots/player.png" alt="Video Player" width="400"/>
 </div>
 
-## 🤝 join our cult fr
+## 🤝 Join the Movement
 
-wanna make AniHeaven even more goated? say less bestie:
+Wanna make AniHeaven even more goated? Say less fr:
 
-1. fork this bad boy rq
-2. make ur feature branch (`git checkout -b feature/something-bussin`)
-3. commit that heat (`git commit -m 'added some fire frfr'`)
-4. push it real good (`git push origin feature/something-bussin`)
-5. drop that PR like it's hot bestie
+1. Fork this heat
+2. Create your feature branch (`git checkout -b feature/something-fire`)
+3. Drop that heat (`git commit -m 'added some heat frfr'`)
+4. Push it like it's hot (`git push origin feature/something-fire`)
+5. Drop that PR and watch it get accepted fr fr
 
-## 📜 boring legal stuff ig
+## 📜 Legal Stuff (Boring but Important fr)
 
-this project do be licensed under MIT - check the [LICENSE](LICENSE) file if ur into that kind of thing bestie
+Licensed under MIT - check the [LICENSE](LICENSE) file if you're into that kind of thing (we won't judge)
 
-## 🙏 massive W's to
+## 🙏 Big W's to the Real Ones
 
-- HiAnime API for the sauce fr
+- HiAnime API for the main sauce
 - MAL/Jikan API for the extra drip
-- all the besties who contributed
-- open-source fam keeping it real no cap
+- All the homies who contributed
+- Open-source fam keeping it real no cap
 
 ---
 
 <div align="center">
-  made w love by weebs who never miss fr fr 💜
+  Made with 💜 by weebs who NEVER miss
   
-  [check the vibe](https://aniheaven.vercel.app) · [report bugs bestie](https://github.com/yourusername/aniheaven/issues) · [request features rq](https://github.com/yourusername/aniheaven/issues)
+  [Check the Vibe](https://aniheaven.vercel.app) · [Report Issues](https://github.com/yourusername/aniheaven/issues) · [Request Features](https://github.com/yourusername/aniheaven/issues)
 </div>
