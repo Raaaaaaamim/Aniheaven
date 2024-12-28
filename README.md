@@ -1,7 +1,7 @@
 # 🌟 AniHeaven - Modern Anime Streaming Platform
 
 <div align="center">
-  <img src="frontend/public/logo.png" alt="AniHeaven Logo" width="200"/>
+  <img src="frontend/public/textLogo.svg" alt="AniHeaven Logo" width="200"/>
   
   [![React](https://img.shields.io/badge/React-18.3.1-61dafb.svg?style=flat&logo=react)](https://reactjs.org/)
   [![Vite](https://img.shields.io/badge/Vite-5.4.8-646cff.svg?style=flat&logo=vite)](https://vitejs.dev/)
