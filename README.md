@@ -1,7 +1,7 @@
 # 🌟 AniHeaven
 
 <div align="center">
-  <img src="frontend/public/aniheaven.svg" alt="AniHeaven Logo" width="200"/>
+  <img src="frontend/public/textLogo.svg" alt="AniHeaven Logo" width="200"/>
   <h3>Your Gateway to Infinite Anime Adventures</h3>
 
   [![React](https://img.shields.io/badge/React-18.3.1-61dafb.svg?style=for-the-badge&logo=react)](https://reactjs.org/)
