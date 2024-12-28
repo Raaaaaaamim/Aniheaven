@@ -113,7 +113,7 @@ export const Player = memo(function Player({
 
   return (
     <MediaPlayer
-      autoplay
+      autoPlay={settings.autoPlay}
       className="vds-player"
       src={source}
       onProviderChange={onProviderChange}
@@ -132,7 +132,7 @@ export const Player = memo(function Player({
         ))}
       </MediaProvider>
       <DefaultVideoLayout
-        thumbnails={thumbnailTrack.url}
+        thumbnails={thumbnailTrack && thumbnailTrack.url}
         icons={defaultLayoutIcons}
       />
       {showSkipButton && (

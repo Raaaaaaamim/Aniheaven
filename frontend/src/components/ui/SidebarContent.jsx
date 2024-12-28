@@ -4,7 +4,9 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { MdLogout } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { genres } from "../../../lib/utils.js";
-import img1 from "../../assets/aniheaven.png";
+import logo from "../../assets/aniheaven.svg";
+import img1 from "../../assets/textLogo.svg";
+
 import Button from "./Button.jsx";
 import Category from "./Category.jsx";
 
@@ -13,8 +15,13 @@ const SidebarContent = () => (
     <div className="h-[10%] w-full flex gap-2 items-center justify-start">
       <Link to="/">
         <img
-          className=" w-14 xl:w-40 2xl:w-44 lg:w-16 "
+          className=" sm:flex w-48 mt-10 lg:mt-0 xl:flex lg:hidden xl:w-48 2xl:w-56  "
           src={img1}
+          alt="logo"
+        />
+        <img
+          className=" sm:hidden hidden  lg:flex xl:hidden w-10  "
+          src={logo}
           alt="logo"
         />
       </Link>

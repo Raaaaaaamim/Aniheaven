@@ -101,11 +101,17 @@ const AnimeInfo = () => {
         <div className="absolute h-[300px] overflow-hidden  sm:h-[400px] inset-0">
           <img
             src={info.poster}
-            className="w-full h-[160%]     rotate-[360deg]  object-top"
+            className="w-full h-[160%] transform relative scale-[1.01] pixelated object-top"
+            style={{
+              imageRendering: "pixelated",
+              transform: "scale(1.01)", // Forcing a slight scale up
+            }}
             alt={info.name}
           />
-          <div className=" absolute inset-0  "></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/95 backdrop-blur-sm to-transparent" />
+
+          <div className="absolute inset-0  bg-gradient-to-t from-background via-background/95 backdrop-blur-sm to-transparent" />
+          <div className="absolute inset-0 mask   " />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent    " />
         </div>
 
         {/* Content */}

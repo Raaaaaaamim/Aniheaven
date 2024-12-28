@@ -11,9 +11,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#8B5CF6", // Vibrant purple
+        primary: "#845FD6", // Vibrant purple
         secondary: "#32343C", // Dark gray
-        accent: "#F472B6", // Pink accent
+        secondaryBg: "#0f0f0f",
+        accent: "#F472B6",
         text: "#E2E8F0", // Light gray text
         background: "#0D0D0D", // Deep black
         border: "#2D2D2D", // Subtle border
@@ -21,6 +22,7 @@ export default {
         grayText: "#535256",
         third: "#1C1C1C",
         button: "#ad241b", // Set your custom button color
+        secText: "#999999",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],

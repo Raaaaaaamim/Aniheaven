@@ -112,3 +112,14 @@ body {
 }
 
 /* Loading Animation */
+.pixelated {
+  image-rendering: -moz-crisp-edges; /* Firefox */
+  image-rendering: -webkit-crisp-edges; /* Webkit */
+  image-rendering: pixelated; /* Chrome and other browsers */
+  image-rendering: crisp-edges; /* General */
+  -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
+}
+.mask {
+  background-image: url("../assets/mask.svg");
+  background-repeat: repeat;
+}

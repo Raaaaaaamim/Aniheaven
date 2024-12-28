@@ -35,7 +35,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "@hono/node-server": "^1.13.1",
-    "aniwatch": "^2.15.2",
+    "aniwatch": "^2.18.1",
     "dotenv": "^16.4.5",
     "hono": "^4.6.3",
     "hono-rate-limiter": "^0.4.0",

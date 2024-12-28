@@ -14,7 +14,7 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
   return (
     <div
       onMouseEnter={refetch}
-      className="relative hover:scale-[1.02] ease-in-out duration-300 group rounded-xl w-[160px] h-[270px] sm:h-[280px] sm:w-[180px] md:w-[200px] overflow-hidden border border-white/[0.05]  bg-[#0f0f0f]"
+      className="relative hover:scale-[1.02] ease-in-out duration-300 group rounded-xl w-[180px] h-[270px] sm:h-[280px] sm:w-[190px] md:w-[200px] overflow-hidden border border-white/[0.05]  bg-[#0f0f0f]"
     >
       <img
         className="w-full group-hover:scale-110 ease-in-out duration-300 h-full absolute z-10 top-0 left-0 rounded-xl"

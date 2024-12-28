@@ -9,6 +9,7 @@ const getInitialSettings = () => {
   return {
     autoNext: true,
     autoSkipIntro: false,
+    autoPlay: true,
   };
 };
 

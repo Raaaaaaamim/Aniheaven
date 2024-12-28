@@ -137,7 +137,11 @@ const Card = forwardRef(
                       <span>{anime?.moreInfo?.genres[1] || ""}</span>
                       {anime?.moreInfo?.genres?.length > 1 && (
                         <span className="hidden md:flex">
-                          | <span>{anime?.moreInfo?.genres[2] || ""}</span>
+                          <span>
+                            {anime?.moreInfo?.genres[2]
+                              ? ` | ${anime?.moreInfo?.genres[2]}`
+                              : ""}
+                          </span>
                         </span>
                       )}
                     </>

@@ -4,9 +4,16 @@ import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import { parseAsString, useQueryState } from "nuqs";
 import { useEffect, useRef, useState } from "react";
+import { AiOutlineBackward } from "react-icons/ai";
 import { RiClosedCaptioningFill, RiMic2Fill } from "react-icons/ri";
 import { useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
+
+import { AiOutlineForward } from "react-icons/ai";
+import { IoPlay, IoPlaySkipForward } from "react-icons/io5";
+import { MdAdd, MdNetworkWifi } from "react-icons/md";
+import { RiFocusMode } from "react-icons/ri";
+import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import {
   episodeVariants,
   serverItemVariants,
@@ -15,8 +22,9 @@ import {
 import animationJSON from "../assets/cat-loading.json";
 import catSleep from "../assets/cat-sleep.json";
 import { Player } from "../components/features/Player/Player.jsx";
+import VideoButton from "../components/VideoControls/VideoButton.jsx";
+import useSettings from "../hooks/useSettings.jsx";
 import { api } from "../services/api";
-import { settingsAtom } from "../store/atoms/SettingsAtoms.js";
 import { selectedEpNumberAtom } from "../store/index.js";
 
 const WatchPage = () => {
@@ -31,7 +39,8 @@ const WatchPage = () => {
   );
   const dropdownRef = useRef(null);
 
-  const selectedEpNumber = useRecoilValue(selectedEpNumberAtom);
+  const [selectedEpNumber, setSelectedEpNumber] =
+    useRecoilState(selectedEpNumberAtom);
 
   const {
     data: epData,
@@ -54,7 +63,8 @@ const WatchPage = () => {
     "section",
     parseAsString.withDefault("1")
   );
-  const [settings, setSettings] = useRecoilState(settingsAtom);
+  const [settings, setSettings] = useSettings();
+
   const {
     data: serverData,
     isLoading: isServersLoading,
@@ -113,10 +123,20 @@ const WatchPage = () => {
       selectedEpisode !== 0
     ) {
       setSelectedEpisode(
-        epData?.data?.data?.episodes?.[selectedEpNumber]?.episodeId
+        epData?.data?.data?.episodes?.[selectedEpNumber - 1]?.episodeId
       );
     }
   }, [selectedEpNumber]);
+
+  useEffect(() => {
+    if (!selectedEpisode) return;
+    if (episodeData) {
+      const index = episodeData?.episodes?.findIndex(
+        (episode) => episode.episodeId === selectedEpisode
+      );
+      setSelectedEpNumber(index + 1);
+    }
+  }, [selectedEpisode, episodeData]);
 
   const server = serverData?.data?.data;
   const handleAutoNext = () => {
@@ -124,30 +144,14 @@ const WatchPage = () => {
       ...prev,
       autoNext: !prev.autoNext,
     }));
-    localStorage.setItem(
-      "settings",
-      JSON.stringify({
-        ...settings,
-        autoNext: !settings.autoNext,
-      })
-    );
   };
   const handleAutoSkipIntro = () => {
     setSettings((prev) => ({
       ...prev,
       autoSkipIntro: !prev.autoSkipIntro,
     }));
-    localStorage.setItem(
-      "settings",
-      JSON.stringify({
-        ...settings,
-        autoSkipIntro: !settings.autoSkipIntro,
-      })
-    );
   };
-
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -157,11 +161,102 @@ const WatchPage = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-  console.log(sourceData);
+  //console.log(sourceData);
+  const handleAutoPlay = () => {
+    setSettings((prev) => ({
+      ...prev,
+      autoPlay: !prev.autoPlay,
+    }));
+  };
+  const [focus, setFocus] = useState(false);
+  const handleNext = () => {
+    if (!selectedEpNumber) return;
+    const episode = episodeData?.episodes[selectedEpNumber - 1 + 1] || false;
+    if (!episode) {
+      return;
+    }
+    setSelectedEpNumber((pre) => pre + 1);
+  };
+  const handlePrev = () => {
+    if (!selectedEpNumber) return;
+    const episode = episodeData?.episodes[selectedEpNumber - 1 - 1] || false;
+    if (!episode) {
+      return;
+    }
+    setSelectedEpNumber((pre) => pre - 1);
+  };
+  const videoButtons = [
+    {
+      Icon: TbPlayerTrackNextFilled,
+      title: "Auto Next",
+      onClick: handleAutoNext,
+      isClicked: settings?.autoNext,
+    },
+    {
+      Icon: IoPlaySkipForward,
+      title: "Skip Intro",
+      onClick: handleAutoSkipIntro,
+      isClicked: settings?.autoSkipIntro,
+    },
+    {
+      Icon: IoPlay,
+      title: "Auto Play",
+      onClick: handleAutoPlay,
+      isClicked: settings?.autoPlay,
+    },
+    {
+      Icon: RiFocusMode,
+      title: "Focus",
+      onClick: () => setFocus(!focus),
+      iconSize: 16,
+      isClicked: focus,
+    },
+  ];
+  const videoButtonsTwo = [
+    {
+      Icon: AiOutlineBackward,
+      title: "Prev",
+      onClick: handlePrev,
+      underline: false,
+      isClicked: false,
+    },
+    {
+      Icon: AiOutlineForward,
+      title: "Next",
+      underline: false,
+      onClick: handleNext,
+      isClicked: false,
+    },
+
+    {
+      Icon: MdNetworkWifi,
+      title: "Watch2gether",
+      onClick: handleAutoNext,
+      underline: false,
+      isClicked: false,
+    },
+    {
+      Icon: MdAdd,
+      title: "Add to Watchlist",
+      onClick: handleAutoNext,
+      iconSize: 17,
+      underline: false,
+      isClicked: false,
+    },
+  ];
+  // console.log(epData);
+  //console.log(selectedEpNumber);
+
   return (
     <div className="overflow-hidden justify-self-start w-full min-h-screen flex justify-center items-start bg-transparent ">
+      <div
+        onClick={() => setFocus(false)}
+        className={`w-full ${
+          focus ? "fixed" : "hidden"
+        } h-full  top-0 left-0  z-40 backdrop-blur-2xl  `}
+      ></div>
       <div className="overflow-hidden mb-4 flex flex-col w-[98%] gap-4 h-full">
-        <div className="overflow-hidden aspect-video rounded-3xl relative group ">
+        <div className="overflow-hidden z-50 aspect-video rounded-3xl relative group ">
           <div className="absolute inset-0   opacity-100 group-hover:opacity-0 transition-all duration-500"></div>
           {!isServersLoading &&
           !isSourceError &&
@@ -199,8 +294,36 @@ const WatchPage = () => {
             </>
           )}
         </div>
-
-        <div className="overflow-hidden font-outfit w-full flex h-auto lg:h-[7rem] bg-[#0f0f0f] rounded-3xl border border-white/[0.05] ">
+        <div className=" min-h-[6rem]  md:flex-row flex-col bg-secondaryBg rounded-3xl border-[1px] border-white/[0.05] text-secText flex justify-between items-center gap-0  ">
+          <div className="md:ml-6 gap-6 ml-0  flex  md:w-[40%] w-full md:justify-start justify-evenly items-center h-full  ">
+            {videoButtons.map((button, index) => (
+              <VideoButton
+                key={index}
+                Icon={button.Icon}
+                title={button.title}
+                onClick={button.onClick}
+                isClicked={button.isClicked}
+                iconSize={button?.iconSize}
+              />
+            ))}
+          </div>
+          <div
+            className={"w-full h-[1px] md:hidden mt-2 flex bg-white/[0.02]"}
+          ></div>
+          <div className="md:mr-6 gap-6 ml-0  flex  md:w-[40%] w-full md:justify-end justify-evenly items-center h-full">
+            {videoButtonsTwo.map((button, index) => (
+              <VideoButton
+                key={index}
+                Icon={button.Icon}
+                title={button.title}
+                onClick={button.onClick}
+                iconSize={button?.iconSize}
+                isClicked={button.isClicked}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="overflow-hidden font-outfit w-full flex h-auto lg:h-[8rem] bg-secondaryBg rounded-3xl border border-white/[0.05] ">
           <div className="w-[40%] hidden justify-center items-start lg:flex lg:flex-col h-full border-r border-white/[0.05] gap-2">
             <div className="flex self-start ml-6 justify-center items-center gap-4">
               <div className="flex justify-center items-center gap-2 cursor-pointer hover:bg-white/[0.02] px-4 py-2 rounded-xl transition-all duration-300">
@@ -231,7 +354,7 @@ const WatchPage = () => {
 
           <div className="lg:w-[70%] w-full  h-full gap-0 flex flex-col">
             <motion.div
-              className="w-full h-auto lg:h-[50%] border-b border-white/[0.05] items-center flex flex-wrap lg:flex-nowrap justify-start gap-2 lg:gap-3 p-3 lg:px-6"
+              className="w-full h-auto lg:h-[50%] border-b border-white/[0.05] items-center flex flex-wrap lg:flex-nowrap justify-start gap-3 p-3 lg:px-6"
               variants={watchContainerVariants}
               initial="hidden"
               animate="visible"
@@ -283,7 +406,7 @@ const WatchPage = () => {
             </motion.div>
 
             <motion.div
-              className="w-full h-auto lg:h-[50%] items-center flex flex-wrap lg:flex-nowrap justify-start gap-2 lg:gap-3 p-3 lg:px-6"
+              className="w-full h-auto lg:h-[50%] items-center flex flex-wrap lg:flex-nowrap justify-start gap-2 gap-3 p-3 lg:px-6"
               variants={watchContainerVariants}
               initial="hidden"
               animate="visible"
@@ -369,7 +492,10 @@ const WatchPage = () => {
                         transition: { duration: 0.3 },
                       }}
                       whileTap={{ scale: 0.98 }}
-                      onClick={() => setSelectedEpisode(item?.episodeId)}
+                      onClick={() => {
+                        setSelectedEpisode(item?.episodeId);
+                        setSelectedEpNumber(item?.number);
+                      }}
                       className={`${
                         selectedEpisode === item?.episodeId
                           ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"

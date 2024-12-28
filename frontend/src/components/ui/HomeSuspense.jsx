@@ -26,11 +26,11 @@ const HomeSuspense = () => {
       <div className="gap-[16px] mt-[40px] flex-col w-full flex justify-center items-center flex-wrap min-h-[10vh]">
         <div className="max-w-8xl flex flex-col gap-8">
           <div className="self-start md:text-2xl text-2xl border-l-4 px-3 border-primary ml-2 bg-[#1f1f1f] animate-pulse h-8 w-48 rounded-sm" />
-          <div className="gap-3 md:gap-4 2xl:gap-6 w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+          <div className="gap-3 md:gap-4 2xl:gap-6 w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 place-items-center ">
             {[...Array(12)].map((_, i) => (
               <div
                 key={i}
-                className="relative hover:scale-[1.05] ease-in-out duration-200 group rounded-2xl w-[170px] h-[280px] md:w-64 md:h-[370px] 2xl:w-[280px] 2xl:h-[400px] overflow-hidden bg-[#1f1f1f] animate-pulse"
+                className="group relative    w-full sm:w-[240px] md:w-[230px]  rounded-2xl h-[280px] sm:h-[340px] md:h-[340px] xl:h-[370px] xl:w-64      2xl:w-72 2xl:h-[410px]  bg-[#1f1f1f] animate-pulse"
               ></div>
             ))}
           </div>
