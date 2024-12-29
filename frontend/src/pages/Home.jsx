@@ -43,6 +43,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Utility and component imports
 import { containerVariants, spotlightVariants } from "../animations.jsx";
+import Badge from "../components/ui/Badge.jsx";
 import Card from "../components/ui/Card";
 import HomeSuspense from "../components/ui/HomeSuspense";
 
@@ -110,7 +111,7 @@ const Home = () => {
           delay: 5000,
           disableOnInteraction: false,
         }}
-        className="w-full max-w-8xl md:h-[400px] lg:mx-auto h-[300px] lg:h-[80vh] 2xl:h-[85vh] max-h-[800px] rounded-xl overflow-hidden border border-white/[0.05]"
+        className="w-full max-w-8xl md:h-[400px] lg:mx-auto h-[300px] lg:min-h-[80vh]   2xl:min-h-[70vh]  max-h-[700px] rounded-xl overflow-hidden border border-white/[0.05]"
       >
         {/* Mapping spotlight anime data to slides */}
         {data?.data?.spotlightAnimes?.map((anime, i) => (
@@ -141,34 +142,22 @@ const Home = () => {
               {/* Anime information overlay */}
               <motion.div className="absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-8 lg:px-12 text-text">
                 {/* Title */}
-                <h1 className="lg:text-6xl 2xl:text-7xl text-2xl flex flex-wrap md:text-5xl gap-3 lg:mb-4 font-outfit">
-                  <span className="font-bold line-clamp-1 lg:line-clamp-2 text-text/90">
+                <h1 className="xl:text-6xl  text-2xl flex flex-wrap md:text-5xl gap-3 lg:mb-4 font-outfit">
+                  <span className="font-bold  line-clamp-1 lg:line-clamp-2 text-text/90">
                     {anime.name}
                   </span>
                 </h1>
 
                 {/* Episode badges */}
                 <div className="flex justify-start py-2 md:py-4 gap-1 md:gap-2 items-center">
-                  <div className="text-xs font-outfit font-medium px-3 py-1 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border 2xl:text-sm border-white/[0.05] transition-all duration-300">
-                    {anime.otherInfo[3] || "N/A"}
-                  </div>
+                  <Badge title={anime.otherInfo[3] || "N/A"} />
                   {/* Sub episodes badge */}
                   {anime?.episodes?.sub && (
-                    <div className="flex items-center 2xl:text-sm gap-1 px-3 py-1 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
-                      <BsCcCircleFill className="text-xs text-primary/90" />
-                      <span className="text-xs 2xl:text-sm font-outfit">
-                        {anime.episodes.sub}
-                      </span>
-                    </div>
+                    <Badge Icon={BsCcCircleFill} title={anime.episodes.sub} />
                   )}
                   {/* Dub episodes badge */}
                   {anime?.episodes?.dub && (
-                    <div className="flex items-center 2xl:text-sm gap-1 px-3 py-1 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
-                      <PiMicrophoneFill className="text-xs text-primary/90" />
-                      <span className="text-xs 2xl:text-sm font-outfit">
-                        {anime.episodes.dub}
-                      </span>
-                    </div>
+                    <Badge Icon={PiMicrophoneFill} title={anime.episodes.dub} />
                   )}
                 </div>
 
@@ -176,20 +165,20 @@ const Home = () => {
                 <div className="flex mb-2 md:mb-3 self-start justify-start items-center gap-2 md:gap-4 text-xs text-text/70">
                   <div className="flex justify-center items-center gap-1 md:gap-2">
                     <IoCalendarClear className="text-primary/90  text-[14px] 2xl:text-[16px] " />
-                    <span className="text-xs 2xl:text-sm font-outfit">
+                    <span className="text-xs 2xl:text-sm font-sans">
                       {anime.otherInfo[2] || "N/A"}
                     </span>
                   </div>
                   <div className="flex justify-center items-center gap-1 md:gap-2">
                     <TbClockHour4Filled className="text-primary/90 text-[14px] 2xl:text-sm 2xl:text-[16px]  " />
-                    <span className="text-xs 2xl:text-sm font-outfit">
+                    <span className="text-xs 2xl:text-sm font-sans">
                       {anime.otherInfo[1] || "N/A"}
                     </span>
                   </div>
                 </div>
 
                 {/* Description with length limit */}
-                <p className="  text-xs md:text-sm font-poppins md:mb-8 mb-3 max-w-2xl 2xl:max-w-3xl  line-clamp-2 md:line-clamp-3  2xl:line-clamp-4 w-[80%] md:w-full text-text/70">
+                <p className="  text-xs md:text-[13px] font-sans md:mb-8 mb-3 max-w-[38rem] 2xl:max-w-3xl  line-clamp-2 md:line-clamp-3  2xl:line-clamp-4 w-[80%] md:w-full text-text/70">
                   {anime.description}
                 </p>
 
@@ -251,7 +240,7 @@ const Home = () => {
           breakpoints={{
             320: { slidesPerView: 2, spaceBetween: 10 },
             640: { slidesPerView: 3, spaceBetween: 15 },
-            1024: { slidesPerView: 4, spaceBetween: 5 },
+            1024: { slidesPerView: 5, spaceBetween: 5 },
             1280: { slidesPerView: 5, spaceBetween: 10 },
             1536: { slidesPerView: 6, spaceBetween: 15 },
             1920: { slidesPerView: 7, spaceBetween: 20 },
@@ -293,7 +282,7 @@ const Home = () => {
             Latest Episodes
           </h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4  gap-3 md:gap-4 place-items-center ">
+        <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4  gap-3 md:gap-4 2xl:grid-cols-5 place-items-center sectionA  ">
           <AnimatePresence mode="popLayout">
             {data?.data?.latestEpisodeAnimes?.map((anime, index) => (
               <Card
@@ -316,7 +305,7 @@ const Home = () => {
             Top Upcoming
           </h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-3 md:gap-4 place-items-center">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 md:gap-4 2xl:grid-cols-5 sectionA place-items-center">
           <AnimatePresence mode="popLayout">
             {data?.data?.topUpcomingAnimes?.map((anime, index) => (
               <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
@@ -340,7 +329,7 @@ const Home = () => {
             Latest Completed Animes
           </h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-3 md:gap-4 place-items-center">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 2xl:grid-cols-5 sectionA md:gap-4 place-items-center">
           <AnimatePresence mode="popLayout">
             {data?.data?.latestCompletedAnimes?.map((anime, index) => (
               <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
@@ -364,7 +353,7 @@ const Home = () => {
             Most Favorite Animes
           </h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-3 md:gap-4 place-items-center">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 2xl:grid-cols-5 md:gap-4 sectionA place-items-center">
           <AnimatePresence mode="popLayout">
             {data?.data?.mostFavoriteAnimes?.map((anime, index) => (
               <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
@@ -388,7 +377,7 @@ const Home = () => {
             Most Popular Animes
           </h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-3 md:gap-4 place-items-center">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 md:gap-4 2xl:grid-cols-5 sectionA place-items-center">
           <AnimatePresence mode="popLayout">
             {data?.data?.mostPopularAnimes?.map((anime, index) => (
               <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
@@ -448,7 +437,7 @@ const Home = () => {
             </button>
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 place-items-center md:gap-4 2xl:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-3 place-items-center md:gap-4 2xl:gap-6">
           <AnimatePresence mode="popLayout">
             {data?.data?.top10Animes[timePeriod]?.map((anime, index) => (
               <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
@@ -473,7 +462,7 @@ const Home = () => {
               Top Airing
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 place-items-center  gap-3 md:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3  xl:grid-cols-5 2xl:grid-cols-6 lg:grid-cols-5 place-items-center  gap-3 md:gap-4">
             <AnimatePresence mode="popLayout">
               {data?.data?.topAiringAnimes?.map((anime, index) => (
                 <Suspense key={anime.id + index} fallback={<HomeSuspense />}>

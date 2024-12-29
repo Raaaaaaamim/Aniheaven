@@ -396,9 +396,9 @@ const Search = () => {
       {debouncedSearchQuery && (
         <div className="space-y-6 w-full self-start ">
           <h2 className="text-xl font-outfit font-bold text-text">
-            Search Results for "{debouncedSearchQuery}"
+            Search Results for &quot;{debouncedSearchQuery}&quot;
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 place-items-center gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 place-items-center gap-4">
             {isLoading
               ? Array(8)
                   .fill(0)

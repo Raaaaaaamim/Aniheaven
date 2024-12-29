@@ -9,7 +9,7 @@ const Button = ({ Icon, children, size = 20 }) => {
           />
         }
       </div>
-      <span className="font-outfit lg:hidden xl:block block font-medium ease-in duration-100 group-hover:text-text text-grayText">
+      <span className="font-outfit    font-medium ease-in duration-100 group-hover:text-text text-grayText">
         {children}
       </span>
     </div>

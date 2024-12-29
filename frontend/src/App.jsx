@@ -24,13 +24,13 @@ const router = createBrowserRouter([
           <Navbar />
           <div className="flex">
             <Sidebar />
-            <div className="w-full justify-center items-center flex lg:w-[93%] xl:w-[82%]  lg:ml-auto min-h-screen">
+            <div className="w-full justify-center items-center flex lg:w-full xl:w-[82%]  lg:ml-auto min-h-screen">
               <div className=" max-w-[1600px] w-full h-full ">
                 <Outlet />
               </div>
             </div>
           </div>
-          <div className="w-full   pt-20 justify-center items-center flex lg:w-[93%] xl:w-[82%] lg:ml-auto   ">
+          <div className="w-full   pt-20 justify-center items-center flex lg:w-full xl:w-[82%] lg:ml-auto   ">
             <div className=" w-full h-full max-w-[1600px] ">
               <Footer />
             </div>

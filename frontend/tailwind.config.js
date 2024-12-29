@@ -27,7 +27,7 @@ export default {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
         outfit: ["Outfit", "sans-serif"],
-        spicy: ["Spicy Rice", "system-ui"],
+        sans: ["Noto Sans", "serif"],
       },
       animation: {
         glow: "glow 2s ease-in-out infinite alternate",

@@ -10,6 +10,7 @@ import { TbClockHour4Filled } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { cardVariants, infoVariants, textVariants } from "../../animations";
 import useAnimeInfo from "../../hooks/useAnimeInfo";
+import Badge from "./Badge.jsx";
 
 const Card = forwardRef(
   ({ imageUrl, title, id, upcoming, subCount, dubCount }, ref) => {
@@ -28,7 +29,7 @@ const Card = forwardRef(
           setHovered(true);
         }}
         onMouseLeave={() => setHovered(false)}
-        className="group relative  overflow-hidden bg-[#0f0f0f] w-full sm:w-[240px] md:w-[230px]  rounded-2xl h-[280px] sm:h-[340px] md:h-[340px] xl:h-[370px] xl:w-64 border border-white/[0.05]   transition-all 2xl:w-72 2xl:h-[410px] duration-300"
+        className="group relative  overflow-hidden bg-[#0f0f0f] w-full sm:w-[240px] md:w-[230px]  rounded-2xl h-[280px] sm:h-[340px] md:h-[340px] xl:h-[370px] xl:w-64 border border-white/[0.05]   transition-all 2xl:w-[16rem] 2xl:h-[24rem] duration-300"
       >
         <motion.img
           animate={{ scale: hovered ? 1.1 : 1 }}
@@ -90,25 +91,19 @@ const Card = forwardRef(
                 </div>
 
                 <div className="flex justify-start self-start py-1 sm:py-2 gap-1 items-center">
-                  <div className="text-[10px] sm:text-xs font-outfit font-medium px-2 sm:px-3 py-0.5 sm:py-1 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
-                    {anime?.info?.stats?.type || "N/A"}
-                  </div>
+                  <Badge title={anime?.info?.stats?.type || "N/A"} />
                   {anime?.info?.stats?.episodes?.sub && (
-                    <div className="flex items-center gap-1 px-2 sm:px-3 py-0.5 sm:py-1 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
-                      <BsCcCircleFill className="text-[10px] sm:text-xs text-primary/90" />
-                      <span className="text-[10px] sm:text-xs font-outfit">
-                        {anime?.info?.stats?.episodes?.sub}
-                      </span>
-                    </div>
+                    <Badge
+                      Icon={BsCcCircleFill}
+                      title={anime?.info?.stats?.episodes?.sub}
+                    />
                   )}
 
                   {anime?.info?.stats?.episodes?.dub && (
-                    <div className="flex items-center gap-1 px-2 sm:px-3 py-0.5 sm:py-1 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
-                      <PiMicrophoneFill className="text-[10px] sm:text-xs text-primary/90" />
-                      <span className="text-[10px] sm:text-xs font-outfit">
-                        {anime?.info?.stats?.episodes?.dub}
-                      </span>
-                    </div>
+                    <Badge
+                      Icon={PiMicrophoneFill}
+                      title={anime?.info?.stats?.episodes?.dub}
+                    />
                   )}
                 </div>
 

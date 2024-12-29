@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -122,4 +124,10 @@ body {
 .mask {
   background-image: url("../assets/mask.svg");
   background-repeat: repeat;
+}
+
+@media (min-width: 1200px) and (max-width: 1280px) {
+  .sectionA {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
 }

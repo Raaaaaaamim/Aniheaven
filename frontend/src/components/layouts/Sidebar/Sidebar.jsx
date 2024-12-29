@@ -1,10 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { RiMenu4Fill } from "react-icons/ri";
+import { useRecoilState } from "recoil";
+import sidebarAtom from "../../../store/atoms/sidebarAtom.js";
 import SidebarContent from "../../ui/SidebarContent.jsx";
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useRecoilState(sidebarAtom);
 
   const sidebarVariants = {
     open: { x: 0 },
@@ -17,7 +18,7 @@ const Sidebar = () => {
       <motion.button
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 mt-1 left-4 z-[60] block lg:hidden p-2 rounded-lg"
+        className="fixed top-4 mt-1 left-4 z-[60] block xl:hidden p-2 rounded-lg"
       >
         {isOpen ? <IoClose size={24} /> : <RiMenu4Fill size={24} />}
       </motion.button>
@@ -27,7 +28,7 @@ const Sidebar = () => {
         variants={sidebarVariants}
         initial="closed"
         animate={isOpen ? "open" : "closed"}
-        className="fixed z-50 left-0 top-0 h-full w-[280px] block lg:hidden bg-background border-r rounded-r-3xl border-[#262626]"
+        className="fixed z-50 left-0 top-0 h-full w-[280px] block xl:hidden bg-background border-r rounded-r-3xl border-[#262626]"
       >
         <SidebarContent />
       </motion.div>
@@ -46,7 +47,7 @@ const Sidebar = () => {
       </AnimatePresence>
 
       {/* Desktop Sidebar */}
-      <div className="fixed left-0 rounded-r-3xl top-0 h-full w-[18%] hidden lg:flex lg:w-[7%] max-w-[24rem] justify-center items-center xl:w-[18%] border-r border-border">
+      <div className="fixed left-0 rounded-r-3xl top-0 h-full w-[18%] hidden xl:flex  max-w-[24rem] justify-center items-center xl:w-[18%] border-r border-border">
         <SidebarContent />
       </div>
     </>

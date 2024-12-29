@@ -6,6 +6,7 @@ import { PiMicrophoneFill } from "react-icons/pi";
 import { TbClockHour4Filled } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import useAnimeInfo from "../../hooks/useAnimeInfo.jsx";
+import Badge from "./Badge.jsx";
 
 const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
   const { refetch, isLoading, data, isError } = useAnimeInfo(id);
@@ -32,20 +33,16 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
           <div className="flex mr-2 justify-center gap-1 flex-col-reverse">
             <div className="flex gap-[2px] items-center">
               {dubCount && (
-                <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
-                  <PiMicrophoneFill className="text-xs text-primary/90" />
-                  <span className="text-xs font-outfit">
-                    {dubCount ? dubCount : "N/A"}
-                  </span>
-                </div>
+                <Badge
+                  Icon={PiMicrophoneFill}
+                  title={dubCount ? dubCount : "N/A"}
+                />
               )}
               {subCount && (
-                <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
-                  <BsCcCircleFill className="text-xs text-primary/90" />
-                  <span className="text-xs font-outfit">
-                    {subCount ? subCount : "N/A"}
-                  </span>
-                </div>
+                <Badge
+                  Icon={BsCcCircleFill}
+                  title={subCount ? subCount : "N/A"}
+                />
               )}
             </div>
             <h3 className="text-[1rem] font-outfit w-[100%] h-5 font-semibold text-text/90 line-clamp-1">
