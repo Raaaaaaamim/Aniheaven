@@ -12,7 +12,7 @@
   [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
   
   <p align="center">
-    <a href="#demo">Peep the Vibe ⚡</a>
+    <a href="#demo">Demo ⚡</a>
     ·
     <a href="#features">Features that Slap</a>
     ·
@@ -72,34 +72,34 @@ But AniHeaven? We built different. No cap, we created something so fire it makes
 <summary>Click for the Forbidden Knowledge fr</summary>
 
 ### Frontend Stack
-- **Framework:** React 18.3.1 (built different)
-- **Build Tool:** Vite 5.4.8 (speed demon)
+- **Framework:** React 18.3.1
+- **Build Tool:** Vite 5.4.8
 - **Styling:** 
   - TailwindCSS (for that aesthetic)
-  - DaisyUI (components that never miss)
+  - DaisyUI
   - Framer Motion (smooth like butter)
 
 ### State Management
-- TanStack React Query (data fetching on point)
+- TanStack React Query 
 - React Router DOM (navigation that slaps)
 - Recoil (state management done right)
 
 ### Media Handling
-- Vidstack React (video player that never misses)
+- Vidstack React 
 - HLS.js (streaming magic fr)
-- React Player (reliable backup)
+- React Player 
 
 ### UI Components
 - Swiper (clean slides)
 - React Icons (icons that pop)
-- React Hot Toast (notifications that hit)
+- React Hot Toast 
 - NProgress (loading bars that look good)
 
 ### Dev Tools
 - ESLint (keeps code clean)
 - Prettier (makes it look good)
-- Husky (catches mistakes)
-- Commitlint (keeping it professional fr)
+- Husky
+- Commitlint
 
 </details>
 
@@ -161,5 +161,5 @@ Licensed under MIT - check the [LICENSE](LICENSE) file if you're into that kind 
 <div align="center">
   Made with 💜 by weebs who never miss
   
-  [Check the Vibe](https://aniheaven.vercel.app) · [Report Issues](https://github.com/yourusername/aniheaven/issues) · [Request Features](https://github.com/yourusername/aniheaven/issues)
+  [Check the Vibe](https://aniheaven.vercel.app) · [Report Issues](https://github.com/Raaaaaaamim/aniheaven/issues) · [Request Features](https://github.com/Raaaaaaamim/aniheaven/issues)
 </div>
