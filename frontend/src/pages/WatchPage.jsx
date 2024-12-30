@@ -32,6 +32,7 @@ import {
 import animationJSON from "../assets/cat-loading.json";
 import { Player } from "../components/features/Player/Player.jsx";
 import ErrorCard from "../components/ui/ErrorCard.jsx";
+import SearchEpisode from "../components/ui/SearchEpisode.jsx";
 import VideoButton from "../components/VideoControls/VideoButton.jsx";
 import useSettings from "../hooks/useSettings.jsx";
 import { api } from "../services/api";
@@ -289,13 +290,29 @@ const WatchPage = () => {
       isClicked: false,
     },
   ];
+  // SEARCH EPISODES BY NUMBER
+
+  const [searchEpisode, setSearchEpisode] = useState("");
+
+  useEffect(() => {
+    if (!searchEpisode || !episodeData?.episodes?.length) {
+      return;
+    }
+    if (
+      Number(searchEpisode) &&
+      currentSection !== Math.ceil(Number(searchEpisode / 100)) &&
+      Number(searchEpisode) < episodeData?.episodes?.length + 1
+    ) {
+      setCurrentSection(Math.ceil(Number(searchEpisode / 100)));
+    }
+  }, [searchEpisode]);
 
   // console log stuffs for checking the data
   console.log(serverData);
 
   // JSX Structure
   return (
-    <div className="overflow-hidden justify-self-start w-full min-h-screen flex justify-center items-start bg-transparent">
+    <div className=" justify-self-start w-full min-h-screen flex justify-center items-start bg-transparent">
       {/* Focus mode overlay */}
       <div
         onClick={() => setFocus(false)}
@@ -304,7 +321,7 @@ const WatchPage = () => {
         } h-full top-0 left-0 z-[80] backdrop-blur-2xl`}
       ></div>
 
-      <div className="overflow-hidden mb-4 flex flex-col w-[98%] gap-4 h-full">
+      <div className="overflow-x-hidden mb-4 flex flex-col w-[98%] gap-4 min-h-full ">
         {/* Video Player Section */}
         <div
           className={` ${
@@ -343,7 +360,7 @@ const WatchPage = () => {
         </div>
 
         {/* Video Controls Section */}
-        <div className="min-h-[6rem] md:flex-row flex-col bg-secondaryBg rounded-3xl border-[1px] border-white/[0.05] text-secText flex justify-between items-center gap-0">
+        <div className="min-h-[6rem]  md:flex-row flex-col bg-secondaryBg rounded-3xl border-[1px] border-white/[0.05] text-secText flex justify-between items-center gap-0">
           <div className="md:ml-6 gap-6 ml-0 flex md:w-[40%] w-full md:justify-start justify-evenly items-center h-full">
             {videoButtons.map((button, index) => (
               <VideoButton
@@ -551,9 +568,69 @@ const WatchPage = () => {
             </motion.div>
           </div>
         </div>
-
+        <div className=" w-full  flex justify-between items-center ">
+          {!isEpLoading &&
+            !isEpError &&
+            episodeData?.episodes?.length > 100 && (
+              <div
+                ref={dropdownRef}
+                className="dropdown self-start  px-4 lg:px-6"
+              >
+                <div
+                  tabIndex={0}
+                  role="button"
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className=" lg:h-9 h-8  rounded-md flex justify-center items-center  bg-white/[0.02] hover:bg-white/[0.04] text-text/90 w-[130px] lg:w-[180px]   transition-all duration-300 border border-white/[0.05] text-xs lg:text-sm  px-1 min-h-0"
+                >
+                  <span>
+                    Episodes {(parseInt(currentSection) - 1) * 100 + 1} -{" "}
+                    {Math.min(
+                      parseInt(currentSection) * 100,
+                      episodeData.episodes.length
+                    )}
+                  </span>
+                </div>
+                {/* Section Selection Dropdown */}
+                <div
+                  tabIndex={0}
+                  className={`dropdown-content z-[1] menu p-2 shadow-lg bg-[#0f0f0f] rounded-xl  w-52 border border-white/[0.05] ${
+                    isDropdownOpen ? "" : "hidden"
+                  }`}
+                >
+                  <div className=" w-full overflow-y-auto max-h-96 h-full ">
+                    {Array(Math.ceil(episodeData.episodes.length / 100))
+                      .fill(0)
+                      .map((_, i) => (
+                        <li
+                          key={i}
+                          onClick={() => {
+                            setCurrentSection(i + 1);
+                            setIsDropdownOpen(false);
+                          }}
+                          className="text-xs lg:text-sm"
+                        >
+                          <a>
+                            Episodes {i * 100 + 1} -{" "}
+                            {Math.min(
+                              (i + 1) * 100,
+                              episodeData.episodes.length
+                            )}
+                          </a>
+                        </li>
+                      ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          <div className=" self-end ">
+            <SearchEpisode
+              setSearchEpisode={setSearchEpisode}
+              searchEpisode={searchEpisode}
+            />
+          </div>
+        </div>
         {/* Episodes List Section */}
-        <div className="w-full font-poppins overflow-x-hidden py-4 lg:py-6 flex overflow-y-auto min-h-20 max-h-[30rem] bg-[#0f0f0f] rounded-3xl border border-white/[0.05]">
+        <div className="w-full font-poppins overflow-x-hidden overflow-y-auto  py-4 lg:py-6 flex  min-h-20 max-h-[30rem] bg-[#0f0f0f] rounded-3xl border border-white/[0.05]">
           {/* Episodes Loading State */}
           {isEpLoading && !isEpError ? (
             <div className="w-full gap-2 h-full flex justify-center flex-col items-center">
@@ -593,8 +670,17 @@ const WatchPage = () => {
                       className={`${
                         selectedEpisode === item?.episodeId
                           ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
+                          : item.isFiller
+                          ? "bg-primary/40 hover:bg-primary/60 text-black"
                           : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
-                      } w-[97%] py-2 lg:py-3 line-clamp-1 text-xs lg:text-sm rounded-xl lg:h-[3.3rem] h-[2.8rem] transition-all duration-300 cursor-pointer gap-2 flex items-center`}
+                      } 
+                      ${
+                        searchEpisode && searchEpisode === Number(item?.number)
+                          ? " !animate-pulse !bg-text  !text-black "
+                          : " !animate-none  "
+                      }
+                      
+                      w-[97%] py-2 lg:py-3 line-clamp-1 text-xs lg:text-sm rounded-xl lg:h-[3.3rem] h-[2.8rem] transition-all duration-300 cursor-pointer gap-2 flex items-center`}
                     >
                       <span className="ml-3 lg:ml-5 font-semibold">
                         {item.number}.{" "}
@@ -607,58 +693,12 @@ const WatchPage = () => {
                 // Render Paginated Episodes for Large Series
                 <motion.div className="flex flex-col gap-3 lg:gap-4 w-full">
                   {/* Error Display */}
-                  {epError && (
+                  {isEpError && !epData && epError && (
                     <div className="w-full flex justify-center flex-col items-center">
                       <ErrorCard error={epError?.message} />
                     </div>
                   )}
                   {/* Section Dropdown for Large Series */}
-                  {episodeData?.episodes?.length > 100 && (
-                    <div ref={dropdownRef} className="dropdown px-4 lg:px-6">
-                      <div
-                        tabIndex={0}
-                        role="button"
-                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                        className="btn btn-sm bg-white/[0.02] hover:bg-white/[0.04] text-text/90 w-[160px] lg:w-[180px] flex justify-between transition-all duration-300 border border-white/[0.05] text-xs lg:text-sm h-7 lg:h-8 min-h-0"
-                      >
-                        <span>
-                          Episodes {(parseInt(currentSection) - 1) * 100 + 1} -{" "}
-                          {Math.min(
-                            parseInt(currentSection) * 100,
-                            episodeData.episodes.length
-                          )}
-                        </span>
-                      </div>
-                      {/* Section Selection Dropdown */}
-                      <ul
-                        tabIndex={0}
-                        className={`dropdown-content z-[1] menu p-2 shadow-lg bg-[#0f0f0f] rounded-xl w-52 border border-white/[0.05] ${
-                          isDropdownOpen ? "" : "hidden"
-                        }`}
-                      >
-                        {Array(Math.ceil(episodeData.episodes.length / 100))
-                          .fill(0)
-                          .map((_, i) => (
-                            <li
-                              key={i}
-                              onClick={() => {
-                                setCurrentSection(i + 1);
-                                setIsDropdownOpen(false);
-                              }}
-                              className="text-xs lg:text-sm"
-                            >
-                              <a>
-                                Episodes {i * 100 + 1} -{" "}
-                                {Math.min(
-                                  (i + 1) * 100,
-                                  episodeData.episodes.length
-                                )}
-                              </a>
-                            </li>
-                          ))}
-                      </ul>
-                    </div>
-                  )}
 
                   {/* Episode Grid Display */}
                   <div className="flex flex-wrap justify-center gap-2 px-2">
@@ -685,7 +725,15 @@ const WatchPage = () => {
                               : item.isFiller
                               ? "bg-primary/40 hover:bg-primary/60 text-black"
                               : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
-                          } transition-all duration-300`}
+                          } 
+                           ${
+                             searchEpisode &&
+                             searchEpisode === Number(item?.number)
+                               ? " !animate-pulse !bg-text  !text-black "
+                               : " !animate-none  "
+                           }
+                          
+                          transition-all duration-300`}
                         >
                           {item?.number}
                         </motion.div>

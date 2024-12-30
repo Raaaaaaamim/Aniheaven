@@ -6,7 +6,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-background/95 border-t border-text/5 mt-auto">
+    <footer className="w-full   bg-background/95 border-t border-text/5 mt-auto">
       <div className="container mx-auto px-4 py-8">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -18,7 +18,8 @@ const Footer = () => {
               </h2>
             </Link>
             <p className="text-sm text-text/70 leading-relaxed">
-              Your gateway to the world of anime. Stream your favorite shows in high quality with both sub and dub options.
+              Your gateway to the world of anime. Stream your favorite shows in
+              high quality with both sub and dub options.
             </p>
             <div className="flex items-center gap-4 pt-2">
               <a
