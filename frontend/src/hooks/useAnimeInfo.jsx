@@ -9,7 +9,7 @@ export default function useAnimeInfo(id, options = {}, enabled = false) {
       return await axios.get(`${api}/hianime/anime/${id}`);
     },
     enabled: enabled,
-    cacheTime: 20 * 60 * 1000, // 0.2 hour in milliseconds
+    cacheTime: 5 * 60 * 1000, // 0.2 hour in milliseconds
 
     ...options,
   });

@@ -16,11 +16,6 @@ const TrendingCard = ({ rank, image, title, id }) => {
           className="w-full h-full absolute transition-transform duration-300 group-hover:scale-110 z-10 top-0 left-0 rounded-xl"
         />
 
-        {/* Rank */}
-        <h1 className="absolute top-0 right-0 z-[11] bg-gradient-to-r from-primary via-primary to-primary/80 h-11 w-9 flex justify-center items-center text-black/90 text-xl rounded-bl-xl font-[800] border-b-2 font-poppins border-white/90">
-          {rankNumber >= 10 ? rankNumber : `0${rankNumber}`}
-        </h1>
-
         {/* Play button - appears on hover */}
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}

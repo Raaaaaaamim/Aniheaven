@@ -185,7 +185,7 @@ const Home = () => {
                 {/* Action buttons */}
                 <div className="flex gap-4">
                   <Link to={`/watch/${anime.id}`}>
-                    <button className="md:w-48 w-32 md:py-3 md:px-6 rounded-xl bg-gradient-to-r from-primary via-primary to-primary/90 text-black md:text-sm font-outfit font-semibold hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] py-2 px-4 transition-all duration-300 text-xs flex items-center  justify-center gap-2">
+                    <button className="md:w-48 w-32 md:py-3 md:px-6 rounded-xl bg-gradient-to-r from-primary via-primary to-primary/90 text-black md:text-sm font-outfit font-semibold hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] py-2 px-4 transition-all duration-300  text-xs flex items-center  justify-center gap-2">
                       <FaPlay className="text-sm  md:flex hidden " />
                       <span>Watch Now</span>
                     </button>
@@ -437,7 +437,7 @@ const Home = () => {
             </button>
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-3 place-items-center md:gap-4 2xl:gap-6">
+        <div className=" flex justify-center  items-center gap-2 lg:gap-3 xl:gap-4   flex-wrap xl:grid xl:grid-cols-5 2xl:grid-cols-6 ">
           <AnimatePresence mode="popLayout">
             {data?.data?.top10Animes[timePeriod]?.map((anime, index) => (
               <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
@@ -462,7 +462,7 @@ const Home = () => {
               Top Airing
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3  xl:grid-cols-5 2xl:grid-cols-6 lg:grid-cols-5 place-items-center  gap-3 md:gap-4">
+          <div className="flex justify-center  items-center gap-2 lg:gap-3 xl:gap-4   flex-wrap xl:grid xl:grid-cols-5 2xl:grid-cols-6 place-items-center  ">
             <AnimatePresence mode="popLayout">
               {data?.data?.topAiringAnimes?.map((anime, index) => (
                 <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
