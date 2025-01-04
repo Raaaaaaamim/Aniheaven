@@ -30,7 +30,7 @@ import { TbClockHour4Filled } from "react-icons/tb";
 // Core functionality imports
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { lazy, Suspense, useRef, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Swiper related imports
@@ -73,8 +73,7 @@ const Home = () => {
   });
 
   const data = animeData?.data;
-  const trendingPrevRef = useRef(null);
-  const trendingNextRef = useRef(null);
+
   /** State for managing the time period filter in Top 10 section */
   const [timePeriod, setTimePeriod] = useState("today");
 
@@ -212,16 +211,10 @@ const Home = () => {
             Trending Now
           </h2>
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => trendingPrevRef.current?.click()}
-              className="w-8 h-8 trending-prev rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300  flex items-center justify-center trending-prev"
-            >
+            <button className="w-8 h-8 trending-prev rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300  flex items-center justify-center trending-prev">
               <IoIosArrowRoundBack className="w-5 h-5" />
             </button>
-            <button
-              onClick={() => trendingNextRef.current?.click()}
-              className="w-8 trending-next h-8 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300 flex items-center justify-center trending-next"
-            >
+            <button className="w-8 trending-next h-8 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300 flex items-center justify-center trending-next">
               <IoIosArrowRoundForward className="w-5 h-5" />
             </button>
           </div>
@@ -252,9 +245,7 @@ const Home = () => {
             <SwiperSlide key={anime.id + index}>
               <Suspense
                 fallback={
-                  <div className="relative border-border border-[1px] font-poppins w-full h-[280px] md:w-[220px] md:h-[300px] lg:w-[190px] lg:h-[270px] xl:w-[200px] xl:h-[280px] rounded-xl overflow-hidden bg-[#1f1f1f] animate-pulse">
-                    <div className="absolute top-0 right-0 z-10 bg-primary/20 h-11 w-9 rounded-bl-xl" />
-                  </div>
+                  <div className="relative border-border border-[1px] font-poppins w-full h-[280px] md:w-[220px] md:h-[300px] lg:w-[190px] lg:h-[270px] xl:w-[200px] xl:h-[280px] rounded-xl overflow-hidden bg-[#1f1f1f] animate-pulse"></div>
                 }
               >
                 <TrendingCard
@@ -266,13 +257,6 @@ const Home = () => {
               </Suspense>
             </SwiperSlide>
           ))}
-          {/* Custom navigation buttons */}
-          <div ref={trendingPrevRef} className="hidden">
-            <IoIosArrowRoundBack className="text-sm text-white " />
-          </div>
-          <div ref={trendingNextRef} className="hidden">
-            <IoIosArrowRoundForward className="text-sm text-white" />
-          </div>
         </Swiper>
       </motion.div>
 
@@ -437,7 +421,7 @@ const Home = () => {
             </button>
           </div>
         </div>
-        <div className=" flex justify-center  items-center gap-2 lg:gap-3 xl:gap-4   flex-wrap xl:grid xl:grid-cols-5 2xl:grid-cols-6 ">
+        <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-3 place-items-center md:gap-4 2xl:gap-6">
           <AnimatePresence mode="popLayout">
             {data?.data?.top10Animes[timePeriod]?.map((anime, index) => (
               <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
@@ -462,7 +446,7 @@ const Home = () => {
               Top Airing
             </h2>
           </div>
-          <div className="flex justify-center  items-center gap-2 lg:gap-3 xl:gap-4   flex-wrap xl:grid xl:grid-cols-5 2xl:grid-cols-6 place-items-center  ">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-3 place-items-center md:gap-4 2xl:gap-6  ">
             <AnimatePresence mode="popLayout">
               {data?.data?.topAiringAnimes?.map((anime, index) => (
                 <Suspense key={anime.id + index} fallback={<HomeSuspense />}>

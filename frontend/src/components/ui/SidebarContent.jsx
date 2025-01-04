@@ -1,7 +1,7 @@
 import { FaRegHeart } from "react-icons/fa";
 import { FiHome } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
-import { MdLogout, MdNetworkWifi } from "react-icons/md";
+import { MdLogout, MdOutlineVideoLabel } from "react-icons/md";
 import { RiCalendarScheduleLine, RiListOrdered2 } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import img1 from "../../assets/textLogo.svg";
@@ -42,19 +42,21 @@ const SidebarContent = () => {
           </div>
         </div>
 
-        <div className="    ml-6 divider w-[70%]"></div>
+        <div className=" ml-6 divider w-[70%]"></div>
 
         <div className=" flex-[6] ml-4 gap-3 flex flex-col">
           <h1 className="ml-3 text-sm text-grayText lg:hidden flex xl:flex font-bold">
             Extras
           </h1>
           <div onClick={() => setOpen(false)} className="self-start center">
-            <Link to="/">
-              <Button Icon={MdNetworkWifi}>Watch2gether</Button>
+            <Link to="/category?name=movie">
+              <Button Icon={MdOutlineVideoLabel}>Movies</Button>
             </Link>
           </div>
           <div onClick={() => setOpen(false)} className="self-start center">
-            <Button Icon={RiCalendarScheduleLine}>Schedules</Button>
+            <Link to="/schedules">
+              <Button Icon={RiCalendarScheduleLine}>Schedules</Button>
+            </Link>
           </div>
           <div onClick={() => setOpen(false)} className="self-start center">
             <Button Icon={RiListOrdered2}>AZ List</Button>

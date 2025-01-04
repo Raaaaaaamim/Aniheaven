@@ -67,6 +67,7 @@ const SearchModal = ({ id }) => {
           <div className="py-4 border-b border-white/[0.05] flex justify-start items-center gap-3 w-full h-full px-4">
             <CiSearch className="text-white/50 text-xl min-w-[20px]" />
             <input
+              autoFocus
               value={value}
               onChange={handleChange}
               className="w-full bg-transparent text-sm text-white/90 outline-none placeholder:text-white/30 h-full"

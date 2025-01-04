@@ -20,15 +20,14 @@ import { useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 
 // Import local dependencies
-import { PiTelevisionSimpleBold } from "react-icons/pi";
 import animationJSON from "../assets/cat-loading.json";
 import { Player } from "../components/features/Player/Player.jsx";
+import AnimeInfoCard from "../components/ui/AnimeInfoCard.jsx";
 import EpisodesContainer from "../components/ui/EpisodesContainer.jsx";
 import ErrorCard from "../components/ui/ErrorCard.jsx";
 import SearchEpisode from "../components/ui/SearchEpisode.jsx";
 import ServerSelectionCard from "../components/ui/ServerSelectionCard.jsx";
 import VideoButton from "../components/ui/VideoButton.jsx";
-import AnimeInfoCard from "../components/ui/AnimeInfoCard.jsx";
 import useAnimeInfo from "../hooks/useAnimeInfo.jsx";
 import useSettings from "../hooks/useSettings.jsx";
 import { api } from "../services/api";

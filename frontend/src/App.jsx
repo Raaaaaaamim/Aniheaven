@@ -8,6 +8,8 @@ import { LoadingFallback } from "./components/ui/LoadingFallback.jsx";
 import ScrollToTop from "./components/ui/ScrollToTop.jsx"; // Added import statement
 import WatchPageSuspense from "./components/ui/WatchPageSuspense.jsx";
 import AnimeInfo from "./pages/AnimeInfo.jsx";
+import { CategoryPage } from "./pages/CategoryPage.jsx";
+import Schedules from "./pages/Schedules.jsx";
 import Search from "./pages/Search.jsx";
 // Lazy load components
 
@@ -67,6 +69,14 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <Search />,
+      },
+      {
+        path: "/category",
+        element: <CategoryPage />,
+      },
+      {
+        path: "/schedules",
+        element: <Schedules />,
       },
     ],
   },

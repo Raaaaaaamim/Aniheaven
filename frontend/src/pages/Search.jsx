@@ -5,7 +5,7 @@ import debounce from "lodash/debounce";
 import { parseAsString, useQueryState } from "nuqs";
 import React, { useCallback, useState } from "react";
 import { BsFilterLeft, BsSortDown, BsSortDownAlt } from "react-icons/bs";
-import { FiSearch } from "react-icons/fi";
+import { CiSearch } from "react-icons/ci";
 import Card from "../components/ui/Card";
 import CardSkeleton from "../components/ui/CardSkeleton.jsx";
 import DatePicker from "../components/ui/DatePicker";
@@ -177,7 +177,8 @@ const Search = () => {
             placeholder="Search anime..."
             className="w-full bg-[#0f0f0f] text-text border border-white/[0.05] rounded-2xl py-4 px-6 pl-12 focus:outline-none focus:border-primary/50 outline-none transition-all duration-300"
           />
-          <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-text/50 text-xl" />
+
+          <CiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-text/50 text-[22px]" />
         </div>
 
         {/* Filter Toggle Button */}

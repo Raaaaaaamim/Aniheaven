@@ -29,7 +29,7 @@ const Card = forwardRef(
           setHovered(true);
         }}
         onMouseLeave={() => setHovered(false)}
-        className="group relative  overflow-hidden bg-[#0f0f0f]  sm:w-[240px] md:w-[230px] w-[180px]  rounded-2xl h-[280px] sm:h-[340px] md:h-[340px] xl:h-[370px] xl:w-64 border border-white/[0.05]   transition-all 2xl:w-[16rem] 2xl:h-[24rem] duration-300"
+        className="group relative  overflow-hidden bg-[#0f0f0f]  sm:w-[240px] md:w-[28vw] w-[180px]  rounded-2xl h-[280px] sm:h-[340px] md:h-[38vw] lg:h-[340px]  lg:w-[230px]    xl:h-[370px] xl:w-64 border border-white/[0.05]   transition-all  2xl:w-[16rem] 2xl:h-[24rem] duration-300"
       >
         <motion.img
           animate={{ scale: hovered ? 1.1 : 1 }}

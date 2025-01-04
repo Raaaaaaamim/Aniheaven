@@ -8,12 +8,28 @@ import { Link } from "react-router-dom";
 import useAnimeInfo from "../../hooks/useAnimeInfo.jsx";
 import Badge from "./Badge.jsx";
 
-const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
+const AnimeCard = ({
+  rank,
+  hide,
+  name,
+  image,
+  id,
+  subCount,
+  dubCount,
+  index,
+}) => {
   const { refetch, isLoading, data, isError } = useAnimeInfo(id);
   const anime = data?.data?.data?.anime;
 
   return (
-    <div
+    <motion.div
+      variants={{
+        hidden: { scale: 0.8, opacity: 0 },
+        visible: { scale: 1, opacity: 1 },
+      }}
+      initial="hidden"
+      animate="visible"
+      whileHover={{ scale: 1.02 }}
       onMouseEnter={refetch}
       className="relative hover:scale-[1.02] ease-in-out duration-300 group rounded-xl w-[180px] h-[270px] sm:h-[280px] sm:w-[190px] md:w-[200px] overflow-hidden border border-white/[0.05]  bg-[#0f0f0f]"
     >
@@ -141,7 +157,7 @@ const AnimeCard = ({ rank, hide, name, image, id, subCount, dubCount }) => {
           </motion.div>
         )}
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 

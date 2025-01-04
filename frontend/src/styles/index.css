@@ -157,3 +157,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .searched {
   background-color: #684fa0;
 }
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  display: none;
+}

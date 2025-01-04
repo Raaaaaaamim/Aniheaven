@@ -6,18 +6,13 @@ const HomeSuspense = () => {
 
       {/* Trending Section Skeleton */}
       <div className="mt-5 lg:ml-3 w-full max-w-8xl">
-        <div className="flex w-full justify-start my-4 items-center gap-2">
-          <div className="h-8 w-48 rounded-sm border-l-4 border-primary px-3 bg-[#1f1f1f] animate-pulse" />
-        </div>
+        <div className="flex w-full justify-start my-4 items-center gap-2"></div>
         <div className="flex w-full whitespace-nowrap overflow-hidden gap-4 2xl:gap-9">
           {[...Array(7)].map((_, i) => (
             <div
               key={i}
               className="relative flex-shrink-0 border-border border-[1px] font-poppins w-[220px] h-[280px] md:w-[220px] md:h-[300px] lg:w-[190px] lg:h-[270px] xl:w-[200px] xl:h-[280px] 2xl:w-[220px] 2xl:h-[300px] rounded-xl overflow-hidden bg-[#1f1f1f] animate-pulse"
-            >
-              {/* Rank indicator */}
-              <div className="absolute top-0 right-0 z-10 bg-primary/20 h-11 w-9 rounded-bl-xl" />
-            </div>
+            ></div>
           ))}
         </div>
       </div>
