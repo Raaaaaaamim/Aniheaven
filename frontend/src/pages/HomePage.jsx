@@ -97,7 +97,7 @@ const HomePage = () => {
               </Link>
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-outfit font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent mb-6">
-                Your Anime Journey Begins Here
+                Start Your Anime Journey
               </h1>
               <p className="text-lg sm:text-xl text-text/60 mb-12 px-4 max-w-2xl mx-auto">
                 Discover, watch, and explore the best anime collection curated
