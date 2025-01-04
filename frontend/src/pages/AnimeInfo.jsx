@@ -202,8 +202,11 @@ const AnimeInfo = () => {
         !charactersError &&
         characters?.data?.data?.length > 0 && (
           <section className="container mx-auto  lg:mt-0 px-4 py-8">
-            <div className=" text-xl font-bold border-l-4 px-2 border-primary font-outfit text-text mb-6">
-              Characters & Voice Actors
+            <div className="  flex items-center space-x-4   font-outfit  mb-6">
+              <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+                Characters & Voice Actors
+              </h1>
+              <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
             </div>
             <div className="grid font-outfit grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
               {characters?.data?.data
@@ -587,9 +590,12 @@ const AnimeInfo = () => {
       {/* Related Anime */}
       {relatedAnimes?.length > 0 && (
         <section className="container mx-auto  px-4 py-6">
-          <h2 className="  text-xl font-bold border-l-4 px-2 border-primary font-outfit text-text mb-4">
-            Related Anime
-          </h2>
+          <div className="  flex items-center space-x-4   font-outfit  mb-6">
+            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+              Related Anime
+            </h1>
+            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+          </div>
           <div className="grid place-items-center grid-cols-2 w-full sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {relatedAnimes.map((anime) => (
               <AnimeCard
@@ -610,9 +616,12 @@ const AnimeInfo = () => {
       {/* Recommended Anime */}
       {recommendedAnimes?.length > 0 && (
         <section className="container mx-auto px-4 py-6">
-          <h2 className=" text-xl border-l-4 px-2 border-primary font-bold text-text font-outfit mb-4">
-            Recommended Anime
-          </h2>
+          <div className="  flex items-center space-x-4   font-outfit  mb-6">
+            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+              Recommended Anime
+            </h1>
+            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+          </div>
           <div className="grid place-items-center grid-cols-2 w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4  2xl:grid-cols-6">
             {recommendedAnimes.map((anime) => (
               <AnimeCard

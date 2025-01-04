@@ -207,9 +207,12 @@ const Home = () => {
        */}
       <motion.div className="w-full max-w-8xl lg:mx-auto mt-8">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg md:text-xl font-outfit font-semibold text-text/90">
-            Trending Now
-          </h2>
+          <div className=" w-full  flex items-center space-x-4   font-outfit  ">
+            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+              Characters & Voice Actors
+            </h1>
+            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+          </div>
           <div className="flex items-center gap-2">
             <button className="w-8 h-8 trending-prev rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300  flex items-center justify-center trending-prev">
               <IoIosArrowRoundBack className="w-5 h-5" />
@@ -262,9 +265,12 @@ const Home = () => {
 
       <div className="w-full max-w-8xl lg:mx-auto mt-8">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg md:text-xl font-outfit font-semibold text-text/90">
-            Latest Episodes
-          </h2>
+          <div className=" w-full  flex items-center space-x-4   font-outfit  ">
+            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+              Latest Episodes
+            </h1>
+            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+          </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4  gap-3 md:gap-4 2xl:grid-cols-5 place-items-center sectionA  ">
           <AnimatePresence mode="popLayout">
@@ -285,9 +291,12 @@ const Home = () => {
 
       <div className="w-full max-w-8xl lg:mx-auto mt-8">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg md:text-xl font-outfit font-semibold text-text/90">
-            Top Upcoming
-          </h2>
+          <div className=" w-full  flex items-center space-x-4   font-outfit  ">
+            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+              Top Upcoming
+            </h1>
+            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+          </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 md:gap-4 2xl:grid-cols-5 sectionA place-items-center">
           <AnimatePresence mode="popLayout">
@@ -309,9 +318,12 @@ const Home = () => {
       </div>
       <div className="w-full max-w-8xl lg:mx-auto mt-8">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg md:text-xl font-outfit font-semibold text-text/90">
-            Latest Completed Animes
-          </h2>
+          <div className=" w-full  flex items-center space-x-4   font-outfit  ">
+            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+              Latest Completed
+            </h1>
+            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+          </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 2xl:grid-cols-5 sectionA md:gap-4 place-items-center">
           <AnimatePresence mode="popLayout">
@@ -333,9 +345,12 @@ const Home = () => {
       </div>
       <div className="w-full max-w-8xl lg:mx-auto mt-8">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg md:text-xl font-outfit font-semibold text-text/90">
-            Most Favorite Animes
-          </h2>
+          <div className=" w-full  flex items-center space-x-4   font-outfit  ">
+            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+              Most Favorite
+            </h1>
+            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+          </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 2xl:grid-cols-5 md:gap-4 sectionA place-items-center">
           <AnimatePresence mode="popLayout">
@@ -357,9 +372,12 @@ const Home = () => {
       </div>
       <div className="w-full max-w-8xl lg:mx-auto mt-8">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg md:text-xl font-outfit font-semibold text-text/90">
-            Most Popular Animes
-          </h2>
+          <div className=" w-full  flex items-center space-x-4   font-outfit  ">
+            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+              Most Popular
+            </h1>
+            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+          </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 md:gap-4 2xl:grid-cols-5 sectionA place-items-center">
           <AnimatePresence mode="popLayout">
@@ -424,7 +442,16 @@ const Home = () => {
         <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-3 place-items-center md:gap-4 2xl:gap-6">
           <AnimatePresence mode="popLayout">
             {data?.data?.top10Animes[timePeriod]?.map((anime, index) => (
-              <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
+              <motion.div
+                key={anime.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.3,
+                  delay: index * 0.05,
+                  ease: "backOut",
+                }}
+              >
                 <AnimeCard
                   name={anime?.name}
                   image={anime?.poster}
@@ -433,7 +460,7 @@ const Home = () => {
                   subCount={anime?.episodes?.sub}
                   dubCount={anime?.episodes?.dub}
                 />
-              </Suspense>
+              </motion.div>
             ))}
           </AnimatePresence>
         </div>
@@ -442,9 +469,12 @@ const Home = () => {
       {data?.data?.topAiringAnimes?.length > 0 && (
         <div className="w-full max-w-8xl lg:mx-auto mt-8 mb-8">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg md:text-xl font-outfit font-semibold text-text/90">
-              Top Airing
-            </h2>
+            <div className=" w-full  flex items-center space-x-4   font-outfit  ">
+              <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+                Top Airing
+              </h1>
+              <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+            </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-3 place-items-center md:gap-4 2xl:gap-6  ">
             <AnimatePresence mode="popLayout">

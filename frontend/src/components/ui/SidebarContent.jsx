@@ -14,9 +14,9 @@ const SidebarContent = () => {
   const setOpen = useSetRecoilState(sidebarAtom);
   return (
     <div className="gap-0 flex font-outfit flex-col h-full w-full    py-8">
-      <div className=" flex flex-col justify-center ">
-        <div className="flex-[2] w-full ml-4 flex gap-2 items-center justify-start">
-          <Link to="/">
+      <div className=" flex flex-col  justify-center ">
+        <div className="flex-[2]  w-full ml-4 flex gap-2 items-center justify-start">
+          <Link to="/home">
             <img
               className="  w-48 mt-10 xl:mt-0  xl:w-48 2xl:w-56  "
               src={img1}
@@ -30,7 +30,7 @@ const SidebarContent = () => {
             Options
           </h1>
           <div onClick={() => setOpen(false)} className="self-start center">
-            <Link onClick={() => setOpen(false)} to="/">
+            <Link onClick={() => setOpen(false)} to="/home">
               <Button Icon={FiHome}>Home</Button>
             </Link>
           </div>
@@ -59,7 +59,9 @@ const SidebarContent = () => {
             </Link>
           </div>
           <div onClick={() => setOpen(false)} className="self-start center">
-            <Button Icon={RiListOrdered2}>AZ List</Button>
+            <Link to="/az">
+              <Button Icon={RiListOrdered2}>AZ List</Button>
+            </Link>
           </div>
         </div>
 

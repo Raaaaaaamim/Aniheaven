@@ -8,7 +8,9 @@ import { LoadingFallback } from "./components/ui/LoadingFallback.jsx";
 import ScrollToTop from "./components/ui/ScrollToTop.jsx"; // Added import statement
 import WatchPageSuspense from "./components/ui/WatchPageSuspense.jsx";
 import AnimeInfo from "./pages/AnimeInfo.jsx";
+import AZPage from "./pages/AZPage.jsx";
 import { CategoryPage } from "./pages/CategoryPage.jsx";
+import HomePage from "./pages/HomePage.jsx";
 import Schedules from "./pages/Schedules.jsx";
 import Search from "./pages/Search.jsx";
 // Lazy load components
@@ -20,7 +22,7 @@ const WatchPage = lazy(() => import("./pages/WatchPage.jsx"));
 const router = createBrowserRouter([
   {
     element: (
-      <div className="w-full bg-background overflow-hidden min-h-screen">
+      <div className="w-full relative bg-background overflow-hidden min-h-screen">
         <div className="flex flex-col">
           <ScrollToTop />
           <Navbar />
@@ -47,7 +49,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/",
+        path: "/home",
         element: (
           <Suspense fallback={<HomeSuspense />}>
             <Home />
@@ -78,7 +80,15 @@ const router = createBrowserRouter([
         path: "/schedules",
         element: <Schedules />,
       },
+      {
+        path: "/az",
+        element: <AZPage />,
+      },
     ],
+  },
+  {
+    path: "/",
+    element: <HomePage />,
   },
 ]);
 

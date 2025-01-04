@@ -32,6 +32,9 @@ export default {
       animation: {
         glow: "glow 2s ease-in-out infinite alternate",
         "gradient-xy": "gradient-xy 15s ease infinite",
+        "float-slow": "float 8s ease-in-out infinite",
+        "float-slower": "float 12s ease-in-out infinite",
+        pulse: "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       keyframes: {
         glow: {
@@ -56,6 +59,22 @@ export default {
           },
           "75%": {
             "background-position": "0% 100%",
+          },
+        },
+        float: {
+          "0%, 100%": {
+            transform: "translateY(0)",
+          },
+          "50%": {
+            transform: "translateY(-20px)",
+          },
+        },
+        pulse: {
+          "0%, 100%": {
+            opacity: "1",
+          },
+          "50%": {
+            opacity: ".5",
           },
         },
       },
