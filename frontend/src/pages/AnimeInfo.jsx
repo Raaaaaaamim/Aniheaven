@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { HiOutlineInformationCircle } from "react-icons/hi2";
 import { IoLayersOutline } from "react-icons/io5";
 import { MdOutlineTheaterComedy } from "react-icons/md";
 import { PiTelevisionSimpleBold } from "react-icons/pi";
 import { Link, useParams } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import AnimeCard from "../components/ui/AnimeCard.jsx";
 import AnimeInfoSkeleton from "../components/ui/AnimeInfoSkeleton";
 import CharactersSkeleton from "../components/ui/CharactersSkeleton";
@@ -33,7 +35,7 @@ const AnimeInfo = () => {
   const {
     data: MALData,
     isLoading: MALLoading,
-    isError: MALError,
+    isError: isMALError,
     refetch: refetchMAL,
   } = useQuery({
     queryKey: ["MAL", data?.data?.data?.anime?.info?.malId],
@@ -93,6 +95,7 @@ const AnimeInfo = () => {
       </div>
     );
   }
+  console.log(characters);
 
   return (
     <div className="w-full min-h-screen mt-16 lg:mt-8 bg-background/95">
@@ -127,14 +130,18 @@ const AnimeInfo = () => {
               <div className="mt-3 sm:mt-4 flex flex-col gap-2">
                 <Link
                   to={`/watch/${info.id}`}
-                  className="w-full h-9 sm:h-10 bg-[#9147ff] hover:bg-[#772ce8] text-white rounded-lg flex items-center justify-center gap-2 transition-colors"
+                  className="w-full h-9 sm:h-10 bg-[#772ce8]/90 hover:bg-[#772ce8] text-white rounded-lg flex items-center justify-center gap-2 relative overflow-hidden group transition-colors"
                 >
                   <PiTelevisionSimpleBold size={14} />
                   <span className="text-sm font-medium">Watch Now</span>
+
+                  <div className="inset-0 absolute bg-gradient-to-r from-transparent -translate-x-[100%] group-hover:translate-x-[200%] transition-all duration-500  via-text/20 to-transparent  "></div>
                 </Link>
-                <button className="w-full h-9 sm:h-10 bg-secondary/5 hover:bg-secondary/10 text-text border border-text/10 rounded-lg flex items-center justify-center gap-2 transition-colors">
+                <button className="w-full h-9 group sm:h-10 bg-secondary/5 hover:bg-secondary/10 text-text border border-text/10 rounded-lg flex relative overflow-hidden items-center justify-center gap-2 transition-colors">
                   <MdOutlineTheaterComedy size={14} />
                   <span className="text-sm font-medium">Add to List</span>
+
+                  <div className="inset-0 absolute bg-gradient-to-r from-transparent -translate-x-[100%] group-hover:translate-x-[200%] transition-all duration-500  via-primary/10 to-transparent  "></div>
                 </button>
               </div>
             </div>
@@ -165,7 +172,7 @@ const AnimeInfo = () => {
               </div>
 
               {/* Details Grid */}
-              <div className="grid font-outfit grid-cols-2 gap-x-6 sm:gap-x-12 gap-y-2 text-xs sm:text-sm">
+              <div className="grid font-outfit grid-cols-2 2xl:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
                 <div className="flex gap-2">
                   <span className="text-text/60">Episodes:</span>
                   <span className="truncate">
@@ -201,84 +208,110 @@ const AnimeInfo = () => {
       ) : (
         !charactersError &&
         characters?.data?.data?.length > 0 && (
-          <section className="container mx-auto  lg:mt-0 px-4 py-8">
-            <div className="  flex items-center space-x-4   font-outfit  mb-6">
-              <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+          <section
+            id="characters"
+            className="container mx-auto lg:mt-0 px-4 py-8"
+          >
+            <div className="flex items-center space-x-4 font-outfit mb-6">
+              <h1 className="text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
                 Characters & Voice Actors
               </h1>
               <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
             </div>
-            <div className="grid font-outfit grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+            <div className="grid font-outfit grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
               {characters?.data?.data
                 ?.slice(0, showAllCharacters ? undefined : 6)
                 .map((item, index) => (
-                  <div
+                  <Link
                     key={index}
-                    className="flex bg-secondary/5 hover:bg-secondary/10 p-4 rounded-lg transition-all duration-300"
+                    to={`/character/${item?.character?.mal_id}`}
                   >
-                    {/* Character Side */}
-                    <div className="flex-1 flex flex-col items-center">
-                      <div className="relative">
-                        <img
-                          src={
-                            item?.character?.images?.webp?.image_url ||
-                            item?.character?.images?.jpg?.image_url
-                          }
-                          alt={item.character.name}
-                          className="w-[65px]  h-[65px] sm:w-[75px] sm:h-[75px] rounded-full object-cover ring-2 ring-primary/20 hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="absolute -bottom-1 right-0 bg-secondary/90 text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full">
-                          {item.role}
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        duration: 0.3,
+                        delay:
+                          index *
+                          (characters?.data?.data?.length > 200 ? 0 : 0.05),
+                        ease: "backOut",
+                      }}
+                    >
+                      <div className="group relative bg-secondary/5 rounded-xl overflow-hidden hover:bg-secondary/10 transition-all duration-500">
+                        {/* Animated Background Effect */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                        <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-secondary/10 blur-xl opacity-0 group-hover:opacity-30 transition-all duration-500"></div>
+
+                        <div className="relative p-4">
+                          <div className="flex gap-4">
+                            {/* Character Image with Hover Effect */}
+                            <div className="relative w-20 h-28 overflow-hidden rounded-lg">
+                              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10"></div>
+                              <img
+                                src={item.character.images.jpg.image_url}
+                                alt={item.character.name}
+                                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                              />
+                            </div>
+
+                            {/* Character Info with Modern Layout */}
+                            <div className="flex-1 min-w-0">
+                              <h3 className="text-sm font-semibold text-text mb-1 truncate">
+                                {item.character.name}
+                              </h3>
+                              <p className="text-xs text-text/60 mb-2">
+                                {item.role}
+                              </p>
+                              {item.voice_actors?.length > 0 && (
+                                <div className="space-y-2">
+                                  {item.voice_actors
+                                    .slice(0, 2)
+                                    .map((va, vaIndex) => (
+                                      <div
+                                        key={vaIndex}
+                                        className="flex items-center gap-2"
+                                      >
+                                        <div className="relative w-6 h-6 rounded-full overflow-hidden ring-1 ring-primary/20">
+                                          <img
+                                            src={va.person.images.jpg.image_url}
+                                            alt={va.person.name}
+                                            className="w-full h-full object-cover"
+                                          />
+                                        </div>
+                                        <span className="text-xs text-text/80 truncate">
+                                          {va.person.name}
+                                        </span>
+                                      </div>
+                                    ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Decorative Elements */}
+                          <div className="absolute top-2 right-2 flex gap-1">
+                            <span className="w-1 h-1 rounded-full bg-primary/40"></span>
+                            <span className="w-1 h-1 rounded-full bg-secondary/40"></span>
+                          </div>
                         </div>
                       </div>
-                      <div className="w-full mt-2">
-                        <p className="text-xs sm:text-sm font-medium text-text/90 text-center truncate px-1">
-                          {item.character.name}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Divider */}
-                    <div className="mx-3 self-stretch w-[1px] bg-text/10"></div>
-
-                    {/* Voice Actor Side */}
-                    <div className="flex-1 flex flex-col items-center">
-                      <div className="relative">
-                        <img
-                          src={
-                            item.voice_actors?.[0]?.person?.images?.webp
-                              ?.image_url ||
-                            item.voice_actors?.[0]?.person?.images?.jpg
-                              ?.image_url ||
-                            "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3383.jpg"
-                          }
-                          alt={
-                            item.voice_actors?.[0]?.person?.name ||
-                            "Unknown Person"
-                          }
-                          className="w-[65px] h-[65px] sm:w-[75px] sm:h-[75px] rounded-full object-cover ring-2 ring-primary/20 hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="absolute -bottom-1 right-0 bg-primary/90 text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full">
-                          {item.voice_actors?.[0]?.language || "Unknown"}
-                        </div>
-                      </div>
-
-                      <div className="w-full mt-2">
-                        <p className="text-xs sm:text-sm font-medium text-text/90 text-center truncate px-1">
-                          {item.voice_actors?.[0]?.person?.name || "Unknown"}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                    </motion.div>
+                  </Link>
                 ))}
             </div>
-            {characters?.data?.data?.length > 4 && (
-              <button
-                onClick={() => setShowAllCharacters(!showAllCharacters)}
-                className="mt-6 mx-auto block px-4 py-2 bg-secondary/10 hover:bg-secondary/20 text-text rounded-lg transition-all duration-300"
-              >
-                {showAllCharacters ? "Show Less" : "Show More"}
-              </button>
+
+            {characters?.data?.data?.length > 6 && (
+              <HashLink smooth to="#characters">
+                <button
+                  onClick={() => setShowAllCharacters(!showAllCharacters)}
+                  className="mt-8 mx-auto block px-6 py-2 bg-secondary/10 hover:bg-secondary/20 rounded-lg transition-all duration-300 relative group overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-500"></div>
+                  <span className="relative text-sm font-medium text-text/80 group-hover:text-text">
+                    {showAllCharacters ? "Show Less" : "View All"}
+                  </span>
+                </button>
+              </HashLink>
             )}
           </section>
         )
@@ -298,7 +331,7 @@ const AnimeInfo = () => {
               </h2>
             </div>
 
-            {MALLoading ? (
+            {MALLoading && !isMALError ? (
               <AnimeInfoSkeleton />
             ) : MALData?.data?.data ? (
               <>

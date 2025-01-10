@@ -4,18 +4,19 @@ import Footer from "./components/layouts/Footer/Footer.jsx";
 import Navbar from "./components/layouts/Navbar/Navbar.jsx";
 import Sidebar from "./components/layouts/Sidebar/Sidebar.jsx";
 import HomeSuspense from "./components/ui/HomeSuspense.jsx";
-import { LoadingFallback } from "./components/ui/LoadingFallback.jsx";
 import ScrollToTop from "./components/ui/ScrollToTop.jsx"; // Added import statement
 import WatchPageSuspense from "./components/ui/WatchPageSuspense.jsx";
 import AnimeInfo from "./pages/AnimeInfo.jsx";
 import AZPage from "./pages/AZPage.jsx";
 import { CategoryPage } from "./pages/CategoryPage.jsx";
+import CharacterPage from "./pages/CharacterPage.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import Schedules from "./pages/Schedules.jsx";
 import Search from "./pages/Search.jsx";
 // Lazy load components
 
-const ErrorPage = lazy(() => import("./pages/ErrorPage.jsx"));
+// Lazy load components
 const Home = lazy(() => import("./pages/Home.jsx"));
 const WatchPage = lazy(() => import("./pages/WatchPage.jsx"));
 
@@ -42,11 +43,7 @@ const router = createBrowserRouter([
         </div>
       </div>
     ),
-    errorElement: (
-      <Suspense fallback={<LoadingFallback />}>
-        <ErrorPage />
-      </Suspense>
-    ),
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/home",
@@ -84,11 +81,16 @@ const router = createBrowserRouter([
         path: "/az",
         element: <AZPage />,
       },
+      {
+        path: "/character/:id",
+        element: <CharacterPage />,
+      },
     ],
   },
   {
     path: "/",
     element: <HomePage />,
+    errorElement: <ErrorPage />,
   },
 ]);
 

@@ -1,5 +1,5 @@
 import { HiAnime } from "aniwatch";
-import { Hono } from "hono";
+import { Hono, type Context } from "hono";
 import { cache } from "../config/cache.js";
 import type { AniwatchAPIVariables } from "../config/variables.js";
 import getGeminiRes from "../controllers/getGeminiRes.js";
@@ -24,20 +24,18 @@ hianimeRouter.get("/home", async (c) => {
 });
 
 // /api/v2/hianime/category/{name}?page={page}
-hianimeRouter.get("/category/:name", async (c) => {
+hianimeRouter.get("/category/:name", async (c: Context) => {
   const cacheConfig = c.get("CACHE_CONFIG");
   const categoryName = decodeURIComponent(
     c.req.param("name").trim()
   ) as HiAnime.AnimeCategories;
   const page: number =
     Number(decodeURIComponent(c.req.query("page") || "")) || 1;
-
   const data = await cache.getOrSet<HiAnime.ScrapedAnimeCategory>(
     cacheConfig.key,
     async () => hianime.getCategoryAnime(categoryName, page),
     cacheConfig.duration
   );
-
   return c.json({ success: true, data }, { status: 200 });
 });
 
@@ -180,6 +178,25 @@ hianimeRouter.get("/anime/:animeId/episodes", async (c) => {
   const data = await cache.getOrSet<HiAnime.ScrapedAnimeEpisodes>(
     cacheConfig.key,
     async () => hianime.getEpisodes(animeId),
+    cacheConfig.duration
+  );
+
+  return c.json({ success: true, data }, { status: 200 });
+});
+
+// /api/v2/hianime/azlist/{sortOption}?page={page}
+hianimeRouter.get("/azlist/:sortOption", async (c) => {
+  const cacheConfig = c.get("CACHE_CONFIG");
+
+  const sortOption = decodeURIComponent(
+    c.req.param("sortOption").trim().toLowerCase()
+  ) as HiAnime.AZListSortOptions;
+  const page: number =
+    Number(decodeURIComponent(c.req.query("page") || "")) || 1;
+
+  const data = await cache.getOrSet<HiAnime.ScrapedAnimeAZList>(
+    cacheConfig.key,
+    async () => hianime.getAZList(sortOption, page),
     cacheConfig.duration
   );
 

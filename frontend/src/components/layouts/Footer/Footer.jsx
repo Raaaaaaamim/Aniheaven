@@ -7,7 +7,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative w-full bg-background overflow-hidden">
+    <footer className="relative w-full bg-gradient-to-t from-background via-background/95 to-transparent overflow-hidden">
       {/* Subtle Gradient Orbs */}
       <div className="absolute -bottom-[250px] left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[128px]" />
       <div className="absolute -bottom-[250px] right-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[128px]" />

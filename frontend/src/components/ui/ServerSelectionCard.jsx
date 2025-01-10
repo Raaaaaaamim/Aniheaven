@@ -70,21 +70,32 @@ const ServerSelectionCard = ({
                   {server?.sub.length > 0 &&
                     server?.sub?.map(({ serverName }, i) => (
                       <motion.div
+                        key={i}
                         variants={serverItemVariants}
                         whileTap={{ scale: 0.95 }}
-                        className={`cursor-pointer text-xs lg:text-sm capitalize px-3 lg:px-5 rounded-xl py-[6px] transition-all duration-300 ${
-                          selectedServer === serverName &&
-                          selectedCategory === "sub"
-                            ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
-                            : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
-                        }`}
-                        key={i}
-                        onClick={() => {
-                          setSelectedServer(serverName);
-                          setSelectedCategory("sub");
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: i * 0.05,
+                          ease: "backOut",
                         }}
                       >
-                        {serverName || "N/A"}
+                        <div
+                          className={`cursor-pointer text-xs lg:text-sm capitalize px-3 lg:px-5 rounded-xl py-[6px] transition-all duration-300 ${
+                            selectedServer === serverName &&
+                            selectedCategory === "sub"
+                              ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
+                              : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
+                          }`}
+                          key={i}
+                          onClick={() => {
+                            setSelectedServer(serverName);
+                            setSelectedCategory("sub");
+                          }}
+                        >
+                          {serverName || "N/A"}
+                        </div>
                       </motion.div>
                     ))}
                   {/* Raw Server Options */}
@@ -146,21 +157,32 @@ const ServerSelectionCard = ({
               {server?.dub.length > 0 &&
                 server?.dub?.map(({ serverName }, i) => (
                   <motion.div
+                    key={i}
                     variants={serverItemVariants}
                     whileTap={{ scale: 0.95 }}
-                    className={`cursor-pointer text-xs lg:text-sm capitalize px-3 lg:px-5 rounded-xl py-[6px] transition-all duration-300 ${
-                      selectedServer === serverName &&
-                      selectedCategory === "dub"
-                        ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
-                        : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
-                    }`}
-                    key={i}
-                    onClick={() => {
-                      setSelectedServer(serverName);
-                      setSelectedCategory("dub");
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      duration: 0.3,
+                      delay: i * 0.05,
+                      ease: "backOut",
                     }}
                   >
-                    {serverName || "N/A"}
+                    <div
+                      className={`cursor-pointer text-xs lg:text-sm capitalize px-3 lg:px-5 rounded-xl py-[6px] transition-all duration-300 ${
+                        selectedServer === serverName &&
+                        selectedCategory === "dub"
+                          ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
+                          : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
+                      }`}
+                      key={i}
+                      onClick={() => {
+                        setSelectedServer(serverName);
+                        setSelectedCategory("dub");
+                      }}
+                    >
+                      {serverName || "N/A"}
+                    </div>
                   </motion.div>
                 ))}
               {/* Fallback for No Dub Servers */}

@@ -139,10 +139,19 @@ const Search = () => {
       language,
     ],
     queryFn: async ({ pageParam = 1 }) => {
+      const formatDate = (date) => {
+        if (!date) return "";
+        const [year, month, day] = date.split("-").map((part) => part || "0");
+        return `${year}-${month}-${day}`;
+      };
       const response = await axios.get(
         `${api}/hianime/search?q=${encodeURIComponent(
           debouncedSearchQuery
-        )}&type=${type}&status=${status}&season=${season}&sort=${sort}&genres=${genres}&page=${pageParam}&start_date=${startDate}&end_date=${endDate}&rated=${rated}&score=${score}&language=${language}`
+        )}&type=${type}&status=${status}&season=${season}&sort=${sort}&genres=${genres}&page=${pageParam}&start_date=${formatDate(
+          startDate
+        )}&end_date=${formatDate(
+          endDate
+        )}&rated=${rated}&score=${score}&language=${language}`
       );
       return response.data;
     },

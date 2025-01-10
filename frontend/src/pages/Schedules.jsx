@@ -103,7 +103,7 @@ const Schedules = () => {
         <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-primary/3 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative w-full max-w-6xl mx-auto px-4 py-8">
+      <div className="relative w-full  mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8 flex items-center space-x-4">
           <h1 className="text-2xl md:text-3xl font-outfit font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent">

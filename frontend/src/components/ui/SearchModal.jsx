@@ -81,12 +81,12 @@ const SearchModal = ({ id }) => {
           <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-accent/5 to-primary/10 blur-2xl opacity-30 rounded-3xl" />
           <div className="bg-[#141414] border-white/[0.08] border rounded-2xl self-start w-full h-full justify-center items-start gap-2 flex flex-col shadow-xl xl:max-h-[400px] 2xl:max-h-[600px] max-h-[350px] lg:max-h-[350px]  relative overflow-hidden backdrop-blur-sm">
             <div className="py-4 border-b border-white/[0.08] flex justify-start items-center gap-3 w-full h-full px-6 group">
-              <CiSearch className="text-primary text-xl min-w-[20px] transition-colors duration-300" />
+              <CiSearch className=" bg-gradient-to-r from-text/90 to-transparent bg-clip-text text-xl min-w-[20px] transition-colors duration-300" />
               <input
                 autoFocus
                 value={value}
                 onChange={handleChange}
-                className="w-full bg-transparent text-base text-white/90 outline-none placeholder:text-white/30 h-full focus:placeholder:text-primary/50 transition-all duration-300"
+                className="w-full bg-transparent text-base text-white/90 outline-none placeholder:text-white/30 h-full focus:placeholder:text-border  transition-all duration-300"
                 type="text"
                 placeholder="Search for your favorite anime..."
               />

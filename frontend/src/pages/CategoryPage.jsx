@@ -1,8 +1,8 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { parseAsString, useQueryState } from "nuqs";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import AnimeCard from "../components/ui/AnimeCard.jsx";
 import AnimeCardSkeleton from "../components/ui/AnimeCardSkeleton.jsx";
 import ErrorCard from "../components/ui/ErrorCard.jsx";
@@ -14,7 +14,16 @@ export const CategoryPage = () => {
     parseAsString.withDefault("recently-updated")
   );
 
-  const { data, isError, isLoading, error } = useInfiniteQuery({
+  const {
+    data,
+    isError,
+    isLoading,
+    error,
+    isFetchingNextPage,
+    fetchNextPage,
+    isFetchNextPageError,
+    hasNextPage,
+  } = useInfiniteQuery({
     queryKey: [name || ""],
     queryFn: ({ pageParam }) => {
       return axios.get(`${api}/hianime/category/${name}?page=${pageParam}`);
@@ -45,7 +54,13 @@ export const CategoryPage = () => {
     "tv",
     "completed",
   ];
-
+  const ref = useRef(null);
+  const inView = useInView(ref);
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView]);
   return (
     <div className="w-full min-h-screen bg-background/95">
       {/* Decorative Elements */}
@@ -54,7 +69,7 @@ export const CategoryPage = () => {
         <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-primary/3 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative w-full max-w-7xl mx-auto px-4 py-8">
+      <div className="relative w-full  mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8 flex items-center space-x-4">
           <h1 className="text-2xl md:text-3xl font-outfit font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
@@ -138,17 +153,13 @@ export const CategoryPage = () => {
             <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
           </div>
 
-          <motion.div
-            variants={{
-              staggerChildren: 0.1,
-              delayChildren: 0.1,
-            }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-6 gap-4 place-items-center xl:gap-6"
-          >
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-6 gap-4 place-items-center xl:gap-6">
             {isLoading ? (
               Array(10)
                 .fill(0)
-                .map((_, index) => <AnimeCardSkeleton key={index} />)
+                .map((_, index) => (
+                  <AnimeCardSkeleton key={index} index={index} />
+                ))
             ) : !isError ? (
               data.pages.map((page) =>
                 page?.data?.data?.animes.map((anime, index) => (
@@ -177,7 +188,17 @@ export const CategoryPage = () => {
             ) : (
               <ErrorCard error={error} />
             )}
-          </motion.div>
+
+            {isFetchingNextPage &&
+              !isFetchNextPageError &&
+              Array(10)
+                .fill(0)
+                .map((_, index) => (
+                  <AnimeCardSkeleton key={index} index={index} />
+                ))}
+            {isFetchNextPageError && <ErrorCard error={isFetchNextPageError} />}
+            <div ref={ref}></div>
+          </div>
         </div>
       </div>
     </div>

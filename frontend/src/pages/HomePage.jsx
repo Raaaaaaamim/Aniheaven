@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import {
   BsCalendar3,
   BsCollectionPlay,
@@ -10,176 +11,211 @@ import {
 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import logo from "../assets/aniheaven.svg";
-
-const FeatureCard = ({
-  to,
-  icon: Icon,
-  title,
-  description,
-  gradient,
-  delay,
-}) => (
-  <Link
-    to={to}
-    className="group relative overflow-hidden rounded-3xl transition-all duration-500 hover:scale-[1.02]"
-  >
-    <div
-      className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-      style={{ background: gradient }}
-    />
-    <div className="relative bg-white/[0.02] border border-white/[0.05] rounded-3xl p-6 h-full backdrop-blur-sm">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors duration-500" />
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay }}
-        className="relative z-10"
-      >
-        <div className="bg-gradient-to-br from-white/[0.08] to-white/[0.02] rounded-2xl w-14 h-14 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500">
-          <Icon className="w-7 h-7 text-primary group-hover:text-white transition-colors duration-500" />
-        </div>
-        <h3 className="text-xl font-medium mb-3 text-text group-hover:text-white transition-colors duration-500">
-          {title}
-        </h3>
-        <p className="text-sm text-text/60 group-hover:text-white/80 line-clamp-2 transition-colors duration-500">
-          {description}
-        </p>
-      </motion.div>
-    </div>
-  </Link>
-);
+import banner from "../assets/banner.webp";
+import FeatureCard from "../components/ui/FeatureCard.jsx";
 
 const HomePage = () => {
+  const [value, setValue] = useState("");
+  
   return (
-    <div className="relative min-h-screen bg-background/95 overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+    <div className="relative min-h-screen bg-background overflow-hidden">
+      {/* Dynamic Background */}
+      <div className="fixed inset-0 pointer-events-none">
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.6 }}
-          transition={{ duration: 2 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
           className="absolute inset-0"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-transparent z-10" />
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-          <motion.img
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-            src="https://w.wallhaven.cc/full/yx/wallhaven-yxj6eg.png"
-            alt=""
-            className="w-full  h-full object-cover opacity-30"
-          />
+          {/* Gradient Mesh */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,24,39,1),rgba(0,0,0,0.95))]" />
+          <div className="absolute inset-0">
+            <div className="absolute top-0 left-0 w-full h-full bg-[conic-gradient(from_0deg_at_50%_50%,rgba(var(--color-primary-rgb),0.15)_0deg,transparent_60deg,transparent_300deg,rgba(var(--color-primary-rgb),0.15)_360deg)] animate-slow-spin" />
+            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(var(--color-primary-rgb),0.1),transparent_70%)]" />
+          </div>
+
+          {/* Animated Lines - Hidden on Mobile */}
+          <div className="absolute inset-0 opacity-20 hidden sm:block">
+            <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-primary/50 to-transparent animate-pulse" />
+            <div className="absolute top-0 left-2/4 w-px h-full bg-gradient-to-b from-transparent via-primary/50 to-transparent animate-pulse delay-75" />
+            <div className="absolute top-0 left-3/4 w-px h-full bg-gradient-to-b from-transparent via-primary/50 to-transparent animate-pulse delay-150" />
+          </div>
+
+          {/* Banner Image with Advanced Blend */}
+          <motion.div
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 0.15, scale: 1 }}
+            transition={{ duration: 1.5 }}
+            className="absolute inset-0 mix-blend-overlay"
+          >
+            <img
+              src={banner}
+              alt=""
+              className="w-full h-full object-cover filter brightness-50 contrast-125 saturate-50"
+            />
+          </motion.div>
         </motion.div>
       </div>
 
       {/* Main Content */}
-      <div className="relative z-20 min-h-screen">
-        <div className="flex items-center justify-center min-h-screen px-4 sm:px-6">
-          <div className="w-full max-w-7xl mx-auto">
+      <div className="relative z-10">
+        <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 sm:py-20">
+          {/* Hero Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="w-full max-w-5xl mx-auto text-center"
+          >
+            {/* Logo */}
+            <Link
+              to="/"
+              className="inline-block mb-8 sm:mb-12 transform hover:scale-105 transition-all duration-500 hover:rotate-3"
+            >
+              <motion.img
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                src={logo}
+                alt="AniHeaven"
+                className="h-16 sm:h-20 mx-auto drop-shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.5)]"
+              />
+            </Link>
+
+            {/* Hero Text */}
+            <div className="relative mb-10 sm:mb-16">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="text-4xl sm:text-5xl md:text-6xl font-outfit font-bold leading-tight"
+              >
+                <span className="inline-block bg-gradient-to-br from-white via-primary/90 to-primary/60 bg-clip-text text-transparent pb-2">
+                  Start Your Anime
+                </span>
+                <br />
+                <span className="inline-block bg-gradient-to-br from-primary/90 via-primary/70 to-white bg-clip-text text-transparent">
+                  Journey Today
+                </span>
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="mt-6 text-base sm:text-lg text-text/70 max-w-2xl mx-auto font-light"
+              >
+                Discover a world of endless possibilities in anime
+                entertainment, curated just for you
+              </motion.p>
+            </div>
+
+            {/* Search Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-3xl mx-auto text-center mb-12"
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="relative max-w-2xl mx-auto mb-12 sm:mb-20"
             >
-              <Link to="/" className="inline-block mb-6 mt-8">
-                <img
-                  src={logo}
-                  alt="AniHeaven"
-                  className="h-16 sm:h-20 mx-auto"
-                />
-              </Link>
+              {/* Search Glow Effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 via-primary/20 to-primary/30 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition-all duration-500" />
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-outfit font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent mb-6">
-                Start Your Anime Journey
-              </h1>
-              <p className="text-lg sm:text-xl text-text/60 mb-12 px-4 max-w-2xl mx-auto">
-                Discover, watch, and explore the best anime collection curated
-                just for you
-              </p>
-
-              {/* Search Section */}
-              <div className="relative mb-16">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/30 via-primary/20 to-transparent blur-2xl rounded-2xl opacity-70" />
-                <Link to="/search" className="block">
-                  <div className="relative flex bg-white/[0.03] backdrop-blur-xl border border-white/[0.05] rounded-2xl p-2 hover:bg-white/[0.05] transition-all duration-500">
-                    <input
-                      type="text"
-                      placeholder="Search your favorite anime..."
-                      className="flex-1 bg-transparent px-6 py-4 text-lg text-text placeholder:text-text/40 focus:outline-none cursor-pointer"
-                      readOnly
-                    />
-                    <button className="bg-gradient-to-r from-primary to-primary/80 text-white px-8 py-4 rounded-xl hover:opacity-90 transition-all duration-500 flex items-center gap-3 font-medium">
-                      <BsSearch className="w-5 h-5" />
-                      <span className="hidden sm:inline">Search</span>
-                    </button>
-                  </div>
-                </Link>
-              </div>
-
-              {/* Primary Action Buttons */}
-              <div className="flex flex-wrap items-center justify-center gap-4 mb-16">
-                <Link
-                  to="/home"
-                  className="group relative overflow-hidden bg-gradient-to-r from-primary to-primary/80 hover:opacity-90 text-white px-8 py-4 rounded-xl transition-all duration-500 flex items-center gap-3 font-medium"
-                >
-                  <div className="absolute inset-0 bg-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <BsPlayFill className="w-6 h-6 relative z-10" />
-                  <span className="relative z-10">Start Watching</span>
-                </Link>
-                <Link
-                  to="/schedules"
-                  className="group relative overflow-hidden px-8 py-4 rounded-xl text-text border border-white/[0.05] hover:border-primary/30 transition-all duration-500 backdrop-blur-sm flex items-center gap-3"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <BsCalendar3 className="w-5 h-5 relative z-10" />
-                  <span className="relative z-10">Schedule</span>
-                </Link>
-                <Link
-                  to="/category"
-                  className="group relative overflow-hidden px-8 py-4 rounded-xl text-text border border-white/[0.05] hover:border-primary/30 transition-all duration-500 backdrop-blur-sm flex items-center gap-3"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <BsGrid className="w-5 h-5 relative z-10" />
-                  <span className="relative z-10">Categories</span>
-                </Link>
-              </div>
-
-              {/* Feature Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 px-4">
-                <FeatureCard
-                  to="/az"
-                  icon={BsListUl}
-                  title="A-Z Collection"
-                  description="Browse our extensive library alphabetically and find your next favorite series"
-                  gradient="linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.05) 100%)"
-                  delay={0.2}
+              {/* Search Input */}
+              <div className="relative flex bg-background/40 backdrop-blur-2xl border border-white/10 rounded-2xl p-1.5 group">
+                <input
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                  type="text"
+                  placeholder="Search your favorite anime..."
+                  className="flex-1 bg-transparent px-4 sm:px-6 py-3 sm:py-4 text-base sm:text-lg text-text placeholder:text-text/40 focus:outline-none font-light"
                 />
-                <FeatureCard
-                  to="/home"
-                  icon={BsCollectionPlay}
-                  title="Latest Episodes"
-                  description="Stay up to date with the newest releases and never miss an episode"
-                  gradient="linear-gradient(135deg, rgba(244, 63, 94, 0.2) 0%, rgba(244, 63, 94, 0.05) 100%)"
-                  delay={0.3}
-                />
-                <FeatureCard
-                  to="/category"
-                  icon={BsFire}
-                  title="Popular & Trending"
-                  description="Discover what's hot in the anime world and join the conversation"
-                  gradient="linear-gradient(135deg, rgba(234, 179, 8, 0.2) 0%, rgba(234, 179, 8, 0.05) 100%)"
-                  delay={0.4}
-                />
+                <Link to={value ? `/search?q=${value}` : `/search`}>
+                  <button className="relative overflow-hidden px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-primary text-white font-medium group-hover:shadow-lg group-hover:shadow-primary/50 transition-all duration-500">
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary-light to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="relative flex items-center gap-2 sm:gap-3">
+                      <BsSearch className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <span className="hidden sm:inline text-sm sm:text-base">
+                        Search
+                      </span>
+                    </div>
+                  </button>
+                </Link>
               </div>
             </motion.div>
-          </div>
+
+            {/* Quick Actions */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mb-16 sm:mb-24"
+            >
+              <Link
+                to="/home"
+                className="group relative overflow-hidden px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-primary text-white font-medium hover:shadow-lg hover:shadow-primary/30 transition-all duration-500"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-primary-light to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative flex items-center gap-2 sm:gap-3">
+                  <BsPlayFill className="w-5 h-5 sm:w-6 sm:h-6" />
+                  <span className="text-sm sm:text-base">Start Watching</span>
+                </div>
+              </Link>
+
+              <Link
+                to="/schedules"
+                className="group relative overflow-hidden px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-background/40 backdrop-blur-xl border border-white/10 text-text hover:text-white hover:border-primary/50 transition-all duration-500"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative flex items-center gap-2 sm:gap-3">
+                  <BsCalendar3 className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="text-sm sm:text-base">Schedule</span>
+                </div>
+              </Link>
+
+              <Link
+                to="/category"
+                className="group relative overflow-hidden px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-background/40 backdrop-blur-xl border border-white/10 text-text hover:text-white hover:border-primary/50 transition-all duration-500"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative flex items-center gap-2 sm:gap-3">
+                  <BsGrid className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="text-sm sm:text-base">Categories</span>
+                </div>
+              </Link>
+            </motion.div>
+
+            {/* Feature Cards */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-2 sm:px-4"
+            >
+              <FeatureCard
+                to="/az"
+                icon={BsListUl}
+                title="A-Z Collection"
+                description="Browse our extensive library alphabetically and find your next favorite series"
+                gradient="linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0.1) 100%)"
+                delay={0.2}
+              />
+              <FeatureCard
+                to="/home"
+                icon={BsCollectionPlay}
+                title="Latest Episodes"
+                description="Stay up to date with the newest releases and never miss an episode"
+                gradient="linear-gradient(135deg, rgba(244, 63, 94, 0.3) 0%, rgba(244, 63, 94, 0.1) 100%)"
+                delay={0.3}
+              />
+              <FeatureCard
+                to="/category"
+                icon={BsFire}
+                title="Popular & Trending"
+                description="Discover what's hot in the anime world and join the conversation"
+                gradient="linear-gradient(135deg, rgba(234, 179, 8, 0.3) 0%, rgba(234, 179, 8, 0.1) 100%)"
+                delay={0.4}
+              />
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </div>

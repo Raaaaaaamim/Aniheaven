@@ -1,10 +1,20 @@
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { BsCalendar3, BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { BsCalendar3, BsChevronLeft, BsChevronRight, BsX } from "react-icons/bs";
 
 const months = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 // Custom hook for smart positioning
@@ -17,20 +27,20 @@ const useSmartPosition = (ref, isOpen) => {
         const rect = ref.current.getBoundingClientRect();
         const spaceRight = window.innerWidth - rect.right;
         const spaceBottom = window.innerHeight - rect.bottom;
-        
+
         setPosition({
-          top: spaceBottom < 20,  // If less than 20px at bottom, show above
-          right: spaceRight < 20  // If less than 20px at right, align right
+          top: spaceBottom < 20, // If less than 20px at bottom, show above
+          right: spaceRight < 20, // If less than 20px at right, align right
         });
       };
 
       updatePosition();
-      window.addEventListener('scroll', updatePosition);
-      window.addEventListener('resize', updatePosition);
+      window.addEventListener("scroll", updatePosition);
+      window.addEventListener("resize", updatePosition);
 
       return () => {
-        window.removeEventListener('scroll', updatePosition);
-        window.removeEventListener('resize', updatePosition);
+        window.removeEventListener("scroll", updatePosition);
+        window.removeEventListener("resize", updatePosition);
       };
     }
   }, [isOpen]);
@@ -54,7 +64,10 @@ const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
 
   const containerRef = useRef(null);
   const dropdownRef = useRef(null);
-  const { top: showAbove, right: alignRight } = useSmartPosition(dropdownRef, isOpen);
+  const { top: showAbove, right: alignRight } = useSmartPosition(
+    dropdownRef,
+    isOpen
+  );
 
   useEffect(() => {
     if (value) {
@@ -120,25 +133,37 @@ const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
 
   return (
     <div ref={containerRef} className="relative">
-      <motion.button
-        onClick={() => setIsOpen(!isOpen)}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="w-[160px] md:w-[180px] px-4 py-2 rounded-lg text-left bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.05] shadow-lg shadow-black/10 backdrop-blur-sm transition-all flex items-center gap-2 group relative overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        <motion.div
-          initial={{ rotate: 0 }}
-          whileHover={{ rotate: 15 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          className="relative z-10"
+      <div className="flex items-center gap-2">
+        <motion.button
+          onClick={() => setIsOpen(!isOpen)}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="w-[160px] md:w-[180px] px-4 py-2 rounded-lg text-left bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.05] shadow-lg shadow-black/10 backdrop-blur-sm transition-all flex items-center gap-2 group relative overflow-hidden"
         >
-          <BsCalendar3 className="text-zinc-500 group-hover:text-zinc-400 transition-colors" />
-        </motion.div>
-        <span className="text-xs text-zinc-400 group-hover:text-zinc-300 transition-colors truncate relative z-10">
-          {value ? new Date(value).toLocaleDateString() : placeholder}
-        </span>
-      </motion.button>
+          <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <motion.div
+            initial={{ rotate: 0 }}
+            whileHover={{ rotate: 15 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            className="relative z-10"
+          >
+            <BsCalendar3 className="text-zinc-500 group-hover:text-zinc-400 transition-colors" />
+          </motion.div>
+          <span className="text-xs text-zinc-400 group-hover:text-zinc-300 transition-colors truncate relative z-10">
+            {value ? new Date(value).toLocaleDateString() : placeholder}
+          </span>
+        </motion.button>
+        {value && (
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => onChange("")}
+            className="p-1.5 rounded-lg hover:bg-white/[0.08] transition-colors"
+          >
+            <BsX className="text-zinc-400 text-lg" />
+          </motion.button>
+        )}
+      </div>
 
       <AnimatePresence>
         {isOpen && (
@@ -149,13 +174,11 @@ const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
             exit={{ opacity: 0, y: showAbove ? 10 : -10, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             className={`absolute z-50 p-4 bg-[#141414]/95 backdrop-blur-xl rounded-xl border border-white/[0.05] shadow-xl min-w-[280px] ${
-              showAbove ? 'bottom-[calc(100%+8px)]' : 'top-[calc(100%+8px)]'
-            } ${
-              alignRight ? 'right-0' : 'left-0'
-            }`}
+              showAbove ? "bottom-[calc(100%+8px)]" : "top-[calc(100%+8px)]"
+            } ${alignRight ? "right-0" : "left-0"}`}
             style={{
-              maxHeight: '90vh',
-              overflowY: 'auto'
+              maxHeight: "90vh",
+              overflowY: "auto",
             }}
           >
             <AnimatePresence mode="wait">
@@ -172,7 +195,15 @@ const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))}
+                      onClick={() =>
+                        setCurrentDate(
+                          new Date(
+                            currentDate.getFullYear(),
+                            currentDate.getMonth() - 1,
+                            1
+                          )
+                        )
+                      }
                       className="p-1.5 hover:bg-white/[0.08] rounded-lg transition-colors"
                     >
                       <BsChevronLeft className="text-zinc-400" />
@@ -193,7 +224,15 @@ const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))}
+                      onClick={() =>
+                        setCurrentDate(
+                          new Date(
+                            currentDate.getFullYear(),
+                            currentDate.getMonth() + 1,
+                            1
+                          )
+                        )
+                      }
                       className="p-1.5 hover:bg-white/[0.08] rounded-lg transition-colors"
                     >
                       <BsChevronRight className="text-zinc-400" />
@@ -214,11 +253,24 @@ const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
 
                   {/* Calendar Days */}
                   <div className="grid grid-cols-7 gap-1">
-                    {Array.from({ length: getFirstDayOfMonth(currentDate.getFullYear(), currentDate.getMonth()) }, (_, i) => (
-                      <div key={`empty-${i}`} className="w-9 h-9" />
-                    ))}
                     {Array.from(
-                      { length: getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth()) },
+                      {
+                        length: getFirstDayOfMonth(
+                          currentDate.getFullYear(),
+                          currentDate.getMonth()
+                        ),
+                      },
+                      (_, i) => (
+                        <div key={`empty-${i}`} className="w-9 h-9" />
+                      )
+                    )}
+                    {Array.from(
+                      {
+                        length: getDaysInMonth(
+                          currentDate.getFullYear(),
+                          currentDate.getMonth()
+                        ),
+                      },
                       (_, i) => {
                         const day = i + 1;
                         const date = new Date(
@@ -227,7 +279,8 @@ const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
                           day
                         );
                         const isSelected = value === formatDateToISO(date);
-                        const isToday = formatDateToISO(date) === formatDateToISO(new Date());
+                        const isToday =
+                          formatDateToISO(date) === formatDateToISO(new Date());
 
                         return (
                           <motion.button
@@ -235,7 +288,11 @@ const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
                             onClick={() => handleDateSelect(day)}
                             whileHover={{ scale: 1.15 }}
                             whileTap={{ scale: 0.95 }}
-                            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 400,
+                              damping: 17,
+                            }}
                             className={`w-9 h-9 rounded-lg text-xs font-medium relative group ${
                               isSelected
                                 ? "bg-white/[0.08] text-white shadow-lg shadow-black/20 backdrop-blur-sm"
@@ -247,8 +304,16 @@ const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
                             <motion.div
                               className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"
                               initial={false}
-                              animate={isSelected ? { scale: 1.1, opacity: 1 } : { scale: 1, opacity: 0 }}
-                              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                              animate={
+                                isSelected
+                                  ? { scale: 1.1, opacity: 1 }
+                                  : { scale: 1, opacity: 0 }
+                              }
+                              transition={{
+                                type: "spring",
+                                stiffness: 400,
+                                damping: 17,
+                              }}
                             />
                             <span className="relative z-10">{day}</span>
                           </motion.button>
@@ -275,21 +340,28 @@ const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
                     >
                       <BsChevronLeft className="text-zinc-400" />
                     </motion.button>
-                    <span className="text-xs font-medium text-zinc-300">Select Year</span>
+                    <span className="text-xs font-medium text-zinc-300">
+                      Select Year
+                    </span>
                     <div className="w-8" />
                   </div>
 
                   <div className="h-[288px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
                     <div className="grid grid-cols-3 gap-1.5 p-0.5">
                       {years.map((year) => {
-                        const isCurrentYear = year === currentDate.getFullYear();
+                        const isCurrentYear =
+                          year === currentDate.getFullYear();
                         return (
                           <motion.button
                             key={year}
                             onClick={() => handleYearClick(year)}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 400,
+                              damping: 17,
+                            }}
                             className={`px-2 py-2 text-xs rounded-lg relative group overflow-hidden ${
                               isCurrentYear
                                 ? "bg-white/[0.08] text-white shadow-lg shadow-black/20 backdrop-blur-sm"
@@ -299,7 +371,9 @@ const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
                             <motion.div
                               className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"
                               initial={false}
-                              animate={isCurrentYear ? { opacity: 1 } : { opacity: 0 }}
+                              animate={
+                                isCurrentYear ? { opacity: 1 } : { opacity: 0 }
+                              }
                             />
                             <span className="relative z-10">{year}</span>
                           </motion.button>

@@ -83,6 +83,72 @@ export const textVariants = {
   },
 };
 
+export function parseAnimeCharacterData(data) {
+  if (!data) {
+    return {};
+  }
+
+  const characterData = {};
+  const knownFields = [
+    "Age",
+    "Birthday",
+    "Height",
+    "Weight",
+    "Blood type",
+    "Favorite food",
+    "Clan",
+    "Hair",
+    "Eyes",
+    "Grade",
+    "Abilities",
+    "Eye Color",
+  ];
+
+  // First, let's extract all the known fields
+  knownFields.forEach((field) => {
+    const regex = new RegExp(`${field}:\\s*([^\\n]+)`, "i");
+    const match = data.match(regex);
+    if (match) {
+      characterData[field] = match[1].trim();
+    }
+  });
+
+  // If there are no known fields found, treat the entire text as a story
+  if (Object.keys(characterData).length === 0) {
+    characterData["Story"] = data
+      .split("\n")
+      .map(line => line.trim())
+      .filter(line => line.length > 0)
+      .join("\n");
+    return characterData;
+  }
+
+  // Extract the story part (everything after the last known field)
+  let storyStart = 0;
+  for (const field of knownFields) {
+    const index = data.indexOf(`${field}:`);
+    if (index !== -1) {
+      const endOfLine = data.indexOf("\n", index);
+      if (endOfLine !== -1 && endOfLine > storyStart) {
+        storyStart = endOfLine;
+      }
+    }
+  }
+
+  if (storyStart > 0) {
+    const story = data.substring(storyStart)
+      .split("\n")
+      .map(line => line.trim())
+      .filter(line => line.length > 0)
+      .join("\n");
+    if (story) {
+      characterData["Story"] = story;
+    }
+  }
+
+  return characterData;
+}
+
 // export const genres = {
 //   Action:
 //     "https://i.pinimg.com/736x/87/9a/ed/879aed8db6ac29b8475bb5804a96fc71.jpg",

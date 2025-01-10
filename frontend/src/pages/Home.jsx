@@ -209,7 +209,7 @@ const Home = () => {
         <div className="flex justify-between items-center mb-4">
           <div className=" w-full  flex items-center space-x-4   font-outfit  ">
             <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
-              Characters & Voice Actors
+              Trending Animes
             </h1>
             <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
           </div>
