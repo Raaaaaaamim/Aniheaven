@@ -8,24 +8,49 @@ import {
   FaCalendarAlt,
   FaHeart,
   FaInfo,
+  FaLanguage,
+  FaMask,
   FaQuoteLeft,
   FaRulerVertical,
-  FaUtensils,
   FaWeight,
 } from "react-icons/fa";
-import { GiPowerLightning } from "react-icons/gi";
-
-import { GiArmorDowngrade, GiNinjaHeroicStance } from "react-icons/gi";
+import {
+  GiArmorDowngrade,
+  GiNinjaHeroicStance,
+  GiPowerLightning,
+} from "react-icons/gi";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { MdTheaterComedy } from "react-icons/md";
-
 import {
   PiEyeBold,
   PiHairDryerFill,
   PiTelevisionSimpleBold,
 } from "react-icons/pi";
 import { useParams } from "react-router-dom";
-import { parseAnimeCharacterData } from "../../lib/utils.js";
+import {
+  characterFieldIcons,
+  parseAnimeCharacterData,
+} from "../../lib/utils.js";
+import CharacterInfoCard from "../components/ui/CharacterInfoCard.jsx";
+import TabButton from "../components/ui/TabButton.jsx";
+
+const iconComponents = {
+  FaBirthdayCake,
+  FaCalendarAlt,
+  FaHeart,
+  FaInfo,
+  FaLanguage,
+  FaMask,
+  FaQuoteLeft,
+  FaRulerVertical,
+  FaWeight,
+  GiArmorDowngrade,
+  GiNinjaHeroicStance,
+  GiPowerLightning,
+  IoPersonCircleOutline,
+  PiEyeBold,
+  PiHairDryerFill,
+};
 
 const CharacterPage = () => {
   const { id } = useParams();
@@ -182,128 +207,86 @@ const CharacterPage = () => {
             transition={{ duration: 0.3 }}
           >
             {activeTab === "about" && (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {/* Character Stats */}
-                <div className="space-y-4">
-                  {Object.entries(characterData).map(([key, value], index) => {
-                    if (key === "Story") return null;
-                    return (
-                      <motion.div
-                        key={key}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{
-                          duration: 0.3,
-                          delay: index * 0.05,
-                          ease: "backOut",
-                        }}
-                        className="bg-white/[0.02] border border-white/[0.05] backdrop-blur-sm rounded-xl p-4 md:p-6 hover:border-primary/50 transition-all duration-300"
-                      >
-                        <div className="flex items-start gap-3 md:gap-4">
-                          <div className="bg-primary/20 rounded-lg p-2 md:p-3">
-                            {key === "Age" && (
-                              <FaBirthdayCake className="text-primary text-lg md:text-xl" />
-                            )}
-                            {key === "Birthday" && (
-                              <FaCalendarAlt className="text-primary text-lg md:text-xl" />
-                            )}
-                            {key === "Height" && (
-                              <FaRulerVertical className="text-primary text-lg md:text-xl" />
-                            )}
-                            {key === "Weight" && (
-                              <FaWeight className="text-primary text-lg md:text-xl" />
-                            )}
-                            {key === "Blood type" && (
-                              <FaHeart className="text-primary text-lg md:text-xl" />
-                            )}
-                            {key === "Favorite food" && (
-                              <FaUtensils className="text-primary text-lg md:text-xl" />
-                            )}
-                            {key === "Clan" && (
-                              <GiNinjaHeroicStance className="text-primary text-lg md:text-xl" />
-                            )}
-                            {key === "Hair" && (
-                              <PiHairDryerFill className="text-primary text-lg md:text-xl" />
-                            )}
-                            {key === "Eyes" && (
-                              <PiEyeBold className="text-primary text-lg md:text-xl" />
-                            )}
-                            {key === "Eye Color" && (
-                              <PiEyeBold className="text-primary text-lg md:text-xl" />
-                            )}
-                            {key === "Grade" && (
-                              <GiArmorDowngrade className="text-primary text-lg md:text-xl" />
-                            )}
-                            {key === "Abilities" && (
-                              <GiPowerLightning className="text-primary text-lg md:text-xl" />
-                            )}
-                            {![
-                              "Age",
-                              "Birthday",
-                              "Height",
-                              "Weight",
-                              "Blood type",
-                              "Favorite food",
-                              "Clan",
-                              "Hair",
-                              "Eyes",
-                              "Grade",
-                              "Abilities",
-                              "Eye Color",
-                            ].includes(key) && (
-                              <FaInfo className="text-primary text-lg md:text-xl" />
-                            )}
-                          </div>
-                          <div>
-                            <h3 className="text-lg md:text-xl font-semibold text-white/90 mb-2">
-                              {key}
-                            </h3>
-                            <p className="text-white/70 leading-relaxed">
-                              {value}
-                            </p>
-                          </div>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
+                {Object.entries(characterData).map(([key, value], index) => {
+                  if (key === "Story") return null;
+                  const IconComponent =
+                    iconComponents[characterFieldIcons[key]] ||
+                    IoPersonCircleOutline;
 
-                {/* Character Story */}
-                <div className="space-y-6">
-                  {characterData.Story?.split("\n").map((paragraph, index) => {
-                    if (paragraph.trim() === "") return null;
+                  return (
+                    <motion.div
+                      key={key}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: index * 0.05,
+                        ease: "backOut",
+                      }}
+                      className="bg-white/[0.02] border border-white/[0.05] backdrop-blur-sm rounded-xl p-4"
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="p-2.5 bg-white/[0.02] rounded-lg">
+                          <IconComponent className="w-5 h-5 text-primary" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-base font-medium text-white/90 mb-1">
+                            {key}
+                          </h3>
+                          <p className="text-white/60 text-sm">{value}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
 
-                    return (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{
-                          duration: 0.3,
-                          delay: index * 0.05,
-                          ease: "backOut",
-                        }}
-                        className="relative"
-                      >
-                        <div className="absolute -top-2 -left-2 text-primary/20">
-                          <FaQuoteLeft size={24} />
-                        </div>
-                        <div className="bg-white/[0.02] backdrop-blur-sm rounded-xl p-6 border border-white/[0.05]">
-                          <p className="text-white/80 leading-relaxed">
-                            {paragraph}
-                          </p>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
+                {/* Story Paragraphs */}
+                {characterData?.Story?.split("\n\n").map((paragraph, index) => (
+                  <motion.div
+                    key={index}
+                    className="lg:col-span-2"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.3,
+                      delay: 0.2 + index * 0.1,
+                    }}
+                  >
+                    <div className="flex items-center  gap-3 mb-2">
+                      <div className="p-2.5 bg-white/[0.02] rounded-lg">
+                        <FaQuoteLeft className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="text-base font-medium text-white/90">
+                          {index === 0 ? "Description" : `Part ${index + 1}`}
+                        </h3>
+                      </div>
+                    </div>
+                    <div className="bg-white/[0.02] backdrop-blur-sm rounded-xl p-4 border border-white/[0.05]">
+                      <p className="text-white/80 text-sm leading-relaxed">
+                        {paragraph
+                          .trim()
+                          .split("\n")
+                          .map((line, i) => (
+                            <span key={i}>
+                              {line}
+                              <br />
+                              <br />
+                            </span>
+                          ))}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             )}
 
             {activeTab === "anime" && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                 {character?.anime?.map((entry, index) => (
-                  <AnimeCard
+                  <CharacterInfoCard
                     key={entry.anime.mal_id}
                     title={entry.anime.title}
                     role={entry.role}
@@ -317,7 +300,7 @@ const CharacterPage = () => {
             {activeTab === "manga" && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                 {character?.manga?.map((entry, index) => (
-                  <AnimeCard
+                  <CharacterInfoCard
                     key={entry.manga.mal_id}
                     title={entry.manga.title}
                     role={entry.role}
@@ -331,12 +314,12 @@ const CharacterPage = () => {
             {activeTab === "voices" && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                 {character?.voices?.map((voice, index) => (
-                  <VoiceActorCard
+                  <CharacterInfoCard
                     key={voice.person.mal_id}
-                    name={voice.person.name}
-                    language={voice.language}
+                    title={voice.person.name}
+                    role={voice.language}
                     image={voice.person.images.jpg.image_url}
-                    delay={index * 0.1}
+                    delay={index * 0.05}
                   />
                 ))}
               </div>
@@ -347,112 +330,5 @@ const CharacterPage = () => {
     </div>
   );
 };
-
-const TabButton = ({ active, onClick, icon, label }) => (
-  <button
-    onClick={onClick}
-    className={`relative flex items-center gap-1 md:gap-2 px-3 md:px-6 py-3 md:py-4 transition-all ${
-      active ? "text-primary" : "text-white/70 hover:text-white"
-    }`}
-  >
-    {active && (
-      <motion.div
-        layoutId="activeTab"
-        className="absolute inset-0 bg-primary/10 backdrop-blur-sm border-b-2 border-primary"
-        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-      />
-    )}
-    <span className="relative z-10 text-base md:text-lg">{icon}</span>
-    <span className="relative z-10 font-medium text-sm md:text-base whitespace-nowrap">
-      {label}
-    </span>
-  </button>
-);
-
-const AnimeCard = ({ title, role, image, delay }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay }}
-    whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-    className="relative group"
-  >
-    <div className="relative bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/5">
-      <div className="relative aspect-[3/4]">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-        />
-        {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-90" />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-        {/* Content */}
-        <div className="absolute inset-x-0 bottom-0 p-3 md:p-4">
-          <div className="space-y-2 md:space-y-3">
-            <h3 className="font-semibold text-base md:text-lg leading-tight text-white group-hover:text-primary transition-colors duration-300 line-clamp-2">
-              {title}
-            </h3>
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1.5 md:gap-2 bg-primary/20 px-2 md:px-3 py-1 md:py-1.5 rounded-full backdrop-blur-sm border border-primary/20">
-                <span className="w-1 md:w-1.5 h-1 md:h-1.5 rounded-full bg-primary animate-pulse" />
-                <span className="text-xs md:text-sm font-medium text-primary">
-                  {role}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
-      </div>
-    </div>
-  </motion.div>
-);
-
-const VoiceActorCard = ({ name, language, image, delay }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay }}
-    whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-    className="group"
-  >
-    <div className="relative bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/5">
-      <div className="relative aspect-[3/4]">
-        <img
-          src={image}
-          alt={name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-        />
-        {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-90" />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-        {/* Content */}
-        <div className="absolute inset-x-0 bottom-0 p-3 md:p-4">
-          <div className="space-y-2 md:space-y-3">
-            <h3 className="font-semibold text-base md:text-lg leading-tight text-white group-hover:text-primary transition-colors duration-300 line-clamp-2">
-              {name}
-            </h3>
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1.5 md:gap-2 bg-primary/20 px-2 md:px-3 py-1 md:py-1.5 rounded-full backdrop-blur-sm border border-primary/20">
-                <span className="w-1 md:w-1.5 h-1 md:h-1.5 rounded-full bg-primary animate-pulse" />
-                <span className="text-xs md:text-sm font-medium text-primary">
-                  {language}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
-      </div>
-    </div>
-  </motion.div>
-);
 
 export default CharacterPage;
