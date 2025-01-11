@@ -3,9 +3,9 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Footer from "./components/layouts/Footer/Footer.jsx";
 import Navbar from "./components/layouts/Navbar/Navbar.jsx";
 import Sidebar from "./components/layouts/Sidebar/Sidebar.jsx";
-import HomeSuspense from "./components/ui/HomeSuspense.jsx";
+import HomeSuspense from "./components/skeletons/HomeSuspense.jsx";
+import WatchPageSuspense from "./components/skeletons/WatchPageSuspense.jsx";
 import ScrollToTop from "./components/ui/ScrollToTop.jsx"; // Added import statement
-import WatchPageSuspense from "./components/ui/WatchPageSuspense.jsx";
 import AnimeInfo from "./pages/AnimeInfo.jsx";
 import AZPage from "./pages/AZPage.jsx";
 import { CategoryPage } from "./pages/CategoryPage.jsx";

@@ -233,7 +233,7 @@ const Schedules = () => {
 
                       <div className="p-5">
                         <div className="space-y-3">
-                          <h3 className="text-lg w-[85%] font-semibold font-outfit text-text/90 line-clamp-2">
+                          <h3 className="text-lg w-[73%] font-semibold font-outfit text-text/90 line-clamp-2">
                             {anime.name}
                           </h3>
                           <p className="text-sm font-outfit text-text/50 line-clamp-1">

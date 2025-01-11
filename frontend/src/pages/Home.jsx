@@ -43,9 +43,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Utility and component imports
 import { containerVariants, spotlightVariants } from "../animations.jsx";
+import HomeSuspense from "../components/skeletons/HomeSuspense.jsx";
 import Badge from "../components/ui/Badge.jsx";
 import Card from "../components/ui/Card";
-import HomeSuspense from "../components/ui/HomeSuspense";
 
 // Lazy loaded components
 const TrendingCard = lazy(() => import("../components/ui/TrendingCard"));

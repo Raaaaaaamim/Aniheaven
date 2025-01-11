@@ -8,10 +8,10 @@ import { MdOutlineTheaterComedy } from "react-icons/md";
 import { PiTelevisionSimpleBold } from "react-icons/pi";
 import { Link, useParams } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
+import AnimeInfoSkeleton from "../components/skeletons/AnimeInfoSkeleton";
+import CharactersSkeleton from "../components/skeletons/CharactersSkeleton";
+import HeroSkeleton from "../components/skeletons/HeroSkeleton";
 import AnimeCard from "../components/ui/AnimeCard.jsx";
-import AnimeInfoSkeleton from "../components/ui/AnimeInfoSkeleton";
-import CharactersSkeleton from "../components/ui/CharactersSkeleton";
-import HeroSkeleton from "../components/ui/HeroSkeleton";
 import useAnimeInfo from "../hooks/useAnimeInfo.jsx";
 
 const AnimeInfo = () => {

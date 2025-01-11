@@ -5,8 +5,8 @@ import debounce from "lodash/debounce";
 import { parseAsString, useQueryState } from "nuqs";
 import React, { useCallback, useState } from "react";
 import { BsFilterLeft, BsSortDown, BsSortDownAlt } from "react-icons/bs";
+import CardSkeleton from "../components/skeletons/CardSkeleton.jsx";
 import Card from "../components/ui/Card";
-import CardSkeleton from "../components/ui/CardSkeleton.jsx";
 import DatePicker from "../components/ui/DatePicker";
 import { api } from "../services/api";
 
@@ -193,7 +193,7 @@ const Search = () => {
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-[2rem] md:text-[2.5rem] font-bold mb-2 text-white/90 tracking-[-0.02em] leading-tight [text-shadow:_0_2px_10px_rgba(255,255,255,0.1)]"
+              className="text-[2rem] md:text-[2.5rem] font-outfit font-bold mb-2 bg-gradient-to-r from-text/90 via-text/70 to-text/60 bg-clip-text tracking-[-0.02em] leading-tight "
             >
               Discover Anime
             </motion.h1>

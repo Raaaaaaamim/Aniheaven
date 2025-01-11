@@ -3,8 +3,8 @@ import axios from "axios";
 import { motion, useInView } from "framer-motion";
 import { parseAsString, useQueryState } from "nuqs";
 import React, { useEffect, useRef } from "react";
+import CardSkeleton from "../components/skeletons/CardSkeleton.jsx";
 import Card from "../components/ui/Card.jsx";
-import CardSkeleton from "../components/ui/CardSkeleton.jsx";
 import ErrorCard from "../components/ui/ErrorCard.jsx";
 import { api } from "./Home.jsx";
 
