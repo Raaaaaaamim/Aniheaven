@@ -193,7 +193,7 @@ const Search = () => {
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-[2rem] md:text-[2.5rem] font-outfit font-bold mb-2 bg-gradient-to-r from-text/90 via-text/70 to-text/60 bg-clip-text tracking-[-0.02em] leading-tight "
+              className="text-[2rem] md:text-[2.5rem] font-outfit font-bold mb-2 bg-gradient-to-r from-text/90  to-text/60 bg-clip-text text-transparent tracking-[-0.02em] leading-tight "
             >
               Discover Anime
             </motion.h1>

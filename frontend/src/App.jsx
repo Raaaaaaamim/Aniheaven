@@ -12,6 +12,7 @@ import { CategoryPage } from "./pages/CategoryPage.jsx";
 import CharacterPage from "./pages/CharacterPage.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import Profile from "./pages/Profile.jsx";
 import Schedules from "./pages/Schedules.jsx";
 import Search from "./pages/Search.jsx";
 // Lazy load components
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: "/character/:id",
         element: <CharacterPage />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },
