@@ -166,7 +166,7 @@ const AnimeInfo = () => {
 
               {/* Synopsis */}
               <div className="mb-4 sm:mb-6">
-                <p className="text-xs sm:text-sm text-text/70 leading-relaxed line-clamp-3">
+                <p className=" font-Jost text-sm text-text/70 leading-relaxed line-clamp-3">
                   {info.description}
                 </p>
               </div>

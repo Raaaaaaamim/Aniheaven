@@ -1,34 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import { FiLock } from "react-icons/fi";
-import { RiFireFill, RiMedalFill, RiVipCrownFill } from "react-icons/ri";
-
-const rarityConfig = {
-  legendary: {
-    gradient: "from-amber-500 via-orange-500 to-rose-500",
-    shadow: "shadow-orange-500/20",
-    border: "border-orange-500/20",
-    icon: RiVipCrownFill,
-    label: "Legendary",
-    bgGlow: "from-orange-500/20 to-rose-500/20",
-  },
-  epic: {
-    gradient: "from-violet-500 via-purple-500 to-fuchsia-500",
-    shadow: "shadow-purple-500/20",
-    border: "border-purple-500/20",
-    icon: RiFireFill,
-    label: "Epic",
-    bgGlow: "from-violet-500/20 to-fuchsia-500/20",
-  },
-  rare: {
-    gradient: "from-blue-500 via-cyan-500 to-teal-500",
-    shadow: "shadow-blue-500/20",
-    border: "border-blue-500/20",
-    icon: RiMedalFill,
-    label: "Rare",
-    bgGlow: "from-blue-500/20 to-teal-500/20",
-  },
-};
+import { rarityConfig } from "../../config.js";
 
 const AchievementCard = ({
   title,
@@ -57,7 +30,7 @@ const AchievementCard = ({
         opacity: { duration: 0.2 },
       }}
       onClick={onClick}
-      className={`relative group cursor-pointer bg-gradient-to-br from-secondary/40 to-secondary/20 rounded-2xl p-6 border ${config.border} ${config.shadow} backdrop-blur-xl overflow-hidden`}
+      className={`relative group font-outfit cursor-pointer bg-gradient-to-br from-secondary/40 to-secondary/20 rounded-2xl p-6 border ${config.border} ${config.shadow} backdrop-blur-xl overflow-hidden`}
     >
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br opacity-[0.03] group-hover:opacity-[0.05] transition-opacity" />

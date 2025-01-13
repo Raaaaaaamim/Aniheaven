@@ -7,7 +7,7 @@ const TrendingCard = ({ rank, image, title, id }) => {
 
   return (
     <>
-      <div className="relative border-white/[0.05] border font-outfit w-full h-[280px] md:w-[220px] md:h-[300px] lg:w-[190px] lg:h-[270px] xl:w-[200px] xl:h-[280px] rounded-xl overflow-hidden group shadow-[0_8px_32px_rgba(0,0,0,0.4)] bg-[#0f0f0f]">
+      <div className="relative group border-white/[0.05] border font-outfit w-full h-[280px] md:w-[220px] md:h-[300px] lg:w-[190px] lg:h-[270px] xl:w-[200px] xl:h-[280px] rounded-xl overflow-hidden group shadow-[0_8px_32px_rgba(0,0,0,0.4)] bg-[#0f0f0f]">
         {/* Image */}
         <img
           loading="lazy"
@@ -15,12 +15,12 @@ const TrendingCard = ({ rank, image, title, id }) => {
           alt={title}
           className="w-full h-full absolute transition-transform duration-300 group-hover:scale-110 z-10 top-0 left-0 rounded-xl"
         />
-
+        <div className="absolute transition-all duration-300 opacity-0 group-hover:opacity-100 inset-0 z-[15] bg-black/50 rounded-xl"></div>
         {/* Play button - appears on hover */}
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           whileHover={{ opacity: 1, scale: 1 }}
-          className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 z-20"
+          className="absolute inset-0  flex items-center justify-center opacity-0 group-hover:opacity-100 z-20"
         >
           <Link to={`/watch/${id}`}>
             <motion.div

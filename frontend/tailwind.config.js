@@ -2,11 +2,7 @@
 import daisyui from "daisyui";
 
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 
   theme: {
     extend: {
@@ -28,6 +24,7 @@ export default {
         poppins: ["Poppins", "sans-serif"],
         outfit: ["Outfit", "sans-serif"],
         sans: ["Noto Sans", "serif"],
+        Jost: ["Jost", "serif"],
       },
       animation: {
         glow: "glow 2s ease-in-out infinite alternate",

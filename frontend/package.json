@@ -17,6 +17,7 @@
     "hls.js": "^1.5.17",
     "lodash": "^4.17.21",
     "lottie-react": "^2.4.0",
+    "lucide-react": "^0.471.0",
     "motion": "^11.15.0",
     "nprogress": "^0.2.0",
     "nuqs": "^2.1.1",

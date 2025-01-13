@@ -177,7 +177,7 @@ const Home = () => {
                 </div>
 
                 {/* Description with length limit */}
-                <p className="  text-xs md:text-[13px] font-sans md:mb-8 mb-3 max-w-[38rem] 2xl:max-w-3xl  line-clamp-2 md:line-clamp-3  2xl:line-clamp-4 w-[80%] md:w-full text-text/70">
+                <p className="  text-sm  italic md:mb-8 mb-3 max-w-[38rem] 2xl:max-w-3xl  line-clamp-2 md:line-clamp-3 font-Jost  2xl:line-clamp-4 w-[80%] leading-relaxed md:w-full text-text/70">
                   {anime.description}
                 </p>
 
