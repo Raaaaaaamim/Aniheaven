@@ -36,10 +36,13 @@
     "@google/generative-ai": "^0.21.0",
     "@hono/node-server": "^1.13.1",
     "aniwatch": "^2.18.2",
-    "dotenv": "^16.4.5",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.7",
     "hono": "^4.6.3",
     "hono-rate-limiter": "^0.4.0",
-    "ioredis": "^5.4.1"
+    "ioredis": "^5.4.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5"
   },
   "devDependencies": {
     "@types/node": "^22.7.4",

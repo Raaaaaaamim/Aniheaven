@@ -1,12 +1,24 @@
 import { HiAnime } from "aniwatch";
 import { Hono, type Context } from "hono";
-import { cache } from "../config/cache.js";
+import { AniwatchAPICache, cache } from "../config/cache.js";
 import type { AniwatchAPIVariables } from "../config/variables.js";
-import getGeminiRes from "../controllers/getGeminiRes.js";
-
+import { BASE_PATH } from "../server.js";
 const hianime = new HiAnime.Scraper();
 const hianimeRouter = new Hono<{ Variables: AniwatchAPIVariables }>();
+hianimeRouter.use(async (c, next) => {
+  const { pathname, search } = new URL(c.req.url);
+  console.log(" the path is", pathname, search);
 
+  c.set("CACHE_CONFIG", {
+    key: `${pathname.slice(BASE_PATH.length) + search}`,
+    duration: Number(
+      c.req.header(AniwatchAPICache.CACHE_EXPIRY_HEADER_NAME) ||
+        AniwatchAPICache.DEFAULT_CACHE_EXPIRY_SECONDS
+    ),
+  });
+
+  await next();
+});
 // /api/v2/hianime
 hianimeRouter.get("/", (c) => c.redirect("/", 301));
 
@@ -202,7 +214,5 @@ hianimeRouter.get("/azlist/:sortOption", async (c) => {
 
   return c.json({ success: true, data }, { status: 200 });
 });
-
-hianimeRouter.post("/ai-bot", getGeminiRes);
 
 export { hianimeRouter };
