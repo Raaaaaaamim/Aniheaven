@@ -106,10 +106,10 @@ const Schedules = () => {
       <div className="relative w-full  mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8 flex items-center space-x-4">
-          <h1 className="text-2xl md:text-3xl font-outfit font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl font-outfit font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
             Airing Schedule
           </h1>
-          <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+          <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
           <div className="flex items-center gap-2">
             <button className="w-8 h-8 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300 flex items-center justify-center date-prev">
               <IoIosArrowRoundBack className="w-5 h-5" />
@@ -135,26 +135,26 @@ const Schedules = () => {
             {thirtyDays.map((_, i) => {
               const { dayName, date, month, fullDate } = getDateInfo(i);
               return (
-                <SwiperSlide key={i} className="!w-auto">
+                <SwiperSlide key={i} className="w-auto!">
                   <div
                     onClick={() => setSelectedDate(fullDate)}
-                    className={`relative cursor-pointer group w-24 h-32 flex flex-col justify-center items-center rounded-2xl 
+                    className={`relative  cursor-pointer group w-24 h-32 flex flex-col  active:cursor-grabbing justify-center items-center rounded-2xl 
                       bg-white/[0.02] border border-white/[0.05] hover:border-primary/50 transition-all duration-300 overflow-hidden
                       ${
                         selectedDate === fullDate
-                          ? "bg-gradient-to-br from-primary/20 via-transparent to-transparent border-primary/30"
+                          ? "bg-linear-to-br from-primary/20 via-transparent to-transparent border-primary/30"
                           : ""
                       }`}
                   >
                     {/* Background decoration */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-linear-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                     {/* Content */}
                     <div className="relative flex flex-col items-center gap-2">
                       <div className="text-sm font-outfit text-text/50 group-hover:text-primary/70 transition-colors duration-300">
                         {dayName}
                       </div>
-                      <div className="text-2xl font-outfit font-bold bg-gradient-to-r from-text/90 to-text/70 group-hover:from-primary group-hover:to-primary/70 bg-clip-text text-transparent transition-all duration-300">
+                      <div className="text-2xl font-outfit font-bold bg-linear-to-r from-text/90 to-text/70 group-hover:from-primary group-hover:to-primary/70 bg-clip-text text-transparent transition-all duration-300">
                         {date}
                       </div>
                       <div className="text-sm font-outfit text-text/30 group-hover:text-primary/50 transition-colors duration-300">
@@ -181,10 +181,10 @@ const Schedules = () => {
         {/* Schedule Content */}
         <div className="relative">
           <div className="mb-6 flex items-center space-x-4">
-            <h2 className="text-xl font-outfit font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
+            <h2 className="text-xl font-outfit font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
               {selectedDate && `Schedule for ${selectedDate}`}
             </h2>
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
           </div>
 
           {isLoading ? (
@@ -227,7 +227,7 @@ const Schedules = () => {
                       className="group relative overflow-hidden rounded-2xl bg-white/[0.02] border border-white/[0.05] hover:border-primary/50 transition-all duration-300"
                     >
                       {/* Time indicator */}
-                      <div className="absolute top-3 right-3 px-3 py-1.5 rounded-xl bg-background/80 backdrop-blur-sm border border-white/[0.05] text-sm font-outfit text-text/90">
+                      <div className="absolute top-3 right-3 px-3 py-1.5 rounded-xl bg-background/80 backdrop-blur-xs border border-white/[0.05] text-sm font-outfit text-text/90">
                         {timeString}
                       </div>
 
@@ -252,7 +252,7 @@ const Schedules = () => {
                       </div>
 
                       {/* Hover effect overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 bg-linear-to-t from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
                   </motion.div>
                 );

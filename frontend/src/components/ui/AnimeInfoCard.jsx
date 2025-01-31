@@ -9,7 +9,7 @@ const AnimeInfoCard = ({ animeInfo, isLoading }) => {
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 animate-pulse">
           <div className="relative w-full sm:w-40 h-52 sm:h-56 shrink-0">
             <div className="absolute inset-0 rounded-xl bg-white/[0.05]"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
+            <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent rounded-xl"></div>
           </div>
           <div className="flex-1 space-y-4">
             <div className="space-y-2">
@@ -49,7 +49,7 @@ const AnimeInfoCard = ({ animeInfo, isLoading }) => {
     <div className="group">
       <div className="w-full rounded-2xl font-outfit border-[1px] border-white/[0.05] bg-secondaryBg/95 p-4 sm:p-5 relative overflow-hidden">
         {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+        <div className="absolute inset-0 bg-linear-to-br from-primary/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
 
         <div className="relative flex flex-col sm:flex-row gap-4 sm:gap-6">
           {/* Poster Section */}
@@ -60,7 +60,7 @@ const AnimeInfoCard = ({ animeInfo, isLoading }) => {
                 alt={info.name}
                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent"></div>
             </div>
             {/* Rating Badge */}
             {info.stats?.rating && (

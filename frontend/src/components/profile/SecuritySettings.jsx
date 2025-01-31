@@ -66,7 +66,7 @@ const SecuritySettings = ({ security, onUpdate }) => {
             <div className="bg-[#1A1A1A] rounded-xl p-6 text-center">
               <div className="w-48 h-48 mx-auto mb-4 bg-white p-2 rounded-lg">
                 {/* QR Code would go here */}
-                <div className="w-full h-full bg-[#1A1A1A] rounded flex items-center justify-center">
+                <div className="w-full h-full bg-[#1A1A1A] rounded-xs flex items-center justify-center">
                   <FiSmartphone className="text-4xl text-white" />
                 </div>
               </div>
@@ -92,7 +92,7 @@ const SecuritySettings = ({ security, onUpdate }) => {
                           e.target.nextElementSibling?.focus();
                         }
                       }}
-                      className="w-10 h-12 text-center bg-[#0F0F0F] border border-white/10 rounded-lg text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
+                      className="w-10 h-12 text-center bg-[#0F0F0F] border border-white/10 rounded-lg text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-hidden"
                     />
                   ))}
               </div>
@@ -127,7 +127,7 @@ const SecuritySettings = ({ security, onUpdate }) => {
             value={recoveryEmail}
             onChange={(e) => setRecoveryEmail(e.target.value)}
             placeholder="Enter recovery email"
-            className="w-full bg-[#1A1A1A] rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all border border-white/5"
+            className="w-full bg-[#1A1A1A] rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500/50 outline-hidden transition-all border border-white/5"
           />
           <button
             onClick={() => onUpdate({ ...security, recoveryEmail })}

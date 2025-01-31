@@ -14,7 +14,7 @@ const FeatureCard = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
-      className="relative h-[200px] sm:h-[200px] bg-background/20 rounded-2xl overflow-hidden backdrop-blur-sm border border-white/[0.05] hover:border-primary/20 transition-colors font-outfit duration-500"
+      className="relative h-[200px] sm:h-[200px] bg-background/20 rounded-2xl overflow-hidden backdrop-blur-xs border border-white/[0.05] hover:border-primary/20 transition-colors font-outfit duration-500"
     >
       {/* Content Container */}
       <div className="relative h-full p-6 flex flex-col">
@@ -56,8 +56,8 @@ const FeatureCard = ({
         </div>
 
         {/* Hover Effects */}
-        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/5 to-transparent rounded-full blur-2xl transform translate-x-12 -translate-y-12 group-hover:translate-x-8 group-hover:-translate-y-8 transition-transform duration-700" />
-        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-primary/5 to-transparent rounded-full blur-2xl transform -translate-x-12 translate-y-12 group-hover:-translate-x-8 group-hover:translate-y-8 transition-transform duration-700" />
+        <div className="absolute top-0 right-0 w-24 h-24 bg-linear-to-br from-primary/5 to-transparent rounded-full blur-2xl transform translate-x-12 -translate-y-12 group-hover:translate-x-8 group-hover:-translate-y-8 transition-transform duration-700" />
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-linear-to-tr from-primary/5 to-transparent rounded-full blur-2xl transform -translate-x-12 translate-y-12 group-hover:-translate-x-8 group-hover:translate-y-8 transition-transform duration-700" />
       </div>
     </motion.div>
   </Link>

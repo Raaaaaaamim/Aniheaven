@@ -91,15 +91,15 @@ const AZPage = () => {
       <div className="relative w-full mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-12 flex items-center space-x-4">
-          <h1 className="text-2xl md:text-3xl font-outfit font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl font-outfit font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
             Browse Anime
           </h1>
-          <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+          <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
         </div>
 
         {/* Character Navigation */}
         <div className="relative ">
-          <div className="flex flex-wrap gap-x-2 gap-y-3 justify-center items-center p-4 rounded-2xl bg-white/[0.02] backdrop-blur-sm border border-white/5">
+          <div className="flex flex-wrap gap-x-2 gap-y-3 justify-center items-center p-4 rounded-2xl bg-white/[0.02] backdrop-blur-xs border border-white/5">
             {characters.map((char, i) => (
               <button
                 key={char}
@@ -144,8 +144,8 @@ const AZPage = () => {
                   }
                 `}
                 >
-                  <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-primary/10 via-transparent to-transparent"></div>
-                  <div className="absolute -inset-[1px] rounded-lg bg-gradient-to-br from-primary/20 via-primary/5 to-transparent opacity-0 group-hover:opacity-100"></div>
+                  <div className="absolute inset-0 rounded-lg bg-linear-to-br from-primary/10 via-transparent to-transparent"></div>
+                  <div className="absolute -inset-[1px] rounded-lg bg-linear-to-br from-primary/20 via-primary/5 to-transparent opacity-0 group-hover:opacity-100"></div>
                 </div>
               </button>
             ))}

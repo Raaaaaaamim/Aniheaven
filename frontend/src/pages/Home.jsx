@@ -103,7 +103,7 @@ const Home = () => {
         pagination={{
           clickable: true,
           renderBullet: (index, className) => {
-            return `<span class="${className} !bg-primary/80 hover:!bg-primary !w-[6px] !h-[6px]"></span>`;
+            return `<span class="${className} bg-primary/80! hover:bg-primary! w-[6px]! h-[6px]!"></span>`;
           },
         }}
         autoplay={{
@@ -130,7 +130,7 @@ const Home = () => {
                   repeatType: "reverse",
                 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10" />
+                <div className="absolute inset-0 bg-linear-to-r from-black via-black/80 to-transparent z-10" />
                 <img
                   className="h-full w-full object-cover"
                   src={anime.poster}
@@ -184,7 +184,7 @@ const Home = () => {
                 {/* Action buttons */}
                 <div className="flex gap-4">
                   <Link to={`/watch/${anime.id}`}>
-                    <button className="md:w-48 w-32 md:py-3 md:px-6 rounded-xl bg-gradient-to-r from-primary via-primary to-primary/90 text-black md:text-sm font-outfit font-semibold hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] py-2 px-4 transition-all duration-300  text-xs flex items-center  justify-center gap-2">
+                    <button className="md:w-48 w-32 md:py-3 md:px-6 rounded-xl bg-linear-to-r from-primary via-primary to-primary/90 text-black md:text-sm font-outfit font-semibold hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] py-2 px-4 transition-all duration-300  text-xs flex items-center  justify-center gap-2">
                       <FaPlay className="text-sm  md:flex hidden " />
                       <span>Watch Now</span>
                     </button>
@@ -208,10 +208,10 @@ const Home = () => {
       <motion.div className="w-full max-w-8xl lg:mx-auto mt-8">
         <div className="flex justify-between items-center mb-4">
           <div className=" w-full  flex items-center space-x-4   font-outfit  ">
-            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
               Trending Animes
             </h1>
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
           </div>
           <div className="flex items-center gap-2">
             <button className="w-8 h-8 trending-prev rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300  flex items-center justify-center trending-prev">
@@ -266,10 +266,10 @@ const Home = () => {
       <div className="w-full max-w-8xl lg:mx-auto mt-8">
         <div className="flex justify-between items-center mb-4">
           <div className=" w-full  flex items-center space-x-4   font-outfit  ">
-            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
               Latest Episodes
             </h1>
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4  gap-3 md:gap-4 2xl:grid-cols-5 place-items-center sectionA  ">
@@ -292,10 +292,10 @@ const Home = () => {
       <div className="w-full max-w-8xl lg:mx-auto mt-8">
         <div className="flex justify-between items-center mb-4">
           <div className=" w-full  flex items-center space-x-4   font-outfit  ">
-            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
               Top Upcoming
             </h1>
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 md:gap-4 2xl:grid-cols-5 sectionA place-items-center">
@@ -319,10 +319,10 @@ const Home = () => {
       <div className="w-full max-w-8xl lg:mx-auto mt-8">
         <div className="flex justify-between items-center mb-4">
           <div className=" w-full  flex items-center space-x-4   font-outfit  ">
-            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
               Latest Completed
             </h1>
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 2xl:grid-cols-5 sectionA md:gap-4 place-items-center">
@@ -346,10 +346,10 @@ const Home = () => {
       <div className="w-full max-w-8xl lg:mx-auto mt-8">
         <div className="flex justify-between items-center mb-4">
           <div className=" w-full  flex items-center space-x-4   font-outfit  ">
-            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
               Most Favorite
             </h1>
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 2xl:grid-cols-5 md:gap-4 sectionA place-items-center">
@@ -373,10 +373,10 @@ const Home = () => {
       <div className="w-full max-w-8xl lg:mx-auto mt-8">
         <div className="flex justify-between items-center mb-4">
           <div className=" w-full  flex items-center space-x-4   font-outfit  ">
-            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
               Most Popular
             </h1>
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 md:gap-4 2xl:grid-cols-5 sectionA place-items-center">
@@ -470,10 +470,10 @@ const Home = () => {
         <div className="w-full max-w-8xl lg:mx-auto mt-8 mb-8">
           <div className="flex justify-between items-center mb-4">
             <div className=" w-full  flex items-center space-x-4   font-outfit  ">
-              <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+              <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
                 Top Airing
               </h1>
-              <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+              <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-3 place-items-center md:gap-4 2xl:gap-6  ">

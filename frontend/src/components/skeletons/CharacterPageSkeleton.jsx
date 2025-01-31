@@ -8,24 +8,24 @@ const CharacterPageSkeleton = () => {
         {/* Background Image with Gradient */}
         <div className="absolute inset-0">
           <div className="w-full h-full bg-white/5 animate-pulse" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/95 to-transparent backdrop-blur-sm" />
-          <div className="absolute inset-0 mask backdrop-blur-sm" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-background via-background/95 to-transparent backdrop-blur-xs" />
+          <div className="absolute inset-0 mask backdrop-blur-xs" />
+          <div className="absolute inset-0 bg-linear-to-t from-background via-background/20 to-transparent" />
         </div>
 
         {/* Content */}
         <div className="relative md:-top-[25px] xl:-top-10 -top-20 container mx-auto px-4 h-full flex items-center">
           <div className="flex flex-col md:flex-row items-center md:items-end gap-6 md:gap-8 w-full h-full pb-8">
             {/* Left Side - Character Image Skeleton */}
-            <div className="w-[200px] sm:w-[240px] md:w-[280px] flex-shrink-0 mx-auto md:mx-0 mt-4">
+            <div className="w-[200px] sm:w-[240px] md:w-[280px] shrink-0 mx-auto md:mx-0 mt-4">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 className="relative group"
               >
-                <div className="absolute bg-gradient-to-r rounded-2xl opacity-75 blur group-hover:opacity-100 transition-all duration-300" />
-                <div className="relative aspect-[3/4] rounded-xl overflow-hidden">
+                <div className="absolute bg-linear-to-r rounded-2xl opacity-75 blur-xs group-hover:opacity-100 transition-all duration-300" />
+                <div className="relative aspect-3/4 rounded-xl overflow-hidden">
                   <div className="w-full h-full rounded-2xl scale-90 bg-white/5 animate-pulse" />
                 </div>
               </motion.div>

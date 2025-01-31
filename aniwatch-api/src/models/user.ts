@@ -3,10 +3,10 @@ const userSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    username: { type: String, required: true, unique: true, immutable: true },
+    username: { type: String, required: true, unique: true },
 
     profilePicture: { type: String, default: "default-profile.png" },
-    name: { type: String, default: "" },
+    name: { type: String, required: [true, "Name must be present"] },
     achievements: {
       eternalFlame: { type: Boolean, default: false },
       theChosenOne: { type: Boolean, default: false },
@@ -15,10 +15,10 @@ const userSchema = new mongoose.Schema(
     },
     totalWatchTime: { type: Number, default: 0 },
     emailVerified: { type: Boolean, default: false },
-    emailVerificationToken: { type: String },
+    emailVerificationToken: { type: Number },
     emailVerificationExpires: {
       type: Date,
-      default: Date.now() + 7 * 24 * 60 * 60 * 1000,
+      default: undefined,
     },
 
     activity: [

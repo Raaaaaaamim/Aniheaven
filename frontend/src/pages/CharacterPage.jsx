@@ -84,24 +84,24 @@ const CharacterPage = () => {
             className="w-full h-full object-cover"
             alt={character?.name}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/95 to-transparent backdrop-blur-sm" />
-          <div className="absolute inset-0 mask backdrop-blur-sm" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-background via-background/95 to-transparent backdrop-blur-xs" />
+          <div className="absolute inset-0 mask backdrop-blur-xs" />
+          <div className="absolute inset-0 bg-linear-to-t from-background via-background/20 to-transparent" />
         </div>
 
         {/* Content */}
         <div className="relative md:-top-[25px] xl:-top-10 -top-20 container mx-auto px-4 h-full flex items-center">
           <div className="flex flex-col md:flex-row items-center md:items-end gap-6 md:gap-8 w-full h-full pb-8">
             {/* Left Side - Character Image */}
-            <div className="w-[200px] sm:w-[240px] md:w-[280px] flex-shrink-0 mx-auto md:mx-0 mt-4">
+            <div className="w-[200px] sm:w-[240px] md:w-[280px] shrink-0 mx-auto md:mx-0 mt-4">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 className="relative group"
               >
-                <div className="absolute bg-gradient-to-r rounded-2xl opacity-75 blur group-hover:opacity-100 transition-all duration-300" />
-                <div className="relative aspect-[3/4] rounded-xl overflow-hidden">
+                <div className="absolute bg-linear-to-r rounded-2xl opacity-75 blur-xs group-hover:opacity-100 transition-all duration-300" />
+                <div className="relative aspect-3/4 rounded-xl overflow-hidden">
                   <img
                     src={character?.images?.webp?.image_url}
                     alt={character?.name}
@@ -119,7 +119,7 @@ const CharacterPage = () => {
                 transition={{ delay: 0.2 }}
                 className="space-y-3 md:space-y-4"
               >
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-outfit bg-clip-text text-transparent bg-gradient-to-r from-text/90 to-text/60">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-outfit bg-clip-text text-transparent bg-linear-to-r from-text/90 to-text/60">
                   {character?.name}
                 </h1>
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-4">
@@ -129,7 +129,7 @@ const CharacterPage = () => {
                     </h2>
                   )}
                   {character?.favorites > 0 && (
-                    <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
+                    <div className="flex items-center gap-2 bg-white/5 backdrop-blur-xs px-3 py-1.5 rounded-full border border-white/10">
                       <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
                       <span className="text-sm font-medium text-white/90">
                         {character?.favorites?.toLocaleString()} Favorites
@@ -144,7 +144,7 @@ const CharacterPage = () => {
                     {character.nicknames.map((nickname, index) => (
                       <span
                         key={index}
-                        className="px-2 md:px-3 py-1 text-xs md:text-sm bg-primary/20 backdrop-blur-sm rounded-full border border-primary/20 text-primary"
+                        className="px-2 md:px-3 py-1 text-xs md:text-sm bg-primary/20 backdrop-blur-xs rounded-full border border-primary/20 text-primary"
                       >
                         {nickname}
                       </span>
@@ -218,7 +218,7 @@ const CharacterPage = () => {
                         delay: index * 0.05,
                         ease: "backOut",
                       }}
-                      className="bg-white/[0.02] border border-white/[0.05] backdrop-blur-sm rounded-xl p-4"
+                      className="bg-white/[0.02] border border-white/[0.05] backdrop-blur-xs rounded-xl p-4"
                     >
                       <div className="flex items-start gap-3">
                         <div className="p-2.5 bg-white/[0.02] rounded-lg">
@@ -257,7 +257,7 @@ const CharacterPage = () => {
                         </h3>
                       </div>
                     </div>
-                    <div className="bg-white/[0.02] backdrop-blur-sm rounded-xl p-4 border border-white/[0.05]">
+                    <div className="bg-white/[0.02] backdrop-blur-xs rounded-xl p-4 border border-white/[0.05]">
                       <p className="text-white/80 text-sm leading-relaxed">
                         {paragraph
                           .trim()

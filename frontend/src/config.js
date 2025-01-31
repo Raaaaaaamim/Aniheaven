@@ -38,7 +38,7 @@ export const achievements = [
     rarity: "Jod",
     reward: "Special Profile Badge",
     unlockedDate: "2024-01-10",
-    color: "bg-gradient-to-r from-rose-600 to-pink-600",
+    color: "bg-linear-to-r from-rose-600 to-pink-600",
   },
   {
     title: "The Wizard",

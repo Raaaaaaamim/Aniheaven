@@ -92,7 +92,7 @@ const Profile = () => {
               <button
                 key={section}
                 onClick={() => setActiveSection(section)}
-                className={`px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium capitalize whitespace-nowrap transition-all relative flex-shrink-0 ${
+                className={`px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium capitalize whitespace-nowrap transition-all relative shrink-0 ${
                   activeSection === section
                     ? "text-white"
                     : "text-gray-400 hover:text-white"
@@ -188,7 +188,7 @@ const Profile = () => {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
                 <div className="lg:col-span-2 space-y-4 sm:space-y-8">
                   <div className="bg-secondary/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 backdrop-blur-xl border border-white/10">
-                    <h3 className="text-lg sm:text-xl font-semibold mb-4">
+                    <h3 className="text-lg text-gray-300 sm:text-xl font-semibold mb-4">
                       About
                     </h3>
                     <p className="text-sm sm:text-base text-gray-400">
@@ -197,7 +197,7 @@ const Profile = () => {
                   </div>
 
                   <div className="bg-secondary/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 backdrop-blur-xl border border-white/10">
-                    <h3 className="text-lg sm:text-xl font-semibold mb-4">
+                    <h3 className="text-lg text-gray-300 sm:text-xl font-semibold mb-4">
                       Recent Activity
                     </h3>
                     <div className="space-y-4">
@@ -218,7 +218,7 @@ const Profile = () => {
                 <div className="space-y-4 sm:space-y-6">
                   {/* Connections Card */}
                   <div className="bg-secondary/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 backdrop-blur-xl border border-white/10">
-                    <h3 className="text-lg sm:text-xl font-semibold mb-4">
+                    <h3 className="text-lg text-gray-300 sm:text-xl font-semibold mb-4">
                       Connections
                     </h3>
                     <div className="space-y-3 sm:space-y-4">
@@ -239,7 +239,7 @@ const Profile = () => {
 
                   {/* Achievements Card */}
                   <div className="bg-secondary/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 backdrop-blur-xl border border-white/10">
-                    <h3 className="text-lg sm:text-xl font-semibold mb-4">
+                    <h3 className="text-lg text-gray-300 sm:text-xl font-semibold mb-4">
                       Latest Achievements
                     </h3>
                     <div className="space-y-3 sm:space-y-4">
@@ -249,7 +249,7 @@ const Profile = () => {
                           className="flex items-center gap-3 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-secondary/20 border border-white/5"
                         >
                           <div
-                            className={`p-1.5 sm:p-2 rounded-lg bg-gradient-to-r ${
+                            className={`p-1.5 sm:p-2 rounded-lg bg-linear-to-r ${
                               achievement.rarity === "Jod"
                                 ? "from-amber-500 to-rose-500"
                                 : achievement.rarity === "epic"

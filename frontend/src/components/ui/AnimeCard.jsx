@@ -7,6 +7,7 @@ import { TbClockHour4Filled } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import useAnimeInfo from "../../hooks/useAnimeInfo.jsx";
 import Badge from "./Badge.jsx";
+import Loader from "./Loader.jsx";
 
 const AnimeCard = ({
   rank,
@@ -33,11 +34,11 @@ const AnimeCard = ({
         alt={name}
       />
       {!hide && (
-        <h1 className="absolute top-0 right-0 z-10 bg-gradient-to-r from-primary via-primary to-primary/80 font-poppins h-11 w-9 flex justify-center items-center text-black/90 text-xl rounded-bl-xl font-[800] border-b-2 ">
+        <h1 className="absolute top-0 right-0 z-10 bg-linear-to-r from-primary via-primary to-primary/80 font-poppins h-11 w-9 flex justify-center items-center text-black/90 text-xl rounded-bl-xl font-[800] border-b-2 ">
           {rank >= 10 ? rank : `0${rank}`}
         </h1>
       )}
-      <div className="absolute z-10 bottom-0 flex justify-start w-full left-0 right-0 bg-gradient-to-t from-black/80 to-transparent">
+      <div className="absolute z-10 bottom-0 flex justify-start w-full left-0 right-0 bg-linear-to-t from-black/80 to-transparent">
         <div className="flex relative py-2 ml-2 md:py-4 items-center gap-2">
           <div className="flex mr-2 justify-center gap-1 flex-col-reverse">
             <div className="flex gap-[2px] items-center">
@@ -60,17 +61,10 @@ const AnimeCard = ({
           </div>
         </div>
       </div>
-      <motion.div className="group-hover:bottom-0 ease-in-out duration-200 z-20 rounded-xl absolute -bottom-[100%] left-0 w-full items-center flex justify-center h-[90%] bg-[#0f0f0f]/80 backdrop-blur-sm border-t border-white/[0.05]">
+      <motion.div className="group-hover:bottom-0 ease-in-out duration-200 z-20 rounded-xl absolute -bottom-[100%] left-0 w-full items-center flex justify-center h-[90%] bg-[#0f0f0f]/80 backdrop-blur-xs border-t border-white/[0.05]">
         {isLoading ? (
           <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="w-32 flex items-center justify-center"
-            >
-              <span className="loading loading-ring loading-md"></span>
-            </motion.div>
+            <Loader size="sm" />
           </div>
         ) : isError ? (
           <motion.div
@@ -101,7 +95,7 @@ const AnimeCard = ({
                 </Link>
                 <Link
                   to={`/info/${id}`}
-                  className="flex justify-center items-center hover:text-primary transition-colors duration-300"
+                  className="flex justify-center text-white/80 items-center hover:text-primary transition-colors duration-300"
                 >
                   <BsFillInfoCircleFill className="w-4 h-4 cursor-pointer" />
                 </Link>
@@ -139,7 +133,7 @@ const AnimeCard = ({
 
             <div className="flex justify-between items-center mt-3">
               <Link to={`/watch/${id}`} className="flex-1 mr-2">
-                <button className="w-full py-2 px-4 rounded-lg bg-gradient-to-r from-primary via-primary to-primary/90 text-black text-xs font-outfit font-semibold hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-2">
+                <button className="w-full py-2 px-4 rounded-lg bg-linear-to-r from-primary via-primary to-primary/90 text-black text-xs font-outfit font-semibold hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-2">
                   <span>Watch Now</span>
                 </button>
               </Link>

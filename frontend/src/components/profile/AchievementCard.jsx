@@ -30,20 +30,20 @@ const AchievementCard = ({
         opacity: { duration: 0.2 },
       }}
       onClick={onClick}
-      className={`relative group font-outfit cursor-pointer bg-gradient-to-br from-secondary/40 to-secondary/20 rounded-2xl p-6 border ${config.border} ${config.shadow} backdrop-blur-xl overflow-hidden`}
+      className={`relative group font-outfit cursor-pointer bg-linear-to-br from-secondary/40 to-secondary/20 rounded-2xl p-6 border ${config.border} ${config.shadow} backdrop-blur-xl overflow-hidden`}
     >
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br opacity-[0.03] group-hover:opacity-[0.05] transition-opacity" />
+      <div className="absolute inset-0 bg-linear-to-br opacity-[0.03] group-hover:opacity-[0.05] transition-opacity" />
       <div
-        className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${config.gradient} blur-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-500`}
+        className={`absolute -top-24 -right-24 w-48 h-48 bg-linear-to-br ${config.gradient} blur-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-500`}
       />
       <div
-        className={`absolute inset-0 bg-gradient-to-br ${config.bgGlow} opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-2xl`}
+        className={`absolute inset-0 bg-linear-to-br ${config.bgGlow} opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-2xl`}
       />
 
       {/* Rarity Badge */}
       <div
-        className={`absolute top-4 right-4 px-3 py-1.5 rounded-full bg-gradient-to-r ${config.gradient} text-white text-xs font-medium flex items-center gap-1.5 shadow-lg ${config.shadow}`}
+        className={`absolute top-4 right-4 px-3 py-1.5 rounded-full bg-linear-to-r ${config.gradient} text-white text-xs font-medium flex items-center gap-1.5 shadow-lg ${config.shadow}`}
       >
         <config.icon className="text-sm" />
         <span>{config.label}</span>
@@ -52,7 +52,7 @@ const AchievementCard = ({
       {/* Icon and Title */}
       <div className="flex items-start gap-4 mb-4 relative z-10">
         <div
-          className={`relative flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br ${config.gradient} p-[1px] overflow-hidden group-hover:shadow-lg transition-shadow duration-300 ${config.shadow}`}
+          className={`relative shrink-0 w-14 h-14 rounded-xl bg-linear-to-br ${config.gradient} p-[1px] overflow-hidden group-hover:shadow-lg transition-shadow duration-300 ${config.shadow}`}
         >
           <div className="w-full h-full rounded-xl bg-[#0F0F0F] flex items-center justify-center relative overflow-hidden">
             {isLocked ? (
@@ -61,12 +61,12 @@ const AchievementCard = ({
               <Icon className="text-2xl text-white" />
             )}
             {/* Shine Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+            <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
           </div>
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80 mb-1">
+          <h3 className="text-lg font-semibold bg-clip-text text-transparent bg-linear-to-r from-white to-white/80 mb-1">
             {title}
           </h3>
           <p className="text-sm text-gray-400/80">{description}</p>
@@ -79,7 +79,7 @@ const AchievementCard = ({
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
           transition={{ type: "spring", stiffness: 100, damping: 20 }}
-          className={`absolute inset-y-0 left-0 bg-gradient-to-r ${config.gradient} shadow-[0_0_10px_rgba(var(--primary-rgb),0.3)]`}
+          className={`absolute inset-y-0 left-0 bg-linear-to-r ${config.gradient} shadow-[0_0_10px_rgba(var(--primary-rgb),0.3)]`}
         />
       </div>
 

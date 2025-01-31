@@ -10,7 +10,7 @@ const Dropdown = ({ isOpen, setIsOpen, buttons, logOutExists = true }) => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.8 }}
           transition={{ type: "spring", stiffness: 400, damping: 30 }}
-          className="absolute right-0 top-12 w-52 bg-[#0f0f0f] backdrop-blur-md border border-white/[0.05] rounded-xl overflow-hidden z-50"
+          className="absolute right-0 top-12 w-52 bg-[#0f0f0f] backdrop-blur-md border border-white/[0.05] rounded-xl overflow-hidden z-50  "
         >
           <div className="p-2 flex flex-col gap-1">
             {/* Regular menu items */}

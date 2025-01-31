@@ -22,6 +22,7 @@ import { useRecoilState } from "recoil";
 // Import local dependencies
 import animationJSON from "../assets/cat-loading.json";
 import { Player } from "../components/features/Player/Player.jsx";
+import AnimatedDropdown from "../components/ui/AnimatedDropdown";
 import AnimeInfoCard from "../components/ui/AnimeInfoCard.jsx";
 import EpisodesContainer from "../components/ui/EpisodesContainer.jsx";
 import ErrorCard from "../components/ui/ErrorCard.jsx";
@@ -329,14 +330,14 @@ const WatchPage = () => {
         onClick={() => setFocus(false)}
         className={`w-full ${
           focus ? "fixed" : "hidden"
-        } h-full top-0 left-0 z-[80] backdrop-blur-2xl`}
+        } h-full top-0 left-0 z-80 backdrop-blur-2xl`}
       ></div>
 
       <div className="overflow-x-hidden mb-4 flex flex-col w-[98%] gap-4 min-h-full ">
         {/* Video Player Section */}
         <div
           className={` ${
-            focus ? "z-[90]" : "z-0"
+            focus ? "z-90" : "z-0"
           } overflow-hidden aspect-video rounded-3xl relative group`}
         >
           <div className="absolute inset-0 opacity-100 group-hover:opacity-0 transition-all duration-500"></div>
@@ -361,7 +362,7 @@ const WatchPage = () => {
               )}
               {isSourceLoading && (
                 <div className="w-full aspect-video bg-[#0f0f0f] flex items-center justify-center">
-                  <div className="backdrop-blur-sm bg-white/[0.02] p-8 rounded-3xl border border-white/[0.05]">
+                  <div className="backdrop-blur-xs bg-white/[0.02] p-8 rounded-3xl border border-white/[0.05]">
                     <Lottie animationData={animationJSON} className="w-32" />
                   </div>
                 </div>
@@ -414,57 +415,33 @@ const WatchPage = () => {
           {!isEpLoading &&
             !isEpError &&
             episodeData?.episodes?.length > 100 && (
-              <div
-                ref={dropdownRef}
-                className="dropdown self-start  px-4 lg:px-6"
-              >
-                <div
-                  tabIndex={0}
-                  role="button"
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className=" lg:h-9 h-8  rounded-md flex justify-center items-center  bg-white/[0.02] hover:bg-white/[0.04] text-text/90 w-[130px] lg:w-[180px]   transition-all duration-300 border border-white/[0.05] text-xs lg:text-sm  px-1 min-h-0"
-                >
-                  <span>
-                    Episodes {(parseInt(currentSection) - 1) * 100 + 1} -{" "}
-                    {Math.min(
-                      parseInt(currentSection) * 100,
-                      episodeData.episodes.length
-                    )}
-                  </span>
-                </div>
-                {/* Section Selection Dropdown */}
-                <div
-                  tabIndex={0}
-                  className={`dropdown-content z-[1] menu p-2 shadow-lg bg-[#0f0f0f] rounded-xl  w-52 border border-white/[0.05] ${
-                    isDropdownOpen ? "" : "hidden"
-                  }`}
-                >
-                  <div className=" w-full overflow-y-auto max-h-96 h-full ">
-                    {Array(Math.ceil(episodeData.episodes.length / 100))
-                      .fill(0)
-                      .map((_, i) => (
-                        <li
-                          key={i}
-                          onClick={() => {
-                            setCurrentSection(i + 1);
-                            setIsDropdownOpen(false);
-                          }}
-                          className="text-xs lg:text-sm"
-                        >
-                          <a>
-                            Episodes {i * 100 + 1} -{" "}
-                            {Math.min(
-                              (i + 1) * 100,
-                              episodeData.episodes.length
-                            )}
-                          </a>
-                        </li>
-                      ))}
-                  </div>
-                </div>
+              <div className="self-start px-4 lg:px-6">
+                <AnimatedDropdown
+                  isOpen={isDropdownOpen}
+                  setIsOpen={setIsDropdownOpen}
+                  trigger={
+                    <span>
+                      Episodes {(parseInt(currentSection) - 1) * 100 + 1} -{" "}
+                      {Math.min(
+                        parseInt(currentSection) * 100,
+                        episodeData.episodes.length
+                      )}
+                    </span>
+                  }
+                  items={Array(Math.ceil(episodeData.episodes.length / 100))
+                    .fill(0)
+                    .map((_, i) => ({
+                      label: `Episodes ${i * 100 + 1} - ${Math.min(
+                        (i + 1) * 100,
+                        episodeData.episodes.length
+                      )}`,
+                      value: i + 1,
+                    }))}
+                  onSelect={(item) => setCurrentSection(item.value)}
+                />
               </div>
             )}
-          <div className=" self-end ">
+          <div className="  self-end  ">
             <SearchEpisode
               setSearchEpisode={setSearchEpisode}
               searchEpisode={searchEpisode}

@@ -12,7 +12,7 @@ const SearchEpisode = ({ searchEpisode, setSearchEpisode }) => {
         value={searchEpisode}
         placeholder="Search Episode"
         type="search"
-        className=" self-center w-36   bg-transparent outline-none rounded-md border lg:text-sm text-xs placeholder:text-xs lg:placeholder:text-sm px-2 lg:w-48 mr-4 py-2 placeholder:text-grayText border-white/[0.05] text-text/90  "
+        className=" self-center w-36   bg-transparent outline-hidden rounded-md border lg:text-sm text-xs placeholder:text-xs lg:placeholder:text-sm px-2 lg:w-48 mr-4 py-2 placeholder:text-grayText border-white/[0.05] text-text/90  "
       />
     </div>
   );

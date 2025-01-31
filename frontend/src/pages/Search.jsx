@@ -193,7 +193,7 @@ const Search = () => {
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-[2rem] md:text-[2.5rem] font-outfit font-bold mb-2 bg-gradient-to-r from-text/90  to-text/60 bg-clip-text text-transparent tracking-[-0.02em] leading-tight "
+              className="text-[2rem] md:text-[2.5rem] font-outfit font-bold mb-2 bg-linear-to-r from-text/90  to-text/60 bg-clip-text text-transparent tracking-[-0.02em] leading-tight "
             >
               Discover Anime
             </motion.h1>
@@ -201,14 +201,14 @@ const Search = () => {
 
           {/* Modern Search Bar */}
           <div className="relative max-w-2xl mx-auto px-4">
-            <div className="relative overflow-hidden bg-[#141414]/80 backdrop-blur-sm rounded-2xl border border-white/[0.05] shadow-xl group hover:border-white/10 transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="relative overflow-hidden bg-[#141414]/80 backdrop-blur-xs rounded-2xl border border-white/[0.05] shadow-xl group hover:border-white/10 transition-all duration-500">
+              <div className="absolute inset-0 bg-linear-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <input
                 type="text"
                 defaultValue={debouncedSearchQuery}
                 onChange={handleSearchInput}
                 placeholder="Search for anime..."
-                className="w-full bg-transparent text-base md:text-lg px-6 md:px-8 py-4 md:py-5 rounded-2xl text-white/90 placeholder:text-zinc-500 focus:outline-none relative z-10"
+                className="w-full bg-transparent text-base md:text-lg px-6 md:px-8 py-4 md:py-5 rounded-2xl text-white/90 placeholder:text-zinc-500 focus:outline-hidden relative z-10"
               />
               <div className="absolute right-3 flex items-center gap-1.5 top-1/2 -translate-y-1/2 z-10">
                 <motion.button
@@ -251,8 +251,8 @@ const Search = () => {
           className="overflow-hidden"
         >
           <div className="relative max-w-6xl mx-auto my-8">
-            <div className="relative bg-[#141414]/80 backdrop-blur-sm rounded-2xl border border-white/[0.05] shadow-xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
+            <div className="relative bg-[#141414]/80 backdrop-blur-xs rounded-2xl border border-white/[0.05] shadow-xl overflow-hidden">
+              <div className="absolute inset-0 bg-linear-to-b from-white/[0.02] to-transparent pointer-events-none" />
               {/* Filter Categories */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 p-6 md:p-8 relative">
                 {/* Date Range */}
@@ -262,11 +262,11 @@ const Search = () => {
                   className="space-y-3 col-span-full md:col-span-2 lg:col-span-3"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent" />
-                    <h3 className="text-[11px] font-medium text-zinc-400 tracking-[0.2em] uppercase flex-shrink-0 [text-shadow:_0_1px_2px_rgba(0,0,0,0.5)]">
+                    <div className="h-[1px] flex-1 bg-linear-to-r from-transparent via-white/[0.05] to-transparent" />
+                    <h3 className="text-[11px] font-medium text-zinc-400 tracking-[0.2em] uppercase shrink-0 [text-shadow:_0_1px_2px_rgba(0,0,0,0.5)]">
                       Date Range
                     </h3>
-                    <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent" />
+                    <div className="h-[1px] flex-1 bg-linear-to-r from-transparent via-white/[0.05] to-transparent" />
                   </div>
                   <div className="flex gap-3 flex-wrap justify-center">
                     <DatePicker
@@ -329,11 +329,11 @@ const Search = () => {
                     className="space-y-3"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent" />
-                      <h3 className="text-[11px] font-medium text-zinc-400 tracking-[0.2em] uppercase flex-shrink-0 [text-shadow:_0_1px_2px_rgba(0,0,0,0.5)]">
+                      <div className="h-[1px] flex-1 bg-linear-to-r from-transparent via-white/[0.05] to-transparent" />
+                      <h3 className="text-[11px] font-medium text-zinc-400 tracking-[0.2em] uppercase shrink-0 [text-shadow:_0_1px_2px_rgba(0,0,0,0.5)]">
                         {category.title}
                       </h3>
-                      <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent" />
+                      <div className="h-[1px] flex-1 bg-linear-to-r from-transparent via-white/[0.05] to-transparent" />
                     </div>
                     <div className="flex flex-wrap gap-1.5 md:gap-2">
                       {category.items.map((item) => (
@@ -348,11 +348,11 @@ const Search = () => {
                           }
                           className={`relative px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-[10px] md:text-xs transition-all duration-300 overflow-hidden ${
                             category.state === item
-                              ? "bg-white/[0.08] text-white font-medium shadow-lg shadow-black/20 backdrop-blur-sm"
+                              ? "bg-white/[0.08] text-white font-medium shadow-lg shadow-black/20 backdrop-blur-xs"
                               : "text-zinc-400 hover:text-white hover:bg-white/[0.04] hover:shadow-lg hover:shadow-black/10"
                           }`}
                         >
-                          <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+                          <div className="absolute inset-0 bg-linear-to-r from-white/[0.02] to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
                           <span className="relative z-10">
                             {item.replace(/-/g, " ").toUpperCase()}
                           </span>
@@ -365,18 +365,18 @@ const Search = () => {
 
               {/* Genres Section */}
               <div className="relative border-t border-white/[0.05] p-6 md:p-8">
-                <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-linear-to-b from-white/[0.02] to-transparent pointer-events-none" />
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="space-y-3"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent" />
-                    <h3 className="text-[11px] font-medium text-zinc-400 tracking-[0.2em] uppercase flex-shrink-0 [text-shadow:_0_1px_2px_rgba(0,0,0,0.5)]">
+                    <div className="h-[1px] flex-1 bg-linear-to-r from-transparent via-white/[0.05] to-transparent" />
+                    <h3 className="text-[11px] font-medium text-zinc-400 tracking-[0.2em] uppercase shrink-0 [text-shadow:_0_1px_2px_rgba(0,0,0,0.5)]">
                       Genres
                     </h3>
-                    <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent" />
+                    <div className="h-[1px] flex-1 bg-linear-to-r from-transparent via-white/[0.05] to-transparent" />
                   </div>
                   <div className="flex flex-wrap gap-1.5 md:gap-2">
                     {genresList.map((genre) => (
@@ -395,11 +395,11 @@ const Search = () => {
                         }}
                         className={`relative px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-[10px] md:text-xs transition-all duration-300 overflow-hidden ${
                           genres.split(",").includes(genre)
-                            ? "bg-white/[0.08] text-white font-medium shadow-lg shadow-black/20 backdrop-blur-sm"
+                            ? "bg-white/[0.08] text-white font-medium shadow-lg shadow-black/20 backdrop-blur-xs"
                             : "text-zinc-400 hover:text-white hover:bg-white/[0.04] hover:shadow-lg hover:shadow-black/10"
                         }`}
                       >
-                        <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+                        <div className="absolute inset-0 bg-linear-to-r from-white/[0.02] to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
                         <span className="relative z-10">
                           {genre.replace(/-/g, " ").toUpperCase()}
                         </span>
@@ -502,7 +502,7 @@ const Search = () => {
                   disabled={isLoading}
                   className="relative group"
                 >
-                  <div className="px-8 py-4 bg-[#141414]/80 backdrop-blur-sm rounded-xl border border-white/[0.05] flex items-center gap-3 transition-all duration-300 hover:border-primary/20">
+                  <div className="px-8 py-4 bg-[#141414]/80 backdrop-blur-xs rounded-xl border border-white/[0.05] flex items-center gap-3 transition-all duration-300 hover:border-primary/20">
                     {isFetchingNextPage ? (
                       <>
                         <div className="loading loading-spinner loading-sm text-primary" />

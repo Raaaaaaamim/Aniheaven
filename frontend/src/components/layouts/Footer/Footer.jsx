@@ -7,7 +7,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative w-full bg-gradient-to-t from-background via-background/95 to-transparent overflow-hidden">
+    <footer className="relative w-full bg-linear-to-t from-background via-background/95 to-transparent overflow-hidden">
       {/* Subtle Gradient Orbs */}
       <div className="absolute -bottom-[250px] left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[128px]" />
       <div className="absolute -bottom-[250px] right-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[128px]" />
@@ -23,7 +23,7 @@ const Footer = () => {
                 className="h-10 w-auto"
               />
             </Link>
-            <p className="text-secText text-sm leading-relaxed">
+            <p className="text-sec-text text-sm leading-relaxed">
               Discover and track your favorite anime series in one place. Join
               our community of anime enthusiasts.
             </p>
@@ -61,7 +61,7 @@ const Footer = () => {
                 <Link
                   key={item}
                   to="/"
-                  className="text-secText text-sm hover:text-text transition-colors duration-300 w-fit"
+                  className="text-sec-text text-sm hover:text-text transition-colors duration-300 w-fit"
                 >
                   {item}
                 </Link>
@@ -84,7 +84,7 @@ const Footer = () => {
                 <Link
                   key={genre}
                   to="/"
-                  className="text-secText text-sm hover:text-text transition-colors duration-300 w-fit"
+                  className="text-sec-text text-sm hover:text-text transition-colors duration-300 w-fit"
                 >
                   {genre}
                 </Link>
@@ -96,7 +96,7 @@ const Footer = () => {
           <div className="space-y-8">
             <h3 className="text-text font-medium">Join Newsletter</h3>
             <div className="space-y-4">
-              <p className="text-secText text-sm">
+              <p className="text-sec-text text-sm">
                 Get notified about the latest anime releases and updates.
               </p>
               <div className="space-y-3">
@@ -104,7 +104,7 @@ const Footer = () => {
                   <input
                     type="email"
                     placeholder="Enter your email"
-                    className="w-full bg-third border border-border/20 rounded-lg px-4 py-2.5 text-sm text-text placeholder:text-grayText focus:outline-none focus:border-border/40 transition-all duration-300"
+                    className="w-full bg-third border border-border/20 rounded-lg px-4 py-2.5 text-sm text-text placeholder:text-gray-text focus:outline-hidden focus:border-border/40 transition-all duration-300"
                   />
                 </div>
                 <motion.button
@@ -121,7 +121,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-border/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-secText text-sm">
+            <p className="text-sec-text text-sm">
               {currentYear} AniHeaven. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
@@ -129,7 +129,7 @@ const Footer = () => {
                 <Link
                   key={item}
                   to="/"
-                  className="text-secText text-sm hover:text-text transition-colors duration-300"
+                  className="text-sec-text text-sm hover:text-text transition-colors duration-300"
                 >
                   {item}
                 </Link>

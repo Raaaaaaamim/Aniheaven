@@ -15,7 +15,7 @@ const TrendingCard = ({ rank, image, title, id }) => {
           alt={title}
           className="w-full h-full absolute transition-transform duration-300 group-hover:scale-110 z-10 top-0 left-0 rounded-xl"
         />
-        <div className="absolute transition-all duration-300 opacity-0 group-hover:opacity-100 inset-0 z-[15] bg-black/50 rounded-xl"></div>
+        <div className="absolute transition-all duration-300 opacity-0 group-hover:opacity-100 inset-0 z-15 bg-black/50 rounded-xl"></div>
         {/* Play button - appears on hover */}
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
@@ -34,7 +34,7 @@ const TrendingCard = ({ rank, image, title, id }) => {
         </motion.div>
 
         {/* Title overlay */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 z-[10]">
+        <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-4 z-10">
           <Link
             to={`/info/${id}`}
             className="text-text/90 cursor-pointer font-outfit text-[15px] font-semibold line-clamp-1"

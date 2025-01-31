@@ -85,7 +85,7 @@ const AnimeInfo = () => {
 
   if (!info || !moreInfo) {
     return (
-      <div className="w-full min-h-screen mt-16 lg:mt-8 bg-background/95 flex items-center justify-center">
+      <div className="w-full min-h-screen mt-16 lg:mt-8 bg-background/95 flex items-center justify-center  ">
         <div className="text-text text-center">
           <h2 className="text-2xl font-bold mb-2">No Data Available</h2>
           <p className="text-text/70">
@@ -112,20 +112,20 @@ const AnimeInfo = () => {
             alt={info.name}
           />
 
-          <div className="absolute inset-0  bg-gradient-to-t from-background via-background/95 backdrop-blur-sm to-transparent" />
+          <div className="absolute inset-0  bg-linear-to-t from-background via-background/95 backdrop-blur-xs to-transparent" />
           <div className="absolute inset-0 mask   " />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent    " />
+          <div className="absolute inset-0 bg-linear-to-t from-background via-background/20 to-transparent    " />
         </div>
 
         {/* Content */}
         <div className="relative h-full container mx-auto px-4">
           <div className="flex flex-col sm:flex-row h-full sm:items-end pb-4 sm:pb-8  gap-4 sm:gap-8">
             {/* Left Side - Poster & Buttons */}
-            <div className=" w-[200px] flex-shrink-0 mx-auto sm:mx-0 -mt-20 md:-mt-8 sm:mt-0  ">
+            <div className=" w-[200px] shrink-0 mx-auto sm:mx-0 -mt-20 md:-mt-8 sm:mt-0  ">
               <img
                 src={info.poster}
                 alt={info.name}
-                className="w-full aspect-[2/3] object-cover rounded-lg shadow-lg"
+                className="w-full aspect-2/3 object-cover rounded-lg shadow-lg"
               />
               <div className="mt-3 sm:mt-4 flex flex-col gap-2">
                 <Link
@@ -135,13 +135,13 @@ const AnimeInfo = () => {
                   <PiTelevisionSimpleBold size={14} />
                   <span className="text-sm font-medium">Watch Now</span>
 
-                  <div className="inset-0 absolute bg-gradient-to-r from-transparent -translate-x-[100%] group-hover:translate-x-[200%] transition-all duration-500  via-text/20 to-transparent  "></div>
+                  <div className="inset-0 absolute bg-linear-to-r from-transparent -translate-x-[100%] group-hover:translate-x-[200%] transition-all duration-500  via-text/20 to-transparent  "></div>
                 </Link>
                 <button className="w-full h-9 group sm:h-10 bg-secondary/5 hover:bg-secondary/10 text-text border border-text/10 rounded-lg flex relative overflow-hidden items-center justify-center gap-2 transition-colors">
                   <MdOutlineTheaterComedy size={14} />
                   <span className="text-sm font-medium">Add to List</span>
 
-                  <div className="inset-0 absolute bg-gradient-to-r from-transparent -translate-x-[100%] group-hover:translate-x-[200%] transition-all duration-500  via-primary/10 to-transparent  "></div>
+                  <div className="inset-0 absolute bg-linear-to-r from-transparent -translate-x-[100%] group-hover:translate-x-[200%] transition-all duration-500  via-primary/10 to-transparent  "></div>
                 </button>
               </div>
             </div>
@@ -172,7 +172,7 @@ const AnimeInfo = () => {
               </div>
 
               {/* Details Grid */}
-              <div className="grid font-outfit grid-cols-2 2xl:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+              <div className="grid text-sm font-outfit grid-cols-2 2xl:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
                 <div className="flex gap-2">
                   <span className="text-text/60">Episodes:</span>
                   <span className="truncate">
@@ -213,10 +213,10 @@ const AnimeInfo = () => {
             className="container mx-auto lg:mt-0 px-4 py-8"
           >
             <div className="flex items-center space-x-4 font-outfit mb-6">
-              <h1 className="text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
+              <h1 className="text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
                 Characters & Voice Actors
               </h1>
-              <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+              <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
             </div>
             <div className="grid font-outfit grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
               {characters?.data?.data
@@ -239,14 +239,14 @@ const AnimeInfo = () => {
                     >
                       <div className="group relative bg-secondary/5 rounded-xl overflow-hidden hover:bg-secondary/10 transition-all duration-500">
                         {/* Animated Background Effect */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                        <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-secondary/10 blur-xl opacity-0 group-hover:opacity-30 transition-all duration-500"></div>
+                        <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                        <div className="absolute -inset-1 bg-linear-to-r from-primary/10 to-secondary/10 blur-xl opacity-0 group-hover:opacity-30 transition-all duration-500"></div>
 
                         <div className="relative p-4">
                           <div className="flex gap-4">
                             {/* Character Image with Hover Effect */}
                             <div className="relative w-20 h-28 overflow-hidden rounded-lg">
-                              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10"></div>
+                              <div className="absolute inset-0 bg-linear-to-t from-background/80 via-transparent to-transparent z-10"></div>
                               <img
                                 src={item.character.images.jpg.image_url}
                                 alt={item.character.name}
@@ -306,7 +306,7 @@ const AnimeInfo = () => {
                   onClick={() => setShowAllCharacters(!showAllCharacters)}
                   className="mt-8 mx-auto block px-6 py-2 bg-secondary/10 hover:bg-secondary/20 rounded-lg transition-all duration-300 relative group overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-500"></div>
+                  <div className="absolute inset-0 bg-linear-to-r from-primary/10 to-secondary/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-500"></div>
                   <span className="relative text-sm font-medium text-text/80 group-hover:text-text">
                     {showAllCharacters ? "Show Less" : "View All"}
                   </span>
@@ -319,7 +319,7 @@ const AnimeInfo = () => {
 
       {/* Additional Anime Information */}
       <section className="container font-poppins mx-auto px-4 py-8">
-        <div className="relative bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-md rounded-xl border border-white/5 shadow-2xl overflow-hidden">
+        <div className="relative bg-linear-to-br from-background/80 to-background/40 backdrop-blur-md rounded-xl border border-white/5 shadow-2xl overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),rgba(255,255,255,0)_50%)]"></div>
 
@@ -338,7 +338,7 @@ const AnimeInfo = () => {
                 {/* Stats Overview */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
                   <div className="group relative bg-secondary/5 hover:bg-secondary/10 transition-all duration-300 p-3 sm:p-4 rounded-xl text-center overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-all duration-700"></div>
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-primary/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-all duration-700"></div>
                     <div className="relative">
                       <div className="text-xl sm:text-2xl font-bold text-primary mb-1 transition-all duration-300 group-hover:scale-105">
                         {MALData.data.data.score || "N/A"}
@@ -350,7 +350,7 @@ const AnimeInfo = () => {
                   </div>
 
                   <div className="group relative bg-secondary/5 hover:bg-secondary/10 transition-all duration-300 p-3 sm:p-4 rounded-xl text-center overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-all duration-700"></div>
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-primary/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-all duration-700"></div>
                     <div className="relative">
                       <div className="text-xl sm:text-2xl font-bold text-primary mb-1 transition-all duration-300 group-hover:scale-105">
                         #{MALData.data.data.rank || "N/A"}
@@ -362,7 +362,7 @@ const AnimeInfo = () => {
                   </div>
 
                   <div className="group relative bg-secondary/5 hover:bg-secondary/10 transition-all duration-300 p-3 sm:p-4 rounded-xl text-center overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-all duration-700"></div>
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-primary/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-all duration-700"></div>
                     <div className="relative">
                       <div className="text-xl sm:text-2xl font-bold text-primary mb-1 transition-all duration-300 group-hover:scale-105">
                         #{MALData.data.data.popularity || "N/A"}
@@ -374,7 +374,7 @@ const AnimeInfo = () => {
                   </div>
 
                   <div className="group relative bg-secondary/5 hover:bg-secondary/10 transition-all duration-300 p-3 sm:p-4 rounded-xl text-center overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-all duration-700"></div>
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-primary/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-all duration-700"></div>
                     <div className="relative">
                       <div className="text-xl sm:text-2xl font-bold text-primary mb-1 transition-all duration-300 group-hover:scale-105">
                         {MALData.data.data.members
@@ -396,8 +396,8 @@ const AnimeInfo = () => {
                   {/* Left Column */}
                   <div className="space-y-4 sm:space-y-6">
                     {/* Information Grid */}
-                    <div className="group bg-secondary/5 rounded-xl p-4 sm:p-6 backdrop-blur-sm hover:bg-secondary/10 transition-all duration-300 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="group bg-secondary/5 rounded-xl p-4 sm:p-6 backdrop-blur-xs hover:bg-secondary/10 transition-all duration-300 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                       <div className="flex items-center gap-2 mb-4 sm:mb-6">
                         <div className="relative group">
                           <HiOutlineInformationCircle className="w-5 h-5 sm:w-6 sm:h-6 text-primary transition-all duration-300 group-hover:scale-110 group-hover:rotate-[360deg]" />
@@ -464,8 +464,8 @@ const AnimeInfo = () => {
                     </div>
 
                     {/* Broadcast Information */}
-                    <div className="group bg-secondary/5 rounded-xl p-4 sm:p-6 backdrop-blur-sm hover:bg-secondary/10 transition-all duration-300 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="group bg-secondary/5 rounded-xl p-4 sm:p-6 backdrop-blur-xs hover:bg-secondary/10 transition-all duration-300 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                       <div className="flex items-center gap-2 mb-4 sm:mb-6">
                         <div className="relative group">
                           <PiTelevisionSimpleBold className="w-5 h-5 sm:w-6 sm:h-6 text-primary transition-all duration-300 group-hover:scale-110 group-hover:translate-y-[-2px]" />
@@ -500,8 +500,8 @@ const AnimeInfo = () => {
                   {/* Right Column */}
                   <div className="space-y-6">
                     {/* Studios & Producers */}
-                    <div className="group bg-secondary/5 rounded-xl p-4 sm:p-6 backdrop-blur-sm hover:bg-secondary/10 transition-all duration-300 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="group bg-secondary/5 rounded-xl p-4 sm:p-6 backdrop-blur-xs hover:bg-secondary/10 transition-all duration-300 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                       <div className="flex items-center gap-2 mb-4 sm:mb-6">
                         <div className="relative group">
                           <MdOutlineTheaterComedy className="w-5 h-5 sm:w-6 sm:h-6 text-primary transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-10deg]" />
@@ -546,8 +546,8 @@ const AnimeInfo = () => {
                     </div>
 
                     {/* Genres & Themes */}
-                    <div className="group bg-secondary/5 rounded-xl p-4 sm:p-6 backdrop-blur-sm hover:bg-secondary/10 transition-all duration-300 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="group bg-secondary/5 rounded-xl p-4 sm:p-6 backdrop-blur-xs hover:bg-secondary/10 transition-all duration-300 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                       <div className="flex items-center gap-2 mb-4 sm:mb-6">
                         <div className="relative group">
                           <IoLayersOutline className="w-5 h-5 sm:w-6 sm:h-6 text-primary transition-all duration-300 group-hover:scale-110 group-hover:translate-y-[-2px]" />
@@ -624,10 +624,10 @@ const AnimeInfo = () => {
       {relatedAnimes?.length > 0 && (
         <section className="container mx-auto  px-4 py-6">
           <div className="  flex items-center space-x-4   font-outfit  mb-6">
-            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
               Related Anime
             </h1>
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
           </div>
           <div className="grid place-items-center grid-cols-2 w-full sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {relatedAnimes.map((anime) => (
@@ -650,10 +650,10 @@ const AnimeInfo = () => {
       {recommendedAnimes?.length > 0 && (
         <section className="container mx-auto px-4 py-6">
           <div className="  flex items-center space-x-4   font-outfit  mb-6">
-            <h1 className=" text-lg md:text-xl font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
               Recommended Anime
             </h1>
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
           </div>
           <div className="grid place-items-center grid-cols-2 w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4  2xl:grid-cols-6">
             {recommendedAnimes.map((anime) => (

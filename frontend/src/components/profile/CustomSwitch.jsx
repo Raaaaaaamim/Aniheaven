@@ -33,7 +33,7 @@ const CustomSwitch = ({ checked, onChange, size = "default" }) => {
       }}
       whileTap={{ scale: 0.95 }}
       onClick={onChange}
-      className={`relative rounded-full cursor-pointer border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/75 ${
+      className={`relative rounded-full cursor-pointer border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden focus-visible:ring-2 focus-visible:ring-purple-500/75 ${
         checked ? "bg-purple-600" : "bg-[#1F1F1F]"
       }`}
       style={{ width: currentSize.width, height: currentSize.height }}
@@ -60,13 +60,13 @@ const CustomSwitch = ({ checked, onChange, size = "default" }) => {
         {/* Shine Effect */}
         <div className="absolute inset-0 rounded-full overflow-hidden">
           <div
-            className={`absolute inset-0 bg-gradient-to-br ${
+            className={`absolute inset-0 bg-linear-to-br ${
               checked
                 ? "from-white via-white/90 to-white/70"
                 : "from-gray-300 via-gray-400 to-gray-500"
             }`}
           />
-          <div className="absolute inset-0.5 rounded-full bg-gradient-to-br from-transparent via-black/5 to-black/10" />
+          <div className="absolute inset-0.5 rounded-full bg-linear-to-br from-transparent via-black/5 to-black/10" />
         </div>
 
         {/* Ripple Effect */}

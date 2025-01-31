@@ -34,7 +34,7 @@ const CustomSelect = ({ value, onChange, options }) => {
 
         {/* Shine Effect */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity">
-          <div className="absolute inset-[-1px] bg-gradient-to-r from-transparent via-white/5 to-transparent rounded-xl" />
+          <div className="absolute inset-[-1px] bg-linear-to-r from-transparent via-white/5 to-transparent rounded-xl" />
         </div>
       </button>
 
@@ -69,13 +69,13 @@ const CustomSelect = ({ value, onChange, options }) => {
                   {option.value === value && (
                     <motion.div
                       layoutId="selected-indicator"
-                      className="absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary to-accent"
+                      className="absolute left-0 top-0 bottom-0 w-0.5 bg-linear-to-b from-primary to-accent"
                     />
                   )}
                   
                   {/* Hover Indicator */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity">
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5" />
+                    <div className="absolute inset-0 bg-linear-to-r from-primary/5 to-accent/5" />
                   </div>
                 </motion.button>
               ))}

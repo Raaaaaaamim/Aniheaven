@@ -21,7 +21,7 @@ const ServerSelectionCard = ({
       {/* About Panel */}
       <div className="w-[40%] hidden justify-center items-start lg:flex lg:flex-col h-full border-r border-white/[0.05] gap-2">
         <div className="flex  rounded-md self-start ml-6 justify-center items-center gap-4">
-          <div className=" flex justify-center items-center gap-2 ">
+          <div className=" text-text flex justify-center items-center gap-2 ">
             <MdOutlineJoinLeft className=" text-lg text-primary " />
             <span className="text-xs lg:text-sm font-semibold">
               Filler Episode
@@ -85,7 +85,7 @@ const ServerSelectionCard = ({
                           className={`cursor-pointer text-xs lg:text-sm capitalize px-3 lg:px-5 rounded-xl py-[6px] transition-all duration-300 ${
                             selectedServer === serverName &&
                             selectedCategory === "sub"
-                              ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
+                              ? "bg-linear-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
                               : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
                           }`}
                           key={i}
@@ -107,7 +107,7 @@ const ServerSelectionCard = ({
                         className={`cursor-pointer text-xs lg:text-sm capitalize px-3 lg:px-5 rounded-xl py-[6px] transition-all duration-300 ${
                           selectedServer === serverName &&
                           selectedCategory === "raw"
-                            ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
+                            ? "bg-linear-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
                             : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
                         }`}
                         key={i}
@@ -172,7 +172,7 @@ const ServerSelectionCard = ({
                       className={`cursor-pointer text-xs lg:text-sm capitalize px-3 lg:px-5 rounded-xl py-[6px] transition-all duration-300 ${
                         selectedServer === serverName &&
                         selectedCategory === "dub"
-                          ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
+                          ? "bg-linear-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
                           : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
                       }`}
                       key={i}

@@ -16,12 +16,12 @@ const WatchPageSuspense = () => {
             <div className="flex self-start ml-4 justify-center items-center gap-2">
               {/* Rating Skeleton */}
               <div className="flex font-semibold mt-2 gap-1 justify-center items-center">
-                <div className="w-4 h-4 rounded-sm bg-primary/20 animate-pulse"></div>
+                <div className="w-4 h-4 rounded-xs bg-primary/20 animate-pulse"></div>
                 <div className="w-16 h-4 rounded-md bg-border animate-pulse"></div>
               </div>
               {/* Duration Skeleton */}
               <div className="flex font-semibold mt-2 gap-1 justify-center items-center">
-                <div className="w-4 h-4 rounded-sm bg-primary/20 animate-pulse"></div>
+                <div className="w-4 h-4 rounded-xs bg-primary/20 animate-pulse"></div>
                 <div className="w-8 h-4 rounded-md bg-border animate-pulse"></div>
               </div>
             </div>
@@ -33,7 +33,7 @@ const WatchPageSuspense = () => {
           <div className="lg:w-[70%] w-full h-full gap-0 flex flex-col">
             {/* Sub Section */}
             <div className="w-full h-[50%] border-b-2 border-b-border items-center flex justify-start gap-3">
-              <div className="ml-3 w-5 h-5 rounded-sm bg-border animate-pulse"></div>
+              <div className="ml-3 w-5 h-5 rounded-xs bg-border animate-pulse"></div>
               {Array(4)
                 .fill(0)
                 .map((_, i) => (
@@ -46,7 +46,7 @@ const WatchPageSuspense = () => {
 
             {/* Dub Section */}
             <div className="w-full items-center flex justify-start gap-3 h-[50%]">
-              <div className="ml-3 w-5 h-5 rounded-sm bg-border animate-pulse"></div>
+              <div className="ml-3 w-5 h-5 rounded-xs bg-border animate-pulse"></div>
               {Array(4)
                 .fill(0)
                 .map((_, i) => (

@@ -138,9 +138,9 @@ const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
           onClick={() => setIsOpen(!isOpen)}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="w-[160px] md:w-[180px] px-4 py-2 rounded-lg text-left bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.05] shadow-lg shadow-black/10 backdrop-blur-sm transition-all flex items-center gap-2 group relative overflow-hidden"
+          className="w-[160px] md:w-[180px] px-4 py-2 rounded-lg text-left bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.05] shadow-lg shadow-black/10 backdrop-blur-xs transition-all flex items-center gap-2 group relative overflow-hidden"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-linear-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           <motion.div
             initial={{ rotate: 0 }}
             whileHover={{ rotate: 15 }}
@@ -295,14 +295,14 @@ const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
                             }}
                             className={`w-9 h-9 rounded-lg text-xs font-medium relative group ${
                               isSelected
-                                ? "bg-white/[0.08] text-white shadow-lg shadow-black/20 backdrop-blur-sm"
+                                ? "bg-white/[0.08] text-white shadow-lg shadow-black/20 backdrop-blur-xs"
                                 : isToday
                                 ? "text-zinc-300"
                                 : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"
                             }`}
                           >
                             <motion.div
-                              className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"
+                              className="absolute inset-0 bg-linear-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"
                               initial={false}
                               animate={
                                 isSelected
@@ -364,12 +364,12 @@ const DatePicker = ({ value, onChange, placeholder = "Select date" }) => {
                             }}
                             className={`px-2 py-2 text-xs rounded-lg relative group overflow-hidden ${
                               isCurrentYear
-                                ? "bg-white/[0.08] text-white shadow-lg shadow-black/20 backdrop-blur-sm"
+                                ? "bg-white/[0.08] text-white shadow-lg shadow-black/20 backdrop-blur-xs"
                                 : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"
                             }`}
                           >
                             <motion.div
-                              className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"
+                              className="absolute inset-0 bg-linear-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg"
                               initial={false}
                               animate={
                                 isCurrentYear ? { opacity: 1 } : { opacity: 0 }

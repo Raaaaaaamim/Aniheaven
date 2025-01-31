@@ -36,9 +36,9 @@ const HomePage = () => {
 
           {/* Animated Lines - Hidden on Mobile */}
           <div className="absolute inset-0 opacity-20 hidden sm:block">
-            <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-primary/50 to-transparent animate-pulse" />
-            <div className="absolute top-0 left-2/4 w-px h-full bg-gradient-to-b from-transparent via-primary/50 to-transparent animate-pulse delay-75" />
-            <div className="absolute top-0 left-3/4 w-px h-full bg-gradient-to-b from-transparent via-primary/50 to-transparent animate-pulse delay-150" />
+            <div className="absolute top-0 left-1/4 w-px h-full bg-linear-to-b from-transparent via-primary/50 to-transparent animate-pulse" />
+            <div className="absolute top-0 left-2/4 w-px h-full bg-linear-to-b from-transparent via-primary/50 to-transparent animate-pulse delay-75" />
+            <div className="absolute top-0 left-3/4 w-px h-full bg-linear-to-b from-transparent via-primary/50 to-transparent animate-pulse delay-150" />
           </div>
 
           {/* Banner Image with Advanced Blend */}
@@ -90,11 +90,11 @@ const HomePage = () => {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="text-4xl sm:text-5xl md:text-6xl font-outfit font-bold leading-tight"
               >
-                <span className="inline-block bg-gradient-to-br from-white via-primary/90 to-primary/60 bg-clip-text text-transparent pb-2">
+                <span className="inline-block bg-linear-to-br from-white via-primary/90 to-primary/60 bg-clip-text text-transparent pb-2">
                   Start Your Anime
                 </span>
                 <br />
-                <span className="inline-block bg-gradient-to-br from-primary/90 via-primary/70 to-white bg-clip-text text-transparent">
+                <span className="inline-block bg-linear-to-br from-primary/90 via-primary/70 to-white bg-clip-text text-transparent">
                   Journey Today
                 </span>
               </motion.h1>
@@ -117,7 +117,7 @@ const HomePage = () => {
               className="relative max-w-2xl mx-auto mb-12 sm:mb-20"
             >
               {/* Search Glow Effect */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 via-primary/20 to-primary/30 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition-all duration-500" />
+              <div className="absolute -inset-1 bg-linear-to-r from-primary/30 via-primary/20 to-primary/30 rounded-2xl blur-xl opacity-75 group-hover:opacity-100 transition-all duration-500" />
 
               {/* Search Input */}
               <div className="relative flex bg-background/40 backdrop-blur-2xl border border-white/10 rounded-2xl p-1.5 group">
@@ -126,11 +126,11 @@ const HomePage = () => {
                   onChange={(e) => setValue(e.target.value)}
                   type="text"
                   placeholder="Search your favorite anime..."
-                  className="flex-1 bg-transparent px-4 sm:px-6 py-3 sm:py-4 text-base sm:text-lg text-text placeholder:text-text/40 focus:outline-none font-light"
+                  className="flex-1 bg-transparent px-4 sm:px-6 py-3 sm:py-4 text-base sm:text-lg text-text placeholder:text-text/40 focus:outline-hidden font-light"
                 />
                 <Link to={value ? `/search?q=${value}` : `/search`}>
                   <button className="relative overflow-hidden px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-primary text-white font-medium group-hover:shadow-lg group-hover:shadow-primary/50 transition-all duration-500">
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary-light to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-linear-to-r from-primary-light to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="relative flex items-center gap-2 sm:gap-3">
                       <BsSearch className="w-4 h-4 sm:w-5 sm:h-5" />
                       <span className="hidden sm:inline text-sm sm:text-base">
@@ -153,7 +153,7 @@ const HomePage = () => {
                 to="/home"
                 className="group relative overflow-hidden px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-primary text-white font-medium hover:shadow-lg hover:shadow-primary/30 transition-all duration-500"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-light to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-linear-to-r from-primary-light to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative flex items-center gap-2 sm:gap-3">
                   <BsPlayFill className="w-5 h-5 sm:w-6 sm:h-6" />
                   <span className="text-sm sm:text-base">Start Watching</span>
@@ -164,7 +164,7 @@ const HomePage = () => {
                 to="/schedules"
                 className="group relative overflow-hidden px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-background/40 backdrop-blur-xl border border-white/10 text-text hover:text-white hover:border-primary/50 transition-all duration-500"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-linear-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative flex items-center gap-2 sm:gap-3">
                   <BsCalendar3 className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span className="text-sm sm:text-base">Schedule</span>
@@ -175,7 +175,7 @@ const HomePage = () => {
                 to="/category"
                 className="group relative overflow-hidden px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-background/40 backdrop-blur-xl border border-white/10 text-text hover:text-white hover:border-primary/50 transition-all duration-500"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-linear-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative flex items-center gap-2 sm:gap-3">
                   <BsGrid className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span className="text-sm sm:text-base">Categories</span>

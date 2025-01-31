@@ -27,8 +27,8 @@ const ProfileHeader = ({
         {/* Banner Image with Overlay */}
         <div className="absolute inset-0 bg-background overflow-hidden">
           {/* Improved gradient overlays for better text legibility */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/90 to-background z-20" />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-accent/30 mix-blend-overlay z-10" />
+          <div className="absolute inset-0 bg-linear-to-b from-transparent via-background/90 to-background z-20" />
+          <div className="absolute inset-0 bg-linear-to-r from-primary/30 to-accent/30 mix-blend-overlay z-10" />
 
           <motion.img
             initial={{ scale: 1.1 }}
@@ -77,7 +77,7 @@ const ProfileHeader = ({
                     />
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="absolute inset-0 flex items-center justify-center rounded-full bg-background/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300"
+                      className="absolute inset-0 flex items-center justify-center rounded-full bg-background/50 backdrop-blur-xs opacity-0 group-hover:opacity-100 transition-all duration-300"
                     >
                       <FiEdit2 className="text-2xl sm:text-3xl text-text" />
                     </button>
@@ -96,11 +96,11 @@ const ProfileHeader = ({
               <div className="flex-1 mb-8 md:mb-10 text-center md:text-left">
                 <div className="flex flex-col gap-3">
                   <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-4">
-                    <h1 className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-text to-text/80">
+                    <h1 className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-linear-to-r from-text to-text/80">
                       {username}
                     </h1>
                     <div
-                      className={`px-3 py-1.5 rounded-full bg-gradient-to-r ${config.gradient} text-white text-xs font-medium flex items-center gap-1.5 shadow-lg ${config.shadow}`}
+                      className={`px-3 py-1.5 rounded-full bg-linear-to-r ${config.gradient} text-white text-xs font-medium flex items-center gap-1.5 shadow-lg ${config.shadow}`}
                     >
                       <config.icon className="text-sm" />
                       <span>{config.label}</span>

@@ -1,17 +1,105 @@
-@import url("https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap");
+@import "tailwindcss";
 
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap")
+layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap")
+layer(base);
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap")
+layer(base);
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-primary: #845fd6;
+  --color-secondary: #32343c;
+  --color-secondary-bg: #0f0f0f;
+  --color-accent: #f472b6;
+  --color-text: #e2e8f0;
+  --color-background: #0d0d0d;
+  --color-border: #2d2d2d;
+  --color-gray-text: #535256;
+  --color-third: #1c1c1c;
+  --color-button: #ad241b;
+  --color-sec-text: #999999;
+
+  --font-poppins: Poppins, sans-serif;
+  --font-outfit: Outfit, sans-serif;
+  --font-sans: Noto Sans, serif;
+  --font-Jost: Jost, serif;
+
+  --animate-glow: glow 2s ease-in-out infinite alternate;
+  --animate-gradient-xy: gradient-xy 15s ease infinite;
+  --animate-float-slow: float 8s ease-in-out infinite;
+  --animate-float-slower: float 12s ease-in-out infinite;
+  --animate-pulse: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes glow {
+    0% {
+      box-shadow: 0 0 5px var(--color-primary), 0 0 20px var(--color-primary);
+    }
+    100% {
+      box-shadow: 0 0 8px var(--color-primary), 0 0 25px var(--color-primary);
+    }
+  }
+  @keyframes gradient-xy {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    25% {
+      background-position: 100% 50%;
+    }
+    50% {
+      background-position: 100% 0%;
+    }
+    75% {
+      background-position: 0% 100%;
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 body {
   font-family: "Poppins", sans-serif;
   width: 100%;
   font-weight: 400;
-  background-color: theme("colors.gray.950");
+  background-color: var(--color-background);
 }
 
 .spicy {
@@ -114,22 +202,80 @@ body {
   -webkit-text-stroke: 2px rgba(255, 255, 255, 0.7); /* 0.5 is 50% opacity - adjust this value between 0 and 1 */
 }
 
-/* Loading Animation */
-.pixelated {
-  image-rendering: -moz-crisp-edges; /* Firefox */
-  image-rendering: -webkit-crisp-edges; /* Webkit */
-  image-rendering: pixelated; /* Chrome and other browsers */
-  image-rendering: crisp-edges; /* General */
-  -ms-interpolation-mode: nearest-neighbor; /* IE (non-standard property) */
-}
-.mask {
-  background-image: url("../assets/mask.svg");
-  background-repeat: repeat;
+/* Optimized Loader Styles */
+.loader-svg {
+  width: 100%;
+  height: 100%;
+  animation: rotate 2s linear infinite;
+  will-change: transform;
 }
 
-@media (min-width: 1200px) and (max-width: 1280px) {
-  .sectionA {
-    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+.loader-ring {
+  stroke: var(--color-primary);
+  opacity: 0.3;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 283;
+  animation: ring 1.5s ease-in-out infinite;
+  will-change: stroke-dashoffset, opacity;
+}
+
+.loader-pulse {
+  stroke: var(--color-accent);
+  opacity: 0.5;
+  animation: pulse 1.5s ease-in-out infinite;
+  will-change: transform, opacity;
+  transform-origin: center;
+}
+
+.loader-dot {
+  fill: var(--color-accent);
+  animation: dot 1.5s ease-in-out infinite;
+  will-change: transform, opacity;
+  transform-origin: center;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ring {
+  0% {
+    stroke-dashoffset: 283;
+    opacity: 0.2;
+  }
+  50% {
+    stroke-dashoffset: 0;
+    opacity: 0.5;
+  }
+  100% {
+    stroke-dashoffset: -283;
+    opacity: 0.2;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(0.95);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.6;
+  }
+}
+
+@keyframes dot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
   }
 }
 
@@ -164,4 +310,106 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 .scrollbar-none::-webkit-scrollbar {
   display: none;
+}
+
+.mask {
+  background-image: url("../assets/mask.svg");
+  background-repeat: repeat;
+}
+
+@media (min-width: 1200px) and (max-width: 1280px) {
+  .sectionA {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Constellation Loader Styles */
+.constellation-boundary {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 0.5;
+  opacity: 0.1;
+}
+
+.constellation-point {
+  fill: var(--color-primary);
+  opacity: 0.7;
+  animation: constellation-pulse 2s ease-in-out var(--delay) infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.constellation-core {
+  fill: var(--color-accent);
+  animation: constellation-core 2s ease-in-out var(--delay) infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.constellation-center {
+  fill: var(--color-accent);
+  animation: constellation-center 1.5s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.constellation-line {
+  stroke: var(--color-primary);
+  stroke-width: 0.5;
+  opacity: 0.2;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: constellation-line 2s ease-in-out calc(var(--index) * 0.15s)
+    infinite;
+}
+
+@keyframes constellation-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.4;
+  }
+}
+
+@keyframes constellation-core {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.7);
+    opacity: 0.8;
+  }
+}
+
+@keyframes constellation-center {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+}
+
+@keyframes constellation-line {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 0.1;
+  }
+  50% {
+    stroke-dashoffset: 0;
+    opacity: 0.25;
+  }
+  100% {
+    stroke-dashoffset: -100;
+    opacity: 0.1;
+  }
 }

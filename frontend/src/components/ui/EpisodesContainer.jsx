@@ -59,15 +59,15 @@ const EpisodesContainer = ({
                       }}
                       className={`${
                         selectedEpisode === item?.episodeId
-                          ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
+                          ? "bg-linear-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
                           : item.isFiller
                           ? "bg-primary/40 hover:bg-primary/60 text-black"
                           : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
                       } 
               ${
                 searchEpisode && searchEpisode === Number(item?.number)
-                  ? " !animate-pulse !bg-text  !text-black "
-                  : " !animate-none  "
+                  ? " animate-pulse! bg-text!  text-black! "
+                  : " animate-none!  "
               }
               
               w-[97%] py-2 lg:py-3 line-clamp-1 text-xs lg:text-sm rounded-xl lg:h-[3.3rem] h-[2.8rem] transition-all duration-300 cursor-pointer gap-2 flex items-center`}
@@ -121,15 +121,15 @@ const EpisodesContainer = ({
                           }}
                           className={`flex justify-center items-center cursor-pointer font-medium w-[3.5rem] lg:w-[4.5rem] h-8 lg:h-10 gap-1 rounded-xl text-xs lg:text-sm ${
                             selectedEpisode === item?.episodeId
-                              ? "bg-gradient-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
+                              ? "bg-linear-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
                               : item.isFiller
                               ? "bg-primary/40 hover:bg-primary/60 text-black"
                               : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
                           } 
                    ${
                      searchEpisode && searchEpisode === Number(item?.number)
-                       ? " !animate-pulse !bg-text  !text-black "
-                       : " !animate-none  "
+                       ? " animate-pulse! bg-text!  text-black! "
+                       : " animate-none!  "
                    }
                   
                   transition-all duration-300`}

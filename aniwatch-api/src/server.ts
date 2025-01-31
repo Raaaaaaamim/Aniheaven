@@ -13,6 +13,7 @@ import { logger } from "hono/logger";
 
 import { HiAnimeError } from "aniwatch";
 import type { AniwatchAPIVariables } from "./config/variables.js";
+import { connectDb } from "./db/connectDb.js";
 import user from "./routes/User.js";
 
 config();
@@ -36,7 +37,7 @@ if (ISNT_PERSONAL_DEPLOYMENT) {
 
 app.use("/", serveStatic({ root: "public" }));
 app.get("/health", (c) => c.text("OK", { status: 200 }));
-
+connectDb();
 app.route("/user", user);
 app.route("/hianime", hianimeRouter);
 app.get("/anicrush", (c) => c.text("Anicrush could be implemented in future."));

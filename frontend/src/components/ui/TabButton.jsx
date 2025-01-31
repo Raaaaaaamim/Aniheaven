@@ -11,7 +11,7 @@ const TabButton = ({ active, onClick, icon, label }) => (
     {active && (
       <motion.div
         layoutId="activeTab"
-        className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent via-transparent  backdrop-blur-sm border-b-2 border-primary"
+        className="absolute inset-0 bg-linear-to-t from-primary/10 to-transparent via-transparent  backdrop-blur-xs border-b-2 border-primary"
         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
       />
     )}

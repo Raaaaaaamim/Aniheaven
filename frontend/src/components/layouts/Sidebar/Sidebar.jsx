@@ -20,7 +20,7 @@ const Sidebar = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 mt-1 left-4 z-[60] block xl:hidden p-2 rounded-lg bg-secondary/5"
+        className="fixed top-4 mt-1 left-4 z-60 block xl:hidden p-2 rounded-lg bg-secondary/5"
       >
         {isOpen ? <IoClose size={24} /> : <RiMenu4Fill size={24} />}
       </motion.button>
@@ -44,7 +44,7 @@ const Sidebar = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={() => setIsOpen(false)}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-30 block lg:hidden"
+            className="fixed inset-0 bg-black/50 backdrop-blur-xs z-30 block lg:hidden"
           />
         )}
       </AnimatePresence>

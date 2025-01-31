@@ -72,15 +72,15 @@ export const CategoryPage = () => {
       <div className="relative w-full  mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8 flex items-center space-x-4">
-          <h1 className="text-2xl md:text-3xl font-outfit font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl font-outfit font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
             Browse Categories
           </h1>
-          <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+          <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
         </div>
 
         {/* Category Pills */}
         <div className="relative mb-12">
-          <div className="flex flex-wrap gap-3 p-4 rounded-2xl bg-white/[0.02] backdrop-blur-sm border border-white/5">
+          <div className="flex flex-wrap gap-3 p-4 rounded-2xl bg-white/[0.02] backdrop-blur-xs border border-white/5">
             {categories.map((category) => (
               <button
                 key={category}
@@ -92,7 +92,7 @@ export const CategoryPage = () => {
                   border border-white/[0.05]
                   ${
                     name === category
-                      ? "bg-gradient-to-r from-primary/20 via-primary/10 to-transparent border-primary/30"
+                      ? "bg-linear-to-r from-primary/20 via-primary/10 to-transparent border-primary/30"
                       : "hover:bg-white/[0.03]"
                   }
                 `}
@@ -101,7 +101,7 @@ export const CategoryPage = () => {
                 <div
                   className={`
                     absolute inset-0 -z-10 rounded-xl
-                    bg-gradient-to-r from-primary/20 via-transparent to-transparent
+                    bg-linear-to-r from-primary/20 via-transparent to-transparent
                     opacity-0 group-hover:opacity-100
                     transition-opacity duration-300
                     ${name === category ? "opacity-100" : ""}
@@ -111,7 +111,7 @@ export const CategoryPage = () => {
                 {/* Text with Gradient */}
                 <span
                   className={`
-                    bg-gradient-to-r
+                    bg-linear-to-r
                     ${
                       name === category
                         ? "from-primary to-primary/70"
@@ -130,7 +130,7 @@ export const CategoryPage = () => {
                   className={`
                     absolute -bottom-[2px] left-1/2 -translate-x-1/2
                     w-12 h-[2px] rounded-full
-                    bg-gradient-to-r from-primary to-transparent
+                    bg-linear-to-r from-primary to-transparent
                     transition-all duration-300
                     ${
                       name === category
@@ -147,10 +147,10 @@ export const CategoryPage = () => {
         {/* Content Section */}
         <div className="relative">
           <div className="mb-6 flex items-center space-x-4">
-            <h2 className="text-xl font-outfit font-bold bg-gradient-to-r from-text/90 to-text/60 bg-clip-text text-transparent capitalize">
+            <h2 className="text-xl font-outfit font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent capitalize">
               {name.split("-").join(" ")}
             </h2>
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-primary/20 to-transparent"></div>
+            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-6 gap-4 place-items-center xl:gap-6">

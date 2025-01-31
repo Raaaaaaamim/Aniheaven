@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { cardVariants, infoVariants, textVariants } from "../../animations";
 import useAnimeInfo from "../../hooks/useAnimeInfo";
 import Badge from "./Badge.jsx";
+import Loader from "./Loader.jsx";
 
 const Card = forwardRef(
   ({ imageUrl, title, id, upcoming, subCount, dubCount }, ref) => {
@@ -44,12 +45,12 @@ const Card = forwardRef(
           variants={infoVariants}
           initial="initial"
           animate={hovered ? "hover" : "initial"}
-          className="overflow-hidden absolute h-[90%] rounded-2xl left-0 -bottom-0 z-20 flex justify-center items-center w-full bg-[#0f0f0f]/80 backdrop-blur-sm border-t border-white/[0.05]"
+          className="overflow-hidden absolute h-[90%] rounded-2xl left-0 -bottom-0 z-20 flex justify-center items-center w-full bg-[#0f0f0f]/80 backdrop-blur-xs border-t border-white/[0.05]"
         >
           <div className="p-4 mb-16 justify-center text-white flex flex-col lg:gap-2 gap-[3px] w-full h-full">
             {isLoading ? (
               <div className="flex mt-auto justify-center items-center w-full h-[90%]">
-                <span className="loading loading-ring loading-md"></span>
+                <Loader size="md" />
               </div>
             ) : isError ? (
               <motion.div
@@ -148,7 +149,7 @@ const Card = forwardRef(
                 <div className="flex self-start md:self-center md:mt-2 md:gap-2 mt-2 gap-1.5 justify-evenly   w-full items-center">
                   <Link
                     to={`/watch/${id}`}
-                    className="w-full flex-1 py-1.5  sm:py-2 px-3 sm:px-4 rounded-xl md:py-3 bg-gradient-to-r from-primary via-primary to-primary/90 text-black text-[10px] sm:text-xs font-outfit font-semibold hover:opacity-90 transition-all duration-300 shadow-[0_4px_16px_rgba(120,119,198,0.4)] flex items-center justify-center gap-1.5 sm:gap-2"
+                    className="w-full flex-1 py-1.5  sm:py-2 px-3 sm:px-4 rounded-xl md:py-3 bg-linear-to-r from-primary via-primary to-primary/90 text-black text-[10px] sm:text-xs font-outfit font-semibold hover:opacity-90 transition-all duration-300 shadow-[0_4px_16px_rgba(120,119,198,0.4)] flex items-center justify-center gap-1.5 sm:gap-2"
                   >
                     <FaPlay className="text-[10px] md:text-sm sm:text-xs" />
                     <span className=" sm:inline">Watch Now</span>
@@ -161,7 +162,7 @@ const Card = forwardRef(
             )}
           </div>
         </motion.div>
-        <div className="absolute z-10 flex justify-end flex-col bottom-0 w-full h-32 bg-gradient-to-t gap-2 from-black to-transparent">
+        <div className="absolute z-10 flex justify-end flex-col bottom-0 w-full h-32 bg-linear-to-t gap-2 from-black to-transparent">
           <h1 className="ml-2 sm:ml-3 line-clamp-1 w-[90%] font-outfit text-xs sm:text-sm md:text-[1rem] font-bold text-text/90">
             {title}
           </h1>
