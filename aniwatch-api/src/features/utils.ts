@@ -11,7 +11,6 @@ export const Wrapper =
     try {
       return await handler(c, next);
     } catch (error: any) {
-      console.log("Caught by wrapper:", error.message);
       throw error; // Pass the error to onError
     }
   };
