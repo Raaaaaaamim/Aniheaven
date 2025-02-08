@@ -84,7 +84,7 @@ const Home = () => {
   // If there's an error, show error message
   if (error) {
     return (
-      <div className="w-full h-screen flex items-center justify-center text-white">
+      <div className="flex h-screen w-full items-center justify-center text-white">
         <p>Error loading data: {error.message}</p>
       </div>
     );
@@ -95,7 +95,7 @@ const Home = () => {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="lg:w-[100%] 2xl:max-w-[1920px] flex w-full items-center flex-col min-h-[100vh] p-4 justify-center"
+      className="flex min-h-[100vh] w-full flex-col items-center justify-center p-4 lg:w-[100%] 2xl:max-w-[1920px]"
     >
       <Swiper
         modules={[Pagination, Autoplay, EffectFade]}
@@ -110,14 +110,14 @@ const Home = () => {
           delay: 5000,
           disableOnInteraction: false,
         }}
-        className="w-full max-w-8xl md:h-[400px] lg:mx-auto h-[300px] lg:min-h-[80vh]   2xl:min-h-[70vh]  max-h-[700px] rounded-xl overflow-hidden border border-white/[0.05]"
+        className="max-w-8xl h-[300px] max-h-[700px] w-full overflow-hidden rounded-xl border border-white/[0.05] md:h-[400px] lg:mx-auto lg:min-h-[80vh] 2xl:min-h-[70vh]"
       >
         {/* Mapping spotlight anime data to slides */}
         {data?.data?.spotlightAnimes?.map((anime, i) => (
           <SwiperSlide key={anime.id + i}>
             <motion.div
               variants={spotlightVariants}
-              className="relative w-full h-full bg-[#0f0f0f] rounded-xl overflow-hidden"
+              className="relative h-full w-full overflow-hidden rounded-xl bg-[#0f0f0f]"
             >
               {/* Background image with zoom animation */}
               <motion.div
@@ -130,7 +130,7 @@ const Home = () => {
                   repeatType: "reverse",
                 }}
               >
-                <div className="absolute inset-0 bg-linear-to-r from-black via-black/80 to-transparent z-10" />
+                <div className="absolute inset-0 z-10 bg-linear-to-r from-black via-black/80 to-transparent" />
                 <img
                   className="h-full w-full object-cover"
                   src={anime.poster}
@@ -139,16 +139,16 @@ const Home = () => {
               </motion.div>
 
               {/* Anime information overlay */}
-              <motion.div className="absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-8 lg:px-12 text-text">
+              <motion.div className="text-text absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-8 lg:px-12">
                 {/* Title */}
-                <h1 className="xl:text-6xl  text-2xl flex flex-wrap md:text-5xl gap-3 lg:mb-4 font-outfit">
-                  <span className="font-bold  line-clamp-1 lg:line-clamp-2 text-text/90">
+                <h1 className="font-outfit flex flex-wrap gap-3 text-2xl md:text-5xl lg:mb-4 xl:text-6xl">
+                  <span className="text-text/90 line-clamp-1 font-bold lg:line-clamp-2">
                     {anime.name}
                   </span>
                 </h1>
 
                 {/* Episode badges */}
-                <div className="flex justify-start py-2 md:py-4 gap-1 md:gap-2 items-center">
+                <div className="flex items-center justify-start gap-1 py-2 md:gap-2 md:py-4">
                   <Badge title={anime.otherInfo[3] || "N/A"} />
                   {/* Sub episodes badge */}
                   {anime?.episodes?.sub && (
@@ -161,37 +161,37 @@ const Home = () => {
                 </div>
 
                 {/* Anime metadata (release date and duration) */}
-                <div className="flex mb-2 md:mb-3 self-start justify-start items-center gap-2 md:gap-4 text-xs text-text/70">
-                  <div className="flex justify-center items-center gap-1 md:gap-2">
-                    <IoCalendarClear className="text-primary/90  text-[14px] 2xl:text-[16px] " />
-                    <span className="text-xs 2xl:text-sm font-sans">
+                <div className="text-text/70 mb-2 flex items-center justify-start gap-2 self-start text-xs md:mb-3 md:gap-4">
+                  <div className="flex items-center justify-center gap-1 md:gap-2">
+                    <IoCalendarClear className="text-primary/90 text-[14px] 2xl:text-[16px]" />
+                    <span className="font-sans text-xs 2xl:text-sm">
                       {anime.otherInfo[2] || "N/A"}
                     </span>
                   </div>
-                  <div className="flex justify-center items-center gap-1 md:gap-2">
-                    <TbClockHour4Filled className="text-primary/90 text-[14px] 2xl:text-sm 2xl:text-[16px]  " />
-                    <span className="text-xs 2xl:text-sm font-sans">
+                  <div className="flex items-center justify-center gap-1 md:gap-2">
+                    <TbClockHour4Filled className="text-primary/90 text-[14px] 2xl:text-sm 2xl:text-[16px]" />
+                    <span className="font-sans text-xs 2xl:text-sm">
                       {anime.otherInfo[1] || "N/A"}
                     </span>
                   </div>
                 </div>
 
                 {/* Description with length limit */}
-                <p className="  text-sm  italic md:mb-8 mb-3 max-w-[38rem] 2xl:max-w-3xl  line-clamp-2 md:line-clamp-3 font-Jost  2xl:line-clamp-4 w-[80%] leading-relaxed md:w-full text-text/70">
+                <p className="font-Jost text-text/70 mb-3 line-clamp-2 w-[80%] max-w-[38rem] text-sm leading-relaxed italic md:mb-8 md:line-clamp-3 md:w-full 2xl:line-clamp-4 2xl:max-w-3xl">
                   {anime.description}
                 </p>
 
                 {/* Action buttons */}
                 <div className="flex gap-4">
                   <Link to={`/watch/${anime.id}`}>
-                    <button className="md:w-48 w-32 md:py-3 md:px-6 rounded-xl bg-linear-to-r from-primary via-primary to-primary/90 text-black md:text-sm font-outfit font-semibold hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] py-2 px-4 transition-all duration-300  text-xs flex items-center  justify-center gap-2">
-                      <FaPlay className="text-sm  md:flex hidden " />
+                    <button className="from-primary via-primary to-primary/90 font-outfit flex w-32 items-center justify-center gap-2 rounded-xl bg-linear-to-r px-4 py-2 text-xs font-semibold text-black transition-all duration-300 hover:scale-[1.02] hover:opacity-90 active:scale-[0.98] md:w-48 md:px-6 md:py-3 md:text-sm">
+                      <FaPlay className="hidden text-sm md:flex" />
                       <span>Watch Now</span>
                     </button>
                   </Link>
                   <Link to={`/info/${anime.id}`}>
-                    <button className="md:w-12 md:h-12 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] hover:scale-[1.02] active:scale-[0.98] text-text/90 border border-white/[0.05] transition-all duration-300  flex items-center justify-center w-8 h-8 ">
-                      <FaInfoCircle className="md:w-5 md:h-5 w-3 h-3 " />
+                    <button className="text-text/90 flex h-8 w-8 items-center justify-center rounded-xl border border-white/[0.05] bg-white/[0.02] transition-all duration-300 hover:scale-[1.02] hover:bg-white/[0.04] active:scale-[0.98] md:h-12 md:w-12">
+                      <FaInfoCircle className="h-3 w-3 md:h-5 md:w-5" />
                     </button>
                   </Link>
                 </div>
@@ -205,20 +205,20 @@ const Home = () => {
        * Features a responsive slider with custom navigation
        * Auto-plays with pause on hover functionality
        */}
-      <motion.div className="w-full max-w-8xl lg:mx-auto mt-8">
-        <div className="flex justify-between items-center mb-4">
-          <div className=" w-full  flex items-center space-x-4   font-outfit  ">
-            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+      <motion.div className="max-w-8xl mt-8 w-full lg:mx-auto">
+        <div className="mb-4 flex items-center justify-between">
+          <div className="font-outfit flex w-full items-center space-x-4">
+            <h1 className="from-text/90 to-text/60 bg-linear-to-r bg-clip-text text-lg font-bold text-transparent md:text-xl">
               Trending Animes
             </h1>
-            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
+            <div className="from-primary/20 h-[1px] flex-1 bg-linear-to-r to-transparent"></div>
           </div>
           <div className="flex items-center gap-2">
-            <button className="w-8 h-8 trending-prev rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300  flex items-center justify-center trending-prev">
-              <IoIosArrowRoundBack className="w-5 h-5" />
+            <button className="trending-prev text-text/90 trending-prev flex h-8 w-8 items-center justify-center rounded-xl border border-white/[0.05] bg-white/[0.02] transition-all duration-300 hover:bg-white/[0.04]">
+              <IoIosArrowRoundBack className="h-5 w-5" />
             </button>
-            <button className="w-8 trending-next h-8 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300 flex items-center justify-center trending-next">
-              <IoIosArrowRoundForward className="w-5 h-5" />
+            <button className="trending-next text-text/90 trending-next flex h-8 w-8 items-center justify-center rounded-xl border border-white/[0.05] bg-white/[0.02] transition-all duration-300 hover:bg-white/[0.04]">
+              <IoIosArrowRoundForward className="h-5 w-5" />
             </button>
           </div>
         </div>
@@ -241,14 +241,14 @@ const Home = () => {
             1536: { slidesPerView: 6, spaceBetween: 15 },
             1920: { slidesPerView: 7, spaceBetween: 20 },
           }}
-          className="relative rounded-xl overflow-hidden"
+          className="relative overflow-hidden rounded-xl"
         >
           {/* Trending anime cards */}
           {data?.data?.trendingAnimes?.slice(0, 10).map((anime, index) => (
             <SwiperSlide key={anime.id + index}>
               <Suspense
                 fallback={
-                  <div className="relative border-border border-[1px] font-poppins w-full h-[280px] md:w-[220px] md:h-[300px] lg:w-[190px] lg:h-[270px] xl:w-[200px] xl:h-[280px] rounded-xl overflow-hidden bg-[#1f1f1f] animate-pulse"></div>
+                  <div className="border-border font-poppins relative h-[280px] w-full animate-pulse overflow-hidden rounded-xl border-[1px] bg-[#1f1f1f] md:h-[300px] md:w-[220px] lg:h-[270px] lg:w-[190px] xl:h-[280px] xl:w-[200px]"></div>
                 }
               >
                 <TrendingCard
@@ -263,16 +263,16 @@ const Home = () => {
         </Swiper>
       </motion.div>
 
-      <div className="w-full max-w-8xl lg:mx-auto mt-8">
-        <div className="flex justify-between items-center mb-4">
-          <div className=" w-full  flex items-center space-x-4   font-outfit  ">
-            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+      <div className="max-w-8xl mt-8 w-full lg:mx-auto">
+        <div className="mb-4 flex items-center justify-between">
+          <div className="font-outfit flex w-full items-center space-x-4">
+            <h1 className="from-text/90 to-text/60 bg-linear-to-r bg-clip-text text-lg font-bold text-transparent md:text-xl">
               Latest Episodes
             </h1>
-            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
+            <div className="from-primary/20 h-[1px] flex-1 bg-linear-to-r to-transparent"></div>
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4  gap-3 md:gap-4 2xl:grid-cols-5 place-items-center sectionA  ">
+        <div className="sectionA grid grid-cols-2 place-items-center gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4 2xl:grid-cols-5">
           <AnimatePresence mode="popLayout">
             {data?.data?.latestEpisodeAnimes?.map((anime, index) => (
               <Card
@@ -289,16 +289,16 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-8xl lg:mx-auto mt-8">
-        <div className="flex justify-between items-center mb-4">
-          <div className=" w-full  flex items-center space-x-4   font-outfit  ">
-            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+      <div className="max-w-8xl mt-8 w-full lg:mx-auto">
+        <div className="mb-4 flex items-center justify-between">
+          <div className="font-outfit flex w-full items-center space-x-4">
+            <h1 className="from-text/90 to-text/60 bg-linear-to-r bg-clip-text text-lg font-bold text-transparent md:text-xl">
               Top Upcoming
             </h1>
-            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
+            <div className="from-primary/20 h-[1px] flex-1 bg-linear-to-r to-transparent"></div>
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 md:gap-4 2xl:grid-cols-5 sectionA place-items-center">
+        <div className="sectionA grid grid-cols-2 place-items-center gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5">
           <AnimatePresence mode="popLayout">
             {data?.data?.topUpcomingAnimes?.map((anime, index) => (
               <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
@@ -316,16 +316,16 @@ const Home = () => {
           </AnimatePresence>
         </div>
       </div>
-      <div className="w-full max-w-8xl lg:mx-auto mt-8">
-        <div className="flex justify-between items-center mb-4">
-          <div className=" w-full  flex items-center space-x-4   font-outfit  ">
-            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+      <div className="max-w-8xl mt-8 w-full lg:mx-auto">
+        <div className="mb-4 flex items-center justify-between">
+          <div className="font-outfit flex w-full items-center space-x-4">
+            <h1 className="from-text/90 to-text/60 bg-linear-to-r bg-clip-text text-lg font-bold text-transparent md:text-xl">
               Latest Completed
             </h1>
-            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
+            <div className="from-primary/20 h-[1px] flex-1 bg-linear-to-r to-transparent"></div>
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 2xl:grid-cols-5 sectionA md:gap-4 place-items-center">
+        <div className="sectionA grid grid-cols-2 place-items-center gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5">
           <AnimatePresence mode="popLayout">
             {data?.data?.latestCompletedAnimes?.map((anime, index) => (
               <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
@@ -343,16 +343,16 @@ const Home = () => {
           </AnimatePresence>
         </div>
       </div>
-      <div className="w-full max-w-8xl lg:mx-auto mt-8">
-        <div className="flex justify-between items-center mb-4">
-          <div className=" w-full  flex items-center space-x-4   font-outfit  ">
-            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+      <div className="max-w-8xl mt-8 w-full lg:mx-auto">
+        <div className="mb-4 flex items-center justify-between">
+          <div className="font-outfit flex w-full items-center space-x-4">
+            <h1 className="from-text/90 to-text/60 bg-linear-to-r bg-clip-text text-lg font-bold text-transparent md:text-xl">
               Most Favorite
             </h1>
-            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
+            <div className="from-primary/20 h-[1px] flex-1 bg-linear-to-r to-transparent"></div>
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 2xl:grid-cols-5 md:gap-4 sectionA place-items-center">
+        <div className="sectionA grid grid-cols-2 place-items-center gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5">
           <AnimatePresence mode="popLayout">
             {data?.data?.mostFavoriteAnimes?.map((anime, index) => (
               <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
@@ -370,16 +370,16 @@ const Home = () => {
           </AnimatePresence>
         </div>
       </div>
-      <div className="w-full max-w-8xl lg:mx-auto mt-8">
-        <div className="flex justify-between items-center mb-4">
-          <div className=" w-full  flex items-center space-x-4   font-outfit  ">
-            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+      <div className="max-w-8xl mt-8 w-full lg:mx-auto">
+        <div className="mb-4 flex items-center justify-between">
+          <div className="font-outfit flex w-full items-center space-x-4">
+            <h1 className="from-text/90 to-text/60 bg-linear-to-r bg-clip-text text-lg font-bold text-transparent md:text-xl">
               Most Popular
             </h1>
-            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
+            <div className="from-primary/20 h-[1px] flex-1 bg-linear-to-r to-transparent"></div>
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4  gap-3 md:gap-4 2xl:grid-cols-5 sectionA place-items-center">
+        <div className="sectionA grid grid-cols-2 place-items-center gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5">
           <AnimatePresence mode="popLayout">
             {data?.data?.mostPopularAnimes?.map((anime, index) => (
               <Suspense key={anime.id + index} fallback={<HomeSuspense />}>
@@ -398,20 +398,20 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-8xl lg:mx-auto mt-8">
-        <div className="flex justify-between items-center mb-4">
+      <div className="max-w-8xl mt-8 w-full lg:mx-auto">
+        <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <BsTrophyFill className="text-primary/90" />
-            <h2 className="text-lg  md:text-xl font-outfit font-semibold text-text/90">
+            <h2 className="font-outfit text-text/90 text-lg font-semibold md:text-xl">
               Top 10 Anime
             </h2>
           </div>
-          <div className="flex items-center gap-2 bg-white/[0.02] rounded-xl border border-white/[0.05] p-1">
+          <div className="flex items-center gap-2 rounded-xl border border-white/[0.05] bg-white/[0.02] p-1">
             <button
               onClick={() => setTimePeriod("today")}
-              className={`px-3 py-1 rounded-lg text-xs font-outfit transition-all duration-300 ${
+              className={`font-outfit rounded-lg px-3 py-1 text-xs transition-all duration-300 ${
                 timePeriod === "today"
-                  ? "bg-white/[0.04] text-text/90"
+                  ? "text-text/90 bg-white/[0.04]"
                   : "text-text/70 hover:text-text/90"
               }`}
             >
@@ -419,9 +419,9 @@ const Home = () => {
             </button>
             <button
               onClick={() => setTimePeriod("week")}
-              className={`px-3 py-1 rounded-lg text-xs font-outfit transition-all duration-300 ${
+              className={`font-outfit rounded-lg px-3 py-1 text-xs transition-all duration-300 ${
                 timePeriod === "week"
-                  ? "bg-white/[0.04] text-text/90"
+                  ? "text-text/90 bg-white/[0.04]"
                   : "text-text/70 hover:text-text/90"
               }`}
             >
@@ -429,9 +429,9 @@ const Home = () => {
             </button>
             <button
               onClick={() => setTimePeriod("month")}
-              className={`px-3 py-1 rounded-lg text-xs font-outfit transition-all duration-300 ${
+              className={`font-outfit rounded-lg px-3 py-1 text-xs transition-all duration-300 ${
                 timePeriod === "month"
-                  ? "bg-white/[0.04] text-text/90"
+                  ? "text-text/90 bg-white/[0.04]"
                   : "text-text/70 hover:text-text/90"
               }`}
             >
@@ -439,7 +439,7 @@ const Home = () => {
             </button>
           </div>
         </div>
-        <div className=" grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-3 place-items-center md:gap-4 2xl:gap-6">
+        <div className="grid grid-cols-2 place-items-center gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 2xl:gap-6">
           <AnimatePresence mode="popLayout">
             {data?.data?.top10Animes[timePeriod]?.map((anime, index) => (
               <motion.div
@@ -467,16 +467,16 @@ const Home = () => {
       </div>
 
       {data?.data?.topAiringAnimes?.length > 0 && (
-        <div className="w-full max-w-8xl lg:mx-auto mt-8 mb-8">
-          <div className="flex justify-between items-center mb-4">
-            <div className=" w-full  flex items-center space-x-4   font-outfit  ">
-              <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+        <div className="max-w-8xl mt-8 mb-8 w-full lg:mx-auto">
+          <div className="mb-4 flex items-center justify-between">
+            <div className="font-outfit flex w-full items-center space-x-4">
+              <h1 className="from-text/90 to-text/60 bg-linear-to-r bg-clip-text text-lg font-bold text-transparent md:text-xl">
                 Top Airing
               </h1>
-              <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
+              <div className="from-primary/20 h-[1px] flex-1 bg-linear-to-r to-transparent"></div>
             </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-3 place-items-center md:gap-4 2xl:gap-6  ">
+          <div className="grid grid-cols-2 place-items-center gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 2xl:gap-6">
             <AnimatePresence mode="popLayout">
               {data?.data?.topAiringAnimes?.map((anime, index) => (
                 <Suspense key={anime.id + index} fallback={<HomeSuspense />}>

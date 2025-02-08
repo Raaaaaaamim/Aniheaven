@@ -1,8 +1,9 @@
+import { FaChild } from "react-icons/fa";
 import { FaBoltLightning } from "react-icons/fa6";
 import { FiUser } from "react-icons/fi";
 import { RiMedalFill, RiNetflixFill, RiVipCrownFill } from "react-icons/ri";
 
-export const api = "http://192.168.1.107:4000/api/v2";
+export const api = "http://localhost:4000/api/v2";
 export const rarityConfig = {
   Jod: {
     gradient: "from-amber-500 via-orange-500 to-rose-500",
@@ -27,6 +28,14 @@ export const rarityConfig = {
     icon: RiMedalFill,
     label: "Rare",
     bgGlow: "from-blue-500/20 to-teal-500/20",
+  },
+  new: {
+    gradient: "from-pink-500 via-pink-400 to-pink-400",
+    shadow: "shadow-pink-500/20",
+    border: "border-pink-400/20",
+    icon: FaChild,
+    label: "New",
+    bgGlow: "from-pink-400/20 via-pink-300/20 to-pink-400/20",
   },
 };
 export const achievements = [

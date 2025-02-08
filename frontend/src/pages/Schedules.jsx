@@ -11,6 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import MagicLoader from "../components/ui/MagicLoader.jsx";
 import { api } from "./Home.jsx";
 const Schedules = () => {
   const [selectedDate, setSelectedDate] = useQueryState("date", {
@@ -96,26 +97,26 @@ const Schedules = () => {
   }, [selectedDate, refetch]);
 
   return (
-    <div className="w-full min-h-screen bg-background/95">
+    <div className="bg-background/95 min-h-screen w-full">
       {/* Decorative Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-primary/3 rounded-full blur-3xl"></div>
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="bg-primary/5 absolute -top-1/2 -right-1/2 h-full w-full rounded-full blur-3xl"></div>
+        <div className="bg-primary/3 absolute -bottom-1/2 -left-1/2 h-full w-full rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative w-full  mx-auto px-4 py-8">
+      <div className="relative mx-auto w-full px-4 py-8">
         {/* Header */}
         <div className="mb-8 flex items-center space-x-4">
-          <h1 className="text-2xl md:text-3xl font-outfit font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
+          <h1 className="font-outfit from-text/90 to-text/60 bg-linear-to-r bg-clip-text text-2xl font-bold text-transparent md:text-3xl">
             Airing Schedule
           </h1>
-          <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
+          <div className="from-primary/20 h-[1px] flex-1 bg-linear-to-r to-transparent"></div>
           <div className="flex items-center gap-2">
-            <button className="w-8 h-8 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300 flex items-center justify-center date-prev">
-              <IoIosArrowRoundBack className="w-5 h-5" />
+            <button className="text-text/90 date-prev flex h-8 w-8 items-center justify-center rounded-xl border border-white/[0.05] bg-white/[0.02] transition-all duration-300 hover:bg-white/[0.04]">
+              <IoIosArrowRoundBack className="h-5 w-5" />
             </button>
-            <button className="w-8 h-8 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300 flex items-center justify-center date-next">
-              <IoIosArrowRoundForward className="w-5 h-5" />
+            <button className="text-text/90 date-next flex h-8 w-8 items-center justify-center rounded-xl border border-white/[0.05] bg-white/[0.02] transition-all duration-300 hover:bg-white/[0.04]">
+              <IoIosArrowRoundForward className="h-5 w-5" />
             </button>
           </div>
         </div>
@@ -138,34 +139,31 @@ const Schedules = () => {
                 <SwiperSlide key={i} className="w-auto!">
                   <div
                     onClick={() => setSelectedDate(fullDate)}
-                    className={`relative  cursor-pointer group w-24 h-32 flex flex-col  active:cursor-grabbing justify-center items-center rounded-2xl 
-                      bg-white/[0.02] border border-white/[0.05] hover:border-primary/50 transition-all duration-300 overflow-hidden
-                      ${
-                        selectedDate === fullDate
-                          ? "bg-linear-to-br from-primary/20 via-transparent to-transparent border-primary/30"
-                          : ""
-                      }`}
+                    className={`group hover:border-primary/50 relative flex h-32 w-24 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/[0.05] bg-white/[0.02] transition-all duration-300 active:cursor-grabbing ${
+                      selectedDate === fullDate
+                        ? "from-primary/20 border-primary/30 bg-linear-to-br via-transparent to-transparent"
+                        : ""
+                    }`}
                   >
                     {/* Background decoration */}
-                    <div className="absolute inset-0 bg-linear-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-linear-to-b from-white/[0.02] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                     {/* Content */}
                     <div className="relative flex flex-col items-center gap-2">
-                      <div className="text-sm font-outfit text-text/50 group-hover:text-primary/70 transition-colors duration-300">
+                      <div className="font-outfit text-text/50 group-hover:text-primary/70 text-sm transition-colors duration-300">
                         {dayName}
                       </div>
-                      <div className="text-2xl font-outfit font-bold bg-linear-to-r from-text/90 to-text/70 group-hover:from-primary group-hover:to-primary/70 bg-clip-text text-transparent transition-all duration-300">
+                      <div className="font-outfit from-text/90 to-text/70 group-hover:from-primary group-hover:to-primary/70 bg-linear-to-r bg-clip-text text-2xl font-bold text-transparent transition-all duration-300">
                         {date}
                       </div>
-                      <div className="text-sm font-outfit text-text/30 group-hover:text-primary/50 transition-colors duration-300">
+                      <div className="font-outfit text-text/30 group-hover:text-primary/50 text-sm transition-colors duration-300">
                         {month}
                       </div>
                     </div>
 
                     {/* Active indicator dot */}
                     <div
-                      className={`absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 
-                      ${
+                      className={`absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full transition-all duration-300 ${
                         selectedDate === fullDate
                           ? "bg-primary scale-100"
                           : "bg-text/30 scale-0 group-hover:scale-100"
@@ -181,25 +179,25 @@ const Schedules = () => {
         {/* Schedule Content */}
         <div className="relative">
           <div className="mb-6 flex items-center space-x-4">
-            <h2 className="text-xl font-outfit font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
+            <h2 className="font-outfit from-text/90 to-text/60 bg-linear-to-r bg-clip-text text-xl font-bold text-transparent">
               {selectedDate && `Schedule for ${selectedDate}`}
             </h2>
-            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
+            <div className="from-primary/20 h-[1px] flex-1 bg-linear-to-r to-transparent"></div>
           </div>
 
           {isLoading ? (
-            <div className="w-full flex justify-center items-center py-12">
-              <span className="loading loading-ring loading-lg"></span>
+            <div className="flex w-full items-center justify-center py-12">
+              <MagicLoader />
             </div>
           ) : isError ? (
-            <div className="w-full text-center py-12 text-text/70">
+            <div className="text-text/70 w-full py-12 text-center">
               Failed to load schedule
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {data?.data?.data?.scheduledAnimes &&
                 data?.data?.data?.scheduledAnimes.length === 0 && (
-                  <div className="w-full text-center py-12 text-text/70">
+                  <div className="text-text/70 w-full py-12 text-center">
                     No scheduled animes
                   </div>
                 )}
@@ -224,26 +222,26 @@ const Schedules = () => {
                   >
                     <div
                       key={anime.id}
-                      className="group relative overflow-hidden rounded-2xl bg-white/[0.02] border border-white/[0.05] hover:border-primary/50 transition-all duration-300"
+                      className="group hover:border-primary/50 relative overflow-hidden rounded-2xl border border-white/[0.05] bg-white/[0.02] transition-all duration-300"
                     >
                       {/* Time indicator */}
-                      <div className="absolute top-3 right-3 px-3 py-1.5 rounded-xl bg-background/80 backdrop-blur-xs border border-white/[0.05] text-sm font-outfit text-text/90">
+                      <div className="bg-background/80 font-outfit text-text/90 absolute top-3 right-3 rounded-xl border border-white/[0.05] px-3 py-1.5 text-sm backdrop-blur-xs">
                         {timeString}
                       </div>
 
                       <div className="p-5">
                         <div className="space-y-3">
-                          <h3 className="text-lg w-[73%] font-semibold font-outfit text-text/90 line-clamp-2">
+                          <h3 className="font-outfit text-text/90 line-clamp-2 w-[73%] text-lg font-semibold">
                             {anime.name}
                           </h3>
-                          <p className="text-sm font-outfit text-text/50 line-clamp-1">
+                          <p className="font-outfit text-text/50 line-clamp-1 text-sm">
                             {anime.jname}
                           </p>
 
                           <div className="flex items-center gap-2">
                             <div className="flex items-center gap-1.5">
-                              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                              <span className="text-sm font-outfit text-text/70">
+                              <div className="bg-primary h-2 w-2 animate-pulse rounded-full" />
+                              <span className="font-outfit text-text/70 text-sm">
                                 {formatTimeLeft(anime.secondsUntilAiring)}
                               </span>
                             </div>
@@ -252,7 +250,7 @@ const Schedules = () => {
                       </div>
 
                       {/* Hover effect overlay */}
-                      <div className="absolute inset-0 bg-linear-to-t from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="from-primary/10 absolute inset-0 bg-linear-to-t via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     </div>
                   </motion.div>
                 );

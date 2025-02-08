@@ -30,43 +30,43 @@ const AchievementCard = ({
         opacity: { duration: 0.2 },
       }}
       onClick={onClick}
-      className={`relative group font-outfit cursor-pointer bg-linear-to-br from-secondary/40 to-secondary/20 rounded-2xl p-6 border ${config.border} ${config.shadow} backdrop-blur-xl overflow-hidden`}
+      className={`group font-outfit from-secondary/40 to-secondary/20 relative cursor-pointer rounded-2xl border bg-linear-to-br p-6 ${config.border} ${config.shadow} w-120 overflow-hidden backdrop-blur-xl`}
     >
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-linear-to-br opacity-[0.03] group-hover:opacity-[0.05] transition-opacity" />
+      <div className="absolute inset-0 bg-linear-to-br opacity-[0.03] transition-opacity group-hover:opacity-[0.05]" />
       <div
-        className={`absolute -top-24 -right-24 w-48 h-48 bg-linear-to-br ${config.gradient} blur-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-500`}
+        className={`absolute -top-24 -right-24 h-48 w-48 bg-linear-to-br ${config.gradient} opacity-10 blur-3xl transition-opacity duration-500 group-hover:opacity-20`}
       />
       <div
-        className={`absolute inset-0 bg-linear-to-br ${config.bgGlow} opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-2xl`}
+        className={`absolute inset-0 bg-linear-to-br ${config.bgGlow} rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-30`}
       />
 
       {/* Rarity Badge */}
       <div
-        className={`absolute top-4 right-4 px-3 py-1.5 rounded-full bg-linear-to-r ${config.gradient} text-white text-xs font-medium flex items-center gap-1.5 shadow-lg ${config.shadow}`}
+        className={`absolute top-4 right-4 rounded-full bg-linear-to-r px-3 py-1.5 ${config.gradient} flex items-center gap-1.5 text-xs font-medium text-white shadow-lg ${config.shadow}`}
       >
         <config.icon className="text-sm" />
         <span>{config.label}</span>
       </div>
 
       {/* Icon and Title */}
-      <div className="flex items-start gap-4 mb-4 relative z-10">
+      <div className="relative z-10 mb-4 flex items-start gap-4">
         <div
-          className={`relative shrink-0 w-14 h-14 rounded-xl bg-linear-to-br ${config.gradient} p-[1px] overflow-hidden group-hover:shadow-lg transition-shadow duration-300 ${config.shadow}`}
+          className={`relative h-14 w-14 shrink-0 rounded-xl bg-linear-to-br ${config.gradient} overflow-hidden p-[1px] transition-shadow duration-300 group-hover:shadow-lg ${config.shadow}`}
         >
-          <div className="w-full h-full rounded-xl bg-[#0F0F0F] flex items-center justify-center relative overflow-hidden">
+          <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-xl bg-[#0F0F0F]">
             {isLocked ? (
               <FiLock className="text-2xl text-white/50" />
             ) : (
               <Icon className="text-2xl text-white" />
             )}
             {/* Shine Effect */}
-            <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+            <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 group-hover:translate-x-full" />
           </div>
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold bg-clip-text text-transparent bg-linear-to-r from-white to-white/80 mb-1">
+          <h3 className="mb-1 bg-linear-to-r from-white to-white/80 bg-clip-text text-lg font-semibold text-transparent">
             {title}
           </h3>
           <p className="text-sm text-gray-400/80">{description}</p>
@@ -74,7 +74,7 @@ const AchievementCard = ({
       </div>
 
       {/* Progress Bar */}
-      <div className="relative h-2.5 bg-[#1A1A1A] rounded-full overflow-hidden mb-3">
+      <div className="relative mb-3 h-2.5 overflow-hidden rounded-full bg-[#1A1A1A]">
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
@@ -84,7 +84,7 @@ const AchievementCard = ({
       </div>
 
       {/* Progress Text and Unlock Date */}
-      <div className="flex justify-between items-center text-sm">
+      <div className="flex items-center justify-between text-sm">
         <span className="text-gray-400">
           {isLocked ? `${progress}% Complete` : "Unlocked"}
         </span>
@@ -95,7 +95,7 @@ const AchievementCard = ({
 
       {/* Reward Section */}
       {reward && (
-        <div className="mt-4 pt-4 border-t border-white/5">
+        <div className="mt-4 border-t border-white/5 pt-4">
           <div className="flex items-center gap-2 text-sm">
             <span className="text-gray-400">Reward:</span>
             <span className="text-white/90">{reward}</span>

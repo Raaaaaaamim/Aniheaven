@@ -1,19 +1,20 @@
 import { FaRegHeart } from "react-icons/fa";
 import { FiHome } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
-import { MdLogout, MdOutlineCategory } from "react-icons/md";
+import { MdOutlineCategory } from "react-icons/md";
 import { RiCalendarScheduleLine, RiListOrdered2 } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import img1 from "../../assets/textLogo.svg";
 import sidebarAtom from "../../store/atoms/sidebarAtom.js";
+import LogoutButton from "../auth/LogoutButton.jsx";
 import Button from "./Button.jsx";
 
 const SidebarContent = () => {
   const setOpen = useSetRecoilState(sidebarAtom);
 
   return (
-    <div className="flex flex-col h-full w-full font-outfit">
+    <div className="font-outfit flex h-full w-full flex-col">
       {/* Logo Section */}
       <div className="px-6 pt-8 pb-4">
         <Link to="/home" className="block w-fit" onClick={() => setOpen(false)}>
@@ -22,10 +23,10 @@ const SidebarContent = () => {
       </div>
 
       {/* Navigation */}
-      <div className="flex-1 px-3 py-6 space-y-6 overflow-y-auto scrollbar-none">
+      <div className="scrollbar-none flex-1 space-y-6 overflow-y-auto px-3 py-6">
         {/* Options Section */}
         <div className="space-y-1">
-          <h3 className="px-4 mb-2 text-sm font-semibold text-text/50">
+          <h3 className="text-text/50 mb-2 px-4 text-sm font-semibold">
             Options
           </h3>
           <Link to="/home" onClick={() => setOpen(false)}>
@@ -41,7 +42,7 @@ const SidebarContent = () => {
 
         {/* Extras Section */}
         <div className="space-y-1">
-          <h3 className="px-4 mb-2 text-sm font-semibold text-text/50">
+          <h3 className="text-text/50 mb-2 px-4 text-sm font-semibold">
             Extras
           </h3>
           <Link to="/category?name=movie" onClick={() => setOpen(false)}>
@@ -58,9 +59,7 @@ const SidebarContent = () => {
 
       {/* Logout Button */}
       <div className="px-3 pb-6">
-        <div onClick={() => setOpen(false)}>
-          <Button Icon={MdLogout}>Logout</Button>
-        </div>
+        <LogoutButton setOpen={setOpen} />
       </div>
     </div>
   );

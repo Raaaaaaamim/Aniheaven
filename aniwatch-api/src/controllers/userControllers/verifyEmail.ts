@@ -1,6 +1,6 @@
 import type { Context } from "hono";
 import { sendVerificationEmail, StatusCodes } from "../../features/utils.js";
-import type { UserType } from "../../types/user.js";
+import type { UserType } from "../../interfaces/user.js";
 const verifyEmail = async (c: Context) => {
   const body = await c.req.json();
   if (!body) {

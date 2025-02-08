@@ -8,8 +8,8 @@ import {
   validateEmail,
 } from "../../features/utils.js";
 
+import type { UserType } from "../../interfaces/user.js";
 import User from "../../models/user.js";
-import type { UserType } from "../../types/user.js";
 
 const signUp = async (c: Context): Promise<Response> => {
   const body = await c.req.json();
@@ -75,10 +75,16 @@ const signUp = async (c: Context): Promise<Response> => {
     email,
   });
   generateTokenAndSendCookie(c, newUser._id);
+
   return c.json(
     {
       success: true,
-      user: newUser,
+      user: {
+        ...newUser.toObject(),
+        password: "",
+        emailVerificationToken: undefined,
+        emailVerificationExpires: undefined,
+      },
     },
     StatusCodes.CREATED
   );

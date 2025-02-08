@@ -7,7 +7,7 @@ export interface continueWatchingType {
   name: string;
   poster: string;
   type?: string;
-  duration?: string;
+  duration?: number;
   jname: string;
   episodes: {
     sub: number;

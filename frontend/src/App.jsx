@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import Navigate from "./components/auth/Navigate.jsx";
 import Footer from "./components/layouts/Footer/Footer.jsx";
 import Navbar from "./components/layouts/Navbar/Navbar.jsx";
 import Sidebar from "./components/layouts/Sidebar/Sidebar.jsx";
@@ -20,24 +21,23 @@ import Search from "./pages/Search.jsx";
 // Lazy load components
 const Home = lazy(() => import("./pages/Home.jsx"));
 const WatchPage = lazy(() => import("./pages/WatchPage.jsx"));
-
 const router = createBrowserRouter([
   {
     element: (
-      <div className="w-full relative bg-background overflow-hidden min-h-screen">
+      <div className="bg-background relative min-h-screen w-full overflow-hidden">
         <div className="flex flex-col">
           <ScrollToTop />
           <Navbar />
           <div className="flex">
             <Sidebar />
-            <div className="w-full justify-center items-center flex lg:w-full xl:w-[82%]  lg:ml-auto min-h-screen">
-              <div className=" max-w-[1600px] w-full h-full ">
+            <div className="flex min-h-screen w-full items-center justify-center lg:ml-auto lg:w-full xl:w-[82%]">
+              <div className="h-full w-full max-w-[1600px]">
                 <Outlet />
               </div>
             </div>
           </div>
-          <div className="w-full   pt-20 justify-center items-center flex lg:w-full xl:w-[82%] lg:ml-auto   ">
-            <div className=" w-full h-full max-w-[1600px] ">
+          <div className="flex w-full items-center justify-center pt-20 lg:ml-auto lg:w-full xl:w-[82%]">
+            <div className="h-full w-full max-w-[1600px]">
               <Footer />
             </div>
           </div>
@@ -95,6 +95,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/auth",
+    element: <Navigate />,
     errorElement: <ErrorPage />,
   },
 ]);

@@ -1,22 +1,25 @@
 import type { Context } from "hono";
 import { StatusCodes } from "../../features/utils.js";
+import type { continueWatchingType } from "../../interfaces/continueWatching.js";
 import ContinueWatching from "../../models/continueWatching.js";
-import type { continueWatchingType } from "../../types/continueWatching.js";
 
 const addToContinueWatching = async (c: Context): Promise<Response | void> => {
   const body = await c.req.json();
-  if (!body) {
+  if (!body || !(body instanceof Object)) {
     return c.json(
-      { success: false, message: "Missing required fields" },
+      { success: false, message: "Invalid request body" },
       { status: StatusCodes.BAD_REQUEST }
     );
   }
-  if (!(body instanceof Object)) {
+
+  const user = c.get("USER");
+  if (!user || !user._id) {
     return c.json(
-      { success: false, message: "Invalid request" },
-      { status: StatusCodes.BAD_REQUEST }
+      { success: false, message: "User not authenticated" },
+      { status: StatusCodes.UNAUTHORIZED }
     );
   }
+
   const {
     HiAnimeId,
     name,
@@ -29,46 +32,53 @@ const addToContinueWatching = async (c: Context): Promise<Response | void> => {
     epNumber,
     link,
   }: continueWatchingType = body;
+
+  if (!HiAnimeId) {
+    return c.json(
+      { success: false, message: "HiAnime Id is required" },
+      { status: StatusCodes.BAD_REQUEST }
+    );
+  }
+
+  // Validate duration if provided
   if (
-    !HiAnimeId ||
-    !name ||
-    !poster ||
-    !type ||
-    !duration ||
-    !startFrom ||
-    !jname ||
-    !episodes ||
-    !epNumber ||
-    !link
+    (duration !== undefined && isNaN(Number(duration))) ||
+    (startFrom !== undefined && isNaN(Number(startFrom)))
   ) {
     return c.json(
-      { success: false, message: "Missing required fields" },
+      {
+        success: false,
+        message: "Duration and startFrom must be numbers",
+      },
       { status: StatusCodes.BAD_REQUEST }
     );
   }
-  if (!episodes.sub || !episodes.dub) {
-    return c.json(
-      { success: false, message: "Missing required fields" },
-      { status: StatusCodes.BAD_REQUEST }
-    );
-  }
-  const user = c.get("USER");
+
   const alreadyExists = await ContinueWatching.findOne({
-    $and: [{ HiAnimeId }, { author: user._id }],
+    HiAnimeId,
+    author: user._id,
   });
+
   if (alreadyExists) {
-    // update the existing continue watching
-    alreadyExists.epNumber = epNumber || alreadyExists.epNumber;
-    alreadyExists.link = link || alreadyExists.link;
-    alreadyExists.startFrom = startFrom || alreadyExists.startFrom;
-    alreadyExists.duration = duration || alreadyExists.duration;
+    // Update existing continue watching
+    const updates: Partial<continueWatchingType> = {};
+
+    if (epNumber !== undefined) updates.epNumber = epNumber;
+    if (link !== undefined) updates.link = link;
+    if (startFrom !== undefined) updates.startFrom = startFrom;
+    if (duration !== undefined) updates.duration = Number(duration);
+
+    Object.assign(alreadyExists, updates);
     await alreadyExists.save();
+
     return c.json(
       { success: true, message: "Continue watching updated" },
       { status: StatusCodes.OK }
     );
   }
-  const newContinueWatching = await ContinueWatching.create({
+
+  // For new entries, validate all required fields
+  const requiredFields = {
     HiAnimeId,
     name,
     poster,
@@ -77,15 +87,73 @@ const addToContinueWatching = async (c: Context): Promise<Response | void> => {
     startFrom,
     jname,
     episodes,
+    epNumber,
+    link,
+  };
+
+  const missingFields = Object.entries(requiredFields)
+    .filter(([_, value]) => !value)
+    .map(([key]) => key);
+
+  if (missingFields.length > 0) {
+    return c.json(
+      {
+        success: false,
+        message: `Missing required fields: ${missingFields.join(", ")}`,
+      },
+      { status: StatusCodes.BAD_REQUEST }
+    );
+  }
+
+  if (!episodes.sub || !episodes.dub) {
+    return c.json(
+      {
+        success: false,
+        message: "Missing required episode counts for sub and dub",
+      },
+      { status: StatusCodes.BAD_REQUEST }
+    );
+  }
+
+  if (isNaN(Number(episodes.sub)) || isNaN(Number(episodes.dub))) {
+    return c.json(
+      {
+        success: false,
+        message: "Episode counts must be numbers",
+      },
+      { status: StatusCodes.BAD_REQUEST }
+    );
+  }
+
+  // Create new continue watching entry
+  const newContinueWatching = await ContinueWatching.create({
+    HiAnimeId,
+    author: user._id,
+    name,
+    poster,
+    type,
+    duration: Number(duration),
+    startFrom,
+    jname,
+    episodes: {
+      sub: Number(episodes.sub),
+      dub: Number(episodes.dub),
+    },
+    epNumber,
     link,
   });
 
-  const continueWatchingId = newContinueWatching._id;
-  user.continueWatching.push(continueWatchingId);
+  // Add to user's continue watching list
+  user.continueWatching.push(newContinueWatching._id);
   await user.save();
+
   return c.json(
-    { success: true, message: "Anime added to continue watching" },
-    { status: StatusCodes.OK }
+    {
+      success: true,
+      message: "Added to continue watching",
+      data: newContinueWatching,
+    },
+    { status: StatusCodes.CREATED }
   );
 };
 

@@ -2,57 +2,50 @@ import React from "react";
 
 const WatchPageSuspense = () => {
   return (
-    <div className="overflow-hidden justify-self-start w-full min-h-screen flex justify-center items-start">
-      <div className="overflow-hidden mb-4 flex flex-col w-[98%] gap-3 h-full rounded-xl">
+    <div className="flex min-h-screen w-full items-start justify-center justify-self-start overflow-hidden">
+      <div className="mb-4 flex h-full w-[98%] flex-col gap-3 overflow-hidden rounded-xl">
         {/* Video Player Skeleton */}
-        <div className="overflow-hidden aspect-video rounded-2xl bg-[#1f1f1f] animate-pulse flex items-center justify-center">
-          <div className="w-32 h-32 rounded-full bg-border/20 animate-pulse"></div>
+        <div className="flex aspect-video animate-pulse items-center justify-center overflow-hidden rounded-2xl bg-[#1f1f1f]">
+          <div className="bg-border/20 h-40 w-40 animate-pulse rounded-2xl"></div>
         </div>
 
         {/* Controls Section */}
-        <div className="overflow-hidden font-poppins w-full flex h-[6.5rem] bg-[#151515] rounded-xl">
+        <div className="font-poppins flex h-[6.5rem] w-full overflow-hidden rounded-xl bg-[#151515]">
           {/* Left Section - Stats */}
-          <div className="w-[40%] hidden justify-center items-start lg:flex lg:flex-col h-full border-r-[2px] gap-2 border-border">
-            <div className="flex self-start ml-4 justify-center items-center gap-2">
+          <div className="border-border hidden h-full w-[40%] items-start justify-center gap-2 border-r-[2px] lg:flex lg:flex-col">
+            <div className="ml-4 flex items-center justify-center gap-2 self-start">
               {/* Rating Skeleton */}
-              <div className="flex font-semibold mt-2 gap-1 justify-center items-center">
-                <div className="w-4 h-4 rounded-xs bg-primary/20 animate-pulse"></div>
-                <div className="w-16 h-4 rounded-md bg-border animate-pulse"></div>
-              </div>
-              {/* Duration Skeleton */}
-              <div className="flex font-semibold mt-2 gap-1 justify-center items-center">
-                <div className="w-4 h-4 rounded-xs bg-primary/20 animate-pulse"></div>
-                <div className="w-8 h-4 rounded-md bg-border animate-pulse"></div>
+              <div className="mt-2 flex items-center justify-center gap-1 font-semibold">
+                <div className="bg-primary/20 h-4 w-4 animate-pulse rounded-xs"></div>
+                <div className="bg-border h-4 w-16 animate-pulse rounded-md"></div>
               </div>
             </div>
-            {/* Info Text Skeleton */}
-            <div className="ml-4 w-[70%] h-3 rounded-md bg-border animate-pulse"></div>
           </div>
 
           {/* Right Section - Server Options */}
-          <div className="lg:w-[70%] w-full h-full gap-0 flex flex-col">
+          <div className="flex h-full w-full flex-col gap-0 lg:w-[70%]">
             {/* Sub Section */}
-            <div className="w-full h-[50%] border-b-2 border-b-border items-center flex justify-start gap-3">
-              <div className="ml-3 w-5 h-5 rounded-xs bg-border animate-pulse"></div>
+            <div className="border-b-border flex h-[50%] w-full items-center justify-start gap-3 border-b-2">
+              <div className="bg-border ml-3 h-5 w-5 animate-pulse rounded-xs"></div>
               {Array(4)
                 .fill(0)
                 .map((_, i) => (
                   <div
                     key={i}
-                    className="w-24 h-9 lg:w-28 rounded-xl bg-border animate-pulse"
+                    className="bg-border h-9 w-24 animate-pulse rounded-xl lg:w-28"
                   ></div>
                 ))}
             </div>
 
             {/* Dub Section */}
-            <div className="w-full items-center flex justify-start gap-3 h-[50%]">
-              <div className="ml-3 w-5 h-5 rounded-xs bg-border animate-pulse"></div>
+            <div className="flex h-[50%] w-full items-center justify-start gap-3">
+              <div className="bg-border ml-3 h-5 w-5 animate-pulse rounded-xs"></div>
               {Array(4)
                 .fill(0)
                 .map((_, i) => (
                   <div
                     key={i}
-                    className="w-24 h-9 lg:w-28 rounded-xl bg-border animate-pulse"
+                    className="bg-border h-9 w-24 animate-pulse rounded-xl lg:w-28"
                   ></div>
                 ))}
             </div>
@@ -63,12 +56,12 @@ const WatchPageSuspense = () => {
         <div className="w-full rounded-xl bg-[#151515] p-4">
           <div className="flex flex-col gap-4">
             {/* Section Dropdown Skeleton */}
-            <div className="px-2  ">
-              <div className="w-[180px] h-8 rounded-xl bg-border animate-pulse"></div>
+            <div className="px-2">
+              <div className="bg-border h-8 w-[180px] animate-pulse rounded-xl"></div>
             </div>
 
             {/* Episodes Grid */}
-            <div className="flex-wrap rounded-xl bg-border animate-pulse px-2 gap-2 h-[200px] flex justify-center items-center"></div>
+            <div className="bg-border flex h-[200px] animate-pulse flex-wrap items-center justify-center gap-2 rounded-xl px-2"></div>
           </div>
         </div>
       </div>

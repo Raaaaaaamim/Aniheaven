@@ -1,4 +1,4 @@
-import type { User } from "../types/user.js";
+import type { User } from "../interfaces/user.js";
 
 type CacheVariables = {
   CACHE_CONFIG: {

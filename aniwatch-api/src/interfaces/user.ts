@@ -6,6 +6,7 @@ export interface UserType {
   username: string;
   email: string;
   name: string;
+  bio: string;
   profilePicture: string;
   emailVerified: boolean;
   emailVerificationToken: number | undefined;
@@ -18,6 +19,7 @@ export interface UserType {
     theChosenOne: boolean;
     beyondHuman: boolean;
   };
+  watchlist: mongoose.Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
   save: () => Promise<UserType>;

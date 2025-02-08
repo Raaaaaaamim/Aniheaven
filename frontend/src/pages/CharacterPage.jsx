@@ -31,9 +31,9 @@ import {
   characterFieldIcons,
   parseAnimeCharacterData,
 } from "../../lib/utils.js";
+import TabButton from "../components/profile/TabButton.jsx";
 import CharacterPageSkeleton from "../components/skeletons/CharacterPageSkeleton";
 import CharacterInfoCard from "../components/ui/CharacterInfoCard.jsx";
-import TabButton from "../components/ui/TabButton.jsx";
 
 const iconComponents = {
   FaBirthdayCake,
@@ -74,63 +74,63 @@ const CharacterPage = () => {
   }
 
   return (
-    <div className="w-full min-h-screen font-outfit  bg-background">
+    <div className="font-outfit bg-background min-h-screen w-full">
       {/* Hero Section */}
-      <div className="relative mt-10 w-full min-h-[50vh] md:h-[60vh]">
+      <div className="relative mt-10 min-h-[50vh] w-full md:h-[60vh]">
         {/* Background Image with Gradient */}
         <div className="absolute inset-0">
           <img
             src={character?.images?.webp?.image_url}
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
             alt={character?.name}
           />
-          <div className="absolute inset-0 bg-linear-to-t from-background via-background/95 to-transparent backdrop-blur-xs" />
-          <div className="absolute inset-0 mask backdrop-blur-xs" />
-          <div className="absolute inset-0 bg-linear-to-t from-background via-background/20 to-transparent" />
+          <div className="from-background via-background/95 absolute inset-0 bg-linear-to-t to-transparent backdrop-blur-xs" />
+          <div className="mask absolute inset-0 backdrop-blur-xs" />
+          <div className="from-background via-background/20 absolute inset-0 bg-linear-to-t to-transparent" />
         </div>
 
         {/* Content */}
-        <div className="relative md:-top-[25px] xl:-top-10 -top-20 container mx-auto px-4 h-full flex items-center">
-          <div className="flex flex-col md:flex-row items-center md:items-end gap-6 md:gap-8 w-full h-full pb-8">
+        <div className="relative -top-20 container mx-auto flex h-full items-center px-4 md:-top-[25px] xl:-top-10">
+          <div className="flex h-full w-full flex-col items-center gap-6 pb-8 md:flex-row md:items-end md:gap-8">
             {/* Left Side - Character Image */}
-            <div className="w-[200px] sm:w-[240px] md:w-[280px] shrink-0 mx-auto md:mx-0 mt-4">
+            <div className="mx-auto mt-4 w-[200px] shrink-0 sm:w-[240px] md:mx-0 md:w-[280px]">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="relative group"
+                className="group relative"
               >
-                <div className="absolute bg-linear-to-r rounded-2xl opacity-75 blur-xs group-hover:opacity-100 transition-all duration-300" />
-                <div className="relative aspect-3/4 rounded-xl overflow-hidden">
+                <div className="absolute rounded-2xl bg-linear-to-r opacity-75 blur-xs transition-all duration-300 group-hover:opacity-100" />
+                <div className="relative aspect-3/4 overflow-hidden rounded-xl">
                   <img
                     src={character?.images?.webp?.image_url}
                     alt={character?.name}
-                    className="w-full h-full rounded-2xl scale-90 object-cover"
+                    className="h-full w-full scale-90 rounded-2xl object-cover"
                   />
                 </div>
               </motion.div>
             </div>
 
             {/* Right Side - Character Info */}
-            <div className="flex-1 text-white text-center md:text-left  mb-5 mt-0">
+            <div className="mt-0 mb-5 flex-1 text-center text-white md:text-left">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
                 className="space-y-3 md:space-y-4"
               >
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-outfit bg-clip-text text-transparent bg-linear-to-r from-text/90 to-text/60">
+                <h1 className="font-outfit from-text/90 to-text/60 bg-linear-to-r bg-clip-text text-3xl font-bold text-transparent sm:text-4xl md:text-5xl">
                   {character?.name}
                 </h1>
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-4">
+                <div className="flex flex-col items-center gap-2 md:flex-row md:items-start md:gap-4">
                   {character?.name_kanji && (
-                    <h2 className="text-xl md:text-2xl text-white/70 font-outfit">
+                    <h2 className="font-outfit text-xl text-white/70 md:text-2xl">
                       {character?.name_kanji}
                     </h2>
                   )}
                   {character?.favorites > 0 && (
-                    <div className="flex items-center gap-2 bg-white/5 backdrop-blur-xs px-3 py-1.5 rounded-full border border-white/10">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                    <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 backdrop-blur-xs">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" />
                       <span className="text-sm font-medium text-white/90">
                         {character?.favorites?.toLocaleString()} Favorites
                       </span>
@@ -140,11 +140,11 @@ const CharacterPage = () => {
 
                 {/* Nicknames */}
                 {character?.nicknames?.length > 0 && (
-                  <div className="flex flex-wrap justify-center md:justify-start gap-2 px-2 md:px-0">
+                  <div className="flex flex-wrap justify-center gap-2 px-2 md:justify-start md:px-0">
                     {character.nicknames.map((nickname, index) => (
                       <span
                         key={index}
-                        className="px-2 md:px-3 py-1 text-xs md:text-sm bg-primary/20 backdrop-blur-xs rounded-full border border-primary/20 text-primary"
+                        className="bg-primary/20 border-primary/20 text-primary rounded-full border px-2 py-1 text-xs backdrop-blur-xs md:px-3 md:text-sm"
                       >
                         {nickname}
                       </span>
@@ -158,9 +158,9 @@ const CharacterPage = () => {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="sticky top-0 z-30 bg-background/80 backdrop-blur-md border-b border-white/10">
+      <div className="bg-background/80 sticky top-0 z-30 border-b border-white/10 backdrop-blur-md">
         <div className="container mx-auto px-2 md:px-4">
-          <div className="flex gap-4 md:gap-6 overflow-x-auto no-scrollbar">
+          <div className="no-scrollbar flex gap-4 overflow-x-auto md:gap-6">
             <TabButton
               active={activeTab === "about"}
               onClick={() => setActiveTab("about")}
@@ -200,7 +200,7 @@ const CharacterPage = () => {
             transition={{ duration: 0.3 }}
           >
             {activeTab === "about" && (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
                 {/* Character Stats */}
                 {Object.entries(characterData).map(([key, value], index) => {
                   if (key === "Story") return null;
@@ -218,17 +218,17 @@ const CharacterPage = () => {
                         delay: index * 0.05,
                         ease: "backOut",
                       }}
-                      className="bg-white/[0.02] border border-white/[0.05] backdrop-blur-xs rounded-xl p-4"
+                      className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4 backdrop-blur-xs"
                     >
                       <div className="flex items-start gap-3">
-                        <div className="p-2.5 bg-white/[0.02] rounded-lg">
-                          <IconComponent className="w-5 h-5 text-primary" />
+                        <div className="rounded-lg bg-white/[0.02] p-2.5">
+                          <IconComponent className="text-primary h-5 w-5" />
                         </div>
                         <div className="flex-1">
-                          <h3 className="text-base font-medium text-white/90 mb-1">
+                          <h3 className="mb-1 text-base font-medium text-white/90">
                             {key}
                           </h3>
-                          <p className="text-white/60 text-sm">{value}</p>
+                          <p className="text-sm text-white/60">{value}</p>
                         </div>
                       </div>
                     </motion.div>
@@ -247,9 +247,9 @@ const CharacterPage = () => {
                       delay: 0.2 + index * 0.1,
                     }}
                   >
-                    <div className="flex items-center  gap-3 mb-2">
-                      <div className="p-2.5 bg-white/[0.02] rounded-lg">
-                        <FaQuoteLeft className="w-5 h-5 text-primary" />
+                    <div className="mb-2 flex items-center gap-3">
+                      <div className="rounded-lg bg-white/[0.02] p-2.5">
+                        <FaQuoteLeft className="text-primary h-5 w-5" />
                       </div>
                       <div>
                         <h3 className="text-base font-medium text-white/90">
@@ -257,8 +257,8 @@ const CharacterPage = () => {
                         </h3>
                       </div>
                     </div>
-                    <div className="bg-white/[0.02] backdrop-blur-xs rounded-xl p-4 border border-white/[0.05]">
-                      <p className="text-white/80 text-sm leading-relaxed">
+                    <div className="rounded-xl border border-white/[0.05] bg-white/[0.02] p-4 backdrop-blur-xs">
+                      <p className="text-sm leading-relaxed text-white/80">
                         {paragraph
                           .trim()
                           .split("\n")
@@ -277,7 +277,7 @@ const CharacterPage = () => {
             )}
 
             {activeTab === "anime" && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
                 {character?.anime?.map((entry, index) => (
                   <CharacterInfoCard
                     key={entry.anime.mal_id}
@@ -291,7 +291,7 @@ const CharacterPage = () => {
             )}
 
             {activeTab === "manga" && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
                 {character?.manga?.map((entry, index) => (
                   <CharacterInfoCard
                     key={entry.manga.mal_id}
@@ -305,7 +305,7 @@ const CharacterPage = () => {
             )}
 
             {activeTab === "voices" && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
                 {character?.voices?.map((voice, index) => (
                   <CharacterInfoCard
                     key={voice.person.mal_id}

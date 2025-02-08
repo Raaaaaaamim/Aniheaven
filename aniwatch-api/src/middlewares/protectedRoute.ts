@@ -3,8 +3,8 @@ import { getCookie } from "hono/cookie";
 import jwt from "jsonwebtoken";
 import type mongoose from "mongoose";
 import { StatusCodes } from "../features/utils.js";
+import type { UserType } from "../interfaces/user.js";
 import User from "../models/user.js";
-import type { UserType } from "../types/user.js";
 const protectedRoute = async (
   c: Context,
   next: Next

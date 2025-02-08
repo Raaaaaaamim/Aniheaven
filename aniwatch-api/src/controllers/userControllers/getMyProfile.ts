@@ -1,6 +1,6 @@
 import type { Context } from "hono";
 import { StatusCodes } from "../../features/utils.js";
-import type { UserType } from "../../types/user.js";
+import type { UserType } from "../../interfaces/user.js";
 
 const getMyProfile = async (c: Context): Promise<Response> => {
   const user: UserType = c.get("USER");

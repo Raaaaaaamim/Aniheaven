@@ -6,7 +6,7 @@ import {
 } from "../../features/utils.js";
 import User from "../../models/user.js";
 const login = async (c: Context) => {
-  const { req, res } = c;
+  const { req } = c;
   // check if email or username is provided
   const body = await req.json();
   const { email, password } = body;
@@ -40,7 +40,16 @@ const login = async (c: Context) => {
   // generate token and send cookie
   generateTokenAndSendCookie(c, user._id);
   return c.json(
-    { success: true, message: "Login successful", user },
+    {
+      success: true,
+      message: "Login successful",
+      user: {
+        ...user.toObject(),
+        password: "",
+        emailVerificationToken: undefined,
+        emailVerificationExpires: undefined,
+      },
+    },
     StatusCodes.OK
   );
 };

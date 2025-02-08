@@ -2,8 +2,8 @@ import bcrypt from "bcrypt";
 import type { Context } from "hono";
 import cloudinary from "../../config/cloudinary.js";
 import { checkPasswordStrength, StatusCodes } from "../../features/utils.js";
+import type { UserType } from "../../interfaces/user.js";
 import User from "../../models/user.js";
-import type { UserType } from "../../types/user.js";
 const updateProfile = async (c: Context) => {
   const user: UserType = c.get("USER");
   let { name, profilePicture, username, password }: Partial<UserType> =

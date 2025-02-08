@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import getMyProfile from "../controllers/userControllers/getMyProfile.js";
 import getUser from "../controllers/userControllers/getUser.js";
 import login from "../controllers/userControllers/login.js";
+import logout from "../controllers/userControllers/logout.js";
 import signUp from "../controllers/userControllers/signup.js";
 import updateProfile from "../controllers/userControllers/updateProfile.js";
 import updateUserEmail from "../controllers/userControllers/updateUserEmail.js";
@@ -17,6 +18,8 @@ user.get("/profile", Wrapper(protectedRoute), Wrapper(getMyProfile));
 user.put("/profile", Wrapper(protectedRoute), Wrapper(updateProfile));
 user.put("/email", Wrapper(protectedRoute), Wrapper(updateUserEmail));
 user.post("/verify-email", Wrapper(protectedRoute), Wrapper(verifyEmail));
+user.get("/logout", Wrapper(logout));
+
 user.get("/:id", Wrapper(getUser));
 
 export default user;

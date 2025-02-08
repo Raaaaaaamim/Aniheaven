@@ -44,11 +44,11 @@ const WatchPage = () => {
   const { id } = useParams();
   const [selectedServer, setSelectedServer] = useQueryState(
     "server",
-    parseAsString.withDefault("hd-1")
+    parseAsString.withDefault("hd-1"),
   );
   const [selectedCategory, setSelectedCategory] = useQueryState(
     "category",
-    parseAsString.withDefault("sub")
+    parseAsString.withDefault("sub"),
   );
   const dropdownRef = useRef(null);
   const [selectedEpNumber, setSelectedEpNumber] =
@@ -73,11 +73,11 @@ const WatchPage = () => {
   // Episode selection state management
   const [selectedEpisode, setSelectedEpisode] = useQueryState(
     "ep",
-    parseAsString.withDefault(epData?.data?.data?.episodes?.[0]?.episodeId)
+    parseAsString.withDefault(epData?.data?.data?.episodes?.[0]?.episodeId),
   );
   const [currentSection, setCurrentSection] = useQueryState(
     "section",
-    parseAsString.withDefault("1")
+    parseAsString.withDefault("1"),
   );
   const [settings, setSettings] = useSettings();
 
@@ -93,7 +93,7 @@ const WatchPage = () => {
     queryFn: async () => {
       if (selectedEpisode) {
         return await axios.get(
-          `${api}/hianime/episode/servers?animeEpisodeId=${selectedEpisode}`
+          `${api}/hianime/episode/servers?animeEpisodeId=${selectedEpisode}`,
         );
       }
     },
@@ -115,7 +115,7 @@ const WatchPage = () => {
     queryKey: ["source", selectedEpisode, selectedServer, selectedCategory],
     queryFn: async () => {
       return await axios.get(
-        `${api}/hianime/episode/sources?animeEpisodeId=${selectedEpisode}&server=${selectedServer}&category=${selectedCategory}`
+        `${api}/hianime/episode/sources?animeEpisodeId=${selectedEpisode}&server=${selectedServer}&category=${selectedCategory}`,
       );
     },
     enabled: false,
@@ -143,7 +143,7 @@ const WatchPage = () => {
       selectedEpisode !== 0
     ) {
       setSelectedEpisode(
-        epData?.data?.data?.episodes?.[selectedEpNumber - 1]?.episodeId
+        epData?.data?.data?.episodes?.[selectedEpNumber - 1]?.episodeId,
       );
     }
   }, [selectedEpNumber]);
@@ -152,7 +152,7 @@ const WatchPage = () => {
     if (!selectedEpisode) return;
     if (episodeData) {
       const index = episodeData?.episodes?.findIndex(
-        (episode) => episode.episodeId === selectedEpisode
+        (episode) => episode.episodeId === selectedEpisode,
       );
       setSelectedEpNumber(index + 1);
     }
@@ -220,7 +220,7 @@ const WatchPage = () => {
     ]?.findIndex((server) => server.serverName === selectedServer);
     if (isCurrentServerAvailable === -1) {
       setSelectedServer(
-        serverData?.data?.data[selectedCategory][0]?.serverName
+        serverData?.data?.data[selectedCategory][0]?.serverName,
       );
     }
   }, [serverData, selectedServer, selectedCategory]);
@@ -324,23 +324,23 @@ const WatchPage = () => {
 
   // JSX Structure
   return (
-    <div className=" justify-self-start w-full min-h-screen flex justify-center items-start bg-transparent">
+    <div className="flex min-h-screen w-full items-start justify-center justify-self-start bg-transparent">
       {/* Focus mode overlay */}
       <div
         onClick={() => setFocus(false)}
         className={`w-full ${
           focus ? "fixed" : "hidden"
-        } h-full top-0 left-0 z-80 backdrop-blur-2xl`}
+        } top-0 left-0 z-80 h-full backdrop-blur-2xl`}
       ></div>
 
-      <div className="overflow-x-hidden mb-4 flex flex-col w-[98%] gap-4 min-h-full ">
+      <div className="mb-4 flex min-h-full w-[98%] flex-col gap-4 overflow-x-hidden">
         {/* Video Player Section */}
         <div
           className={` ${
             focus ? "z-90" : "z-0"
-          } overflow-hidden aspect-video rounded-3xl relative group`}
+          } group relative aspect-video overflow-hidden rounded-3xl`}
         >
-          <div className="absolute inset-0 opacity-100 group-hover:opacity-0 transition-all duration-500"></div>
+          <div className="absolute inset-0 opacity-100 transition-all duration-500 group-hover:opacity-0"></div>
           {!isServersLoading &&
           !isSourceError &&
           !isSourceLoading &&
@@ -356,13 +356,13 @@ const WatchPage = () => {
           ) : (
             <>
               {isSourceError && (
-                <div className="w-full h-full bg-[#0f0f0f] flex items-center justify-center">
+                <div className="flex h-full w-full items-center justify-center bg-[#0f0f0f]">
                   <ErrorCard error={sourceError?.message} />
                 </div>
               )}
               {isSourceLoading && (
-                <div className="w-full aspect-video bg-[#0f0f0f] flex items-center justify-center">
-                  <div className="backdrop-blur-xs bg-white/[0.02] p-8 rounded-3xl border border-white/[0.05]">
+                <div className="flex aspect-video w-full items-center justify-center bg-[#0f0f0f]">
+                  <div className="rounded-3xl border border-white/[0.05] bg-white/[0.02] p-8 backdrop-blur-xs">
                     <Lottie animationData={animationJSON} className="w-32" />
                   </div>
                 </div>
@@ -372,8 +372,8 @@ const WatchPage = () => {
         </div>
 
         {/* Video Controls Section */}
-        <div className="min-h-[6rem]  md:flex-row flex-col bg-secondaryBg rounded-3xl border-[1px] border-white/[0.05] text-secText flex justify-between items-center gap-0">
-          <div className="md:ml-6 gap-6 ml-0 flex md:w-[40%] w-full md:justify-start justify-evenly items-center h-full">
+        <div className="bg-secondaryBg text-secText flex min-h-[6rem] flex-col items-center justify-between gap-0 rounded-3xl border-[1px] border-white/[0.05] md:flex-row">
+          <div className="ml-0 flex h-full w-full items-center justify-evenly gap-6 md:ml-6 md:w-[40%] md:justify-start">
             {videoButtons.map((button, index) => (
               <VideoButton
                 key={index}
@@ -385,8 +385,8 @@ const WatchPage = () => {
               />
             ))}
           </div>
-          <div className="w-full h-[1px] md:hidden mt-2 flex bg-white/[0.02]"></div>
-          <div className="md:mr-6 gap-6 ml-0 flex md:w-[40%] w-full md:justify-end justify-evenly items-center h-full">
+          <div className="mt-2 flex h-[1px] w-full bg-white/[0.02] md:hidden"></div>
+          <div className="ml-0 flex h-full w-full items-center justify-evenly gap-6 md:mr-6 md:w-[40%] md:justify-end">
             {videoButtonsTwo.map((button, index) => (
               <VideoButton
                 key={index}
@@ -411,7 +411,7 @@ const WatchPage = () => {
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
-        <div className=" w-full  flex justify-between items-center ">
+        <div className="flex w-full items-center justify-between">
           {!isEpLoading &&
             !isEpError &&
             episodeData?.episodes?.length > 100 && (
@@ -424,7 +424,7 @@ const WatchPage = () => {
                       Episodes {(parseInt(currentSection) - 1) * 100 + 1} -{" "}
                       {Math.min(
                         parseInt(currentSection) * 100,
-                        episodeData.episodes.length
+                        episodeData.episodes.length,
                       )}
                     </span>
                   }
@@ -433,7 +433,7 @@ const WatchPage = () => {
                     .map((_, i) => ({
                       label: `Episodes ${i * 100 + 1} - ${Math.min(
                         (i + 1) * 100,
-                        episodeData.episodes.length
+                        episodeData.episodes.length,
                       )}`,
                       value: i + 1,
                     }))}
@@ -441,7 +441,7 @@ const WatchPage = () => {
                 />
               </div>
             )}
-          <div className="  self-end  ">
+          <div className="self-end">
             <SearchEpisode
               setSearchEpisode={setSearchEpisode}
               searchEpisode={searchEpisode}

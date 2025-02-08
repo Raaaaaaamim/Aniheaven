@@ -44,9 +44,10 @@ export const generateTokenAndSendCookie = (
 
   setCookie(c, "token", token, {
     httpOnly: true,
-    secure: false,
-    sameSite: "none",
-    expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    secure: process.env.NODE_ENV === "production", // Only use secure in production
+    sameSite: "lax", // Changed from 'none' to 'lax' for better compatibility
+    path: "/",
+    expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000), // 15 days
   });
 };
 

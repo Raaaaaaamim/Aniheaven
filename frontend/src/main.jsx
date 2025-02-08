@@ -17,7 +17,7 @@ createRoot(document.getElementById("root")).render(
         <Toaster />
         <Suspense
           fallback={
-            <div className=" w-full h-screen justify-center items-center flex ">
+            <div className="flex h-screen w-full items-center justify-center">
               <Loader size="lg" />
             </div>
           }
@@ -26,5 +26,5 @@ createRoot(document.getElementById("root")).render(
         </Suspense>
       </NuqsAdapter>
     </RecoilRoot>
-  </QueryClientProvider>
+  </QueryClientProvider>,
 );

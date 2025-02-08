@@ -1,7 +1,7 @@
 import type { Context } from "hono";
 import { StatusCodes, validateEmail } from "../../features/utils.js";
+import type { UserType } from "../../interfaces/user.js";
 import User from "../../models/user.js";
-import type { UserType } from "../../types/user.js";
 const updateUserEmail = async (c: Context) => {
   const body = await c.req.json();
   if (!body) {

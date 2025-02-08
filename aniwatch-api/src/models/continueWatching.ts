@@ -6,9 +6,14 @@ const continueWatchingSchema: mongoose.Schema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   name: { type: String, required: true },
   poster: { type: String, required: true },
-  duration: { type: String },
+  duration: { type: Number },
   jname: { type: String, required: true },
   type: { type: String },
   rating: { type: String },
@@ -18,6 +23,7 @@ const continueWatchingSchema: mongoose.Schema = new mongoose.Schema({
     dub: { type: Number, required: true },
   },
   startFrom: { type: Number },
+  epNumber: { type: Number },
 });
 
 export default mongoose.model("ContinueWatching", continueWatchingSchema);
