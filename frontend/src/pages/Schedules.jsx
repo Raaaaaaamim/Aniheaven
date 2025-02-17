@@ -12,7 +12,6 @@ import "swiper/css/pagination";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import MagicLoader from "../components/ui/MagicLoader.jsx";
-import { api } from "./Home.jsx";
 const Schedules = () => {
   const [selectedDate, setSelectedDate] = useQueryState("date", {
     defaultValue: new Date().toISOString().split("T")[0],
@@ -84,7 +83,7 @@ const Schedules = () => {
   const { data, isError, isLoading, refetch } = useQuery({
     queryKey: ["schedule", selectedDate],
     queryFn: async () => {
-      return await axios.get(`${api}/hianime/schedule?date=${selectedDate}`);
+      return await axios.get(`/hianime/schedule?date=${selectedDate}`);
     },
     enabled: false,
     cacheTime: 2 * 60 * 1000,

@@ -16,7 +16,7 @@ const TabButton = ({ active, onClick, icon, label, className }) => (
       />
     )}
 
-    <span className="relative z-10 text-base md:text-lg">{icon}</span>
+    <span className="relative z-10 text-xl md:text-lg">{icon}</span>
     <span className="relative z-10 hidden text-sm font-medium whitespace-nowrap md:block md:text-base">
       {label}
     </span>

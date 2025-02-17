@@ -1,6 +1,7 @@
 import type { Context } from "hono";
 import { StatusCodes } from "../../features/utils.js";
 import type { UserType } from "../../interfaces/user.js";
+import User from "../../models/user.js";
 import WatchlistAnime from "../../models/watchlistAnime.js";
 
 const addToWatchlist = async (c: Context) => {
@@ -30,36 +31,37 @@ const addToWatchlist = async (c: Context) => {
     );
   }
 
-  // Validate episodes structure
-  if (
-    !episodes ||
-    typeof episodes !== "object" ||
-    !episodes.sub ||
-    !episodes.dub
-  ) {
-    return c.json(
-      {
-        success: false,
-        message: "Episodes must include both sub and dub counts",
-      },
-      { status: StatusCodes.BAD_REQUEST }
-    );
-  }
-
   // Check if anime already exists in user's watchlist
-  const existingAnime = await WatchlistAnime.findOne({
-    HiAnimeId,
-    author: user._id,
+  const animeExists = await WatchlistAnime.exists({
+    $and: [{ HiAnimeId }, { author: user._id }],
   });
 
-  if (existingAnime) {
-    return c.json(
-      {
-        success: false,
-        message: "Anime already exists in your watchlist",
-      },
-      { status: StatusCodes.CONFLICT }
-    );
+  if (animeExists) {
+    const deletedAnime = await WatchlistAnime.findOneAndDelete({
+      $and: [{ HiAnimeId }, { author: user._id }],
+    });
+    if (deletedAnime) {
+      await User.findByIdAndUpdate(user.id, {
+        $pull: { watchlist: deletedAnime._id },
+      });
+      return c.json(
+        {
+          success: true,
+          message: "Anime removed from watchlist",
+          id: deletedAnime?.HiAnimeId,
+          removed: true,
+        },
+        { status: StatusCodes.OK }
+      );
+    } else {
+      return c.json(
+        {
+          success: false,
+          message: "Failed to remove anime from watchlist",
+        },
+        { status: StatusCodes.INTERNAL_SERVER_ERROR }
+      );
+    }
   }
 
   // Create new watchlist entry
@@ -72,12 +74,16 @@ const addToWatchlist = async (c: Context) => {
     episodes,
     author: user._id,
   });
-  user.watchlist.push(newWatchlistAnime._id);
-  await user.save();
+  await User.findByIdAndUpdate(user._id, {
+    $push: {
+      watchlist: newWatchlistAnime._id,
+    },
+  });
   return c.json(
     {
       success: true,
       message: "Anime added to watchlist successfully",
+      id: newWatchlistAnime.HiAnimeId,
     },
     { status: StatusCodes.CREATED }
   );

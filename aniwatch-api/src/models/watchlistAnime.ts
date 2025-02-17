@@ -10,8 +10,8 @@ const watchlistAnimeSchema: mongoose.Schema = new mongoose.Schema({
   jname: { type: String, required: true },
   type: { type: String },
   episodes: {
-    sub: { type: Number, required: true },
-    dub: { type: Number, required: true },
+    sub: { type: Number, default: 0 },
+    dub: { type: Number, default: 0 },
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,

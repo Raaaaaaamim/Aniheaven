@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import { MdLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { api } from "../../config.js";
 import { userAtom } from "../../store/index.js";
 import Button from "../ui/Button.jsx";
 
@@ -26,7 +25,7 @@ const LogoutButton = ({ setOpen }) => {
     }
     try {
       setIsLoading(true);
-      const res = await axios.get(`${api}/user/logout`);
+      const res = await axios.get(`/user/logout`);
       if (res.data.success) {
         localStorage.removeItem("user");
         localStorage.removeItem("token");

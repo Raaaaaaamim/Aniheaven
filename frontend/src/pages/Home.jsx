@@ -67,7 +67,7 @@ const Home = () => {
   } = useQuery({
     queryKey: ["home"],
     queryFn: async () => {
-      return await axios.get(`${api}/hianime/home`);
+      return await axios.get(`/hianime/home`);
     },
     staleTime: 1000 * 60 * 3, // 10 minutes cache
   });

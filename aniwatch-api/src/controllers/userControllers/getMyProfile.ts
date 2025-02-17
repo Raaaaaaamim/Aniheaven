@@ -11,7 +11,10 @@ const getMyProfile = async (c: Context): Promise<Response> => {
     );
   }
 
-  return c.json({ success: true, user });
+  return c.json({
+    success: true,
+    user: { ...user.toObject(), password: "", emailVerificationToken: 0 },
+  });
 };
 
 export default getMyProfile;

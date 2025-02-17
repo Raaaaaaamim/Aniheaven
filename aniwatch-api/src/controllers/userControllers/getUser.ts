@@ -15,7 +15,7 @@ const getUser = async (c: Context): Promise<Response | void> => {
 
   const user = await User.findOne({
     $or: [{ _id: isValid ? id : undefined }, { username: id }],
-  });
+  }).select("-watchlist -continueWatching -activity -notifications");
   if (!user) {
     return c.json(
       { success: false, message: "User not found" },

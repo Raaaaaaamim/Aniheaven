@@ -6,7 +6,6 @@ import { createPortal } from "react-dom";
 import { CiSearch } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
 import { Link } from "react-router-dom";
-import { api } from "../../services/api";
 
 const SearchModal = ({ isOpen, onClose }) => {
   const [value, setValue] = useState("");
@@ -15,7 +14,7 @@ const SearchModal = ({ isOpen, onClose }) => {
   const modalRef = useRef(null);
   const inputRef = useRef(null);
   const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
+    "(prefers-reduced-motion: reduce)",
   ).matches;
 
   const debouncedFetchAnime = useCallback(
@@ -28,7 +27,7 @@ const SearchModal = ({ isOpen, onClose }) => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          `${api}/hianime/search/suggestion?q=${query}`
+          `/hianime/search/suggestion?q=${query}`,
         );
         const searchResults = response?.data?.data || [];
         setResults(searchResults);
@@ -39,7 +38,7 @@ const SearchModal = ({ isOpen, onClose }) => {
         setIsLoading(false);
       }
     }, 200), // Reduced debounce time for better responsiveness
-    []
+    [],
   );
 
   const handleChange = (e) => {
@@ -99,31 +98,31 @@ const SearchModal = ({ isOpen, onClose }) => {
     <AnimatePresence mode="wait">
       <motion.div
         {...modalAnimation}
-        className="fixed inset-0  bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-hidden"
+        className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black/60 p-4 backdrop-blur-sm"
         onClick={handleClickOutside}
       >
         <motion.div
           ref={modalRef}
           {...contentAnimation}
-          className="bg-[#0f0f0f] rounded-3xl overflow-hidden w-full font-outfit border border-white/[0.05] p-6 relative max-w-3xl max-h-[85vh] flex  flex-col"
+          className="font-outfit relative flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-3xl border border-white/[0.05] bg-[#0f0f0f] p-6"
           style={{ transform: "translateZ(0)" }}
         >
-          <div className="flex flex-col gap-2 w-full pr-8 flex-shrink-0">
+          <div className="flex w-full flex-shrink-0 flex-col gap-2 pr-8">
             <motion.h1
               initial={false}
-              className="xl:text-3xl lg:text-xl text-lg font-bold bg-gradient-to-r from-text/90 to-transparent bg-clip-text text-transparent"
+              className="from-text/90 bg-gradient-to-r to-transparent bg-clip-text text-lg font-bold text-transparent lg:text-xl xl:text-3xl"
             >
               Search Anime
             </motion.h1>
             <Link
               onClick={onClose}
               to="/search"
-              className="text-sm text-white/50 hover:text-primary transition-all duration-300   flex items-center gap-2 group w-fit"
+              className="hover:text-primary group flex w-fit items-center gap-2 text-sm text-white/50 transition-all duration-300"
             >
               <span>Advanced filters</span>
               <motion.svg
                 whileHover={{ x: 4 }}
-                className="w-4 h-4"
+                className="h-4 w-4"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -139,27 +138,27 @@ const SearchModal = ({ isOpen, onClose }) => {
             </Link>
           </div>
 
-          <div className="relative w-full mt-4 flex-1 min-h-0">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-accent/5 to-primary/10 blur-2xl opacity-30 rounded-3xl" />
+          <div className="relative mt-4 min-h-0 w-full flex-1">
+            <div className="from-primary/10 via-accent/5 to-primary/10 absolute inset-0 rounded-3xl bg-gradient-to-r opacity-30 blur-2xl" />
             <motion.div
               initial={false}
-              className="bg-[#141414] border-white/[0.08] border rounded-2xl w-full h-full  relative overflow-x-hidden backdrop-blur-xs  max-h-[400px] flex-col overflow-y-auto "
+              className="relative h-full max-h-[400px] w-full flex-col overflow-x-hidden overflow-y-auto rounded-2xl border border-white/[0.08] bg-[#141414] backdrop-blur-xs"
               style={{ transform: "translateZ(0)" }}
             >
-              <div className="py-3 border-b border-white/[0.08] flex items-center gap-3 w-full px-6 flex-shrink-0">
-                <CiSearch className="text-xl min-w-[20px] text-white/50" />
+              <div className="flex w-full flex-shrink-0 items-center gap-3 border-b border-white/[0.08] px-6 py-3">
+                <CiSearch className="min-w-[20px] text-xl text-white/50" />
                 <input
                   ref={inputRef}
                   value={value}
                   onChange={handleChange}
-                  className="w-full text-base text-white/90 placeholder:text-white/30 focus:placeholder:text-white/50 outline-none transition-all duration-300 border-none bg-transparent"
+                  className="w-full border-none bg-transparent text-base text-white/90 transition-all duration-300 outline-none placeholder:text-white/30 focus:placeholder:text-white/50"
                   type="text"
                   placeholder="Search for your favorite anime..."
                 />
               </div>
 
-              <div className="w-full flex mb-3 overflow-y-auto  flex-col p-4 flex-1 min-h-0">
-                <span className="text-xs font-medium mb-3 text-white/50 flex-shrink-0">
+              <div className="mb-3 flex min-h-0 w-full flex-1 flex-col overflow-y-auto p-4">
+                <span className="mb-3 flex-shrink-0 text-xs font-medium text-white/50">
                   {value
                     ? `Search results for "${value}"`
                     : "Start typing to search"}
@@ -167,13 +166,13 @@ const SearchModal = ({ isOpen, onClose }) => {
 
                 <motion.div
                   layout="position"
-                  className="flex flex-col  gap-2 overflow-y-auto flex-1 min-h-0   custom-scrollbar"
+                  className="custom-scrollbar flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto"
                   style={{ transform: "translateZ(0)" }}
                 >
                   {!value && !isLoading && (
                     <motion.div
                       initial={false}
-                      className="flex items-center justify-center h-32"
+                      className="flex h-32 items-center justify-center"
                     >
                       <h1 className="text-sm text-white/30">
                         Type something to discover amazing anime
@@ -182,14 +181,14 @@ const SearchModal = ({ isOpen, onClose }) => {
                   )}
 
                   {isLoading && (
-                    <div className="flex flex-col gap-2 w-full py-2">
+                    <div className="flex w-full flex-col gap-2 py-2">
                       {Array(3)
                         .fill(0)
                         .map((_, i) => (
                           <motion.div
                             key={i}
                             initial={false}
-                            className="w-full shrink-0 rounded-xl h-20 animate-pulse bg-gradient-to-r from-white/[0.02] via-white/[0.05] to-white/[0.02] border border-white/[0.08]"
+                            className="h-20 w-full shrink-0 animate-pulse rounded-xl border border-white/[0.08] bg-gradient-to-r from-white/[0.02] via-white/[0.05] to-white/[0.02]"
                           />
                         ))}
                     </div>
@@ -215,7 +214,7 @@ const SearchModal = ({ isOpen, onClose }) => {
                           <Link
                             onClick={onClose}
                             to={`/info/${anime.id}`}
-                            className="w-full group hover:bg-gradient-to-r hover:from-[#1a1a1a] hover:to-[#1a1a1a]/80 border-white/[0.08] border rounded-xl transition-all duration-300 cursor-pointer min-h-20 gap-3 p-3 flex items-center bg-[#141414]/50 hover:shadow-lg hover:shadow-primary/5"
+                            className="group hover:shadow-primary/5 flex min-h-20 w-full cursor-pointer items-center gap-3 rounded-xl border border-white/[0.08] bg-[#141414]/50 p-3 transition-all duration-300 hover:bg-gradient-to-r hover:from-[#1a1a1a] hover:to-[#1a1a1a]/80 hover:shadow-lg"
                           >
                             <motion.div
                               whileHover={{ scale: 1.05 }}
@@ -224,22 +223,22 @@ const SearchModal = ({ isOpen, onClose }) => {
                             >
                               <img
                                 src={anime.poster}
-                                className="w-14 h-[4.5rem] object-cover"
+                                className="h-[4.5rem] w-14 object-cover"
                                 alt={anime.name + " poster"}
                                 loading="lazy"
                               />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 transition-all duration-300 group-hover:opacity-100" />
                             </motion.div>
 
-                            <div className="flex flex-col gap-1.5 flex-1 min-w-0">
-                              <h1 className="text-sm font-medium text-white/90 line-clamp-1 group-hover:text-white transition-colors duration-300">
+                            <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+                              <h1 className="line-clamp-1 text-sm font-medium text-white/90 transition-colors duration-300 group-hover:text-white">
                                 {anime.name}
                               </h1>
-                              <h2 className="text-xs text-white/40 line-clamp-1 font-medium">
+                              <h2 className="line-clamp-1 text-xs font-medium text-white/40">
                                 {anime.jname}
                               </h2>
                               {anime?.moreInfo && (
-                                <div className="flex items-center gap-2 text-white/30 text-xs flex-wrap">
+                                <div className="flex flex-wrap items-center gap-2 text-xs text-white/30">
                                   {anime.moreInfo
                                     .slice(0, 3)
                                     .map((info, index) => (
@@ -248,7 +247,7 @@ const SearchModal = ({ isOpen, onClose }) => {
                                         className="flex items-center gap-2"
                                       >
                                         {index > 0 && (
-                                          <span className="w-1 h-1 rounded-full bg-primary/20" />
+                                          <span className="bg-primary/20 h-1 w-1 rounded-full" />
                                         )}
                                         <span className="line-clamp-1">
                                           {info}
@@ -271,7 +270,7 @@ const SearchModal = ({ isOpen, onClose }) => {
                           <Link
                             to={`/search?q=${value}`}
                             onClick={onClose}
-                            className="w-full text-white/90 py-3 cursor-pointer justify-center duration-300 hover:text-primary rounded-xl items-center flex border border-white/[0.08] bg-[#141414]/50 hover:bg-gradient-to-r hover:from-[#1a1a1a] hover:to-[#1a1a1a]/80 transition-all group hover:shadow-lg hover:shadow-primary/5"
+                            className="hover:text-primary group hover:shadow-primary/5 flex w-full cursor-pointer items-center justify-center rounded-xl border border-white/[0.08] bg-[#141414]/50 py-3 text-white/90 transition-all duration-300 hover:bg-gradient-to-r hover:from-[#1a1a1a] hover:to-[#1a1a1a]/80 hover:shadow-lg"
                           >
                             <motion.span
                               className="flex items-center gap-2"
@@ -279,7 +278,7 @@ const SearchModal = ({ isOpen, onClose }) => {
                             >
                               See all results
                               <svg
-                                className="w-5 h-5"
+                                className="h-5 w-5"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -307,14 +306,14 @@ const SearchModal = ({ isOpen, onClose }) => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={onClose}
-            className="absolute top-6 right-6 p-2.5 rounded-xl border border-white/[0.08] bg-[#141414]/50 hover:bg-[#1a1a1a] transition-all duration-300 group hover:border-primary/20"
+            className="group hover:border-primary/20 absolute top-6 right-6 rounded-xl border border-white/[0.08] bg-[#141414]/50 p-2.5 transition-all duration-300 hover:bg-[#1a1a1a]"
           >
-            <RxCross1 className="w-4 h-4 text-white/50 group-hover:text-white/90 transition-colors duration-300" />
+            <RxCross1 className="h-4 w-4 text-white/50 transition-colors duration-300 group-hover:text-white/90" />
           </motion.button>
         </motion.div>
       </motion.div>
     </AnimatePresence>,
-    document.body
+    document.body,
   );
 };
 

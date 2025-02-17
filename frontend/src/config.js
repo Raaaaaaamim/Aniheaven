@@ -1,11 +1,16 @@
+import axios from "axios";
 import { FaChild } from "react-icons/fa";
 import { FaBoltLightning } from "react-icons/fa6";
-import { FiUser } from "react-icons/fi";
-import { RiMedalFill, RiNetflixFill, RiVipCrownFill } from "react-icons/ri";
+import { RiMedalFill, RiVipCrownFill } from "react-icons/ri";
 
 export const api = "http://localhost:4000/api/v2";
+
+// Configure axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = api;
+
 export const rarityConfig = {
-  Jod: {
+  beyondHuman: {
     gradient: "from-amber-500 via-orange-500 to-rose-500",
     shadow: "shadow-orange-500/20",
     border: "border-orange-500/20",
@@ -13,7 +18,7 @@ export const rarityConfig = {
     label: "Jod",
     bgGlow: "from-orange-500/20 to-rose-500/20",
   },
-  epic: {
+  chosenOne: {
     gradient: "from-violet-500 via-purple-500 to-fuchsia-500",
     shadow: "shadow-purple-500/20",
     border: "border-purple-500/20",
@@ -21,7 +26,7 @@ export const rarityConfig = {
     label: "Bolt",
     bgGlow: "from-violet-500/20 to-fuchsia-500/20",
   },
-  rare: {
+  angrish: {
     gradient: "from-blue-500 via-cyan-500 to-teal-500",
     shadow: "shadow-blue-500/20",
     border: "border-blue-500/20",
@@ -38,32 +43,34 @@ export const rarityConfig = {
     bgGlow: "from-pink-400/20 via-pink-300/20 to-pink-400/20",
   },
 };
-export const achievements = [
-  {
+
+export const achievements = {
+  beyondHuman: {
     title: "The N Badge",
     description: "Watch 1000 episodes",
-    icon: RiNetflixFill,
-    progress: 100,
-    rarity: "Jod",
-    reward: "Special Profile Badge",
-    unlockedDate: "2024-01-10",
-    color: "bg-linear-to-r from-rose-600 to-pink-600",
+    xp: 60000,
+    rarity: "beyondHuman",
+    reward: "N badge",
   },
-  {
+  chosenOne: {
     title: "The Wizard",
     description: "Connect your MyAnimeList account",
-    icon: FaBoltLightning,
-    progress: 100,
-    rarity: "epic",
-    reward: "The Bolt Badge",
-    unlockedDate: "2024-01-05",
+    xp: 30000,
+    rarity: "chosenOne",
+    reward: "Bolt Badge",
   },
-  {
+  angrish: {
+    title: "Angrish",
+    description: "Watch 10+ hours of anime",
+    xp: 6000,
+    rarity: "angrish",
+    reward: "Angrish badge",
+  },
+  new: {
     title: "First Steps",
     description: "Complete your profile setup",
-    icon: FiUser,
-    progress: 80,
-    rarity: "rare",
-    reward: "Profile Customization",
+    xp: 0,
+    rarity: "new",
+    reward: "Newbie Badge",
   },
-];
+};

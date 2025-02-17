@@ -6,7 +6,6 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import img1 from "../../assets/textLogo.svg";
-import { api } from "../../config.js";
 import { authAtom } from "../../store/atoms/authAtom";
 import { userAtom } from "../../store/index.js";
 import MainButton from "../ui/MainButton.jsx";
@@ -62,7 +61,7 @@ const Login = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `${api}/user/login`,
+        `/user/login`,
         {
           email: formData.emailOrUsername,
           password: formData.password,

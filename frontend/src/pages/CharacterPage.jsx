@@ -60,7 +60,10 @@ const CharacterPage = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["character", id],
     queryFn: async () => {
-      return await axios.get(`https://api.jikan.moe/v4/characters/${id}/full`);
+      return await axios.get(`https://api.jikan.moe/v4/characters/${id}/full`, {
+        withCredentials: false,
+        credentials: false,
+      });
     },
   });
 

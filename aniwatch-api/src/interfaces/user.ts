@@ -1,7 +1,7 @@
-import type mongoose from "mongoose";
+import type { Document, ObjectId } from "mongoose";
 
-export interface UserType {
-  _id: mongoose.Types.ObjectId;
+export interface UserType extends Document {
+  _id: ObjectId;
   password: string;
   username: string;
   email: string;
@@ -11,16 +11,25 @@ export interface UserType {
   emailVerified: boolean;
   emailVerificationToken: number | undefined;
   emailVerificationExpires: Date | undefined;
-  activity: mongoose.Types.ObjectId[];
-  continueWatching: mongoose.Types.ObjectId[];
+  activity: ObjectId[];
+  continueWatching: ObjectId[];
   totalWatchTime: number;
   achievements: {
     eternalFlame: boolean;
     theChosenOne: boolean;
     beyondHuman: boolean;
   };
-  watchlist: mongoose.Types.ObjectId[];
+  watchlist: ObjectId[];
+  settings: {
+    autoPlay: boolean;
+    autoNext: boolean;
+    autoSkipIntro: boolean;
+    enableDub: boolean;
+    titleLanguage: string;
+    defaultServer: string;
+    preferredQuality: string;
+  };
+  notifications: ObjectId[];
   createdAt: Date;
   updatedAt: Date;
-  save: () => Promise<UserType>;
 }

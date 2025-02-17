@@ -31,7 +31,6 @@ import ServerSelectionCard from "../components/ui/ServerSelectionCard.jsx";
 import VideoButton from "../components/ui/VideoButton.jsx";
 import useAnimeInfo from "../hooks/useAnimeInfo.jsx";
 import useSettings from "../hooks/useSettings.jsx";
-import { api } from "../services/api";
 import { selectedEpNumberAtom } from "../store/index.js";
 
 /**
@@ -64,7 +63,7 @@ const WatchPage = () => {
   } = useQuery({
     queryKey: ["episode", id],
     queryFn: async () => {
-      return await axios.get(`${api}/hianime/anime/${id}/episodes`);
+      return await axios.get(`/hianime/anime/${id}/episodes`);
     },
     enabled: !!id,
     cacheTime: 2 * 60 * 1000, // 2 minutes cache
@@ -93,7 +92,7 @@ const WatchPage = () => {
     queryFn: async () => {
       if (selectedEpisode) {
         return await axios.get(
-          `${api}/hianime/episode/servers?animeEpisodeId=${selectedEpisode}`,
+          `/hianime/episode/servers?animeEpisodeId=${selectedEpisode}`,
         );
       }
     },
@@ -115,7 +114,7 @@ const WatchPage = () => {
     queryKey: ["source", selectedEpisode, selectedServer, selectedCategory],
     queryFn: async () => {
       return await axios.get(
-        `${api}/hianime/episode/sources?animeEpisodeId=${selectedEpisode}&server=${selectedServer}&category=${selectedCategory}`,
+        `/hianime/episode/sources?animeEpisodeId=${selectedEpisode}&server=${selectedServer}&category=${selectedCategory}`,
       );
     },
     enabled: false,

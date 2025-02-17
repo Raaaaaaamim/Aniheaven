@@ -1,7 +1,10 @@
 import { HiAnime } from "aniwatch";
 import { Hono, type Context } from "hono";
+import { getCookie } from "hono/cookie";
+import jwt from "jsonwebtoken";
 import { AniwatchAPICache, cache } from "../config/cache.js";
 import type { AniwatchAPIVariables } from "../config/variables.js";
+import Watchlist from "../models/watchlistAnime.js";
 import { BASE_PATH } from "../server.js";
 const hianime = new HiAnime.Scraper();
 const hianimeRouter = new Hono<{ Variables: AniwatchAPIVariables }>();
@@ -131,15 +134,34 @@ hianimeRouter.get("/search/suggestion", async (c) => {
 // /api/v2/hianime/anime/{animeId}
 hianimeRouter.get("/anime/:animeId", async (c) => {
   const cacheConfig = c.get("CACHE_CONFIG");
+  let isInWatchlist = false;
   const animeId = decodeURIComponent(c.req.param("animeId").trim());
+  const token = getCookie(c, "token");
+  // In src/routes/hianime.ts
+  if (token) {
+    const decodedToken = jwt.verify(
+      token,
+      process.env.JWT_SECRET as string
+    ) as jwt.JwtPayload;
 
+    const doesExist = await Watchlist.exists({
+      $and: [{ author: decodedToken.id }, { HiAnimeId: animeId }],
+    });
+    isInWatchlist = !!doesExist;
+  }
   const data = await cache.getOrSet<HiAnime.ScrapedAnimeAboutInfo>(
     cacheConfig.key,
     async () => hianime.getInfo(animeId),
     cacheConfig.duration
   );
 
-  return c.json({ success: true, data }, { status: 200 });
+  return c.json(
+    {
+      success: true,
+      data: { ...data, anime: { ...data.anime, isInWatchlist } },
+    },
+    { status: 200 }
+  );
 });
 
 // /api/v2/hianime/episode/servers?animeEpisodeId={id}

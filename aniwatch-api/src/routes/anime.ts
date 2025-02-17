@@ -3,6 +3,7 @@ import addToContinueWatching from "../controllers/animeControllers/addToContinue
 import addToWatchlist from "../controllers/animeControllers/addToWatchlist.js";
 import getContinueWatching from "../controllers/animeControllers/getContinueWatching.js";
 import getWatchlist from "../controllers/animeControllers/getWatchlist.js";
+import getWatchlistAnimeIds from "../controllers/animeControllers/getWatchlistAnimeIds.js";
 import { Wrapper } from "../features/utils.js";
 import protectedRoute from "../middlewares/protectedRoute.js";
 
@@ -20,5 +21,10 @@ anime.get(
 );
 anime.post("/watchlist", Wrapper(protectedRoute), Wrapper(addToWatchlist));
 anime.get("/watchlist", Wrapper(protectedRoute), Wrapper(getWatchlist));
+anime.get(
+  "/watchlist/ids",
+  Wrapper(protectedRoute),
+  Wrapper(getWatchlistAnimeIds)
+);
 
 export default anime;

@@ -28,7 +28,11 @@ const AnimeInfo = () => {
     queryKey: ["characters", data?.data?.data?.anime?.info?.malId],
     queryFn: async () => {
       return await axios.get(
-        `https://api.jikan.moe/v4/anime/${data?.data?.data?.anime?.info?.malId}/characters`
+        `https://api.jikan.moe/v4/anime/${data?.data?.data?.anime?.info?.malId}/characters`,
+        {
+          withCredentials: false,
+          credentials: false,
+        },
       );
     },
   });
@@ -41,7 +45,11 @@ const AnimeInfo = () => {
     queryKey: ["MAL", data?.data?.data?.anime?.info?.malId],
     queryFn: async () => {
       return await axios.get(
-        `https://api.jikan.moe/v4/anime/${data?.data?.data?.anime?.info?.malId}`
+        `https://api.jikan.moe/v4/anime/${data?.data?.data?.anime?.info?.malId}`,
+        {
+          withCredentials: false,
+          credentials: false,
+        },
       );
     },
     enabled: false,
@@ -57,7 +65,7 @@ const AnimeInfo = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full min-h-screen mt-16 lg:mt-8 bg-background/95">
+      <div className="bg-background/95 mt-16 min-h-screen w-full lg:mt-8">
         <HeroSkeleton />
         <CharactersSkeleton />
       </div>
@@ -66,9 +74,9 @@ const AnimeInfo = () => {
 
   if (isError || !data?.data) {
     return (
-      <div className="w-full min-h-screen mt-16 lg:mt-8 bg-background/95 flex items-center justify-center">
+      <div className="bg-background/95 mt-16 flex min-h-screen w-full items-center justify-center lg:mt-8">
         <div className="text-text text-center">
-          <h2 className="text-2xl font-bold mb-2">Error</h2>
+          <h2 className="mb-2 text-2xl font-bold">Error</h2>
           <p className="text-text/70">
             Failed to load anime information. Please try again later.
           </p>
@@ -85,9 +93,9 @@ const AnimeInfo = () => {
 
   if (!info || !moreInfo) {
     return (
-      <div className="w-full min-h-screen mt-16 lg:mt-8 bg-background/95 flex items-center justify-center  ">
+      <div className="bg-background/95 mt-16 flex min-h-screen w-full items-center justify-center lg:mt-8">
         <div className="text-text text-center">
-          <h2 className="text-2xl font-bold mb-2">No Data Available</h2>
+          <h2 className="mb-2 text-2xl font-bold">No Data Available</h2>
           <p className="text-text/70">
             The requested anime information could not be found.
           </p>
@@ -98,13 +106,13 @@ const AnimeInfo = () => {
   console.log(characters);
 
   return (
-    <div className="w-full min-h-screen mt-16 lg:mt-8 bg-background/95">
-      <div className="relative w-full h-fit">
+    <div className="bg-background/95 mt-16 min-h-screen w-full lg:mt-8">
+      <div className="relative h-fit w-full">
         {/* Background Image with Gradient */}
-        <div className="absolute h-[300px] overflow-hidden  sm:h-[400px] inset-0">
+        <div className="absolute inset-0 h-[300px] overflow-hidden sm:h-[400px]">
           <img
             src={info.poster}
-            className="w-full h-[160%] transform relative scale-[1.01] pixelated object-top"
+            className="pixelated relative h-[160%] w-full scale-[1.01] transform object-top"
             style={{
               imageRendering: "pixelated",
               transform: "scale(1.01)", // Forcing a slight scale up
@@ -112,49 +120,49 @@ const AnimeInfo = () => {
             alt={info.name}
           />
 
-          <div className="absolute inset-0  bg-linear-to-t from-background via-background/95 backdrop-blur-xs to-transparent" />
-          <div className="absolute inset-0 mask   " />
-          <div className="absolute inset-0 bg-linear-to-t from-background via-background/20 to-transparent    " />
+          <div className="from-background via-background/95 absolute inset-0 bg-linear-to-t to-transparent backdrop-blur-xs" />
+          <div className="mask absolute inset-0" />
+          <div className="from-background via-background/20 absolute inset-0 bg-linear-to-t to-transparent" />
         </div>
 
         {/* Content */}
-        <div className="relative h-full container mx-auto px-4">
-          <div className="flex flex-col sm:flex-row h-full sm:items-end pb-4 sm:pb-8  gap-4 sm:gap-8">
+        <div className="relative container mx-auto h-full px-4">
+          <div className="flex h-full flex-col gap-4 pb-4 sm:flex-row sm:items-end sm:gap-8 sm:pb-8">
             {/* Left Side - Poster & Buttons */}
-            <div className=" w-[200px] shrink-0 mx-auto sm:mx-0 -mt-20 md:-mt-8 sm:mt-0  ">
+            <div className="mx-auto -mt-20 w-[200px] shrink-0 sm:mx-0 sm:mt-0 md:-mt-8">
               <img
                 src={info.poster}
                 alt={info.name}
-                className="w-full aspect-2/3 object-cover rounded-lg shadow-lg"
+                className="aspect-2/3 w-full rounded-lg object-cover shadow-lg"
               />
-              <div className="mt-3 sm:mt-4 flex flex-col gap-2">
+              <div className="mt-3 flex flex-col gap-2 sm:mt-4">
                 <Link
                   to={`/watch/${info.id}`}
-                  className="w-full h-9 sm:h-10 bg-[#772ce8]/90 hover:bg-[#772ce8] text-white rounded-lg flex items-center justify-center gap-2 relative overflow-hidden group transition-colors"
+                  className="group relative flex h-9 w-full items-center justify-center gap-2 overflow-hidden rounded-lg bg-[#772ce8]/90 text-white transition-colors hover:bg-[#772ce8] sm:h-10"
                 >
                   <PiTelevisionSimpleBold size={14} />
                   <span className="text-sm font-medium">Watch Now</span>
 
-                  <div className="inset-0 absolute bg-linear-to-r from-transparent -translate-x-[100%] group-hover:translate-x-[200%] transition-all duration-500  via-text/20 to-transparent  "></div>
+                  <div className="via-text/20 absolute inset-0 -translate-x-[100%] bg-linear-to-r from-transparent to-transparent transition-all duration-500 group-hover:translate-x-[200%]"></div>
                 </Link>
-                <button className="w-full h-9 group sm:h-10 bg-secondary/5 hover:bg-secondary/10 text-text border border-text/10 rounded-lg flex relative overflow-hidden items-center justify-center gap-2 transition-colors">
+                <button className="group bg-secondary/5 hover:bg-secondary/10 text-text border-text/10 relative flex h-9 w-full items-center justify-center gap-2 overflow-hidden rounded-lg border transition-colors sm:h-10">
                   <MdOutlineTheaterComedy size={14} />
                   <span className="text-sm font-medium">Add to List</span>
 
-                  <div className="inset-0 absolute bg-linear-to-r from-transparent -translate-x-[100%] group-hover:translate-x-[200%] transition-all duration-500  via-primary/10 to-transparent  "></div>
+                  <div className="via-primary/10 absolute inset-0 -translate-x-[100%] bg-linear-to-r from-transparent to-transparent transition-all duration-500 group-hover:translate-x-[200%]"></div>
                 </button>
               </div>
             </div>
 
             {/* Right Side - Info */}
-            <div className="flex-1 text-text text-center sm:text-left">
+            <div className="text-text flex-1 text-center sm:text-left">
               {/* Title */}
-              <h1 className="text-2xl font-outfit sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3 text-text/90 line-clamp-2">
+              <h1 className="font-outfit text-text/90 mb-2 line-clamp-2 text-2xl font-bold sm:mb-3 sm:text-3xl md:text-4xl">
                 {info.name}
               </h1>
 
               {/* Metadata */}
-              <div className="flex font-outfit flex-wrap justify-center sm:justify-start items-center gap-2 sm:gap-3 text-xs sm:text-sm text-text/70 mb-3">
+              <div className="font-outfit text-text/70 mb-3 flex flex-wrap items-center justify-center gap-2 text-xs sm:justify-start sm:gap-3 sm:text-sm">
                 <span>{moreInfo.aired}</span>
                 <span className="hidden sm:inline">•</span>
                 <span>{info.stats.type}</span>
@@ -166,13 +174,13 @@ const AnimeInfo = () => {
 
               {/* Synopsis */}
               <div className="mb-4 sm:mb-6">
-                <p className=" font-Jost text-sm text-text/70 leading-relaxed line-clamp-3">
+                <p className="font-Jost text-text/70 line-clamp-3 text-sm leading-relaxed">
                   {info.description}
                 </p>
               </div>
 
               {/* Details Grid */}
-              <div className="grid text-sm font-outfit grid-cols-2 2xl:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+              <div className="font-outfit mb-6 grid grid-cols-2 gap-3 text-sm sm:mb-8 sm:gap-4 2xl:grid-cols-4">
                 <div className="flex gap-2">
                   <span className="text-text/60">Episodes:</span>
                   <span className="truncate">
@@ -210,15 +218,15 @@ const AnimeInfo = () => {
         characters?.data?.data?.length > 0 && (
           <section
             id="characters"
-            className="container mx-auto lg:mt-0 px-4 py-8"
+            className="container mx-auto px-4 py-8 lg:mt-0"
           >
-            <div className="flex items-center space-x-4 font-outfit mb-6">
-              <h1 className="text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent">
+            <div className="font-outfit mb-6 flex items-center space-x-4">
+              <h1 className="from-text/90 to-text/60 bg-linear-to-r bg-clip-text text-lg font-bold text-transparent md:text-xl">
                 Characters & Voice Actors
               </h1>
-              <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
+              <div className="from-primary/20 h-[1px] flex-1 bg-linear-to-r to-transparent"></div>
             </div>
-            <div className="grid font-outfit grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
+            <div className="font-outfit grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
               {characters?.data?.data
                 ?.slice(0, showAllCharacters ? undefined : 6)
                 .map((item, index) => (
@@ -237,29 +245,29 @@ const AnimeInfo = () => {
                         ease: "backOut",
                       }}
                     >
-                      <div className="group relative bg-secondary/5 rounded-xl overflow-hidden hover:bg-secondary/10 transition-all duration-500">
+                      <div className="group bg-secondary/5 hover:bg-secondary/10 relative overflow-hidden rounded-xl transition-all duration-500">
                         {/* Animated Background Effect */}
-                        <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                        <div className="absolute -inset-1 bg-linear-to-r from-primary/10 to-secondary/10 blur-xl opacity-0 group-hover:opacity-30 transition-all duration-500"></div>
+                        <div className="from-primary/5 via-secondary/5 absolute inset-0 bg-linear-to-br to-transparent opacity-0 transition-all duration-500 group-hover:opacity-100"></div>
+                        <div className="from-primary/10 to-secondary/10 absolute -inset-1 bg-linear-to-r opacity-0 blur-xl transition-all duration-500 group-hover:opacity-30"></div>
 
                         <div className="relative p-4">
                           <div className="flex gap-4">
                             {/* Character Image with Hover Effect */}
-                            <div className="relative w-20 h-28 overflow-hidden rounded-lg">
-                              <div className="absolute inset-0 bg-linear-to-t from-background/80 via-transparent to-transparent z-10"></div>
+                            <div className="relative h-28 w-20 overflow-hidden rounded-lg">
+                              <div className="from-background/80 absolute inset-0 z-10 bg-linear-to-t via-transparent to-transparent"></div>
                               <img
                                 src={item.character.images.jpg.image_url}
                                 alt={item.character.name}
-                                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                className="h-full w-full transform object-cover transition-transform duration-500 group-hover:scale-110"
                               />
                             </div>
 
                             {/* Character Info with Modern Layout */}
-                            <div className="flex-1 min-w-0">
-                              <h3 className="text-sm font-semibold text-text mb-1 truncate">
+                            <div className="min-w-0 flex-1">
+                              <h3 className="text-text mb-1 truncate text-sm font-semibold">
                                 {item.character.name}
                               </h3>
-                              <p className="text-xs text-text/60 mb-2">
+                              <p className="text-text/60 mb-2 text-xs">
                                 {item.role}
                               </p>
                               {item.voice_actors?.length > 0 && (
@@ -271,14 +279,14 @@ const AnimeInfo = () => {
                                         key={vaIndex}
                                         className="flex items-center gap-2"
                                       >
-                                        <div className="relative w-6 h-6 rounded-full overflow-hidden ring-1 ring-primary/20">
+                                        <div className="ring-primary/20 relative h-6 w-6 overflow-hidden rounded-full ring-1">
                                           <img
                                             src={va.person.images.jpg.image_url}
                                             alt={va.person.name}
-                                            className="w-full h-full object-cover"
+                                            className="h-full w-full object-cover"
                                           />
                                         </div>
-                                        <span className="text-xs text-text/80 truncate">
+                                        <span className="text-text/80 truncate text-xs">
                                           {va.person.name}
                                         </span>
                                       </div>
@@ -290,8 +298,8 @@ const AnimeInfo = () => {
 
                           {/* Decorative Elements */}
                           <div className="absolute top-2 right-2 flex gap-1">
-                            <span className="w-1 h-1 rounded-full bg-primary/40"></span>
-                            <span className="w-1 h-1 rounded-full bg-secondary/40"></span>
+                            <span className="bg-primary/40 h-1 w-1 rounded-full"></span>
+                            <span className="bg-secondary/40 h-1 w-1 rounded-full"></span>
                           </div>
                         </div>
                       </div>
@@ -304,10 +312,10 @@ const AnimeInfo = () => {
               <HashLink smooth to="#characters">
                 <button
                   onClick={() => setShowAllCharacters(!showAllCharacters)}
-                  className="mt-8 mx-auto block px-6 py-2 bg-secondary/10 hover:bg-secondary/20 rounded-lg transition-all duration-300 relative group overflow-hidden"
+                  className="bg-secondary/10 hover:bg-secondary/20 group relative mx-auto mt-8 block overflow-hidden rounded-lg px-6 py-2 transition-all duration-300"
                 >
-                  <div className="absolute inset-0 bg-linear-to-r from-primary/10 to-secondary/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-500"></div>
-                  <span className="relative text-sm font-medium text-text/80 group-hover:text-text">
+                  <div className="from-primary/10 to-secondary/10 absolute inset-0 translate-x-[-100%] bg-linear-to-r transition-all duration-500 group-hover:translate-x-[100%]"></div>
+                  <span className="text-text/80 group-hover:text-text relative text-sm font-medium">
                     {showAllCharacters ? "Show Less" : "View All"}
                   </span>
                 </button>
@@ -318,15 +326,15 @@ const AnimeInfo = () => {
       )}
 
       {/* Additional Anime Information */}
-      <section className="container font-poppins mx-auto px-4 py-8">
-        <div className="relative bg-linear-to-br from-background/80 to-background/40 backdrop-blur-md rounded-xl border border-white/5 shadow-2xl overflow-hidden">
+      <section className="font-poppins container mx-auto px-4 py-8">
+        <div className="from-background/80 to-background/40 relative overflow-hidden rounded-xl border border-white/5 bg-linear-to-br shadow-2xl backdrop-blur-md">
           {/* Background Pattern */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),rgba(255,255,255,0)_50%)]"></div>
 
           <div className="relative p-4 sm:p-6 md:p-8">
             {/* Header with improved alignment */}
-            <div className="flex items-center gap-4 mb-8">
-              <h2 className="text-xl font-outfit font-bold text-text">
+            <div className="mb-8 flex items-center gap-4">
+              <h2 className="font-outfit text-text text-xl font-bold">
                 Additional Information
               </h2>
             </div>
@@ -336,126 +344,126 @@ const AnimeInfo = () => {
             ) : MALData?.data?.data ? (
               <>
                 {/* Stats Overview */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-                  <div className="group relative bg-secondary/5 hover:bg-secondary/10 transition-all duration-300 p-3 sm:p-4 rounded-xl text-center overflow-hidden">
-                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-primary/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-all duration-700"></div>
+                <div className="mb-6 grid grid-cols-2 gap-3 sm:mb-8 sm:grid-cols-4 sm:gap-4">
+                  <div className="group bg-secondary/5 hover:bg-secondary/10 relative overflow-hidden rounded-xl p-3 text-center transition-all duration-300 sm:p-4">
+                    <div className="via-primary/5 absolute inset-0 translate-x-[-200%] bg-linear-to-r from-transparent to-transparent transition-all duration-700 group-hover:translate-x-[200%]"></div>
                     <div className="relative">
-                      <div className="text-xl sm:text-2xl font-bold text-primary mb-1 transition-all duration-300 group-hover:scale-105">
+                      <div className="text-primary mb-1 text-xl font-bold transition-all duration-300 group-hover:scale-105 sm:text-2xl">
                         {MALData.data.data.score || "N/A"}
                       </div>
-                      <div className="text-xs sm:text-sm font-medium text-text/70 font-outfit group-hover:text-text/90 transition-colors">
+                      <div className="text-text/70 font-outfit group-hover:text-text/90 text-xs font-medium transition-colors sm:text-sm">
                         Score
                       </div>
                     </div>
                   </div>
 
-                  <div className="group relative bg-secondary/5 hover:bg-secondary/10 transition-all duration-300 p-3 sm:p-4 rounded-xl text-center overflow-hidden">
-                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-primary/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-all duration-700"></div>
+                  <div className="group bg-secondary/5 hover:bg-secondary/10 relative overflow-hidden rounded-xl p-3 text-center transition-all duration-300 sm:p-4">
+                    <div className="via-primary/5 absolute inset-0 translate-x-[-200%] bg-linear-to-r from-transparent to-transparent transition-all duration-700 group-hover:translate-x-[200%]"></div>
                     <div className="relative">
-                      <div className="text-xl sm:text-2xl font-bold text-primary mb-1 transition-all duration-300 group-hover:scale-105">
+                      <div className="text-primary mb-1 text-xl font-bold transition-all duration-300 group-hover:scale-105 sm:text-2xl">
                         #{MALData.data.data.rank || "N/A"}
                       </div>
-                      <div className="text-xs sm:text-sm font-medium text-text/70 font-outfit group-hover:text-text/90 transition-colors">
+                      <div className="text-text/70 font-outfit group-hover:text-text/90 text-xs font-medium transition-colors sm:text-sm">
                         Rank
                       </div>
                     </div>
                   </div>
 
-                  <div className="group relative bg-secondary/5 hover:bg-secondary/10 transition-all duration-300 p-3 sm:p-4 rounded-xl text-center overflow-hidden">
-                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-primary/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-all duration-700"></div>
+                  <div className="group bg-secondary/5 hover:bg-secondary/10 relative overflow-hidden rounded-xl p-3 text-center transition-all duration-300 sm:p-4">
+                    <div className="via-primary/5 absolute inset-0 translate-x-[-200%] bg-linear-to-r from-transparent to-transparent transition-all duration-700 group-hover:translate-x-[200%]"></div>
                     <div className="relative">
-                      <div className="text-xl sm:text-2xl font-bold text-primary mb-1 transition-all duration-300 group-hover:scale-105">
+                      <div className="text-primary mb-1 text-xl font-bold transition-all duration-300 group-hover:scale-105 sm:text-2xl">
                         #{MALData.data.data.popularity || "N/A"}
                       </div>
-                      <div className="text-xs sm:text-sm font-medium text-text/70 font-outfit group-hover:text-text/90 transition-colors">
+                      <div className="text-text/70 font-outfit group-hover:text-text/90 text-xs font-medium transition-colors sm:text-sm">
                         Popularity
                       </div>
                     </div>
                   </div>
 
-                  <div className="group relative bg-secondary/5 hover:bg-secondary/10 transition-all duration-300 p-3 sm:p-4 rounded-xl text-center overflow-hidden">
-                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-primary/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-all duration-700"></div>
+                  <div className="group bg-secondary/5 hover:bg-secondary/10 relative overflow-hidden rounded-xl p-3 text-center transition-all duration-300 sm:p-4">
+                    <div className="via-primary/5 absolute inset-0 translate-x-[-200%] bg-linear-to-r from-transparent to-transparent transition-all duration-700 group-hover:translate-x-[200%]"></div>
                     <div className="relative">
-                      <div className="text-xl sm:text-2xl font-bold text-primary mb-1 transition-all duration-300 group-hover:scale-105">
+                      <div className="text-primary mb-1 text-xl font-bold transition-all duration-300 group-hover:scale-105 sm:text-2xl">
                         {MALData.data.data.members
                           ? MALData.data.data.members > 999999
                             ? `${(MALData.data.data.members / 1000000).toFixed(
-                                1
+                                1,
                               )}M`
                             : MALData.data.data.members.toLocaleString()
                           : "N/A"}
                       </div>
-                      <div className="text-xs sm:text-sm font-medium text-text/70 font-outfit group-hover:text-text/90 transition-colors">
+                      <div className="text-text/70 font-outfit group-hover:text-text/90 text-xs font-medium transition-colors sm:text-sm">
                         Members
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
                   {/* Left Column */}
                   <div className="space-y-4 sm:space-y-6">
                     {/* Information Grid */}
-                    <div className="group bg-secondary/5 rounded-xl p-4 sm:p-6 backdrop-blur-xs hover:bg-secondary/10 transition-all duration-300 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <div className="flex items-center gap-2 mb-4 sm:mb-6">
-                        <div className="relative group">
-                          <HiOutlineInformationCircle className="w-5 h-5 sm:w-6 sm:h-6 text-primary transition-all duration-300 group-hover:scale-110 group-hover:rotate-[360deg]" />
-                          <div className="absolute inset-0 bg-primary/20 rounded-full blur-md scale-150 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+                    <div className="group bg-secondary/5 hover:bg-secondary/10 relative overflow-hidden rounded-xl p-4 backdrop-blur-xs transition-all duration-300 sm:p-6">
+                      <div className="from-primary/5 absolute inset-0 bg-linear-to-br to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+                      <div className="mb-4 flex items-center gap-2 sm:mb-6">
+                        <div className="group relative">
+                          <HiOutlineInformationCircle className="text-primary h-5 w-5 transition-all duration-300 group-hover:scale-110 group-hover:rotate-[360deg] sm:h-6 sm:w-6" />
+                          <div className="bg-primary/20 absolute inset-0 scale-150 rounded-full opacity-0 blur-md transition-all duration-300 group-hover:opacity-100"></div>
                         </div>
-                        <h3 className="text-base font-outfit sm:text-lg font-semibold text-primary">
+                        <h3 className="font-outfit text-primary text-base font-semibold sm:text-lg">
                           Basic Details
                         </h3>
                       </div>
-                      <div className="grid grid-cols-2 gap-6 relative">
+                      <div className="relative grid grid-cols-2 gap-6">
                         <div className="space-y-4">
                           <div className="group/item transition-all duration-300 hover:translate-x-2">
-                            <div className="text-sm text-text/60 group-hover/item:text-primary/60 transition-colors font-outfit">
+                            <div className="text-text/60 group-hover/item:text-primary/60 font-outfit text-sm transition-colors">
                               Type
                             </div>
-                            <div className="font-medium text-text group-hover/item:text-primary transition-colors">
+                            <div className="text-text group-hover/item:text-primary font-medium transition-colors">
                               {MALData.data.data.type || "N/A"}
                             </div>
                           </div>
                           <div className="group/item transition-all duration-300 hover:translate-x-2">
-                            <div className="text-sm text-text/60 group-hover/item:text-primary/60 transition-colors font-outfit">
+                            <div className="text-text/60 group-hover/item:text-primary/60 font-outfit text-sm transition-colors">
                               Episodes
                             </div>
-                            <div className="font-medium text-text group-hover/item:text-primary transition-colors">
+                            <div className="text-text group-hover/item:text-primary font-medium transition-colors">
                               {MALData.data.data.episodes || "N/A"}
                             </div>
                           </div>
                           <div className="group/item transition-all duration-300 hover:translate-x-2">
-                            <div className="text-sm text-text/60 group-hover/item:text-primary/60 transition-colors font-outfit">
+                            <div className="text-text/60 group-hover/item:text-primary/60 font-outfit text-sm transition-colors">
                               Duration
                             </div>
-                            <div className="font-medium text-text group-hover/item:text-primary transition-colors">
+                            <div className="text-text group-hover/item:text-primary font-medium transition-colors">
                               {MALData.data.data.duration || "N/A"}
                             </div>
                           </div>
                         </div>
                         <div className="space-y-4">
                           <div className="group/item transition-all duration-300 hover:translate-x-2">
-                            <div className="text-sm text-text/60 group-hover/item:text-primary/60 transition-colors font-outfit">
+                            <div className="text-text/60 group-hover/item:text-primary/60 font-outfit text-sm transition-colors">
                               Status
                             </div>
-                            <div className="font-medium text-text group-hover/item:text-primary transition-colors">
+                            <div className="text-text group-hover/item:text-primary font-medium transition-colors">
                               {MALData.data.data.status || "N/A"}
                             </div>
                           </div>
                           <div className="group/item transition-all duration-300 hover:translate-x-2">
-                            <div className="text-sm text-text/60 group-hover/item:text-primary/60 transition-colors font-outfit">
+                            <div className="text-text/60 group-hover/item:text-primary/60 font-outfit text-sm transition-colors">
                               Rating
                             </div>
-                            <div className="font-medium text-text group-hover/item:text-primary transition-colors">
+                            <div className="text-text group-hover/item:text-primary font-medium transition-colors">
                               {MALData.data.data.rating || "N/A"}
                             </div>
                           </div>
                           <div className="group/item transition-all duration-300 hover:translate-x-2">
-                            <div className="text-sm text-text/60 group-hover/item:text-primary/60 transition-colors font-outfit">
+                            <div className="text-text/60 group-hover/item:text-primary/60 font-outfit text-sm transition-colors">
                               Source
                             </div>
-                            <div className="font-medium text-text group-hover/item:text-primary transition-colors">
+                            <div className="text-text group-hover/item:text-primary font-medium transition-colors">
                               {MALData.data.data.source || "N/A"}
                             </div>
                           </div>
@@ -464,32 +472,32 @@ const AnimeInfo = () => {
                     </div>
 
                     {/* Broadcast Information */}
-                    <div className="group bg-secondary/5 rounded-xl p-4 sm:p-6 backdrop-blur-xs hover:bg-secondary/10 transition-all duration-300 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <div className="flex items-center gap-2 mb-4 sm:mb-6">
-                        <div className="relative group">
-                          <PiTelevisionSimpleBold className="w-5 h-5 sm:w-6 sm:h-6 text-primary transition-all duration-300 group-hover:scale-110 group-hover:translate-y-[-2px]" />
-                          <div className="absolute inset-0 bg-primary/20 rounded-full blur-md scale-150 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+                    <div className="group bg-secondary/5 hover:bg-secondary/10 relative overflow-hidden rounded-xl p-4 backdrop-blur-xs transition-all duration-300 sm:p-6">
+                      <div className="from-primary/5 absolute inset-0 bg-linear-to-br to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+                      <div className="mb-4 flex items-center gap-2 sm:mb-6">
+                        <div className="group relative">
+                          <PiTelevisionSimpleBold className="text-primary h-5 w-5 transition-all duration-300 group-hover:translate-y-[-2px] group-hover:scale-110 sm:h-6 sm:w-6" />
+                          <div className="bg-primary/20 absolute inset-0 scale-150 rounded-full opacity-0 blur-md transition-all duration-300 group-hover:opacity-100"></div>
                         </div>
-                        <h3 className="text-base sm:text-lg font-semibold text-primary font-outfit">
+                        <h3 className="text-primary font-outfit text-base font-semibold sm:text-lg">
                           Broadcast Information
                         </h3>
                       </div>
                       <div className="space-y-4">
                         <div className="group/item transition-all duration-300 hover:translate-x-2">
-                          <div className="text-sm text-text/60 group-hover/item:text-primary/60 transition-colors font-outfit">
+                          <div className="text-text/60 group-hover/item:text-primary/60 font-outfit text-sm transition-colors">
                             Season
                           </div>
-                          <div className="font-medium text-text group-hover/item:text-primary transition-colors capitalize">
+                          <div className="text-text group-hover/item:text-primary font-medium capitalize transition-colors">
                             {MALData.data.data.season}{" "}
                             {MALData.data.data.year || "N/A"}
                           </div>
                         </div>
                         <div className="group/item transition-all duration-300 hover:translate-x-2">
-                          <div className="text-sm text-text/60 group-hover/item:text-primary/60 transition-colors font-outfit">
+                          <div className="text-text/60 group-hover/item:text-primary/60 font-outfit text-sm transition-colors">
                             Broadcast
                           </div>
-                          <div className="font-medium text-text group-hover/item:text-primary transition-colors">
+                          <div className="text-text group-hover/item:text-primary font-medium transition-colors">
                             {MALData.data.data.broadcast?.string || "N/A"}
                           </div>
                         </div>
@@ -500,27 +508,27 @@ const AnimeInfo = () => {
                   {/* Right Column */}
                   <div className="space-y-6">
                     {/* Studios & Producers */}
-                    <div className="group bg-secondary/5 rounded-xl p-4 sm:p-6 backdrop-blur-xs hover:bg-secondary/10 transition-all duration-300 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <div className="flex items-center gap-2 mb-4 sm:mb-6">
-                        <div className="relative group">
-                          <MdOutlineTheaterComedy className="w-5 h-5 sm:w-6 sm:h-6 text-primary transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-10deg]" />
-                          <div className="absolute inset-0 bg-primary/20 rounded-full blur-md scale-150 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+                    <div className="group bg-secondary/5 hover:bg-secondary/10 relative overflow-hidden rounded-xl p-4 backdrop-blur-xs transition-all duration-300 sm:p-6">
+                      <div className="from-primary/5 absolute inset-0 bg-linear-to-br to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+                      <div className="mb-4 flex items-center gap-2 sm:mb-6">
+                        <div className="group relative">
+                          <MdOutlineTheaterComedy className="text-primary h-5 w-5 transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-10deg] sm:h-6 sm:w-6" />
+                          <div className="bg-primary/20 absolute inset-0 scale-150 rounded-full opacity-0 blur-md transition-all duration-300 group-hover:opacity-100"></div>
                         </div>
-                        <h3 className="text-base font-outfit sm:text-lg font-semibold text-primary">
+                        <h3 className="font-outfit text-primary text-base font-semibold sm:text-lg">
                           Production
                         </h3>
                       </div>
                       <div className="space-y-6">
                         <div>
-                          <h4 className="text-sm text-text/60 mb-3 group-hover:text-primary/60 font-outfit transition-colors">
+                          <h4 className="text-text/60 group-hover:text-primary/60 font-outfit mb-3 text-sm transition-colors">
                             Studios
                           </h4>
                           <div className="flex flex-wrap gap-2">
                             {MALData.data.data.studios?.map((studio) => (
                               <span
                                 key={studio.mal_id}
-                                className="px-3 sm:px-4 py-1 sm:py-1.5 bg-primary/10 hover:bg-primary/20 rounded-full text-xs sm:text-sm text-text/90 hover:text-text transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
+                                className="bg-primary/10 hover:bg-primary/20 text-text/90 hover:text-text hover:shadow-primary/20 cursor-pointer rounded-full px-3 py-1 text-xs transition-all duration-300 hover:scale-105 hover:shadow-lg sm:px-4 sm:py-1.5 sm:text-sm"
                               >
                                 {studio.name}
                               </span>
@@ -528,14 +536,14 @@ const AnimeInfo = () => {
                           </div>
                         </div>
                         <div>
-                          <h4 className="text-sm text-text/60 mb-3 group-hover:text-primary/60 font-outfit transition-colors">
+                          <h4 className="text-text/60 group-hover:text-primary/60 font-outfit mb-3 text-sm transition-colors">
                             Producers
                           </h4>
                           <div className="flex flex-wrap gap-2">
                             {MALData.data.data.producers?.map((producer) => (
                               <span
                                 key={producer.mal_id}
-                                className="px-3 sm:px-4 py-1 sm:py-1.5 bg-primary/10 hover:bg-primary/20 rounded-full text-xs sm:text-sm text-text/90 hover:text-text transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
+                                className="bg-primary/10 hover:bg-primary/20 text-text/90 hover:text-text hover:shadow-primary/20 cursor-pointer rounded-full px-3 py-1 text-xs transition-all duration-300 hover:scale-105 hover:shadow-lg sm:px-4 sm:py-1.5 sm:text-sm"
                               >
                                 {producer.name}
                               </span>
@@ -546,27 +554,27 @@ const AnimeInfo = () => {
                     </div>
 
                     {/* Genres & Themes */}
-                    <div className="group bg-secondary/5 rounded-xl p-4 sm:p-6 backdrop-blur-xs hover:bg-secondary/10 transition-all duration-300 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <div className="flex items-center gap-2 mb-4 sm:mb-6">
-                        <div className="relative group">
-                          <IoLayersOutline className="w-5 h-5 sm:w-6 sm:h-6 text-primary transition-all duration-300 group-hover:scale-110 group-hover:translate-y-[-2px]" />
-                          <div className="absolute inset-0 bg-primary/20 rounded-full blur-md scale-150 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+                    <div className="group bg-secondary/5 hover:bg-secondary/10 relative overflow-hidden rounded-xl p-4 backdrop-blur-xs transition-all duration-300 sm:p-6">
+                      <div className="from-primary/5 absolute inset-0 bg-linear-to-br to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+                      <div className="mb-4 flex items-center gap-2 sm:mb-6">
+                        <div className="group relative">
+                          <IoLayersOutline className="text-primary h-5 w-5 transition-all duration-300 group-hover:translate-y-[-2px] group-hover:scale-110 sm:h-6 sm:w-6" />
+                          <div className="bg-primary/20 absolute inset-0 scale-150 rounded-full opacity-0 blur-md transition-all duration-300 group-hover:opacity-100"></div>
                         </div>
-                        <h3 className="text-base font-outfit sm:text-lg font-semibold text-primary">
+                        <h3 className="font-outfit text-primary text-base font-semibold sm:text-lg">
                           Categories
                         </h3>
                       </div>
                       <div className="space-y-6">
                         <div>
-                          <h4 className="text-sm text-text/60 mb-3 group-hover:text-primary/60 transition-colors">
+                          <h4 className="text-text/60 group-hover:text-primary/60 mb-3 text-sm transition-colors">
                             Genres
                           </h4>
                           <div className="flex flex-wrap gap-2">
                             {MALData.data.data.genres?.map((genre) => (
                               <span
                                 key={genre.mal_id}
-                                className="px-3 sm:px-4 py-1 sm:py-1.5 bg-primary/10 hover:bg-primary/20 rounded-full text-xs sm:text-sm text-text/90 hover:text-text transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
+                                className="bg-primary/10 hover:bg-primary/20 text-text/90 hover:text-text hover:shadow-primary/20 cursor-pointer rounded-full px-3 py-1 text-xs transition-all duration-300 hover:scale-105 hover:shadow-lg sm:px-4 sm:py-1.5 sm:text-sm"
                               >
                                 {genre.name}
                               </span>
@@ -574,14 +582,14 @@ const AnimeInfo = () => {
                           </div>
                         </div>
                         <div>
-                          <h4 className="text-sm text-text/60 mb-3 group-hover:text-primary/60 font-outfit transition-colors">
+                          <h4 className="text-text/60 group-hover:text-primary/60 font-outfit mb-3 text-sm transition-colors">
                             Themes
                           </h4>
                           <div className="flex flex-wrap gap-2">
                             {MALData.data.data.themes?.map((theme) => (
                               <span
                                 key={theme.mal_id}
-                                className="px-3 sm:px-4 py-1 sm:py-1.5 bg-primary/10 hover:bg-primary/20 rounded-full text-xs sm:text-sm text-text/90 hover:text-text transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
+                                className="bg-primary/10 hover:bg-primary/20 text-text/90 hover:text-text hover:shadow-primary/20 cursor-pointer rounded-full px-3 py-1 text-xs transition-all duration-300 hover:scale-105 hover:shadow-lg sm:px-4 sm:py-1.5 sm:text-sm"
                               >
                                 {theme.name}
                               </span>
@@ -594,9 +602,9 @@ const AnimeInfo = () => {
                 </div>
               </>
             ) : (
-              <div className="text-center py-8 sm:py-12 text-text/70">
+              <div className="text-text/70 py-8 text-center sm:py-12">
                 <svg
-                  className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 text-primary/50"
+                  className="text-primary/50 mx-auto mb-3 h-12 w-12 sm:mb-4 sm:h-16 sm:w-16"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -608,10 +616,10 @@ const AnimeInfo = () => {
                     d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                <p className="text-base font-outfit sm:text-lg font-medium">
+                <p className="font-outfit text-base font-medium sm:text-lg">
                   No additional information available
                 </p>
-                <p className="text-xs sm:text-sm mt-1 sm:mt-2">
+                <p className="mt-1 text-xs sm:mt-2 sm:text-sm">
                   Try refreshing the page or check back later
                 </p>
               </div>
@@ -622,14 +630,14 @@ const AnimeInfo = () => {
 
       {/* Related Anime */}
       {relatedAnimes?.length > 0 && (
-        <section className="container mx-auto  px-4 py-6">
-          <div className="  flex items-center space-x-4   font-outfit  mb-6">
-            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+        <section className="container mx-auto px-4 py-6">
+          <div className="font-outfit mb-6 flex items-center space-x-4">
+            <h1 className="from-text/90 to-text/60 bg-linear-to-r bg-clip-text text-lg font-bold text-transparent md:text-xl">
               Related Anime
             </h1>
-            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
+            <div className="from-primary/20 h-[1px] flex-1 bg-linear-to-r to-transparent"></div>
           </div>
-          <div className="grid place-items-center grid-cols-2 w-full sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          <div className="grid w-full grid-cols-2 place-items-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
             {relatedAnimes.map((anime) => (
               <AnimeCard
                 key={anime.id}
@@ -649,13 +657,13 @@ const AnimeInfo = () => {
       {/* Recommended Anime */}
       {recommendedAnimes?.length > 0 && (
         <section className="container mx-auto px-4 py-6">
-          <div className="  flex items-center space-x-4   font-outfit  mb-6">
-            <h1 className=" text-lg md:text-xl font-bold bg-linear-to-r from-text/90 to-text/60 bg-clip-text text-transparent ">
+          <div className="font-outfit mb-6 flex items-center space-x-4">
+            <h1 className="from-text/90 to-text/60 bg-linear-to-r bg-clip-text text-lg font-bold text-transparent md:text-xl">
               Recommended Anime
             </h1>
-            <div className="flex-1 h-[1px] bg-linear-to-r from-primary/20 to-transparent"></div>
+            <div className="from-primary/20 h-[1px] flex-1 bg-linear-to-r to-transparent"></div>
           </div>
-          <div className="grid place-items-center grid-cols-2 w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4  2xl:grid-cols-6">
+          <div className="grid w-full grid-cols-2 place-items-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
             {recommendedAnimes.map((anime) => (
               <AnimeCard
                 key={anime.id}

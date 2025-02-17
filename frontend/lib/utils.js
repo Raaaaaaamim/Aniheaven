@@ -87,42 +87,42 @@ export const characterFieldIcons = {
   // Age variations
   Age: "FaBirthdayCake",
   Ages: "FaBirthdayCake",
-  
+
   // Birthday variations
   Birthday: "FaCalendarAlt",
   Birthdate: "FaCalendarAlt",
   "Birth date": "FaCalendarAlt",
   "Date of birth": "FaCalendarAlt",
-  
+
   // Height variations
   Height: "FaRulerVertical",
   "Height:": "FaRulerVertical",
-  
+
   // Weight variations
   Weight: "FaWeight",
   "Weight:": "FaWeight",
-  
+
   // Blood type variations
   "Blood type": "FaHeart",
   "Blood Type": "FaHeart",
   Bloodtype: "FaHeart",
-  
+
   // Gender variations
   Gender: "IoPersonCircleOutline",
   Sex: "IoPersonCircleOutline",
-  
+
   // Status variations
   Status: "FaInfo",
   State: "FaInfo",
   Condition: "FaInfo",
-  
+
   // Hair variations
   Hair: "PiHairDryerFill",
   "Hair color": "PiHairDryerFill",
   "Hair Color": "PiHairDryerFill",
   "Hair colour": "PiHairDryerFill",
   "Hair Colour": "PiHairDryerFill",
-  
+
   // Eye variations
   Eyes: "PiEyeBold",
   Eye: "PiEyeBold",
@@ -130,7 +130,7 @@ export const characterFieldIcons = {
   "Eye Color": "PiEyeBold",
   "Eye colour": "PiEyeBold",
   "Eye Colour": "PiEyeBold",
-  
+
   // Japanese name variations
   "Japanese name": "FaLanguage",
   "Japanese Name": "FaLanguage",
@@ -139,7 +139,7 @@ export const characterFieldIcons = {
   Kanji: "FaLanguage",
   "Japanese:": "FaLanguage",
   "Name in Japanese": "FaLanguage",
-  
+
   // Affiliation variations
   Affiliation: "GiNinjaHeroicStance",
   Affiliations: "GiNinjaHeroicStance",
@@ -147,7 +147,7 @@ export const characterFieldIcons = {
   Groups: "GiNinjaHeroicStance",
   Organization: "GiNinjaHeroicStance",
   Organizations: "GiNinjaHeroicStance",
-  
+
   // Devil Fruit variations
   "Devil fruit": "GiPowerLightning",
   "Devil Fruit": "GiPowerLightning",
@@ -155,30 +155,30 @@ export const characterFieldIcons = {
   "Devils Fruit": "GiPowerLightning",
   "Devil's fruit": "GiPowerLightning",
   "Devils fruit": "GiPowerLightning",
-  
+
   // Position variations
   Position: "GiArmorDowngrade",
   Occupation: "GiArmorDowngrade",
   Role: "GiArmorDowngrade",
   Roles: "GiArmorDowngrade",
   Job: "GiArmorDowngrade",
-  
+
   // Type variations
   Type: "FaInfo",
   "Fruit type": "FaInfo",
   "Fruit Type": "FaInfo",
   Category: "FaInfo",
-  
+
   // Bounty variations
   Bounty: "FaQuoteLeft",
   "Bounty:": "FaQuoteLeft",
   Reward: "FaQuoteLeft",
-  
+
   // Race/Species variations
   Race: "IoPersonCircleOutline",
   Species: "IoPersonCircleOutline",
   Kind: "IoPersonCircleOutline",
-  
+
   // Alias variations
   Alias: "FaMask",
   Aliases: "FaMask",
@@ -186,7 +186,7 @@ export const characterFieldIcons = {
   AKA: "FaMask",
   Nickname: "FaMask",
   Nicknames: "FaMask",
-  "Other names": "FaMask"
+  "Other names": "FaMask",
 };
 
 export function parseAnimeCharacterData(data) {
@@ -195,7 +195,7 @@ export function parseAnimeCharacterData(data) {
   }
 
   const normalizeFieldName = (field) => {
-    return field.toLowerCase().replace(/[^a-z0-9]/g, '');
+    return field.toLowerCase().replace(/[^a-z0-9]/g, "");
   };
 
   const fieldGroups = {
@@ -208,14 +208,35 @@ export function parseAnimeCharacterData(data) {
     status: ["status", "state", "condition"],
     hair: ["hair", "haircolor", "haircolour"],
     eyes: ["eyes", "eye", "eyecolor", "eyecolour"],
-    japanesename: ["japanesename", "kanji", "japanese", "namejapanese", "nameinjapanesee"],
-    affiliation: ["affiliation", "affiliations", "group", "groups", "organization", "organizations"],
+    japanesename: [
+      "japanesename",
+      "kanji",
+      "japanese",
+      "namejapanese",
+      "nameinjapanesee",
+    ],
+    affiliation: [
+      "affiliation",
+      "affiliations",
+      "group",
+      "groups",
+      "organization",
+      "organizations",
+    ],
     devilfruit: ["devilfruit", "devilsfruit", "devilpower"],
     position: ["position", "occupation", "role", "roles", "job"],
     type: ["type", "fruittype", "category"],
     bounty: ["bounty", "reward"],
     race: ["race", "species", "kind"],
-    alias: ["alias", "aliases", "alsoknownas", "aka", "nickname", "nicknames", "othernames"]
+    alias: [
+      "alias",
+      "aliases",
+      "alsoknownas",
+      "aka",
+      "nickname",
+      "nicknames",
+      "othernames",
+    ],
   };
 
   // Create a map of normalized fields to their original form and group
@@ -282,4 +303,21 @@ export function parseAnimeCharacterData(data) {
   }
 
   return characterData;
+}
+export function calculateCompletionPercentage(currentXP, requiredXP) {
+  if (requiredXP < 0) {
+    return "Invalid input: Required XP must be greater than zero.";
+  }
+
+  if (currentXP >= requiredXP) {
+    return 100;
+  }
+
+  // Handle the case where currentXP is 0 (or any value less than requiredXP)
+  if (currentXP === 0) {
+    return 0; // 0 XP means 0% progress.
+  }
+
+  const percentage = (currentXP / requiredXP) * 100;
+  return Math.round(percentage);
 }

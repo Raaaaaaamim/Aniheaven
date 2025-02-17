@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { BiUser } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa";
@@ -8,7 +8,6 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import img1 from "../../assets/textLogo.svg";
-import { api } from "../../config.js";
 import { authAtom, userAtom } from "../../store/index.js";
 import MainButton from "../ui/MainButton.jsx";
 
@@ -122,7 +121,7 @@ const Signup = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post(`${api}/user/signup`, formData, {
+      const response = await axios.post(`/user/signup`, formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",

@@ -11,6 +11,8 @@ export const Wrapper =
     try {
       return await handler(c, next);
     } catch (error: any) {
+      console.log(error);
+
       throw error; // Pass the error to onError
     }
   };
@@ -44,10 +46,10 @@ export const generateTokenAndSendCookie = (
 
   setCookie(c, "token", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production", // Only use secure in production
-    sameSite: "lax", // Changed from 'none' to 'lax' for better compatibility
+    secure: false, // Set to false for localhost
+    sameSite: "lax",
     path: "/",
-    expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000), // 15 days
+    maxAge: 15 * 24 * 60 * 60, // 15 days in seconds
   });
 };
 

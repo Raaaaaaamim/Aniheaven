@@ -8,50 +8,49 @@ import { BsFilterLeft, BsSortDown, BsSortDownAlt } from "react-icons/bs";
 import CardSkeleton from "../components/skeletons/CardSkeleton.jsx";
 import Card from "../components/ui/Card";
 import DatePicker from "../components/ui/DatePicker";
-import { api } from "../services/api";
 
 const Search = () => {
   const [debouncedSearchQuery, setSearchQuery] = useQueryState(
     "q",
-    parseAsString.withDefault("")
+    parseAsString.withDefault(""),
   );
   const [type, setType] = useQueryState("type", parseAsString.withDefault(""));
   const [status, setStatus] = useQueryState(
     "status",
-    parseAsString.withDefault("")
+    parseAsString.withDefault(""),
   );
   const [season, setSeason] = useQueryState(
     "season",
-    parseAsString.withDefault("")
+    parseAsString.withDefault(""),
   );
   const [sort, setSort] = useQueryState("sort", parseAsString.withDefault(""));
   const [genres, setGenres] = useQueryState(
     "genres",
-    parseAsString.withDefault("")
+    parseAsString.withDefault(""),
   );
   const [isFilterOpen, setIsFilterOpen] = useState(
-    debouncedSearchQuery !== "" ? false : true
+    debouncedSearchQuery !== "" ? false : true,
   );
 
   const [startDate, setStartDate] = useQueryState(
     "start_date",
-    parseAsString.withDefault("")
+    parseAsString.withDefault(""),
   );
   const [endDate, setEndDate] = useQueryState(
     "end_date",
-    parseAsString.withDefault("")
+    parseAsString.withDefault(""),
   );
   const [rated, setRated] = useQueryState(
     "rated",
-    parseAsString.withDefault("")
+    parseAsString.withDefault(""),
   );
   const [score, setScore] = useQueryState(
     "score",
-    parseAsString.withDefault("")
+    parseAsString.withDefault(""),
   );
   const [language, setLanguage] = useQueryState(
     "language",
-    parseAsString.withDefault("")
+    parseAsString.withDefault(""),
   );
 
   const types = ["tv", "ova", "movie", "special", "ona"];
@@ -145,13 +144,13 @@ const Search = () => {
         return `${year}-${month}-${day}`;
       };
       const response = await axios.get(
-        `${api}/hianime/search?q=${encodeURIComponent(
-          debouncedSearchQuery
+        `/hianime/search?q=${encodeURIComponent(
+          debouncedSearchQuery,
         )}&type=${type}&status=${status}&season=${season}&sort=${sort}&genres=${genres}&page=${pageParam}&start_date=${formatDate(
-          startDate
+          startDate,
         )}&end_date=${formatDate(
-          endDate
-        )}&rated=${rated}&score=${score}&language=${language}`
+          endDate,
+        )}&rated=${rated}&score=${score}&language=${language}`,
       );
       return response.data;
     },
@@ -165,7 +164,7 @@ const Search = () => {
     debounce((value) => {
       setSearchQuery(value);
     }, 500),
-    [setSearchQuery]
+    [setSearchQuery],
   );
 
   const handleSearchInput = (e) => {
@@ -174,10 +173,10 @@ const Search = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#0D0D0D] px-2 md:px-4 relative overflow-hidden">
+    <div className="relative min-h-screen w-full overflow-hidden bg-[#0D0D0D] px-2 md:px-4">
       {/* Modern Background Elements */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] bg-[radial-gradient(circle_at_center,#1a1a1a_0%,transparent_25%)] animate-[spin_60s_linear_infinite]" />
+      <div className="pointer-events-none fixed inset-0">
+        <div className="absolute top-[-50%] left-[-50%] h-[200%] w-[200%] animate-[spin_60s_linear_infinite] bg-[radial-gradient(circle_at_center,#1a1a1a_0%,transparent_25%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(132,95,214,0.05),transparent_50%)]" />
       </div>
 
@@ -189,51 +188,53 @@ const Search = () => {
           animate={{ opacity: 1, y: 0 }}
           className="pt-8 pb-4"
         >
-          <div className="max-w-3xl mx-auto text-center mb-8">
+          <div className="mx-auto mb-8 max-w-3xl text-center">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-[2rem] md:text-[2.5rem] font-outfit font-bold mb-2 bg-linear-to-r from-text/90  to-text/60 bg-clip-text text-transparent tracking-[-0.02em] leading-tight "
+              className="font-outfit from-text/90 to-text/60 mb-2 bg-linear-to-r bg-clip-text text-[2rem] leading-tight font-bold tracking-[-0.02em] text-transparent md:text-[2.5rem]"
             >
               Discover Anime
             </motion.h1>
           </div>
 
           {/* Modern Search Bar */}
-          <div className="relative max-w-2xl mx-auto px-4">
-            <div className="relative overflow-hidden bg-[#141414]/80 backdrop-blur-xs rounded-2xl border border-white/[0.05] shadow-xl group hover:border-white/10 transition-all duration-500">
-              <div className="absolute inset-0 bg-linear-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="relative mx-auto max-w-2xl px-4">
+            <div className="group relative overflow-hidden rounded-2xl border border-white/[0.05] bg-[#141414]/80 shadow-xl backdrop-blur-xs transition-all duration-500 hover:border-white/10">
+              <div className="absolute inset-0 bg-linear-to-r from-white/[0.02] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               <input
                 type="text"
                 defaultValue={debouncedSearchQuery}
                 onChange={handleSearchInput}
                 placeholder="Search for anime..."
-                className="w-full bg-transparent text-base md:text-lg px-6 md:px-8 py-4 md:py-5 rounded-2xl text-white/90 placeholder:text-zinc-500 focus:outline-hidden relative z-10"
+                className="relative z-10 w-full rounded-2xl bg-transparent px-6 py-4 text-base text-white/90 placeholder:text-zinc-500 focus:outline-hidden md:px-8 md:py-5 md:text-lg"
               />
-              <div className="absolute right-3 flex items-center gap-1.5 top-1/2 -translate-y-1/2 z-10">
+              <div className="absolute top-1/2 right-3 z-10 flex -translate-y-1/2 items-center gap-1.5">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() =>
                     setSort(
-                      sort === "recently-updated" ? "score" : "recently-updated"
+                      sort === "recently-updated"
+                        ? "score"
+                        : "recently-updated",
                     )
                   }
-                  className="p-2 md:p-2.5 rounded-xl bg-white/[0.02] hover:bg-white/[0.08] transition-all duration-300"
+                  className="rounded-xl bg-white/[0.02] p-2 transition-all duration-300 hover:bg-white/[0.08] md:p-2.5"
                 >
                   {sort === "recently-updated" ? (
-                    <BsSortDownAlt className="text-lg md:text-xl text-zinc-400 group-hover:text-zinc-300 transition-colors" />
+                    <BsSortDownAlt className="text-lg text-zinc-400 transition-colors group-hover:text-zinc-300 md:text-xl" />
                   ) : (
-                    <BsSortDown className="text-lg md:text-xl text-zinc-400 group-hover:text-zinc-300 transition-colors" />
+                    <BsSortDown className="text-lg text-zinc-400 transition-colors group-hover:text-zinc-300 md:text-xl" />
                   )}
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setIsFilterOpen(!isFilterOpen)}
-                  className="p-2 md:p-2.5 rounded-xl bg-white/[0.02] hover:bg-white/[0.08] transition-all duration-300"
+                  className="rounded-xl bg-white/[0.02] p-2 transition-all duration-300 hover:bg-white/[0.08] md:p-2.5"
                 >
-                  <BsFilterLeft className="text-lg md:text-xl text-zinc-400 group-hover:text-zinc-300 transition-colors" />
+                  <BsFilterLeft className="text-lg text-zinc-400 transition-colors group-hover:text-zinc-300 md:text-xl" />
                 </motion.button>
               </div>
             </div>
@@ -250,25 +251,25 @@ const Search = () => {
           transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
           className="overflow-hidden"
         >
-          <div className="relative max-w-6xl mx-auto my-8">
-            <div className="relative bg-[#141414]/80 backdrop-blur-xs rounded-2xl border border-white/[0.05] shadow-xl overflow-hidden">
-              <div className="absolute inset-0 bg-linear-to-b from-white/[0.02] to-transparent pointer-events-none" />
+          <div className="relative mx-auto my-8 max-w-6xl">
+            <div className="relative overflow-hidden rounded-2xl border border-white/[0.05] bg-[#141414]/80 shadow-xl backdrop-blur-xs">
+              <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-white/[0.02] to-transparent" />
               {/* Filter Categories */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 p-6 md:p-8 relative">
+              <div className="relative grid grid-cols-1 gap-6 p-6 md:grid-cols-2 md:gap-10 md:p-8 lg:grid-cols-3">
                 {/* Date Range */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="space-y-3 col-span-full md:col-span-2 lg:col-span-3"
+                  className="col-span-full space-y-3 md:col-span-2 lg:col-span-3"
                 >
                   <div className="flex items-center gap-3">
                     <div className="h-[1px] flex-1 bg-linear-to-r from-transparent via-white/[0.05] to-transparent" />
-                    <h3 className="text-[11px] font-medium text-zinc-400 tracking-[0.2em] uppercase shrink-0 [text-shadow:_0_1px_2px_rgba(0,0,0,0.5)]">
+                    <h3 className="shrink-0 text-[11px] font-medium tracking-[0.2em] text-zinc-400 uppercase [text-shadow:_0_1px_2px_rgba(0,0,0,0.5)]">
                       Date Range
                     </h3>
                     <div className="h-[1px] flex-1 bg-linear-to-r from-transparent via-white/[0.05] to-transparent" />
                   </div>
-                  <div className="flex gap-3 flex-wrap justify-center">
+                  <div className="flex flex-wrap justify-center gap-3">
                     <DatePicker
                       value={startDate}
                       onChange={setStartDate}
@@ -330,7 +331,7 @@ const Search = () => {
                   >
                     <div className="flex items-center gap-3">
                       <div className="h-[1px] flex-1 bg-linear-to-r from-transparent via-white/[0.05] to-transparent" />
-                      <h3 className="text-[11px] font-medium text-zinc-400 tracking-[0.2em] uppercase shrink-0 [text-shadow:_0_1px_2px_rgba(0,0,0,0.5)]">
+                      <h3 className="shrink-0 text-[11px] font-medium tracking-[0.2em] text-zinc-400 uppercase [text-shadow:_0_1px_2px_rgba(0,0,0,0.5)]">
                         {category.title}
                       </h3>
                       <div className="h-[1px] flex-1 bg-linear-to-r from-transparent via-white/[0.05] to-transparent" />
@@ -343,16 +344,16 @@ const Search = () => {
                           whileTap={{ scale: 0.98 }}
                           onClick={() =>
                             category.setState(
-                              category.state === item ? "" : item
+                              category.state === item ? "" : item,
                             )
                           }
-                          className={`relative px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-[10px] md:text-xs transition-all duration-300 overflow-hidden ${
+                          className={`relative overflow-hidden rounded-lg px-3 py-1.5 text-[10px] transition-all duration-300 md:px-4 md:py-2 md:text-xs ${
                             category.state === item
-                              ? "bg-white/[0.08] text-white font-medium shadow-lg shadow-black/20 backdrop-blur-xs"
-                              : "text-zinc-400 hover:text-white hover:bg-white/[0.04] hover:shadow-lg hover:shadow-black/10"
+                              ? "bg-white/[0.08] font-medium text-white shadow-lg shadow-black/20 backdrop-blur-xs"
+                              : "text-zinc-400 hover:bg-white/[0.04] hover:text-white hover:shadow-lg hover:shadow-black/10"
                           }`}
                         >
-                          <div className="absolute inset-0 bg-linear-to-r from-white/[0.02] to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+                          <div className="absolute inset-0 bg-linear-to-r from-white/[0.02] to-transparent opacity-0 transition-opacity duration-500 hover:opacity-100" />
                           <span className="relative z-10">
                             {item.replace(/-/g, " ").toUpperCase()}
                           </span>
@@ -365,7 +366,7 @@ const Search = () => {
 
               {/* Genres Section */}
               <div className="relative border-t border-white/[0.05] p-6 md:p-8">
-                <div className="absolute inset-0 bg-linear-to-b from-white/[0.02] to-transparent pointer-events-none" />
+                <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-white/[0.02] to-transparent" />
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -373,7 +374,7 @@ const Search = () => {
                 >
                   <div className="flex items-center gap-3">
                     <div className="h-[1px] flex-1 bg-linear-to-r from-transparent via-white/[0.05] to-transparent" />
-                    <h3 className="text-[11px] font-medium text-zinc-400 tracking-[0.2em] uppercase shrink-0 [text-shadow:_0_1px_2px_rgba(0,0,0,0.5)]">
+                    <h3 className="shrink-0 text-[11px] font-medium tracking-[0.2em] text-zinc-400 uppercase [text-shadow:_0_1px_2px_rgba(0,0,0,0.5)]">
                       Genres
                     </h3>
                     <div className="h-[1px] flex-1 bg-linear-to-r from-transparent via-white/[0.05] to-transparent" />
@@ -393,13 +394,13 @@ const Search = () => {
                             : [...currentGenres, genre];
                           setGenres(newGenres.join(","));
                         }}
-                        className={`relative px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-[10px] md:text-xs transition-all duration-300 overflow-hidden ${
+                        className={`relative overflow-hidden rounded-lg px-3 py-1.5 text-[10px] transition-all duration-300 md:px-4 md:py-2 md:text-xs ${
                           genres.split(",").includes(genre)
-                            ? "bg-white/[0.08] text-white font-medium shadow-lg shadow-black/20 backdrop-blur-xs"
-                            : "text-zinc-400 hover:text-white hover:bg-white/[0.04] hover:shadow-lg hover:shadow-black/10"
+                            ? "bg-white/[0.08] font-medium text-white shadow-lg shadow-black/20 backdrop-blur-xs"
+                            : "text-zinc-400 hover:bg-white/[0.04] hover:text-white hover:shadow-lg hover:shadow-black/10"
                         }`}
                       >
-                        <div className="absolute inset-0 bg-linear-to-r from-white/[0.02] to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+                        <div className="absolute inset-0 bg-linear-to-r from-white/[0.02] to-transparent opacity-0 transition-opacity duration-500 hover:opacity-100" />
                         <span className="relative z-10">
                           {genre.replace(/-/g, " ").toUpperCase()}
                         </span>
@@ -418,34 +419,34 @@ const Search = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="relative max-w-[2000px] mx-auto mt-12 px-4"
+            className="relative mx-auto mt-12 max-w-[2000px] px-4"
           >
-            <div className="flex items-center justify-between mb-10">
+            <div className="mb-10 flex items-center justify-between">
               <motion.h2
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="text-xl md:text-2xl font-medium text-white/90 "
+                className="text-xl font-medium text-white/90 md:text-2xl"
               >
                 Results for &quot;{debouncedSearchQuery}&quot;
               </motion.h2>
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="text-zinc-400 flex items-center gap-2"
+                className="flex items-center gap-2 text-zinc-400"
               >
-                <span className="text-xl md:text-2xl font-medium text-white/90 ">
+                <span className="text-xl font-medium text-white/90 md:text-2xl">
                   {searchResults?.pages?.reduce(
                     (total, page) => total + (page?.data?.animes?.length || 0),
-                    0
+                    0,
                   ) || 0}
                 </span>
-                <span className="text-xs md:text-sm tracking-wide">
+                <span className="text-xs tracking-wide md:text-sm">
                   results found
                 </span>
               </motion.div>
             </div>
 
-            <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 place-items-center  gap-6">
+            <div className="grid grid-cols-2 place-items-center gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5">
               {isLoading
                 ? Array(12)
                     .fill(0)
@@ -484,7 +485,7 @@ const Search = () => {
                           dubCount={anime?.dubCount}
                         />
                       </motion.div>
-                    ))
+                    )),
                   )}
             </div>
 
@@ -493,16 +494,16 @@ const Search = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex justify-center mt-16"
+                className="mt-16 flex justify-center"
               >
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => fetchNextPage()}
                   disabled={isLoading}
-                  className="relative group"
+                  className="group relative"
                 >
-                  <div className="px-8 py-4 bg-[#141414]/80 backdrop-blur-xs rounded-xl border border-white/[0.05] flex items-center gap-3 transition-all duration-300 hover:border-primary/20">
+                  <div className="hover:border-primary/20 flex items-center gap-3 rounded-xl border border-white/[0.05] bg-[#141414]/80 px-8 py-4 backdrop-blur-xs transition-all duration-300">
                     {isFetchingNextPage ? (
                       <>
                         <div className="loading loading-spinner loading-sm text-primary" />
@@ -512,11 +513,11 @@ const Search = () => {
                       </>
                     ) : (
                       <>
-                        <span className="text-white group-hover:text-primary transition-colors">
+                        <span className="group-hover:text-primary text-white transition-colors">
                           Discover More
                         </span>
                         <svg
-                          className="w-5 h-5 text-primary transform transition-transform duration-300 group-hover:translate-x-1"
+                          className="text-primary h-5 w-5 transform transition-transform duration-300 group-hover:translate-x-1"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"

@@ -10,6 +10,10 @@ const getInitialSettings = () => {
     autoNext: true,
     autoSkipIntro: false,
     autoPlay: true,
+    enableDub: false,
+    titleLanguage: "English",
+    defaultServer: "default",
+    preferredQuality: "1080p",
   };
 };
 

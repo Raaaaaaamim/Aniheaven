@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import type { UserType } from "../interfaces/user.js";
 const userSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true },
@@ -8,23 +9,14 @@ const userSchema = new mongoose.Schema(
     banner: {
       type: String,
       default: "https://w.wallhaven.cc/full/4d/wallhaven-4dk2ej.png",
-      enum: [
-        "https://w.wallhaven.cc/full/4d/wallhaven-4dk2ej.png",
-        "https://w.wallhaven.cc/full/49/wallhaven-49d1dd.jpg",
-        "https://w.wallhaven.cc/full/yx/wallhaven-yx3kok.jpg",
-        "https://w.wallhaven.cc/full/vm/wallhaven-vm555m.jpg",
-        "https://w.wallhaven.cc/full/vm/wallhaven-vmj3kl.jpg",
-        "https://w.wallhaven.cc/full/m3/wallhaven-m35ze1.png",
-        "https://w.wallhaven.cc/full/mp/wallhaven-mpk791.jpg",
-      ],
     },
     profilePicture: { type: String, default: "default-profile.png" },
     name: { type: String, required: [true, "Name must be present"] },
     achievements: {
-      eternalFlame: { type: Boolean, default: false },
-      theChosenOne: { type: Boolean, default: false },
-
+      angrish: { type: Boolean, default: false },
+      chosenOne: { type: Boolean, default: false },
       beyondHuman: { type: Boolean, default: false },
+      new: { type: Boolean, default: true },
     },
     totalWatchTime: { type: Number, default: 0 },
     emailVerified: { type: Boolean, default: false },
@@ -57,6 +49,21 @@ const userSchema = new mongoose.Schema(
         default: [],
       },
     ],
+    settings: {
+      autoPlay: { type: Boolean, default: false },
+      autoNext: { type: Boolean, default: false },
+      autoSkipIntro: { type: Boolean, default: false },
+      enableDub: { type: Boolean, default: false },
+      titleLanguage: { type: String, default: "English" },
+      defaultServer: { type: String, default: "default" },
+      preferredQuality: { type: String, default: "1080p" },
+    },
+    notifications: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Notification",
+      },
+    ],
   },
 
   {
@@ -64,4 +71,7 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("User", userSchema);
+const User =
+  mongoose.models.User || mongoose.model<UserType>("User", userSchema);
+
+export default User;

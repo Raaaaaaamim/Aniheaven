@@ -1,7 +1,6 @@
 import type { Context, Next } from "hono";
 import { getCookie } from "hono/cookie";
 import jwt from "jsonwebtoken";
-import type mongoose from "mongoose";
 import { StatusCodes } from "../features/utils.js";
 import type { UserType } from "../interfaces/user.js";
 import User from "../models/user.js";
@@ -30,7 +29,9 @@ const protectedRoute = async (
   // check if the user exists
   const user = (await User.findOne({
     _id: decodedToken.id,
-  })) as mongoose.Document<UserType>;
+  }).select(
+    "-watchlist -continueWatching -activity -notifications "
+  )) as UserType;
   if (!user) {
     return c.json(
       { success: false, message: "Unauthorized" },

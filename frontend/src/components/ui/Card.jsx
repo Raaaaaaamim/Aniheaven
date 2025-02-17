@@ -1,14 +1,17 @@
 import { motion } from "framer-motion";
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { BsCcCircleFill, BsFillInfoCircleFill } from "react-icons/bs";
 import { FaPlay } from "react-icons/fa";
-import { FiPlus } from "react-icons/fi";
+import { FiCheck, FiPlus } from "react-icons/fi";
 import { IoCalendarClear } from "react-icons/io5";
+import { LuLoader2 } from "react-icons/lu";
 import { MdCategory } from "react-icons/md";
 import { PiMicrophoneFill } from "react-icons/pi";
 import { TbClockHour4Filled } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { cardVariants, infoVariants, textVariants } from "../../animations";
+
+import useAddToWatchlist from "../../hooks/useAddToWatchlist.jsx";
 import useAnimeInfo from "../../hooks/useAnimeInfo";
 import Badge from "./Badge.jsx";
 import Loader from "./Loader.jsx";
@@ -16,10 +19,33 @@ import Loader from "./Loader.jsx";
 const Card = forwardRef(
   ({ imageUrl, title, id, upcoming, subCount, dubCount }, ref) => {
     const [hovered, setHovered] = useState(false);
-
     const { refetch, isLoading, data, isError } = useAnimeInfo(id);
+    const { mutate, isPending } = useAddToWatchlist();
     const anime = data?.data?.data?.anime;
 
+    const initialIsInWatchlist = anime?.isInWatchlist || false;
+    const [isInWatchlist, setIsInWatchlist] = useState(initialIsInWatchlist);
+    const addToWatchlist = () => {
+      if (!data) return;
+      mutate(
+        {
+          HiAnimeId: id,
+          name: anime?.info?.name,
+          poster: anime?.info?.poster,
+          type: anime?.info?.stats?.type,
+          jname: anime?.moreInfo?.japanese,
+          episodes: anime?.info?.stats?.episodes,
+        },
+        {
+          onSuccess: () => {
+            setIsInWatchlist((pre) => !pre);
+          },
+        },
+      );
+    };
+    useEffect(() => {
+      setIsInWatchlist(data?.data?.data?.anime?.isInWatchlist || false);
+    }, [data]);
     return (
       <motion.div
         ref={ref}
@@ -30,7 +56,7 @@ const Card = forwardRef(
           setHovered(true);
         }}
         onMouseLeave={() => setHovered(false)}
-        className="group relative  overflow-hidden bg-[#0f0f0f]  sm:w-[240px] md:w-[28vw] w-[180px]  rounded-2xl h-[280px] sm:h-[340px] md:h-[38vw] lg:h-[340px]  lg:w-[230px]    xl:h-[370px] xl:w-64 border border-white/[0.05]   transition-all  2xl:w-[16rem] 2xl:h-[24rem] duration-300"
+        className="group relative h-[280px] w-[180px] overflow-hidden rounded-2xl border border-white/[0.05] bg-[#0f0f0f] transition-all duration-300 sm:h-[340px] sm:w-[240px] md:h-[38vw] md:w-[28vw] lg:h-[340px] lg:w-[230px] xl:h-[370px] xl:w-64 2xl:h-[24rem] 2xl:w-[16rem]"
       >
         <motion.img
           animate={{ scale: hovered ? 1.1 : 1 }}
@@ -38,18 +64,18 @@ const Card = forwardRef(
           src={imageUrl}
           loading="lazy"
           alt={title}
-          className="inset-0 overflow-hidden w-full h-full rounded-2xl"
+          className="inset-0 h-full w-full overflow-hidden rounded-2xl"
         />
 
         <motion.div
           variants={infoVariants}
           initial="initial"
           animate={hovered ? "hover" : "initial"}
-          className="overflow-hidden absolute h-[90%] rounded-2xl left-0 -bottom-0 z-20 flex justify-center items-center w-full bg-[#0f0f0f]/80 backdrop-blur-xs border-t border-white/[0.05]"
+          className="absolute -bottom-0 left-0 z-20 flex h-[90%] w-full items-center justify-center overflow-hidden rounded-2xl border-t border-white/[0.05] bg-[#0f0f0f]/80 backdrop-blur-xs"
         >
-          <div className="p-4 mb-16 justify-center text-white flex flex-col lg:gap-2 gap-[3px] w-full h-full">
+          <div className="mb-16 flex h-full w-full flex-col justify-center gap-[3px] p-4 text-white lg:gap-2">
             {isLoading ? (
-              <div className="flex mt-auto justify-center items-center w-full h-[90%]">
+              <div className="mt-auto flex h-[90%] w-full items-center justify-center">
                 <Loader size="md" />
               </div>
             ) : isError ? (
@@ -57,7 +83,7 @@ const Card = forwardRef(
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
-                className="flex justify-center items-center w-full h-full text-xs lg:text-sm font-outfit"
+                className="font-outfit flex h-full w-full items-center justify-center text-xs lg:text-sm"
               >
                 Error loading content
               </motion.div>
@@ -71,27 +97,27 @@ const Card = forwardRef(
                   opacity: { duration: 0.4 },
                   scale: { duration: 0.3 },
                 }}
-                className=" flex flex-col gap-1 "
+                className="flex flex-col gap-1"
               >
-                <div className="flex md:mt-12 mt-16 md:gap-1 gap-[3px] flex-col">
-                  <div className="flex justify-between w-full items-center">
-                    <h3 className="text-sm sm:text-base lg:text-lg  md:h-fit font-outfit line-clamp-2 font-semibold text-text/90">
+                <div className="mt-16 flex flex-col gap-[3px] md:mt-12 md:gap-1">
+                  <div className="flex w-full items-center justify-between">
+                    <h3 className="font-outfit text-text/90 line-clamp-2 text-sm font-semibold sm:text-base md:h-fit lg:text-lg">
                       {title}
                     </h3>
 
                     <Link
                       to={`/info/${id}`}
-                      className="flex justify-center items-center hover:text-primary transition-colors duration-300"
+                      className="hover:text-primary flex items-center justify-center transition-colors duration-300"
                     >
-                      <BsFillInfoCircleFill className="w-4 h-4 cursor-pointer" />
+                      <BsFillInfoCircleFill className="h-4 w-4 cursor-pointer" />
                     </Link>
                   </div>
-                  <p className="lg:line-clamp-4 text-ellipsis max-h-16 sm:max-h-20 w-full md:h-fit md:max-h-24 font-outfit overflow-hidden text-[11px] 2xl:line-clamp-5 line-clamp-2 sm:text-xs text-text/70">
+                  <p className="font-outfit text-text/70 line-clamp-2 max-h-16 w-full overflow-hidden text-[11px] text-ellipsis sm:max-h-20 sm:text-xs md:h-fit md:max-h-24 lg:line-clamp-4 2xl:line-clamp-5">
                     {anime?.info?.description}
                   </p>
                 </div>
 
-                <div className="flex justify-start self-start py-1 sm:py-2 gap-1 items-center">
+                <div className="flex items-center justify-start gap-1 self-start py-1 sm:py-2">
                   <Badge title={anime?.info?.stats?.type || "N/A"} />
                   {anime?.info?.stats?.episodes?.sub && (
                     <Badge
@@ -108,8 +134,8 @@ const Card = forwardRef(
                   )}
                 </div>
 
-                <div className="flex flex-col md:flex-row self-start justify-start font-outfit items-center gap-1 md:gap-4 text-[11px] sm:text-xs text-text/70">
-                  <div className="flex md:self-center self-start justify-center items-center gap-1">
+                <div className="font-outfit text-text/70 flex flex-col items-center justify-start gap-1 self-start text-[11px] sm:text-xs md:flex-row md:gap-4">
+                  <div className="flex items-center justify-center gap-1 self-start md:self-center">
                     <IoCalendarClear size={14} className="text-primary/90" />
                     <span className="text-[11px] sm:text-xs">
                       {upcoming
@@ -117,7 +143,7 @@ const Card = forwardRef(
                         : anime?.moreInfo?.aired?.split("to")[0]}
                     </span>
                   </div>
-                  <div className="flex md:self-center self-start justify-center items-center gap-1">
+                  <div className="flex items-center justify-center gap-1 self-start md:self-center">
                     <TbClockHour4Filled size={14} className="text-primary/90" />
                     <span className="text-[11px] sm:text-xs">
                       {anime?.moreInfo?.duration || "N/A"}
@@ -125,7 +151,7 @@ const Card = forwardRef(
                   </div>
                 </div>
 
-                <div className="text-[11px] sm:text-xs self-start flex justify-start items-center gap-1 font-outfit text-text/70">
+                <div className="font-outfit text-text/70 flex items-center justify-start gap-1 self-start text-[11px] sm:text-xs">
                   <MdCategory size={14} className="text-primary/90" />
                   {anime?.moreInfo?.genres?.length > 1 ? (
                     <>
@@ -146,43 +172,53 @@ const Card = forwardRef(
                   )}
                 </div>
 
-                <div className="flex self-start md:self-center md:mt-2 md:gap-2 mt-2 gap-1.5 justify-evenly   w-full items-center">
+                <div className="mt-2 flex w-full items-center justify-evenly gap-1.5 self-start md:mt-2 md:gap-2 md:self-center">
                   <Link
                     to={`/watch/${id}`}
-                    className="w-full flex-1 py-1.5  sm:py-2 px-3 sm:px-4 rounded-xl md:py-3 bg-linear-to-r from-primary via-primary to-primary/90 text-black text-[10px] sm:text-xs font-outfit font-semibold hover:opacity-90 transition-all duration-300 shadow-[0_4px_16px_rgba(120,119,198,0.4)] flex items-center justify-center gap-1.5 sm:gap-2"
+                    className="from-primary via-primary to-primary/90 font-outfit flex w-full flex-1 items-center justify-center gap-1.5 rounded-xl bg-linear-to-r px-3 py-1.5 text-[10px] font-semibold text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)] transition-all duration-300 hover:opacity-90 sm:gap-2 sm:px-4 sm:py-2 sm:text-xs md:py-3"
                   >
-                    <FaPlay className="text-[10px] md:text-sm sm:text-xs" />
-                    <span className=" sm:inline">Watch Now</span>
+                    <FaPlay className="text-[10px] sm:text-xs md:text-sm" />
+                    <span className="sm:inline">Watch Now</span>
                   </Link>
-                  <button className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300 flex items-center justify-center">
-                    <FiPlus className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <button
+                    onClick={addToWatchlist}
+                    disabled={isPending}
+                    className="text-text/90 flex h-8 w-8 items-center justify-center rounded-xl border border-white/[0.05] bg-white/[0.02] transition-all duration-300 hover:bg-white/[0.04] sm:h-10 sm:w-10"
+                  >
+                    {isPending ? (
+                      <LuLoader2 className="h-4 w-4 animate-spin sm:h-5 sm:w-5" />
+                    ) : isInWatchlist ? (
+                      <FiCheck className="h-4 w-4 sm:h-5 sm:w-5" />
+                    ) : (
+                      <FiPlus className="h-4 w-4 sm:h-5 sm:w-5" />
+                    )}
                   </button>
                 </div>
               </motion.div>
             )}
           </div>
         </motion.div>
-        <div className="absolute z-10 flex justify-end flex-col bottom-0 w-full h-32 bg-linear-to-t gap-2 from-black to-transparent">
-          <h1 className="ml-2 sm:ml-3 line-clamp-1 w-[90%] font-outfit text-xs sm:text-sm md:text-[1rem] font-bold text-text/90">
+        <div className="absolute bottom-0 z-10 flex h-32 w-full flex-col justify-end gap-2 bg-linear-to-t from-black to-transparent">
+          <h1 className="font-outfit text-text/90 ml-2 line-clamp-1 w-[90%] text-xs font-bold sm:ml-3 sm:text-sm md:text-[1rem]">
             {title}
           </h1>
           <motion.div
             variants={textVariants}
-            className="flex justify-center ml-2 sm:ml-3 mb-3 sm:mb-4 self-start gap-1 items-center"
+            className="mb-3 ml-2 flex items-center justify-center gap-1 self-start sm:mb-4 sm:ml-3"
           >
             {subCount && (
-              <div className="flex items-center gap-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
-                <BsCcCircleFill className="text-[10px] sm:text-xs text-primary/90" />
-                <span className="text-[10px] sm:text-xs font-outfit">
+              <div className="text-text/90 flex items-center gap-1 rounded-xl border border-white/[0.05] bg-white/[0.02] px-2 py-0.5 transition-all duration-300 hover:bg-white/[0.04] sm:px-3 sm:py-1">
+                <BsCcCircleFill className="text-primary/90 text-[10px] sm:text-xs" />
+                <span className="font-outfit text-[10px] sm:text-xs">
                   {subCount}
                 </span>
               </div>
             )}
 
             {dubCount && (
-              <div className="flex items-center gap-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05] transition-all duration-300">
-                <PiMicrophoneFill className="text-[10px] sm:text-xs text-primary/90" />
-                <span className="text-[10px] sm:text-xs font-outfit">
+              <div className="text-text/90 flex items-center gap-1 rounded-xl border border-white/[0.05] bg-white/[0.02] px-2 py-0.5 transition-all duration-300 hover:bg-white/[0.04] sm:px-3 sm:py-1">
+                <PiMicrophoneFill className="text-primary/90 text-[10px] sm:text-xs" />
+                <span className="font-outfit text-[10px] sm:text-xs">
                   {dubCount}
                 </span>
               </div>
@@ -191,7 +227,7 @@ const Card = forwardRef(
         </div>
       </motion.div>
     );
-  }
+  },
 );
 
 Card.displayName = "Card";
