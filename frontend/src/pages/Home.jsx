@@ -141,7 +141,7 @@ const Home = () => {
               {/* Anime information overlay */}
               <motion.div className="text-text absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-8 lg:px-12">
                 {/* Title */}
-                <h1 className="font-outfit flex flex-wrap gap-3 text-2xl md:text-5xl lg:mb-4 xl:text-6xl">
+                <h1 className="font-outfit flex flex-wrap gap-3 text-2xl md:text-3xl lg:mb-4 lg:text-[2.8rem] xl:text-[3rem]">
                   <span className="text-text/90 line-clamp-1 font-bold lg:line-clamp-2">
                     {anime.name}
                   </span>

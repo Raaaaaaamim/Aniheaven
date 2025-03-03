@@ -1,9 +1,9 @@
 import { HiAnime } from "aniwatch";
 import { Hono, type Context } from "hono";
-import { getCookie } from "hono/cookie";
-import jwt from "jsonwebtoken";
 import { AniwatchAPICache, cache } from "../config/cache.js";
 import type { AniwatchAPIVariables } from "../config/variables.js";
+import { decodeUser } from "../middlewares/decodeUser.js";
+import continueWatching from "../models/continueWatching.js";
 import Watchlist from "../models/watchlistAnime.js";
 import { BASE_PATH } from "../server.js";
 const hianime = new HiAnime.Scraper();
@@ -132,20 +132,15 @@ hianimeRouter.get("/search/suggestion", async (c) => {
 });
 
 // /api/v2/hianime/anime/{animeId}
-hianimeRouter.get("/anime/:animeId", async (c) => {
+hianimeRouter.get("/anime/:animeId", decodeUser, async (c) => {
   const cacheConfig = c.get("CACHE_CONFIG");
   let isInWatchlist = false;
   const animeId = decodeURIComponent(c.req.param("animeId").trim());
-  const token = getCookie(c, "token");
+  const userId = c.get("USER_ID") as string | null;
   // In src/routes/hianime.ts
-  if (token) {
-    const decodedToken = jwt.verify(
-      token,
-      process.env.JWT_SECRET as string
-    ) as jwt.JwtPayload;
-
+  if (userId) {
     const doesExist = await Watchlist.exists({
-      $and: [{ author: decodedToken.id }, { HiAnimeId: animeId }],
+      $and: [{ author: userId }, { HiAnimeId: animeId }],
     });
     isInWatchlist = !!doesExist;
   }
@@ -182,11 +177,26 @@ hianimeRouter.get("/episode/servers", async (c) => {
 
 // episodeId=steinsgate-3?ep=230
 // /api/v2/hianime/episode/sources?animeEpisodeId={episodeId}?server={server}&category={category (dub or sub)}
-hianimeRouter.get("/episode/sources", async (c) => {
+hianimeRouter.get("/episode/sources", decodeUser, async (c) => {
   const cacheConfig = c.get("CACHE_CONFIG");
+
   const animeEpisodeId = decodeURIComponent(
     c.req.query("animeEpisodeId") || ""
   );
+  const userId = c.get("USER_ID") as string | null;
+  let startFrom = 0;
+
+  if (userId) {
+    const continueWatchingObj = await continueWatching
+      .findOne({
+        $and: [{ author: userId }, { epId: animeEpisodeId }],
+      })
+      .select("startFrom");
+
+    if (continueWatchingObj) {
+      startFrom = continueWatchingObj.startFrom as number;
+    }
+  }
   const server = decodeURIComponent(
     c.req.query("server") || HiAnime.Servers.VidStreaming
   ) as HiAnime.AnimeServers;
@@ -201,7 +211,10 @@ hianimeRouter.get("/episode/sources", async (c) => {
     cacheConfig.duration
   );
 
-  return c.json({ success: true, data }, { status: 200 });
+  return c.json(
+    { success: true, data: { ...data, startFrom } },
+    { status: 200 }
+  );
 });
 
 // /api/v2/hianime/anime/{anime-id}/episodes

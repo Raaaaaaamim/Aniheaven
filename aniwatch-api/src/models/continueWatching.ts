@@ -17,13 +17,13 @@ const continueWatchingSchema: mongoose.Schema = new mongoose.Schema({
   jname: { type: String, required: true },
   type: { type: String },
   rating: { type: String },
-  link: { type: String, required: true },
   episodes: {
     sub: { type: Number, required: true },
     dub: { type: Number, required: true },
   },
   startFrom: { type: Number },
   epNumber: { type: Number },
+  epId: { type: String },
 });
 
 export default mongoose.model("ContinueWatching", continueWatchingSchema);

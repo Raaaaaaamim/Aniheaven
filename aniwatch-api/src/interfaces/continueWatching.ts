@@ -1,9 +1,9 @@
-import type mongoose from "mongoose";
+import type { Document, Types } from "mongoose";
 
-export interface continueWatchingType {
-  _id: mongoose.Types.ObjectId;
+export interface continueWatchingType extends Document {
+  _id: Types.ObjectId;
   HiAnimeId: string;
-  author: mongoose.Types.ObjectId;
+  author: Types.ObjectId;
   name: string;
   poster: string;
   type?: string;
@@ -13,7 +13,7 @@ export interface continueWatchingType {
     sub: number;
     dub: number;
   };
+  epId: string;
   startFrom?: number;
-  link: string;
   epNumber: number;
 }

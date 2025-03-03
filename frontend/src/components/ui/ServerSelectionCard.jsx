@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import React from "react";
+import PropTypes from "prop-types";
 import { MdOutlineJoinLeft } from "react-icons/md";
 import { RiClosedCaptioningFill, RiMic2Fill } from "react-icons/ri";
 import {
   serverItemVariants,
   watchContainerVariants,
 } from "../../animations.jsx";
+
 const ServerSelectionCard = ({
   isServersLoading,
   isServersError,
@@ -17,13 +18,13 @@ const ServerSelectionCard = ({
   setSelectedCategory,
 }) => {
   return (
-    <div className="overflow-hidden font-outfit w-full flex h-auto lg:h-[8rem] bg-secondaryBg rounded-3xl border border-white/[0.05]">
+    <div className="font-outfit bg-secondaryBg flex h-auto w-full overflow-hidden rounded-3xl border border-white/[0.05] lg:h-[8rem]">
       {/* About Panel */}
-      <div className="w-[40%] hidden justify-center items-start lg:flex lg:flex-col h-full border-r border-white/[0.05] gap-2">
-        <div className="flex  rounded-md self-start ml-6 justify-center items-center gap-4">
-          <div className=" text-text flex justify-center items-center gap-2 ">
-            <MdOutlineJoinLeft className=" text-lg text-primary " />
-            <span className="text-xs lg:text-sm font-semibold">
+      <div className="hidden h-full w-[40%] items-start justify-center gap-2 border-r border-white/[0.05] lg:flex lg:flex-col">
+        <div className="ml-6 flex items-center justify-center gap-4 self-start rounded-md">
+          <div className="text-text flex items-center justify-center gap-2">
+            <MdOutlineJoinLeft className="text-primary text-lg" />
+            <span className="text-xs font-semibold lg:text-sm">
               Filler Episode
             </span>
           </div>
@@ -31,10 +32,10 @@ const ServerSelectionCard = ({
       </div>
 
       {/* Server Options */}
-      <div className="lg:w-[70%] w-full h-full gap-0 flex flex-col">
+      <div className="flex h-full w-full flex-col gap-0 lg:w-[70%]">
         {/* Subtitle Servers Section */}
         <motion.div
-          className="w-full h-auto lg:h-[50%] border-b border-white/[0.05] items-center flex flex-wrap lg:flex-nowrap justify-start gap-3 p-3 lg:px-6"
+          className="flex h-auto w-full flex-wrap items-center justify-start gap-3 border-b border-white/[0.05] p-3 lg:h-[50%] lg:flex-nowrap lg:px-6"
           variants={watchContainerVariants}
           initial="hidden"
           animate="visible"
@@ -51,7 +52,7 @@ const ServerSelectionCard = ({
                 .map((_, i) => (
                   <div
                     key={i}
-                    className="bg-white/[0.02] animate-pulse w-20 lg:w-24 h-8 lg:h-9 rounded-xl"
+                    className="h-8 w-20 animate-pulse rounded-xl bg-white/[0.02] lg:h-9 lg:w-24"
                   ></div>
                 ))}
             </>
@@ -59,8 +60,8 @@ const ServerSelectionCard = ({
             <>
               {/* Server Error State */}
               {isServersError ? (
-                <div className="w-full h-full flex items-center justify-start">
-                  <span className="text-xs lg:text-sm text-primary font-outfit">
+                <div className="flex h-full w-full items-center justify-start">
+                  <span className="text-primary font-outfit text-xs lg:text-sm">
                     {serversError?.message}
                   </span>
                 </div>
@@ -80,19 +81,19 @@ const ServerSelectionCard = ({
                           delay: i * 0.05,
                           ease: "backOut",
                         }}
+                        onClick={() => {
+                          console.log("Selected Server:", serverName);
+                          setSelectedServer(serverName);
+                          setSelectedCategory("sub");
+                        }}
                       >
                         <div
-                          className={`cursor-pointer text-xs lg:text-sm capitalize px-3 lg:px-5 rounded-xl py-[6px] transition-all duration-300 ${
+                          className={`cursor-pointer rounded-xl px-3 py-[6px] text-xs capitalize transition-all duration-300 lg:px-5 lg:text-sm ${
                             selectedServer === serverName &&
                             selectedCategory === "sub"
-                              ? "bg-linear-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
-                              : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
+                              ? "from-primary via-primary to-primary/90 bg-linear-to-r text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
+                              : "text-text/90 border border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04]"
                           }`}
-                          key={i}
-                          onClick={() => {
-                            setSelectedServer(serverName);
-                            setSelectedCategory("sub");
-                          }}
                         >
                           {serverName || "N/A"}
                         </div>
@@ -104,11 +105,11 @@ const ServerSelectionCard = ({
                       <motion.div
                         variants={serverItemVariants}
                         whileTap={{ scale: 0.95 }}
-                        className={`cursor-pointer text-xs lg:text-sm capitalize px-3 lg:px-5 rounded-xl py-[6px] transition-all duration-300 ${
+                        className={`cursor-pointer rounded-xl px-3 py-[6px] text-xs capitalize transition-all duration-300 lg:px-5 lg:text-sm ${
                           selectedServer === serverName &&
                           selectedCategory === "raw"
-                            ? "bg-linear-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
-                            : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
+                            ? "from-primary via-primary to-primary/90 bg-linear-to-r text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
+                            : "text-text/90 border border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04]"
                         }`}
                         key={i}
                         onClick={() => {
@@ -121,7 +122,7 @@ const ServerSelectionCard = ({
                     ))}
                   {/* Fallback for No Servers */}
                   {server?.sub.length === 0 && (
-                    <div className="text-xs lg:text-sm capitalize px-3 lg:px-5 rounded-xl py-[6px] bg-white/[0.02] text-text/70 border border-white/[0.05]">
+                    <div className="text-text/70 rounded-xl border border-white/[0.05] bg-white/[0.02] px-3 py-[6px] text-xs capitalize lg:px-5 lg:text-sm">
                       N/A
                     </div>
                   )}
@@ -133,7 +134,7 @@ const ServerSelectionCard = ({
 
         {/* Dub Servers Section */}
         <motion.div
-          className="w-full h-auto lg:h-[50%] items-center flex flex-wrap lg:flex-nowrap justify-start gap-2 gap-3 p-3 lg:px-6"
+          className="flex h-auto w-full flex-wrap items-center justify-start gap-2 gap-3 p-3 lg:h-[50%] lg:flex-nowrap lg:px-6"
           variants={watchContainerVariants}
           initial="hidden"
           animate="visible"
@@ -147,7 +148,7 @@ const ServerSelectionCard = ({
                 .map((_, i) => (
                   <div
                     key={i}
-                    className="bg-white/[0.02] animate-pulse w-20 lg:w-24 h-8 lg:h-9 rounded-xl"
+                    className="h-8 w-20 animate-pulse rounded-xl bg-white/[0.02] lg:h-9 lg:w-24"
                   ></div>
                 ))}
             </>
@@ -167,19 +168,19 @@ const ServerSelectionCard = ({
                       delay: i * 0.05,
                       ease: "backOut",
                     }}
+                    onClick={() => {
+                      console.log("Selected Dub Server:", serverName);
+                      setSelectedServer(serverName);
+                      setSelectedCategory("dub");
+                    }}
                   >
                     <div
-                      className={`cursor-pointer text-xs lg:text-sm capitalize px-3 lg:px-5 rounded-xl py-[6px] transition-all duration-300 ${
+                      className={`cursor-pointer rounded-xl px-3 py-[6px] text-xs capitalize transition-all duration-300 lg:px-5 lg:text-sm ${
                         selectedServer === serverName &&
                         selectedCategory === "dub"
-                          ? "bg-linear-to-r from-primary via-primary to-primary/90 text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
-                          : "bg-white/[0.02] hover:bg-white/[0.04] text-text/90 border border-white/[0.05]"
+                          ? "from-primary via-primary to-primary/90 bg-linear-to-r text-black shadow-[0_4px_16px_rgba(120,119,198,0.4)]"
+                          : "text-text/90 border border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04]"
                       }`}
-                      key={i}
-                      onClick={() => {
-                        setSelectedServer(serverName);
-                        setSelectedCategory("dub");
-                      }}
                     >
                       {serverName || "N/A"}
                     </div>
@@ -188,10 +189,10 @@ const ServerSelectionCard = ({
               {/* Fallback for No Dub Servers */}
               {(!server?.dub || server.dub.length === 0) && (
                 <>
-                  <div className="text-xs lg:text-sm bg-white/[0.02] text-text/70 capitalize px-3 lg:px-5 rounded-xl py-[6px] border border-white/[0.05]">
+                  <div className="text-text/70 rounded-xl border border-white/[0.05] bg-white/[0.02] px-3 py-[6px] text-xs capitalize lg:px-5 lg:text-sm">
                     N/A
                   </div>
-                  <div className="text-xs lg:text-sm bg-white/[0.02] text-text/70 capitalize px-3 lg:px-5 rounded-xl py-[6px] border border-white/[0.05]">
+                  <div className="text-text/70 rounded-xl border border-white/[0.05] bg-white/[0.02] px-3 py-[6px] text-xs capitalize lg:px-5 lg:text-sm">
                     N/A
                   </div>
                 </>
@@ -202,6 +203,17 @@ const ServerSelectionCard = ({
       </div>
     </div>
   );
+};
+
+ServerSelectionCard.propTypes = {
+  isServersLoading: PropTypes.bool.isRequired,
+  isServersError: PropTypes.bool.isRequired,
+  serversError: PropTypes.object,
+  server: PropTypes.object.isRequired,
+  selectedServer: PropTypes.string.isRequired,
+  setSelectedServer: PropTypes.func.isRequired,
+  selectedCategory: PropTypes.string.isRequired,
+  setSelectedCategory: PropTypes.func.isRequired,
 };
 
 export default ServerSelectionCard;

@@ -54,7 +54,7 @@ const AnimatedDropdown = ({
       {/* Trigger Button */}
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:h-9 h-8 rounded-md flex justify-center items-center bg-white/[0.02] hover:bg-white/[0.04] text-text/90 w-[130px] lg:w-[180px] transition-all duration-300 border border-white/[0.05] text-xs lg:text-sm px-1 min-h-0 cursor-pointer"
+        className="text-text flex h-8 min-h-0 w-[130px] cursor-pointer items-center justify-center rounded-md border border-white/[0.05] bg-white/[0.02] px-1 text-xs transition-all duration-300 hover:bg-white/[0.04] lg:h-9 lg:w-[180px] lg:text-sm"
       >
         {trigger}
       </div>
@@ -69,7 +69,7 @@ const AnimatedDropdown = ({
             variants={dropdownVariants}
             className="absolute z-50 mt-2 w-52 rounded-xl border border-white/[0.05] bg-[#0f0f0f] shadow-lg"
           >
-            <div className="p-2 w-full overflow-y-auto max-h-96">
+            <div className="max-h-96 w-full overflow-y-auto p-2">
               {items.map((item, index) => (
                 <div
                   key={index}
@@ -77,7 +77,7 @@ const AnimatedDropdown = ({
                     onSelect(item);
                     setIsOpen(false);
                   }}
-                  className="text-xs  lg:text-sm px-3 py-2 rounded-lg cursor-pointer hover:bg-white/[0.04]   ease-in duration-100"
+                  className="text-text/90 cursor-pointer rounded-lg px-3 py-2 text-xs duration-100 ease-in hover:bg-white/[0.04] lg:text-sm"
                 >
                   {item.label}
                 </div>

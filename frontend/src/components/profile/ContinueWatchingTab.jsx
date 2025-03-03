@@ -3,12 +3,13 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import { calculateVideoProgressPercentage } from "../../lib/utils.js";
 import CardSkeleton from "../skeletons/CardSkeleton.jsx";
-import Card from "../ui/Card.jsx";
+import ContinueWatchingCard from "../ui/ContinueWatchingCard.jsx";
 import ErrorCard from "../ui/ErrorCard.jsx";
 import MagicLoader from "../ui/MagicLoader.jsx";
 
-const WatchlistTab = React.memo(function WatchlistTab() {
+const ContinueWatchingTab = React.memo(function ContinueWatchingTab() {
   const {
     data,
     isFetchingNextPage,
@@ -17,9 +18,9 @@ const WatchlistTab = React.memo(function WatchlistTab() {
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery({
-    queryKey: ["watchlist"],
+    queryKey: ["continueWatching"],
     queryFn: async ({ pageParam = 1 }) => {
-      return await axios.get(`/anime/watchlist?page=${pageParam}`);
+      return await axios.get(`/anime/continue-watching?page=${pageParam}`);
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) =>
@@ -48,15 +49,23 @@ const WatchlistTab = React.memo(function WatchlistTab() {
   return (
     <div className="w-full p-4">
       <div className="grid grid-cols-2 place-items-center gap-3 md:grid-cols-3 md:gap-4 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5">
-        {data.pages.map((page) =>
+        {data?.pages?.map((page) =>
           page.data?.data.map((anime, index) => (
-            <Card
+            <ContinueWatchingCard
               key={anime.HiAnimeId + index}
               imageUrl={anime.poster}
               title={anime.name}
-              id={anime.HiAnimeId}
+              animeId={anime.HiAnimeId}
+              episodeId={anime.epId}
+              timeStamp={anime.startFrom}
               subCount={anime.episodes?.sub}
               dubCount={anime.episodes?.dub}
+              totalEpisodes={anime.episodes?.sub}
+              episodeNumber={anime.epNumber}
+              progress={calculateVideoProgressPercentage(
+                anime?.duration,
+                anime?.startFrom,
+              )}
             />
           )),
         )}
@@ -86,4 +95,4 @@ const WatchlistTab = React.memo(function WatchlistTab() {
   );
 });
 
-export default WatchlistTab;
+export default ContinueWatchingTab;

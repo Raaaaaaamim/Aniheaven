@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query";
 import {
   isHLSProvider,
   MediaPlayer,
@@ -9,23 +10,83 @@ import {
   defaultLayoutIcons,
   DefaultVideoLayout,
 } from "@vidstack/react/player/layouts/default";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import axios from "axios";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { settingsAtom } from "../../../store/atoms/SettingsAtoms.js";
 import { selectedEpNumberAtom } from "../../../store/index.js";
 import "./styles.css";
 
-export const Player = memo(function Player({
+export const Player = function Player({
   source,
   tracks,
-  target,
   introStart,
   introEnd,
   outroStart,
   outroEnd,
+  epId,
+  jname,
+  episodes,
+  type,
+  name,
+  poster,
+  HiAnimeId,
+  epNumber,
+  startFrom,
 }) {
   const player = useRef(null);
   const { currentTime, duration } = useMediaStore(player);
+  const { data, mutate, isPending } = useMutation({
+    mutationKey: ["continue-watching"],
+    mutationFn: async (mutationData) => {
+      return await axios.post("/anime/continue-watching", mutationData);
+    },
+    onSuccess: (data) => {},
+    onError: (err) => {},
+  });
+
+  let timeout = useRef(null);
+
+  const handleContinueWatching = () => {
+    if (
+      !HiAnimeId ||
+      !name ||
+      !poster ||
+      !type ||
+      !duration ||
+      !currentTime ||
+      !jname ||
+      !episodes?.sub ||
+      !episodes?.dub ||
+      !epNumber ||
+      !epId
+    ) {
+      return;
+    }
+
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
+
+    timeout.current = setTimeout(() => {
+      mutate({
+        HiAnimeId,
+        name,
+        poster,
+        type,
+        duration,
+        startFrom: currentTime,
+        jname,
+        episodes: {
+          sub: Number(episodes.sub),
+          dub: Number(episodes.dub),
+        },
+        epNumber,
+        epId,
+      });
+    }, 1000);
+  };
+
   const [skipButtonText, setSkipButtonText] = useState("");
   const [showSkipButton, setShowSkipButton] = useState(false);
   const setSelectedEpNumber = useSetRecoilState(selectedEpNumberAtom);
@@ -43,8 +104,20 @@ export const Player = memo(function Player({
           }
         : null,
     }),
-    [tracks]
+    [tracks],
   );
+
+  useEffect(() => {
+    const media = player.current;
+    if (!media || startFrom == null) return;
+
+    const handleCanPlay = () => {
+      media.currentTime = startFrom;
+    };
+
+    media.addEventListener("can-play", handleCanPlay);
+    return () => media.removeEventListener("can-play", handleCanPlay);
+  }, [startFrom]);
 
   useEffect(() => {
     if (!currentTime || !duration) return;
@@ -70,8 +143,8 @@ export const Player = memo(function Player({
     const newSkipButtonText = isInIntro
       ? "Skip Intro"
       : isInOutro
-      ? "Skip Outro"
-      : "";
+        ? "Skip Outro"
+        : "";
 
     if (showSkipButton !== newShowSkipButton) {
       setShowSkipButton(newShowSkipButton);
@@ -113,11 +186,15 @@ export const Player = memo(function Player({
 
   return (
     <MediaPlayer
+      currentTime={startFrom}
       autoPlay={settings.autoPlay}
       className="vds-player"
       src={source}
       onProviderChange={onProviderChange}
       ref={player}
+      onPause={handleContinueWatching}
+      onSeeked={handleContinueWatching}
+      onPlay={handleContinueWatching}
     >
       <MediaProvider>
         {subtitleTracks?.map((track) => (
@@ -138,11 +215,11 @@ export const Player = memo(function Player({
       {showSkipButton && (
         <div
           onClick={handleSkip}
-          className="bg-background/30 px-4 py-2 rounded-lg text-white backdrop-blur-md font-poppins hover:bg-background/50 border-white/50 hover:border-white/70  border-[2px] ease-in duration-100 absolute bottom-20 hover:cursor-pointer right-5"
+          className="bg-background/30 font-poppins hover:bg-background/50 absolute right-5 bottom-20 rounded-lg border-[2px] border-white/50 px-4 py-2 text-white backdrop-blur-md duration-100 ease-in hover:cursor-pointer hover:border-white/70"
         >
           {skipButtonText}
         </div>
       )}
     </MediaPlayer>
   );
-});
+};

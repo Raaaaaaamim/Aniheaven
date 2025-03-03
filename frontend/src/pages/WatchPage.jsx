@@ -119,8 +119,9 @@ const WatchPage = () => {
     },
     enabled: false,
     cacheTime: 0, // Disable caching for source data
+    staleTime: 0,
   });
-
+  console.log("source data", sourceData);
   // Effect hooks for data synchronization
   useEffect(() => {
     if (!selectedEpisode || !selectedServer || !selectedCategory) return;
@@ -145,7 +146,7 @@ const WatchPage = () => {
         epData?.data?.data?.episodes?.[selectedEpNumber - 1]?.episodeId,
       );
     }
-  }, [selectedEpNumber]);
+  }, [selectedEpNumber, epData?.data?.data?.episodes]);
 
   useEffect(() => {
     if (!selectedEpisode) return;
@@ -343,14 +344,30 @@ const WatchPage = () => {
           {!isServersLoading &&
           !isSourceError &&
           !isSourceLoading &&
+          sourceData?.data?.data?.startFrom !== undefined &&
           sourceData?.data?.data?.sources?.length > 0 ? (
             <Player
+              key={`${selectedEpisode}-${selectedServer}`}
+              HiAnimeId={id}
+              poster={animeInfo?.data?.data?.anime?.info?.poster}
+              name={animeInfo?.data?.data?.anime?.info?.name}
+              type={animeInfo?.data?.data?.anime?.info?.stats?.type}
+              episodes={{
+                sub:
+                  animeInfo?.data?.data?.anime?.info?.stats?.episodes.sub || 0,
+                dub:
+                  animeInfo?.data?.data?.anime?.info?.stats?.episodes.dub || 0,
+              }}
+              epNumber={selectedEpNumber}
+              jname={animeInfo?.data?.data?.anime?.moreInfo?.japanese}
+              epId={selectedEpisode}
               introStart={sourceData.data.data.intro?.start}
               introEnd={sourceData.data.data.intro?.end}
               outroStart={sourceData.data.data.outro?.start}
               outroEnd={sourceData.data.data.outro?.end}
               source={sourceData.data.data.sources[0].url}
               tracks={sourceData.data.data.tracks}
+              startFrom={sourceData.data.data.startFrom}
             />
           ) : (
             <>

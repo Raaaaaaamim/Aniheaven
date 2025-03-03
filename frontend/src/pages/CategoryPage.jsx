@@ -1,9 +1,11 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { parseAsString, useQueryState } from "nuqs";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 import AnimeCardSkeleton from "../components/skeletons/AnimeCardSkeleton.jsx";
+
 import AnimeCard from "../components/ui/AnimeCard.jsx";
 import ErrorCard from "../components/ui/ErrorCard.jsx";
 
@@ -53,8 +55,9 @@ export const CategoryPage = () => {
     "tv",
     "completed",
   ];
-  const ref = useRef(null);
-  const inView = useInView(ref);
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();

@@ -2,21 +2,15 @@ import type { Context } from "hono";
 import { StatusCodes } from "../../features/utils.js";
 import type { continueWatchingType } from "../../interfaces/continueWatching.js";
 import ContinueWatching from "../../models/continueWatching.js";
+import User from "../../models/user.js";
 
 const addToContinueWatching = async (c: Context): Promise<Response | void> => {
   const body = await c.req.json();
+
   if (!body || !(body instanceof Object)) {
     return c.json(
       { success: false, message: "Invalid request body" },
       { status: StatusCodes.BAD_REQUEST }
-    );
-  }
-
-  const user = c.get("USER");
-  if (!user || !user._id) {
-    return c.json(
-      { success: false, message: "User not authenticated" },
-      { status: StatusCodes.UNAUTHORIZED }
     );
   }
 
@@ -30,7 +24,7 @@ const addToContinueWatching = async (c: Context): Promise<Response | void> => {
     jname,
     episodes,
     epNumber,
-    link,
+    epId,
   }: continueWatchingType = body;
 
   if (!HiAnimeId) {
@@ -39,6 +33,7 @@ const addToContinueWatching = async (c: Context): Promise<Response | void> => {
       { status: StatusCodes.BAD_REQUEST }
     );
   }
+  const user = c.get("USER");
 
   // Validate duration if provided
   if (
@@ -64,7 +59,7 @@ const addToContinueWatching = async (c: Context): Promise<Response | void> => {
     const updates: Partial<continueWatchingType> = {};
 
     if (epNumber !== undefined) updates.epNumber = epNumber;
-    if (link !== undefined) updates.link = link;
+    if (epId !== undefined) updates.epId = epId;
     if (startFrom !== undefined) updates.startFrom = startFrom;
     if (duration !== undefined) updates.duration = Number(duration);
 
@@ -88,7 +83,7 @@ const addToContinueWatching = async (c: Context): Promise<Response | void> => {
     jname,
     episodes,
     epNumber,
-    link,
+    epId,
   };
 
   const missingFields = Object.entries(requiredFields)
@@ -140,12 +135,12 @@ const addToContinueWatching = async (c: Context): Promise<Response | void> => {
       dub: Number(episodes.dub),
     },
     epNumber,
-    link,
+    epId,
   });
 
-  // Add to user's continue watching list
-  user.continueWatching.push(newContinueWatching._id);
-  await user.save();
+  await User.findByIdAndUpdate(user._id, {
+    $push: { continueWatching: newContinueWatching._id },
+  });
 
   return c.json(
     {

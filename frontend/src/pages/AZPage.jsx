@@ -1,12 +1,12 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { parseAsString, useQueryState } from "nuqs";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 import CardSkeleton from "../components/skeletons/CardSkeleton.jsx";
 import Card from "../components/ui/Card.jsx";
 import ErrorCard from "../components/ui/ErrorCard.jsx";
-
 const AZPage = () => {
   const characters = [
     "all",
@@ -67,8 +67,7 @@ const AZPage = () => {
     },
   });
 
-  const ref = useRef(null);
-  const inView = useInView(ref);
+  const { inView, ref } = useInView();
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();

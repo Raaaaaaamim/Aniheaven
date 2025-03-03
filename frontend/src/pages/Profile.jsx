@@ -9,13 +9,14 @@ import {
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { RiRestartFill } from "react-icons/ri";
 import { useRecoilState } from "recoil";
+import ContinueWatchingTab from "../components/profile/ContinueWatchingTab.jsx";
 import ProfileHeader from "../components/profile/ProfileHeader.jsx";
 import ProfileTab from "../components/profile/ProfileTab.jsx";
 import TabButton from "../components/profile/TabButton.jsx";
 import WatchlistTab from "../components/profile/WatchlistTab.jsx";
 import SettingsTab from "../components/settings/SettingsTab.jsx";
-import ProfileSkeleton from "../components/skeletons/ProfileSkeleton.jsx";
 import ErrorCard from "../components/ui/ErrorCard.jsx";
+import Loader from "../components/ui/Loader.jsx";
 import { userAtom } from "../store/index.js";
 
 const Profile = () => {
@@ -39,7 +40,7 @@ const Profile = () => {
     },
     {
       Icon: RiRestartFill,
-      label: "Continue Watching",
+      label: "ContinueWatching",
     },
   ];
   const [currentTab, setCurrentTab] = useQueryState(
@@ -58,6 +59,10 @@ const Profile = () => {
     {
       label: "Watchlist",
       element: <WatchlistTab />,
+    },
+    {
+      label: "ContinueWatching",
+      element: <ContinueWatchingTab />,
     },
   ];
 
@@ -90,11 +95,13 @@ const Profile = () => {
   return (
     <>
       {isLoading ? (
-        <ProfileSkeleton />
+        <div className="flex h-full w-full items-center justify-center">
+          <Loader />
+        </div>
       ) : (
         <div className="flex h-full w-full flex-col items-center">
           <ProfileHeader />
-          <div className="mb-10 flex min-h-[80vh] w-full flex-col items-center">
+          <div className="mb-10 flex min-h-[50vh] w-full flex-col items-center">
             <div className="font-outfit border-border mt-7 flex h-13 w-full gap-2 border-b-1">
               {tabLabels.map(({ Icon, label }, i) => (
                 <TabButton

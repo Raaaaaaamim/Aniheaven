@@ -6,6 +6,7 @@ type CacheVariables = {
     duration: number;
   };
   USER: User;
+  USER_ID: string | null;
 };
 
 export type AniwatchAPIVariables = {} & CacheVariables;
