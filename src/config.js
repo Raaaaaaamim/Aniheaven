@@ -3,7 +3,7 @@ import { FaChild } from "react-icons/fa";
 import { FaBoltLightning } from "react-icons/fa6";
 import { RiMedalFill, RiVipCrownFill } from "react-icons/ri";
 
-export const api = "http://localhost:4000/api/v2";
+export const api = process.env.REACT_APP_ZORO_URL/api/v2;
 
 // Configure axios defaults
 axios.defaults.withCredentials = true;

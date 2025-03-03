@@ -3,7 +3,7 @@
 # ✨ AniHeaven - Watch Anime or Keep Scrolling fr fr
 
 <div align="center">
-  <img src="frontend/public/textLogo.svg" alt="AniHeaven Logo" width="200"/>
+  <img src="./public/textLogo.svg" alt="AniHeaven Logo" width="200"/>
   <h3>The Most Based Anime Platform You'll Ever Find istg 💀</h3>
 
 [![React](https://img.shields.io/badge/React-18.3.1-61dafb.svg?style=for-the-badge&logo=react)](https://reactjs.org/)
@@ -141,6 +141,8 @@ npm install
 ```bash
 npm run dev
 ```
+## Backend Repo
+REACT_APP_ZORO_URL="host your own API from this repo https://github.com/ghoshRitesh12/aniwatch-api. Don't put / at the end of the url."
 
 ## 📱 Screenshots That Go Hard
 
