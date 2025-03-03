@@ -52,7 +52,7 @@ const TrendingCard = lazy(() => import("../components/ui/TrendingCard"));
 const AnimeCard = lazy(() => import("../components/ui/AnimeCard"));
 
 /** Base API endpoint for all anime-related requests */
-export const api = process.env.REACT_APP_ZORO_URL/api/v2;
+export const api = import.meta.env.VITE_ZORO_URL;
 
 const Home = () => {
   /**
